@@ -1,0 +1,242 @@
+name: 🚀 Multi-AI File Paster CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  validate:
+    name: 📋 Validate Extension
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 🔍 Validate manifest.json
+      run: |
+        echo "🔍 Validating Chrome Extension manifest..."
+        node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          
+          // Basic validation
+          if (!manifest.manifest_version) throw new Error('Missing manifest_version');
+          if (!manifest.name) throw new Error('Missing name');
+          if (!manifest.version) throw new Error('Missing version');
+          if (!manifest.description) throw new Error('Missing description');
+          
+          // Chrome Extension specific validation
+          if (manifest.manifest_version !== 3) throw new Error('Must use Manifest V3');
+          if (!manifest.permissions) throw new Error('Missing permissions');
+          if (!manifest.host_permissions) throw new Error('Missing host_permissions');
+          if (!manifest.background) throw new Error('Missing background script');
+          if (!manifest.content_scripts) throw new Error('Missing content scripts');
+          
+          console.log('✅ Manifest validation passed');
+          console.log('📦 Extension:', manifest.name, 'v' + manifest.version);
+        "
+        
+    - name: 🔍 Check file structure
+      run: |
+        echo "🔍 Validating file structure..."
+        
+        # Check required files exist
+        required_files=(
+          "manifest.json"
+          "readme.md"
+          "LICENSE"
+          "changelog.md"
+          "CONTRIBUTING.md"
+          "src/background/index.js"
+          "src/popup/index.html"
+          "src/popup/index.js"
+          "src/popup/styles.css"
+          "src/content/index.js"
+          "src/content/styles.css"
+          "src/content/components/fileattach.js"
+          "src/content/components/loader.js"
+          "src/content/components/modal.js"
+          "src/content/components/toast.js"
+          "src/content/platforms/factory.js"
+          "src/content/platforms/chatgpt.js"
+          "src/content/platforms/claude.js"
+          "src/content/platforms/deepseek.js"
+          "src/content/platforms/gemini.js"
+          "src/content/platforms/grok.js"
+          "src/shared/config.js"
+          "src/shared/metrics.js"
+          "src/shared/languagedetector.js"
+          "src/shared/validation.js"
+          "src/popup/analytics.js"
+          "src/popup/breakdowns.js"
+          "src/popup/tooltips.js"
+          "src/popup/modals.js"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Missing required file: $file"
+            exit 1
+          else
+            echo "✅ Found: $file"
+          fi
+        done
+        
+        # Check logo files exist (flexible naming)
+        logo_sizes=(16 32 48 128)
+        for size in "${logo_sizes[@]}"; do
+          logo_found=false
+          for logo_file in logo/*_${size}.png; do
+            if [ -f "$logo_file" ]; then
+              echo "✅ Found logo: $logo_file"
+              logo_found=true
+              break
+            fi
+          done
+          if [ "$logo_found" = false ]; then
+            echo "❌ Missing ${size}x${size} logo in logo/ directory"
+            exit 1
+          fi
+        done
+        
+        echo "✅ File structure validation passed"
+        
+    - name: 🔍 Validate JavaScript syntax
+      run: |
+        echo "🔍 Validating JavaScript syntax..."
+
+        # Use Node's vm.Script to compile each JS file (syntax check without executing)
+        cat > check-syntax.js <<'EOF'
+        const fs = require('fs');
+        const vm = require('vm');
+        const { execSync } = require('child_process');
+
+        const out = execSync('find src -name "*.js" -type f').toString().trim();
+        const files = out ? out.split('\n') : [];
+        let ok = true;
+        for (const file of files) {
+          try {
+            const code = fs.readFileSync(file, 'utf8');
+            new vm.Script(code, { filename: file });
+            console.log('✅ Syntax OK:', file);
+          } catch (err) {
+            ok = false;
+            console.error('❌ Syntax error in', file, '\n', err.message);
+          }
+        }
+        if (!ok) process.exit(1);
+        EOF
+        node check-syntax.js
+
+        echo "✅ JavaScript syntax validation passed"
+        
+    - name: 🔍 Check version consistency
+      run: |
+        echo "🔍 Checking version consistency..."
+
+        # Get version from manifest.json
+        MANIFEST_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version)")
+        echo "📦 Manifest version: $MANIFEST_VERSION"
+
+        # Check version in changelog.md
+        if ! grep -q "$MANIFEST_VERSION" changelog.md; then
+          echo "❌ Version $MANIFEST_VERSION not found in changelog.md"
+          exit 1
+        fi
+
+        # Check for hardcoded versions in source files (should use centralized config)
+        echo "🔍 Checking for hardcoded versions in source files..."
+        if grep -r "1\.0\.[0-9]" src/ --include="*.js" | grep -v "EXTENSION_VERSION\|__v.*="; then
+          echo "❌ Found hardcoded version numbers in source files"
+          echo "ℹ️  Use centralized version from config.js instead"
+          exit 1
+        fi
+
+        echo "✅ Version consistency check passed"
+
+    - name: 🔒 Basic security validation
+      run: |
+        echo "🔒 Running basic security checks..."
+
+        # Check for potential security issues
+        security_issues=false
+
+        # Check for eval() usage (dangerous)
+        if grep -r "eval(" src/ --include="*.js"; then
+          echo "❌ Found eval() usage - potential security risk"
+          security_issues=true
+        fi
+
+        # Check for innerHTML usage (XSS risk)
+        if grep -r "innerHTML.*=" src/ --include="*.js"; then
+          echo "⚠️  Found innerHTML usage - verify XSS protection"
+        fi
+
+        # Check for console.log in production code
+        if grep -r "console\.log" src/ --include="*.js"; then
+          echo "⚠️  Found console.log statements - should be removed for production"
+        fi
+
+        if [ "$security_issues" = true ]; then
+          exit 1
+        fi
+
+        echo "✅ Basic security validation passed"
+
+    - name: 📊 Generate build report
+      run: |
+        echo "📊 Generating build report..."
+        
+        echo "## 📦 Extension Information" >> $GITHUB_STEP_SUMMARY
+        echo "- **Name**: $(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).name)")" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version**: $(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version)")" >> $GITHUB_STEP_SUMMARY
+        echo "- **Manifest Version**: $(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).manifest_version)")" >> $GITHUB_STEP_SUMMARY
+        
+        echo "## 📁 File Count" >> $GITHUB_STEP_SUMMARY
+        echo "- **JavaScript files**: $(find src -name "*.js" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **CSS files**: $(find src -name "*.css" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **HTML files**: $(find src -name "*.html" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Total source files**: $(find src -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+        
+        echo "## ✅ Validation Results" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Manifest validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ File structure validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ JavaScript syntax validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Version consistency check passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Basic security validation passed" >> $GITHUB_STEP_SUMMARY
+        
+        echo "🎉 All validations passed! Extension is ready for release."
+
+  security:
+    name: 🛡️ Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 CodeQL Analysis
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
+
+    - name: 🏗️ Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: 🔍 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+    - name: 🔍 Dependency Review
+      uses: actions/dependency-review-action@v4

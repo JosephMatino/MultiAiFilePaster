@@ -1,0 +1,185 @@
+name: 🚀 Release Multi-AI File Paster
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.1.0)'
+        required: true
+        type: string
+
+jobs:
+  create-release:
+    name: 📦 Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 🔍 Validate extension
+      run: |
+        echo "🔍 Running pre-release validation..."
+        
+        # Validate manifest.json
+        node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          if (manifest.manifest_version !== 3) throw new Error('Must use Manifest V3');
+          console.log('✅ Manifest validation passed');
+        "
+        
+        # Check required files
+        required_files=(
+          "manifest.json" "readme.md" "LICENSE" "changelog.md"
+          "src/background/index.js" "src/popup/index.html" "src/content/index.js"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Missing required file: $file"
+            exit 1
+          fi
+        done
+        
+        echo "✅ Pre-release validation passed"
+        
+    - name: 📋 Extract version info
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        else
+          VERSION="${GITHUB_REF#refs/tags/}"
+        fi
+        
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "version_number=${VERSION#v}" >> $GITHUB_OUTPUT
+        
+        # Extract changelog for this version
+        CHANGELOG_SECTION=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" changelog.md || echo "No changelog entry found for $VERSION")
+        echo "changelog<<EOF" >> $GITHUB_OUTPUT
+        echo "$CHANGELOG_SECTION" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        
+    - name: 🏗️ Build extension package
+      run: |
+        echo "🏗️ Building extension package..."
+        
+        # Create build directory
+        mkdir -p build/extension
+
+        # Copy all files first
+        cp -r . build/extension/
+        cd build/extension
+
+        # Remove files listed in .releaseignore
+        if [ -f ".releaseignore" ]; then
+          echo "🚫 Excluding files from .releaseignore..."
+          while IFS= read -r pattern || [ -n "$pattern" ]; do
+            # Skip comments and empty lines
+            [[ "$pattern" =~ ^[[:space:]]*# ]] && continue
+            [[ -z "${pattern// }" ]] && continue
+
+            # Remove matching files/directories
+            if [[ "$pattern" == */ ]]; then
+              # Directory pattern
+              rm -rf ${pattern%/} 2>/dev/null || true
+            else
+              # File pattern
+              rm -rf $pattern 2>/dev/null || true
+            fi
+            echo "   Excluded: $pattern"
+          done < .releaseignore
+
+          # Remove .releaseignore itself
+          rm -f .releaseignore
+        fi
+
+        # Create ZIP package for Chrome Web Store
+        zip -r "../multi-ai-file-paster-${{ steps.version.outputs.version_number }}.zip" .
+        cd ../..
+
+        echo "✅ Extension package built successfully"
+        
+    - name: 📊 Generate release notes
+      id: release_notes
+      run: |
+        cat > release_notes.md <<EOF
+        # 🚀 Multi-AI File Paster ${{ steps.version.outputs.version }}
+        
+        ## 📋 What's New
+        
+        ${{ steps.version.outputs.changelog }}
+        
+        ## 📦 Installation
+        
+        ### Chrome Web Store (Recommended)
+        - Visit the [Chrome Web Store](https://chrome.google.com/webstore) (coming soon)
+        - Click "Add to Chrome"
+        
+        ### Manual Installation
+        1. Download the \`multi-ai-file-paster-${{ steps.version.outputs.version_number }}.zip\` file below
+        2. Extract the ZIP file
+        3. Open Chrome and go to \`chrome://extensions/\`
+        4. Enable "Developer mode"
+        5. Click "Load unpacked" and select the extracted folder
+        
+        ## 🤖 Supported AI Platforms
+        - ✅ ChatGPT (chat.openai.com, chatgpt.com)
+        - ✅ Claude (claude.ai)
+        - ✅ Gemini (gemini.google.com)
+        - ✅ DeepSeek (chat.deepseek.com)
+        - ✅ Grok (grok.com)
+        
+        ## 🔧 Technical Details
+        - **Architecture**: Chrome Extension Manifest V3
+        - **File Formats**: 20+ programming languages and formats
+        - **Privacy**: Complete on-device processing
+        - **Security**: Content Security Policy compliant
+        
+        ## 📞 Support
+        - **Technical Issues**: [dev@josephmatino.com](mailto:dev@josephmatino.com)
+        - **General Support**: [wekturbo@hostwek.com](mailto:wekturbo@hostwek.com)
+        - **Documentation**: [GitHub Repository](https://github.com/JosephMatino/MultiAiFilePaster)
+        
+        ---
+        
+        **© 2025 · Multi‑AI File Paster · Developed by [Joseph Matino](https://josephmatino.com) | Scrum Master: [Majok Deng](https://majokdeng.com) | powered by [Hostwek](https://hostwek.com)**
+        EOF
+        
+    - name: 🎉 Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.version }}
+        name: "Multi-AI File Paster ${{ steps.version.outputs.version }}"
+        body_path: release_notes.md
+        files: |
+          build/multi-ai-file-paster-${{ steps.version.outputs.version_number }}.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 📢 Release Summary
+      run: |
+        echo "## 🎉 Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version**: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Package**: multi-ai-file-paster-${{ steps.version.outputs.version_number }}.zip" >> $GITHUB_STEP_SUMMARY
+        echo "- **Release URL**: https://github.com/JosephMatino/MultiAiFilePaster/releases/tag/${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📦 Next Steps" >> $GITHUB_STEP_SUMMARY
+        echo "1. Download the ZIP package from the release" >> $GITHUB_STEP_SUMMARY
+        echo "2. Test the extension manually" >> $GITHUB_STEP_SUMMARY
+        echo "3. Submit to Chrome Web Store (if ready)" >> $GITHUB_STEP_SUMMARY
+        echo "4. Update documentation if needed" >> $GITHUB_STEP_SUMMARY

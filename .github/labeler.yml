@@ -1,0 +1,20 @@
+bug:
+  - any: ['**/bug_report.md']
+
+enhancement:
+  - any: ['**/feature_request.md']
+
+documentation:
+  - any: ['**/*.md', '!CHANGELOG.md']
+
+github:
+  - any: ['.github/**/*']
+
+source:
+  - any: ['src/**/*']
+
+manifest:
+  - any: ['manifest.json']
+
+workflow:
+  - any: ['.github/workflows/**/*']

@@ -1,0 +1,93 @@
+{
+  "manifest_version": 3,
+  "name": "Multi-AI File Paster",
+  "short_name": "Multi-AI Paster",
+  "version": "1.1.0",
+  "description": "Paste files to AI platforms instantly. Supports ChatGPT, Claude, Gemini, Grok & DeepSeek. Privacy-safe file attachment.",
+  "author": "Joseph Matino",
+  "homepage_url": "https://github.com/JosephMatino/MultiAiFilePaster",
+  "minimum_chrome_version": "88",
+  "icons": {
+    "16": "logo/mfp_16.png",
+    "32": "logo/mfp_32.png",
+    "48": "logo/mfp_48.png",
+    "128": "logo/mfp_128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://chat.deepseek.com/*",
+    "https://grok.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/index.js"
+  },
+  "action": {
+    "default_title": "Multi-AI File Paster",
+    "default_popup": "src/popup/index.html"
+  },
+  "commands": {
+    "save_current_message": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Save current AI chat composer text as a file"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*"
+      ],
+      "css": [
+        "src/content/styles.css"
+      ],
+      "js": [
+        "src/shared/config.js",
+        "src/shared/validation.js",
+        "src/shared/metrics.js",
+        "src/shared/languagedetector.js",
+        "src/content/components/toast.js",
+        "src/content/components/loader.js",
+        "src/content/components/modal.js",
+        "src/content/components/fileattach.js",
+        "src/content/platforms/chatgpt.js",
+        "src/content/platforms/claude.js",
+        "src/content/platforms/gemini.js",
+        "src/content/platforms/deepseek.js",
+        "src/content/platforms/grok.js",
+        "src/content/platforms/factory.js",
+        "src/content/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/content/styles.css"
+      ],
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*"
+      ]
+    }
+  ]
+}

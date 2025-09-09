@@ -1,0 +1,391 @@
+/*
+ * ================================================================================
+ * Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+ * ================================================================================
+ *
+ * MODULE: src/content/styles.css
+ * FUNCTION: Content script styling
+ * ARCHITECTURE: CSS Components with Design Tokens and Platform Integration
+ *
+ * DEVELOPMENT TEAM:
+ * • Lead Developer: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
+ * • Scrum Master: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ *
+ * ORGANIZATION: WekTurbo Designs - Hostwek LTD | https://hostwek.com/wekturbo
+ * REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * TECHNICAL SUPPORT: wekturbo@hostwek.com
+ *
+ * PLATFORM INTEGRATIONS: AI platform styling, toast notifications, modal dialogs
+ * CORE DEPENDENCIES: CSS Custom Properties, Component Architecture, Design Tokens
+ *
+ * Copyright (c) 2025 WekTurbo Designs - Hostwek LTD. All rights reserved.
+ * Licensed under MIT License | https://opensource.org/licenses/MIT
+ * ================================================================================
+ */
+
+
+:root {
+  
+  --brand: 142 40% 30%;        
+  --brand-weak: 142 36% 38%;   
+  --brand-strong: 142 42% 24%; 
+  --success: 142 40% 30%;      
+  --warning: 45 70% 42%;       
+  --error: 0 65% 52%;          
+  --text-success: 142 91% 8%;  
+  --text-warning: 45 92% 8%;   
+  --text-error: 0 0% 100%;     
+  --bg-success: 142 50% 82%;   
+  --bg-warning: 45 70% 80%;    
+  --bg-error: 0 65% 52%;       
+  --border-success: 142 40% 30%; 
+  --border-warning: 45 70% 42%;  
+  --border-error: 0 65% 52%;     
+
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+
+  --shadow-1: 0 6px 18px rgba(0, 0, 0, 0.15);
+  --shadow-2: 0 10px 22px rgba(0, 0, 0, 0.25);
+
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+
+  --speed-fast: 120ms;
+  --speed: 180ms;
+  --speed-slow: 260ms;
+}
+
+
+@keyframes gptpf-rot {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+#gptpf-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 6.25rem; 
+  z-index: 999999;
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  font: 13px var(--font);
+  box-shadow: var(--shadow-2);
+  opacity: 0;
+  transition: opacity var(--speed);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+}
+
+#gptpf-toast.show {
+  opacity: 1;
+}
+
+#gptpf-toast.hide {
+  opacity: 0;
+}
+
+#gptpf-toast.success {
+  color: hsl(var(--text-success));
+  background: hsl(var(--bg-success));
+  border: 1px solid hsl(var(--border-success));
+}
+
+#gptpf-toast.error {
+  color: hsl(var(--text-error));
+  background: hsl(var(--bg-error));
+  border: 1px solid hsl(var(--border-error));
+}
+
+#gptpf-toast button {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid hsl(var(--brand-strong));
+  background: linear-gradient(180deg, hsl(var(--brand) / .92), hsl(var(--brand-strong) / .95));
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--speed-fast);
+}
+
+#gptpf-toast button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(var(--brand) / 0.3);
+}
+
+
+#gptpf-loader {
+  position: fixed;
+  right: 1rem;
+  bottom: 7rem; 
+  z-index: 999999;
+  background: hsl(var(--brand-strong) / 0.95);
+  color: white;
+  border: 1px solid hsl(var(--brand));
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font: 13px var(--font);
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(8px);
+}
+
+#gptpf-loader .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: gptpf-rot 0.7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #gptpf-loader .spinner {
+    animation: none;
+  }
+}
+
+
+#gptpf-delay {
+  position: fixed;
+  right: 1rem;
+  bottom: 7rem; 
+  z-index: 999999;
+  background: hsl(var(--brand) / 0.9);
+  color: white;
+  border: 1px solid hsl(var(--brand-weak));
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font: 13px var(--font);
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(8px);
+}
+
+#gptpf-delay .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: gptpf-rot 0.7s linear infinite;
+}
+
+#gptpf-delay button {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--speed-fast);
+  backdrop-filter: blur(4px);
+}
+
+#gptpf-delay button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #gptpf-delay .spinner {
+    animation: none;
+  }
+}
+
+
+#gptpf-rename {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: grid;
+  place-items: center;
+}
+
+#gptpf-rename .backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#gptpf-rename .card {
+  position: relative;
+  width: 96%;
+  max-width: 440px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+  color: white;
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(12px);
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  font: 14px var(--font);
+}
+
+#gptpf-rename .title {
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+
+#gptpf-rename .description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  margin-top: -8px;
+}
+
+#gptpf-rename input {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font: inherit;
+  outline: none;
+  transition: all var(--speed);
+}
+
+#gptpf-rename input:focus {
+  border-color: hsl(var(--brand));
+  box-shadow: 0 0 0 3px hsl(var(--brand) / 0.2);
+}
+
+#gptpf-rename .hint {
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+#gptpf-rename .hint-keys {
+  color: #9ca3af;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+#gptpf-rename .hint-keys .key {
+  display: inline-block;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: #0f172a;
+}
+
+#gptpf-rename .error {
+  color: #fda4af;
+  font-size: 11px;
+  min-height: 14px;
+}
+
+#gptpf-rename .buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+#gptpf-rename .cancel-btn {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--speed-fast);
+}
+
+#gptpf-rename .cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+#gptpf-rename .confirm-btn {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(var(--brand));
+  background: linear-gradient(180deg, hsl(var(--brand)), hsl(var(--brand-strong)));
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--speed-fast);
+}
+
+#gptpf-rename .confirm-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px hsl(var(--brand) / 0.4);
+}
+
+
+@media (max-width: 480px) {
+  #gptpf-toast,
+  #gptpf-loader,
+  #gptpf-delay {
+    right: 0.5rem;
+    left: 0.5rem;
+    max-width: calc(100vw - 1rem);
+  }
+  
+  #gptpf-rename .card {
+    width: calc(100vw - 2rem);
+    margin: 1rem;
+  }
+}
+
+
+.gptpf-toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.gptpf-toast-icon-success {
+  background: #22c55e;
+}
+
+.gptpf-toast-icon-error {
+  background: #ef4444;
+}
+
+.gptpf-toast-icon-info {
+  background: #60a5fa;
+  position: relative;
+}
+
+.gptpf-toast-spinner {
+  position: absolute;
+  inset: 3px;
+  border: 2px solid white;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: gptpf-rot .9s linear infinite;
+}

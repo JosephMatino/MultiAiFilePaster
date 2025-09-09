@@ -1,0 +1,67 @@
+#
+# ================================================================================
+# Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+# ================================================================================
+#
+# MODULE: .releaseignore
+# FUNCTION: Release exclusion configuration for Chrome Web Store packages
+# ARCHITECTURE: Build System Configuration for Clean Release Packages
+#
+# DEVELOPMENT TEAM:
+# • Lead Developer: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
+# • Scrum Master: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+#
+# ORGANIZATION: WekTurbo Designs - Hostwek LTD | https://hostwek.com/wekturbo
+# REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+# TECHNICAL SUPPORT: wekturbo@hostwek.com
+#
+# PLATFORM INTEGRATIONS: Chrome Web Store, Release Pipeline, Build System
+# CORE DEPENDENCIES: Build Scripts, File Exclusion System
+#
+# Copyright (c) 2025 WekTurbo Designs - Hostwek LTD. All rights reserved.
+# Licensed under MIT License | https://opensource.org/licenses/MIT
+# ================================================================================
+#
+
+
+.github/
+.gitignore
+.releaseignore
+description.md
+
+
+docs.md
+TECHNICAL_DOCS.md
+RULES.md
+CONTRIBUTING.md
+PIPELINE_PROTECTION.md
+
+
+*.private.md
+*.internal.md
+*.secret.md
+.temp/
+.cache/
+tmp/
+
+
+.git/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+
+*.zip
+*.crx
+*.pem
+*.cert
+*.key
+dist/
+build/
+coverage/
+
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/

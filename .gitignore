@@ -1,0 +1,62 @@
+# Chrome Extension Project
+# OS Files
+.DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editors/IDEs
+.vscode/
+.idea/
+.vs/
+*.suo
+*.user
+*.sln
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+tmp/
+.temp/
+.cache/
+
+# Build/Package Artifacts
+*.zip
+*.crx
+*.pem
+*.cert
+*.key
+*.crx3
+dist/
+build/
+release/
+coverage/
+
+# Dependencies (if added)
+node_modules/
+__pycache__/
+*.pyc
+
+# Development
+.env
+.env.local
+.env.development
+*.map
+
+# Internal Development Files (PRIVATE - not for public release)
+docs.md
+TECHNICAL_DOCS.md
+RULES.md
+PIPELINE_PROTECTION.md
+
+# Sensitive Development Files
+*.private.md
+*.internal.md
+*.secret.md

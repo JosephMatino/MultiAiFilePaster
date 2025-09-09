@@ -1,0 +1,473 @@
+<!--
+================================================================================
+Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+================================================================================
+
+MODULE: src/popup/index.html
+FUNCTION: Extension popup interface HTML structure
+ARCHITECTURE: Chrome Extension Popup with Semantic HTML5
+
+DEVELOPMENT TEAM:
+• Lead Developer: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
+• Scrum Master: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+
+ORGANIZATION: WekTurbo Designs - Hostwek LTD | https://hostwek.com/wekturbo
+REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+TECHNICAL SUPPORT: wekturbo@hostwek.com
+
+PLATFORM INTEGRATIONS: Settings UI, analytics dashboard, manual controls
+CORE DEPENDENCIES: Semantic HTML5, CSS Grid, Accessibility APIs
+
+Copyright (c) 2025 WekTurbo Designs - Hostwek LTD. All rights reserved.
+Licensed under MIT License | https://opensource.org/licenses/MIT
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multi-AI File Paster</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container" role="dialog" aria-labelledby="title">
+    <header>
+      <div class="header-content">
+        <div class="header-title">
+          <img src="../../logo/mfp_128.png" alt="Multi-AI File Paster" class="header-logo" />
+          <h1 id="title">Multi-AI File Paster</h1>
+        </div>
+        <p class="subtitle">Intelligently auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 20+ formats including code files.</p>
+      </div>
+    </header>
+
+    <div id="statusIndicator" class="status-indicator" hidden>
+      <div class="status-pulse"></div>
+      <span class="status-text">Connected to <span id="currentModel">AI Model</span></span>
+    </div>
+
+    <div id="ctxBanner" class="banner" role="status" aria-live="polite" hidden>
+      Not on supported site. Open ChatGPT, Claude, Gemini, DeepSeek, or Grok to use Auto Attach and Manual Save.
+    </div>
+
+    <section class="card" aria-describedby="controls">
+      <div class="row" id="debugRow">
+        <label for="debugToggle" class="label">Debug Mode</label>
+        <label class="switch">
+          <input type="checkbox" id="debugToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="row">
+        <label for="attachToggle" class="label">
+          Auto Attach
+          <button class="help" type="button" aria-label="What is Auto Attach?" aria-expanded="false" data-tip="Converts long pastes into a clean file and auto-attaches it to your chat. Keeps messages tidy and within limits on ChatGPT, Claude, Gemini, DeepSeek and Grok. Turn off to paste normally and use Manual Save.">?</button>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="attachToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="row" id="claudeRow" hidden>
+        <label for="claudeOverrideToggle" class="label">
+          Override Claude's Auto-Attach
+          <button class="help" type="button" aria-label="Claude Override" aria-expanded="false" data-tip="Claude includes its own paste-to-file feature. Enable this to always use Multi-AI File Paster for more consistent formatting and naming.">?</button>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="claudeOverrideToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <label for="wordLimit" class="label">
+          Min Words to Trigger
+          <button class="help" type="button" aria-label="What is Min Words?" aria-expanded="false" data-tip="Auto-attach only runs when your paste is at least this long. Recommended: 100+ words so short messages stay inline.">?</button>
+        </label>
+        <input type="number" id="wordLimit" min="50" max="15000" inputmode="numeric" class="input" />
+      </div>
+
+      <div class="row">
+        <label for="delayToggle" class="label">
+          Use Delay
+          <button class="help" type="button" aria-label="What is Delay?" aria-expanded="false" data-tip="Adds a short countdown before attaching. Helpful if you sometimes paste by mistake - you can cancel during the countdown.">?</button>
+        </label>
+        <div class="controls-inline">
+          <label class="switch">
+            <input type="checkbox" id="delayToggle" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+          <div class="inline-delay" id="delaySecondsWrap" hidden>
+            <input type="number" id="delaySeconds" min="1" max="15" inputmode="numeric" class="input sm" aria-label="Delay seconds (1-15)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row row-format">
+        <label for="formatSelect" class="label">
+          File Format
+          <button class="help" type="button" aria-label="File format" aria-expanded="false" data-tip="Pick a file type, or choose Auto-Detect. Auto-Detect uses conservative language detection with a safe fallback to .txt to avoid mislabeling code. Custom allows any extension but use with caution.">?</button>
+        </label>
+        <div class="format-container">
+          <select id="formatSelect" class="select format-select" aria-label="Choose file format">
+            <option value="auto">Auto-Detect</option>
+            <option value="txt">.txt</option>
+            <option value="js">.js</option>
+            <option value="py">.py</option>
+            <option value="html">.html</option>
+            <option value="json">.json</option>
+            <option value="md">.md</option>
+            <option value="more">More formats…</option>
+          </select>
+          <select id="moreFormats" class="select format-select" style="display: none;" aria-label="More file formats"></select>
+          <div class="custom-input-row" id="customInputRow" style="display: none;">
+            <input type="text" id="customFormat" class="input custom-input" placeholder="e.g. log, cfg, data" maxlength="6">
+            <button id="customFormatTip" class="help" type="button" aria-label="Custom format help" data-tip="Security: enter only letters/numbers of the extension without dots (e.g., log, data, cfg). Risky executable types are blocked.">?</button>
+          </div>
+        </div>
+      </div>
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <label for="batchToggle" class="label">
+          Batch Mode
+          <button class="help" type="button" aria-label="Batch Processing" aria-expanded="false" data-tip="When enabled, pasting text with multiple ```code blocks``` creates separate files for each block. Example: paste containing ```js and ```css blocks creates 2 files. Perfect for multi-file projects.">?</button>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="batchToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <span class="label">Manual Action</span>
+        <button id="saveNow" class="btn" type="button" aria-live="polite">Attach typed text as file</button>
+      </div>
+
+      <div id="analyticsSection" class="analytics-dashboard" style="display: none;">
+        <div class="analytics-spacer"></div>
+
+        <div class="analytics-container">
+          <div class="analytics-header">
+            <div class="header-content">
+              <div class="header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3v18h18"/>
+                  <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                </svg>
+              </div>
+              <div class="header-text">
+                <h3>Usage Analytics</h3>
+                <p>Your file creation insights</p>
+              </div>
+            </div>
+            <div class="time-selector">
+              <select id="timePeriod" class="time-select">
+                <option value="7">7 days</option>
+                <option value="30">30 days</option>
+                <option value="90">90 days</option>
+                <option value="all">All time</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="metrics-overview">
+            <div class="metric-card primary">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14,2 14,8 20,8"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="totalFiles">0</div>
+                <div class="metric-label">Total Files</div>
+                <div class="metric-change" id="totalChange">—</div>
+              </div>
+              <div class="metric-skeleton" id="totalFilesSkeleton" style="display: none;">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <defs>
+                    <linearGradient id="metricShimmer1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <stop offset="50%" style="stop-color:hsl(var(--surface) / .7);stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.2s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="periodFiles">0</div>
+                <div class="metric-label" id="periodLabel">This Week</div>
+                <div class="metric-change" id="periodChange">—</div>
+              </div>
+              <div class="metric-skeleton" id="periodFilesSkeleton" style="display: none;">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z"/>
+                  <path d="M17 17l4 4"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="activePlatforms">0</div>
+                <div class="metric-label">AI Platforms</div>
+                <div class="metric-change" id="platformsChange">—</div>
+              </div>
+              <div class="metric-skeleton" id="activePlatformsSkeleton" style="display: none;">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+            <!-- Professional trend sparkline with SVG skeleton -->
+            <div class="analytics-trend" aria-label="Files per day trend">
+              <div class="trend-head">
+                <span>Files per day</span>
+                <span id="trendSummary" class="trend-summary">—</span>
+              </div>
+              <div id="trendSparkline" class="sparkline" role="img" aria-label="Files per day line chart">
+                <svg class="sparkline-skeleton" viewBox="0 0 280 48" style="display: none;">
+                  <defs>
+                    <linearGradient id="sparklineShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <stop offset="50%" style="stop-color:hsl(var(--surface) / .7);stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.5s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M2,46 L40,32 L78,38 L116,24 L154,30 L192,18 L230,26 L268,14 L278,20" stroke="url(#sparklineShimmer)" stroke-width="2" fill="none" opacity="0.6"/>
+                  <path d="M2,46 L40,32 L78,38 L116,24 L154,30 L192,18 L230,26 L268,14 L278,20 L278,46 Z" fill="url(#sparklineShimmer)" opacity="0.2"/>
+                </svg>
+              </div>
+            </div>
+
+
+          <div class="analytics-breakdown">
+            <div class="breakdown-section">
+              <h4>Top Models</h4>
+              <div class="breakdown-list" id="platformBreakdown">
+                <div class="breakdown-item">
+                  <span class="item-name">No data yet</span>
+                  <span class="item-count">—</span>
+                </div>
+              </div>
+              <div class="breakdown-skeleton" id="platformBreakdownSkeleton" style="display: none;">
+                <svg viewBox="0 0 200 60" class="skeleton-svg">
+                  <defs>
+                    <linearGradient id="breakdownShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <stop offset="50%" style="stop-color:hsl(var(--surface) / .7);stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.3s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="6" y="4" width="120" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="4" width="30" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="24" width="100" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="24" width="25" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="44" width="90" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="44" width="20" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="breakdown-section">
+              <h4>File Formats</h4>
+              <div class="breakdown-list" id="formatBreakdown">
+                <div class="breakdown-item">
+                  <span class="item-name">No data yet</span>
+                  <span class="item-count">—</span>
+                </div>
+              </div>
+              <div class="breakdown-skeleton" id="formatBreakdownSkeleton" style="display: none;">
+                <svg viewBox="0 0 200 60" class="skeleton-svg">
+                  <rect x="6" y="4" width="110" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="4" width="30" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="24" width="95" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="24" width="25" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="44" width="85" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="44" width="20" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="analytics-actions">
+            <button id="exportData" class="action-btn secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export
+            </button>
+            <button id="clearStats" class="action-btn danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              Clear Data
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="clearDataModal" class="custom-modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-icon danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <h3>Clear Analytics Data</h3>
+            <p>This will permanently delete all your usage statistics and cannot be undone.</p>
+          </div>
+          <div class="modal-actions">
+            <button id="cancelClear" class="modal-btn secondary">Cancel</button>
+            <button id="confirmClear" class="modal-btn danger">Clear All Data</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gptpf-flash" class="flash sr-only" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span>© 2025 · Multi-AI File Paster · Developed by <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a> | Scrum Master: <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a> | powered by <a href="https://hostwek.com" target="_blank" rel="noopener" aria-label="Hostwek website"><img src="../../logo/hostwek.png" alt="Hostwek" class="logo" /></a></span>
+      </div>
+      <div class="footer-icons">
+        <button id="aboutBtn" class="icon-btn help" type="button" aria-label="About & Help" title="About & Help">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+        </button>
+        <a class="icon-btn help" href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener" aria-label="GitHub Repository" title="View on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.36-1.37-3.36-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.52 1.06 1.52 1.06.89 1.56 2.34 1.11 2.9.85.09-.66.35-1.11.64-1.36-2.22-.26-4.56-1.14-4.56-5.09 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.31.1-2.74 0 0 .85-.28 2.78 1.05A9.35 9.35 0 0 1 12 7.1c.86 0 1.73.12 2.54.34 1.93-1.33 2.78-1.05 2.78-1.05.55 1.43.2 2.48.1 2.74.64.71 1.03 1.62 1.03 2.74 0 3.96-2.34 4.82-4.57 5.08.36.32.68.93.68 1.88 0 1.36-.01 2.45-.01 2.78 0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <a class="icon-btn help" href="mailto:wekturbo@hostwek.com" aria-label="Contact Support" title="Email Support">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+        </a>
+        <button id="likeBtn" class="icon-btn help" type="button" aria-label="Star on GitHub" title="⭐ Star on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </button>
+      </div>
+    </footer>
+
+    <div id="aboutModal" class="modal" hidden>
+      <div class="modal-backdrop" data-close="1"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" tabindex="-1">
+        <header class="modal-head">
+          <h2 id="aboutTitle">About & Help</h2>
+          <button class="modal-close" id="aboutClose" type="button" aria-label="Close">×</button>
+        </header>
+        <div class="modal-body">
+          <div class="modal-section">
+            <h3>Smart File Attachment for AI Chats</h3>
+            <p>Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits.</p>
+            <p><strong>Highlights:</strong> Auto-Detect picks a safe file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions.</p>
+          </div>
+
+          <div class="modal-section">
+            <h3>Configuration</h3>
+            <ul>
+              <li><strong>Auto Attach:</strong> Automatically detects and converts long pastes (customizable word threshold: 50-15,000 words)</li>
+              <li><strong>Intelligent Delay:</strong> Optional 1-15 second countdown prevents accidental attachments</li>
+              <li><strong>Multi-Format Support:</strong> Choose from 20+ file types including programming languages, markup, data formats, and custom extensions</li>
+              <li><strong>Platform Optimization:</strong> Special handling for each AI platform's unique file attachment system</li>
+              <li><strong>Manual Override:</strong> On-demand conversion of typed text to file attachments</li>
+              <li><strong>Claude Integration:</strong> Works alongside or replaces Claude's built-in paste-to-file feature</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h3>Supported AI Platforms</h3>
+            <p>Seamlessly integrates with the most popular AI chat platforms:</p>
+            <ul id="platformsList"></ul>
+            <p><strong>Why this matters:</strong> Each platform has different file attachment systems. Our extension handles these differences automatically, ensuring your files attach correctly regardless of which AI you're using.</p>
+          </div>
+
+          <div class="modal-section">
+            <h3>Privacy</h3>
+            <p><strong>Zero Data Collection:</strong> All text processing happens entirely on your device. Your content never leaves your computer - no servers, no cloud processing, no data transmission.</p>
+            <p><strong>What we DON'T do:</strong> We never read, store, or transmit your text content, URLs, personal information, or browsing data. Your conversations with AI remain completely private.</p>
+            <p><strong>What we DO:</strong> Process your text locally to create file attachments, then immediately discard the processed data. Simple, secure, transparent.</p>
+
+            <div class="privacy-setting">
+              <label for="telemetryToggle" class="privacy-label">
+                <input type="checkbox" id="telemetryToggle" />
+                <strong>Anonymous Usage Analytics (Optional)</strong>
+              </label>
+              <p class="privacy-desc">Help improve the extension by sharing anonymous usage counts only (files created, errors encountered). Never collects content, URLs, or personal data. Fully optional and can be disabled anytime. <strong>Note:</strong> Analytics dashboard is only visible when this option is enabled.</p>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <h3>Development Team & Support</h3>
+            <p>
+              <strong>Lead Developer:</strong> <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a><br>
+              <strong>Scrum Master:</strong> <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a><br>
+              <strong>Company:</strong> <a href="https://hostwek.com" target="_blank" rel="noopener">WekTurbo Designs - Hostwek LTD</a>
+            </p>
+            <p>
+              <strong>Support Contacts:</strong><br>
+              • Extension Support: <a href="mailto:wekturbo@hostwek.com">wekturbo@hostwek.com</a><br>
+              • Technical Issues: <a href="mailto:dev@josephmatino.com">dev@josephmatino.com</a>
+            </p>
+            <p>
+              <strong>Resources:</strong> <a href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener">GitHub Repository</a> ·
+              <a href="https://josephmatino.com" target="_blank" rel="noopener">Developer Website</a> ·
+              <a href="https://hostwek.com/wekturbo" target="_blank" rel="noopener">WekTurbo Page</a> ·
+              <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a>
+            </p>
+            <p class="hint"><strong>Keyboard Shortcut:</strong> <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> (Manual Save)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../shared/config.js"></script>
+  <script src="../shared/validation.js"></script>
+  <script src="../shared/metrics.js"></script>
+  <script src="tooltips.js"></script>
+  <script src="modals.js"></script>
+  <script src="analytics.js"></script>
+  <script src="breakdowns.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

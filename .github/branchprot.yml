@@ -1,0 +1,21 @@
+# Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+# WekTurbo Designs - Hostwek LTD | https://github.com/JosephMatino/MultiAiFilePaster
+
+protection_rules:
+  main:
+    required_status_checks:
+      strict: true
+      contexts:
+        - "validate"
+        - "security"
+    enforce_admins: false
+    required_pull_request_reviews:
+      required_approving_review_count: 1
+      dismiss_stale_reviews: true
+      require_code_owner_reviews: true
+      restrict_pushes: true
+    restrictions:
+      users: ["JosephMatino"]
+      teams: []
+    allow_force_pushes: false
+    allow_deletions: false

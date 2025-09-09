@@ -1,0 +1,111 @@
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <div align="center">
+        
+        # 💬 Multi-AI File Paster Discussion
+        
+        <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="64" height="64">
+        
+        **Welcome to our community discussion!**
+        
+        [![Community](https://img.shields.io/badge/Community-Friendly-blue?style=flat-square&logo=people&logoColor=white)](https://github.com/JosephMatino/MultiAiFilePaster)
+        [![Support](https://img.shields.io/badge/Support-Available-green?style=flat-square&logo=support&logoColor=white)](mailto:wekturbo@hostwek.com)
+        
+        </div>
+        
+        ---
+        
+        ## 🎯 Discussion Guidelines
+        
+        **This is the place for:**
+        - 💡 Feature ideas and suggestions
+        - 🤔 Questions about usage and best practices
+        - 🔄 Workflow optimization discussions
+        - 🌟 Success stories and use cases
+        - 🤝 Community collaboration
+        
+        **For specific issues, please use:**
+        - 🐛 [Bug Reports](https://github.com/JosephMatino/MultiAiFilePaster/issues/new?template=bug_report.md) - For bugs and technical issues
+        - ✨ [Feature Requests](https://github.com/JosephMatino/MultiAiFilePaster/issues/new?template=feature_request.md) - For formal feature requests
+        - 🔒 [Security Issues](mailto:dev@josephmatino.com) - For security vulnerabilities (private)
+        
+        ---
+        
+  - type: input
+    id: discussion_title
+    attributes:
+      label: Discussion Title
+      description: A clear, descriptive title for your discussion
+      placeholder: "e.g., Best practices for using Multi-AI File Paster with large codebases"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: discussion_category
+    attributes:
+      label: Discussion Category
+      description: What type of discussion is this?
+      options:
+        - 💡 Ideas & Suggestions
+        - 🤔 Questions & Help
+        - 🔄 Workflow & Best Practices
+        - 🌟 Success Stories & Use Cases
+        - 🤝 Community & Collaboration
+        - 🔧 Technical Discussion
+        - 📚 Documentation & Guides
+        - 🎯 Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: discussion_content
+    attributes:
+      label: Discussion Content
+      description: Share your thoughts, questions, or ideas
+      placeholder: |
+        Please provide:
+        - Context and background
+        - Specific questions or topics you'd like to discuss
+        - Any relevant examples or use cases
+        - What you're hoping to achieve or learn
+      render: markdown
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: discussion_context
+    attributes:
+      label: Context (Optional)
+      description: Help us understand your background and use case
+      options:
+        - label: I'm a developer working with code files
+        - label: I'm a writer/author working with documents
+        - label: I'm a content creator working with articles
+        - label: I'm a student using AI for learning
+        - label: I'm a professional using AI for work
+        - label: I'm new to Chrome extensions
+        - label: I'm experienced with browser automation
+        - label: I'm interested in contributing to the project
+        
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## 📞 Additional Support
+        
+        **Need direct help?**
+        - **Technical Issues**: [dev@josephmatino.com](mailto:dev@josephmatino.com)
+        - **General Support**: [wekturbo@hostwek.com](mailto:wekturbo@hostwek.com)
+        
+        **Team Members:**
+        - **Lead Developer**: [Joseph Matino](https://josephmatino.com) | [GitHub](https://github.com/JosephMatino)
+        - **Scrum Master**: [Majok Deng](https://majokdeng.com) | [GitHub](https://github.com/Majok-Deng)
+        
+        **Company**: [WekTurbo Designs - Hostwek LTD](https://hostwek.com/wekturbo)
+        
+        ---
+        
+        **Thank you for being part of the Multi-AI File Paster community!** 🙏
