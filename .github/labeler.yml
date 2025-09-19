@@ -1,0 +1,47 @@
+bug:
+  - any: ['**/bug_report.md']
+
+enhancement:
+  - any: ['**/feature_request.md']
+
+documentation:
+  - any: ['**/*.md', '!changelog.md']
+
+readme:
+  - any: ['readme.md']
+
+changelog:
+  - any: ['changelog.md']
+
+github:
+  - any: ['.github/**/*']
+
+workflow:
+  - any: ['.github/workflows/**/*']
+
+security:
+  - any: ['.github/SECURITY.md', '.github/dependabot.yml']
+
+source:
+  - any: ['src/**/*']
+
+background:
+  - any: ['src/background/**/*']
+
+content:
+  - any: ['src/content/**/*']
+
+popup:
+  - any: ['src/popup/**/*']
+
+shared:
+  - any: ['src/shared/**/*']
+
+manifest:
+  - any: ['manifest.json']
+
+assets:
+  - any: ['logo/**/*', 'icons/**/*']
+
+config:
+  - any: ['.gitignore', '*.json', '*.yml', '*.yaml']

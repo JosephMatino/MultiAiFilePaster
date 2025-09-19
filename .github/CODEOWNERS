@@ -1,0 +1,14 @@
+* @JosephMatino
+
+/manifest.json @JosephMatino
+/src/ @JosephMatino
+/.github/ @JosephMatino
+/.gitignore @JosephMatino
+
+/readme.md @JosephMatino @Majok-Deng
+/changelog.md @JosephMatino @Majok-Deng
+/CONTRIBUTING.md @JosephMatino @Majok-Deng
+/LICENSE @JosephMatino @Majok-Deng
+/logo/ @JosephMatino @Majok-Deng
+
+/docs/internal/ @JosephMatino

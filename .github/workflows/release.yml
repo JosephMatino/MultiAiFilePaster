@@ -1,0 +1,61 @@
+name: � Build Extension Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-package:
+    name: 📦 Build ZIP Package
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout main branch
+      uses: actions/checkout@v4
+      with:
+        ref: main
+
+    - name: 🏗️ Build extension package
+      run: |
+        echo "🏗️ Building clean extension package..."
+
+        # Get version from manifest.json
+        VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version)")
+        EXTENSION_NAME=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).name)")
+
+        # Create clean name for ZIP
+        CLEAN_NAME=$(echo "$EXTENSION_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
+        ZIP_NAME="${CLEAN_NAME}-v${VERSION}.zip"
+
+        echo "📋 Extension: $EXTENSION_NAME"
+        echo "📋 Version: $VERSION"
+        echo "📋 ZIP Name: $ZIP_NAME"
+
+        # Create build directory and copy Chrome Web Store files
+        mkdir -p build/extension
+
+        # Copy required files for Chrome Web Store
+        cp manifest.json build/extension/
+        cp LICENSE build/extension/
+        cp readme.md build/extension/
+        cp changelog.md build/extension/
+        cp -r src/ build/extension/
+        cp -r logo/ build/extension/
+
+        # Create ZIP from clean directory
+        cd build
+        zip -r "$ZIP_NAME" extension/
+
+        echo "✅ Extension package built: $ZIP_NAME"
+        echo "📦 Package contents:"
+        unzip -l "$ZIP_NAME"
+
+        # Save ZIP name for artifact upload
+        echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+
+
+    - name: 📦 Upload ZIP artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: chrome-extension-package
+        path: build/${{ env.ZIP_NAME }}
+        retention-days: 90

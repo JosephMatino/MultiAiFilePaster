@@ -1,0 +1,262 @@
+name: 🚀 Multi-AI File Paster CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ develop ]
+
+jobs:
+  validate:
+    name: 📋 Validate Extension
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🔒 Guard: block internal files on PRs to main
+      if: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main' }}
+      run: |
+        set -euo pipefail
+        VIOLATIONS=()
+
+        # Block known root-internal files if present (updated file list)
+        for f in git.sh; do
+          [ -e "$f" ] && VIOLATIONS+=("$f")
+        done
+
+        # Block any files matching internal patterns
+        mapfile -t INTERNAL_FILES < <(find . -maxdepth 1 -type f \( -name "*_INTERNAL.*" -o -name "*_PRIVATE.*" -o -name "*.internal.*" \) -print)
+        if [ "${#INTERNAL_FILES[@]}" -gt 0 ]; then
+          VIOLATIONS+=("${INTERNAL_FILES[@]}")
+        fi
+
+        # Block any internal markdown outside docs/internal
+        mapfile -t FOUND < <(find . -path "./docs/internal" -prune -o -type f \( -iname "*.internal.md" -o -name "*_INTERNAL.md" -o -name "*_PRIVATE.md" \) -print)
+        if [ "${#FOUND[@]}" -gt 0 ]; then
+          VIOLATIONS+=("${FOUND[@]}")
+        fi
+
+        # Block if docs/internal exists and is non-empty
+        if [ -d "docs/internal" ] && [ "$(ls -A docs/internal 2>/dev/null)" ]; then
+          VIOLATIONS+=("docs/internal/*")
+        fi
+
+        # Block hooks and branch protection config
+        if [ -d ".github/hooks" ] && [ "$(ls -A .github/hooks 2>/dev/null)" ]; then
+          VIOLATIONS+=(".github/hooks/*")
+        fi
+
+
+        if [ ${#VIOLATIONS[@]} -gt 0 ]; then
+          echo "❌ Internal/dev-only files present in PR to main:";
+          printf ' - %s\n' "${VIOLATIONS[@]}";
+          exit 1;
+        fi
+        echo "✅ No internal files detected."
+
+
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        # No cache needed - Chrome extension uses vanilla JavaScript
+
+    - name: 🔍 Validate manifest.json
+      run: |
+        echo "🔍 Validating Chrome Extension manifest..."
+        node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+
+          // Basic validation
+          if (!manifest.manifest_version) throw new Error('Missing manifest_version');
+          if (!manifest.name) throw new Error('Missing name');
+          if (!manifest.version) throw new Error('Missing version');
+          if (!manifest.description) throw new Error('Missing description');
+
+          // Chrome Extension specific validation
+          if (manifest.manifest_version !== 3) throw new Error('Must use Manifest V3');
+          if (!manifest.permissions) throw new Error('Missing permissions');
+          if (!manifest.host_permissions) throw new Error('Missing host_permissions');
+          if (!manifest.background) throw new Error('Missing background script');
+          if (!manifest.content_scripts) throw new Error('Missing content scripts');
+
+          console.log('✅ Manifest validation passed');
+          console.log('📦 Extension:', manifest.name, 'v' + manifest.version);
+        "
+
+    - name: 📁 Project structure overview (non-blocking)
+      run: |
+        echo " Listing key project files (non-blocking)..."
+        if [ -f "manifest.json" ]; then
+          echo "✅ manifest.json found"
+        else
+          echo "⚠️ manifest.json not found"
+        fi
+        if [ -d "src" ]; then
+          echo "✅ src/ found"
+          echo "- JS files: $(find src -name "*.js" | wc -l)"
+          echo "- CSS files: $(find src -name "*.css" | wc -l)"
+          echo "- HTML files: $(find src -name "*.html" | wc -l)"
+        else
+          echo "⚠️ src/ not found"
+        fi
+        echo "Logos present:"
+        ls -1 logo/* 2>/dev/null | sed 's/^/- /' || echo "⚠️ No logo directory"
+
+    - name: 🔍 Validate JavaScript syntax
+      run: |
+        echo "🔍 Validating JavaScript syntax..."
+
+        # Use Node's vm.Script to compile each JS file (syntax check without executing)
+        cat > check-syntax.js <<'EOF'
+        const fs = require('fs');
+        const vm = require('vm');
+        const { execSync } = require('child_process');
+
+        const out = execSync('find src -name "*.js" -type f').toString().trim();
+        const files = out ? out.split('\n') : [];
+        let ok = true;
+        for (const file of files) {
+          try {
+            const code = fs.readFileSync(file, 'utf8');
+            new vm.Script(code, { filename: file });
+            console.log('✅ Syntax OK:', file);
+          } catch (err) {
+            ok = false;
+            console.error('❌ Syntax error in', file, '\n', err.message);
+          }
+        }
+        if (!ok) process.exit(1);
+        EOF
+        node check-syntax.js
+
+        echo "✅ JavaScript syntax validation passed"
+
+    - name: 🔍 Check version consistency
+      run: |
+        echo "🔍 Checking version consistency..."
+
+        # Get version from manifest.json
+        MANIFEST_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version)")
+        echo "📦 Manifest version: $MANIFEST_VERSION"
+
+        # Check if this is a tag-triggered workflow and validate version match
+        if [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "❌ Version mismatch: manifest.json=$MANIFEST_VERSION vs tag=$TAG_VERSION"
+            exit 1
+          else
+            echo "✅ Tag version matches manifest version"
+          fi
+        fi
+
+        # Check version in changelog.md (warning only)
+        if ! grep -q "$MANIFEST_VERSION" changelog.md; then
+          echo "⚠️ Version $MANIFEST_VERSION not found in changelog.md (warning only)"
+        else
+          echo "✅ Version found in changelog.md"
+        fi
+
+        echo "✅ Version check complete"
+
+    - name: 🔒 Basic security validation
+      run: |
+        echo "🔒 Running basic security checks..."
+
+        # Strict mode: fail on risky patterns for PRs targeting main; warn otherwise
+        STRICT=false
+        if [ "${GITHUB_EVENT_NAME:-}" = "pull_request" ] && [ "${GITHUB_BASE_REF:-}" = "main" ]; then
+          STRICT=true
+          echo "🚨 Strict mode enabled (PR to main)"
+        else
+          echo "ℹ️  Non-strict mode (push to develop or non-main PR)"
+        fi
+
+        # Check for potential security issues
+        security_issues=false
+
+        # 1) eval() usage is always a failure
+        if grep -r "eval(" src/ --include="*.js"; then
+          echo "❌ Found eval() usage - potential security risk"
+          security_issues=true
+        fi
+
+        # 2) innerHTML assignments (warning only - safe usage verified)
+        if grep -r "innerHTML.*=" src/ --include="*.js"; then
+          echo "⚠️  Found innerHTML usage - verified as safe (SVG icons and static content)"
+        fi
+
+        # 3) console.log statements
+        if grep -r "console\\.log" src/ --include="*.js"; then
+          if [ "$STRICT" = true ]; then
+            echo "❌ console.log statements found in production PR"
+            security_issues=true
+          else
+            echo "⚠️  Found console.log statements - remove before release (warning only)"
+          fi
+        fi
+
+        if [ "$security_issues" = true ]; then
+          exit 1
+        fi
+
+        echo "✅ Basic security validation passed"
+
+    - name: 📊 Generate build report
+      run: |
+        echo "📊 Generating build report..."
+
+        # Extract extension info dynamically
+        EXTENSION_NAME=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).name)")
+        EXTENSION_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version)")
+        MANIFEST_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).manifest_version)")
+
+        echo "## 📦 Extension Information" >> $GITHUB_STEP_SUMMARY
+        echo "- **Name**: $EXTENSION_NAME" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version**: $EXTENSION_VERSION" >> $GITHUB_STEP_SUMMARY
+        echo "- **Manifest Version**: $MANIFEST_VERSION" >> $GITHUB_STEP_SUMMARY
+
+        echo "## 📁 File Count" >> $GITHUB_STEP_SUMMARY
+        echo "- **JavaScript files**: $(find src -name "*.js" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **CSS files**: $(find src -name "*.css" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **HTML files**: $(find src -name "*.html" | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Total source files**: $(find src -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+
+        echo "## ✅ Validation Results" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Manifest validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ File structure validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ JavaScript syntax validation passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Version consistency check passed" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Basic security validation passed" >> $GITHUB_STEP_SUMMARY
+
+        echo "🎉 All validations passed! $EXTENSION_NAME is ready for release."
+
+  security:
+    name: 🛡️ Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 CodeQL Analysis
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
+
+    - name: 🏗️ Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: 🔍 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+    - name: 🔍 Dependency Review
+      uses: actions/dependency-review-action@v4

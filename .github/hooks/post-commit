@@ -1,0 +1,65 @@
+#!/bin/bash
+# ================================================================================
+# Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+# ================================================================================
+#
+# MODULE: .github/hooks/post-commit
+# FUNCTION: Post-commit feedback and workflow guidance
+# ARCHITECTURE: Git hook script with workflow automation guidance
+#
+# DEVELOPMENT TEAM:
+# • Lead Developer: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
+# • Scrum Master: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+#
+# ORGANIZATION: WekTurbo Designs - Hostwek LTD | https://hostwek.com/wekturbo
+# REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+# TECHNICAL SUPPORT: wekturbo@hostwek.com
+#
+# Copyright (c) 2025 WekTurbo Designs - Hostwek LTD. All rights reserved.
+# Licensed under Hostwek Custom License | See LICENSE
+# ================================================================================
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+GRAY='\033[0;37m'
+NC='\033[0m' # No Color
+
+# Icons
+ICON_SUCCESS="✅"
+ICON_INFO="ℹ️"
+ICON_PUSH="📤"
+
+echo ""
+echo -e "${GREEN}${ICON_SUCCESS} Commit successful!${NC}"
+
+# Get commit info
+commit_hash=$(git rev-parse --short HEAD)
+commit_message=$(git log -1 --pretty=%B)
+current_branch=$(git branch --show-current)
+
+echo -e "${GRAY}Commit: ${commit_hash}${NC}"
+echo -e "${GRAY}Branch: ${current_branch}${NC}"
+echo -e "${GRAY}Message: ${commit_message}${NC}"
+
+# Show file changes
+files_changed=$(git diff --name-only HEAD~1 HEAD | wc -l)
+echo -e "${GRAY}Files changed: ${files_changed}${NC}"
+
+# Provide next steps
+echo ""
+echo -e "${BLUE}${ICON_INFO} Next Steps:${NC}"
+if [[ "$current_branch" == "develop" ]]; then
+    echo -e "${GRAY}  1. Push to develop: ${NC}./git.sh 2"
+    echo -e "${GRAY}  2. Update main: ${NC}./git.sh 3"
+    echo -e "${GRAY}  3. Create release: ${NC}./git.sh 4 \"v1.x.x\" \"description\""
+else
+    echo -e "${GRAY}  Switch to develop: ${NC}./git.sh 8"
+fi
+
+# Check if documentation needs updating
+if git diff --name-only HEAD~1 HEAD | grep -E "(src/|manifest\.json)" >/dev/null; then
+    echo -e "${GRAY}  📝 Consider updating documentation${NC}"
+fi
+
+echo ""

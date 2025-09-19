@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="extension_name">Multi-AI File Paster</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container" role="dialog" aria-labelledby="title" hidden>
+    <span class="fx one" aria-hidden="true"></span>
+    <span class="fx two" aria-hidden="true"></span>
+    <span class="fx three" aria-hidden="true"></span>
+    <span class="fx four" aria-hidden="true"></span>
+  <header>
+      <div class="header-content">
+        <div class="header-title">
+          <img src="../../logo/mfp_128.png" alt="Multi-AI File Paster" class="header-logo" />
+          <h1 id="title" data-i18n="header_title">Multi-AI File Paster</h1>
+        </div>
+        <p class="subtitle" data-i18n="header_subtitle">Auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 20+ formats including code files.</p>
+      </div>
+    </header>
+
+    <div id="statusIndicator" class="status-indicator">
+      <div class="status-content">
+        <div class="status-pulse"></div>
+        <span class="status-text"><span id="currentModel"></span></span>
+      </div>
+      <div class="header-controls">
+        <div class="language-selector" id="languageSelector">
+          <button class="language-btn" id="languageBtn" type="button" data-i18n-aria-label="language_selector" aria-label="Language">
+            <div class="flag-icon uk-flag" id="currentFlag"></div>
+            <span id="currentLanguage">English</span>
+          </button>
+        </div>
+
+  <div class="theme-toggle" id="themeToggle" data-i18n-title="ui_components_toggle_theme" title="Toggle theme">
+          <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="ctxBanner" class="banner" role="status" aria-live="polite" hidden>
+      <span id="bannerText"></span>
+    </div>
+
+    <section class="card" aria-describedby="controls">
+      <div class="row" id="debugRow">
+        <label for="debugToggle" class="label" data-i18n="debug_mode">Debug Mode</label>
+        <label class="switch">
+          <input type="checkbox" id="debugToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="row">
+        <div class="label">
+          <span data-i18n="auto_attach">Auto Attach</span>
+          <button class="help" type="button" aria-label="What is Auto Attach?" aria-expanded="false" data-tip-i18n="auto_attach_tooltip">?</button>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="attachToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="row" id="claudeRow" hidden>
+        <div class="label">
+          <span data-i18n="claude_override">Override Claude's Auto-Attach</span>
+          <button class="help" type="button" aria-label="Claude Override" aria-expanded="false" data-tip-i18n="claude_override_tooltip">?</button>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="claudeOverrideToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <label for="wordLimit" class="label">
+          <span data-i18n="min_words_trigger">Min Words to Trigger</span>
+          <button class="help" type="button" aria-label="What is Min Words?" aria-expanded="false" data-tip-i18n="min_words_tooltip">?</button>
+        </label>
+        <input type="number" id="wordLimit" min="50" max="15000" inputmode="numeric" class="input" />
+      </div>
+
+      <div class="row">
+        <div class="label">
+          <span data-i18n="use_delay">Use Delay</span>
+          <button class="help" type="button" aria-label="What is Delay?" aria-expanded="false" data-tip-i18n="use_delay_tooltip">?</button>
+        </div>
+        <div class="controls-inline">
+          <label class="switch">
+            <input type="checkbox" id="delayToggle" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+          <div class="inline-delay" id="delaySecondsWrap" hidden>
+            <input type="number" id="delaySeconds" min="1" max="15" inputmode="numeric" class="input sm" aria-label="Delay seconds (1-15)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row row-format">
+        <label for="formatSelect" class="label">
+          <span data-i18n="file_format">File Format</span>
+          <button class="help" type="button" aria-label="File format" aria-expanded="false" data-tip-i18n="file_format_tooltip">?</button>
+        </label>
+        <div class="format-container">
+          <select id="formatSelect" class="select format-select" aria-label="Choose file format">
+            <option value="auto" data-i18n="auto_detect">Auto-Detect</option>
+            <option value="txt">.txt</option>
+            <option value="js">.js</option>
+            <option value="py">.py</option>
+            <option value="html">.html</option>
+            <option value="json">.json</option>
+            <option value="md">.md</option>
+            <option value="more" data-i18n="more_formats">More formats…</option>
+          </select>
+          <select id="moreFormats" class="select format-select hidden" aria-label="More file formats"></select>
+          <div class="custom-input-row hidden" id="customInputRow">
+            <input type="text" id="customFormat" class="input custom-input" data-i18n-placeholder="custom_format_placeholder" placeholder="e.g. log, cfg, data" maxlength="6">
+            <button id="customFormatTip" class="help" type="button" aria-label="Custom format help" data-tip-i18n="custom_format_tooltip">?</button>
+          </div>
+        </div>
+      </div>
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <div class="label">
+          <span data-i18n="batch_mode">Batch Mode</span> <span class="beta-badge" data-i18n="beta">BETA</span>
+          <button class="help" type="button" aria-label="Batch Processing" aria-expanded="false" data-tip-i18n="batch_mode_tooltip">?</button>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="batchToggle" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div id="batchOptions" class="batch-options hidden">
+        <div class="row">
+          <label for="maxFilesSlider" class="label">
+            <span data-i18n="max_files">Max Files</span>
+            <button class="help" type="button" aria-label="Max Files" aria-expanded="false" data-tip-i18n="max_files_tooltip">?</button>
+          </label>
+          <div class="slider-container">
+            <input type="range" id="maxFilesSlider" min="2" max="4" value="3" class="range-slider" />
+            <span id="maxFilesValue" class="slider-value">3</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="processingDelaySlider" class="label">
+            <span data-i18n="delay">Delay</span>
+            <button class="help" type="button" aria-label="Batch Delay" aria-expanded="false" data-tip-i18n="batch_delay_tooltip">?</button>
+          </label>
+          <div class="slider-container">
+            <input type="range" id="processingDelaySlider" min="100" max="2000" step="100" value="500" class="range-slider" />
+            <span id="processingDelayValue" class="slider-value delay-value">500ms</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">
+            <span data-i18n="compression">Compression</span>
+            <button class="help" type="button" aria-label="Batch Compression" aria-expanded="false" data-tip-i18n="batch_compression_tooltip">?</button>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="batchCompressionToggle" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">
+          <span data-i18n="file_compression">File Compression</span>
+          <button class="help" type="button" aria-label="File Compression" aria-expanded="false" data-tip-i18n="file_compression_tooltip">?</button>
+        </div>
+        <div class="controls-inline">
+          <label class="switch">
+            <input type="checkbox" id="compressionToggle" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+          <div class="inline-delay hidden" id="compressionThresholdWrap">
+            <input type="number" id="compressionThreshold" min="512" max="10240" step="256" inputmode="numeric" class="input sm" aria-label="Compression threshold in bytes" />
+            <span class="unit" data-i18n="bytes">bytes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+      <div class="row">
+        <div class="label">
+          <span data-i18n="manual_action">Manual Action</span>
+          <button class="help" type="button" aria-label="Manual Action" aria-expanded="false" data-tip-i18n="manual_action_tooltip">?</button>
+        </div>
+        <button id="saveNow" class="btn" type="button" aria-live="polite" data-i18n="attach_typed_text">Attach typed text as file</button>
+      </div>
+
+      <div id="analyticsSection" class="analytics-dashboard hidden">
+        <div class="analytics-spacer"></div>
+
+        <div class="analytics-container">
+          <div class="analytics-header">
+            <div class="header-content">
+              <div class="header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3v18h18"/>
+                  <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                </svg>
+              </div>
+              <div class="header-text">
+                <h3 data-i18n="usage_analytics">Usage Analytics</h3>
+                <p data-i18n="file_creation_insights">Your file creation insights</p>
+              </div>
+            </div>
+            <div class="time-selector">
+              <select id="timePeriod" class="time-select">
+                <option value="7" data-i18n="days_7">7 days</option>
+                <option value="30" data-i18n="days_30">30 days</option>
+                <option value="90" data-i18n="days_90">90 days</option>
+                <option value="all" data-i18n="all_time">All time</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="metrics-overview">
+            <div class="metric-card primary">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14,2 14,8 20,8"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="totalFiles">0</div>
+                <div class="metric-label" data-i18n="total_files">Total Files</div>
+                <div class="metric-change" id="totalChange">—</div>
+              </div>
+              <div class="metric-skeleton hidden" id="totalFilesSkeleton">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <defs>
+                    <linearGradient id="metricShimmer1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" class="shimmer-stop-start" />
+                      <stop offset="50%" class="shimmer-stop-mid" />
+                      <stop offset="100%" class="shimmer-stop-end" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.2s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="periodFiles">0</div>
+                <div class="metric-label" id="periodLabel" data-i18n="this_week">This Week</div>
+                <div class="metric-change" id="periodChange">—</div>
+              </div>
+              <div class="metric-skeleton hidden" id="periodFilesSkeleton">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z"/>
+                  <path d="M17 17l4 4"/>
+                </svg>
+              </div>
+              <div class="metric-content">
+                <div class="metric-value" id="activePlatforms">0</div>
+                <div class="metric-label" data-i18n="ai_platforms">AI Platforms</div>
+                <div class="metric-change" id="platformsChange">—</div>
+              </div>
+              <div class="metric-skeleton hidden" id="activePlatformsSkeleton">
+                <svg viewBox="0 0 100 40" class="skeleton-svg">
+                  <rect x="0" y="2" width="60" height="16" rx="4" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="22" width="80" height="10" rx="3" fill="url(#metricShimmer1)"/>
+                  <rect x="0" y="36" width="40" height="8" rx="2" fill="url(#metricShimmer1)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="analytics-trend" aria-label="Files per day trend">
+              <div class="trend-head">
+                <span data-i18n="files_per_day">Files per day</span>
+                <div class="trend-controls">
+                  <select id="chartTypeSelector" class="chart-selector" aria-label="Chart type">
+                    <option value="bar" data-i18n="bar_chart">Bar</option>
+                    <option value="line" data-i18n="line_chart">Line</option>
+                  </select>
+                  <span id="trendSummary" class="trend-summary">—</span>
+                </div>
+              </div>
+              <div id="trendSparkline" class="sparkline" role="img" aria-label="Files per day line chart">
+                <svg class="sparkline-skeleton hidden" viewBox="0 0 280 48">
+                  <defs>
+                    <linearGradient id="sparklineShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <stop offset="50%" style="stop-color:hsl(var(--surface) / .7);stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:hsl(var(--surface) / .4);stop-opacity:1" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.5s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M2,46 L40,32 L78,38 L116,24 L154,30 L192,18 L230,26 L268,14 L278,20" stroke="url(#sparklineShimmer)" stroke-width="2" fill="none" opacity="0.6"/>
+                  <path d="M2,46 L40,32 L78,38 L116,24 L154,30 L192,18 L230,26 L268,14 L278,20 L278,46 Z" fill="url(#sparklineShimmer)" opacity="0.2"/>
+                </svg>
+              </div>
+            </div>
+
+
+            <div class="analytics-breakdown">
+            <div class="breakdown-section">
+              <h4 data-i18n="top_models">Top Models</h4>
+              <div class="breakdown-list" id="platformBreakdown">
+                <div class="breakdown-item">
+                  <span class="item-name" data-i18n="no_data_yet">No data yet</span>
+                  <span class="item-count">—</span>
+                </div>
+              </div>
+              <div class="breakdown-skeleton hidden" id="platformBreakdownSkeleton">
+                <svg viewBox="0 0 200 60" class="skeleton-svg">
+                  <defs>
+                    <linearGradient id="breakdownShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" class="shimmer-stop-start" />
+                      <stop offset="50%" class="shimmer-stop-mid" />
+                      <stop offset="100%" class="shimmer-stop-end" />
+                      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0;100 0;-100 0" dur="1.3s" repeatCount="indefinite"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="6" y="4" width="120" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="4" width="30" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="24" width="100" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="24" width="25" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="44" width="90" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="44" width="20" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="breakdown-section">
+              <h4 data-i18n="file_formats">File Formats</h4>
+              <div class="breakdown-list" id="formatBreakdown">
+                <div class="breakdown-item">
+                  <span class="item-name" data-i18n="no_data_yet">No data yet</span>
+                  <span class="item-count">—</span>
+                </div>
+              </div>
+              <div class="breakdown-skeleton hidden" id="formatBreakdownSkeleton">
+                <svg viewBox="0 0 200 60" class="skeleton-svg">
+                  <rect x="6" y="4" width="110" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="4" width="30" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="24" width="95" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="24" width="25" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="6" y="44" width="85" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                  <rect x="160" y="44" width="20" height="10" rx="3" fill="url(#breakdownShimmer)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="analytics-actions">
+            <button id="exportData" class="action-btn secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span data-i18n="export">Export</span>
+            </button>
+            <button id="clearStats" class="action-btn danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              <span data-i18n="clear_data">Clear Data</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="clearDataModal" class="modal" hidden>
+        <div class="modal-backdrop" data-close="1"></div>
+        <div class="modal-card clear-data-modal" role="dialog" aria-modal="true" tabindex="-1">
+          <div class="modal-icon-header">
+            <div class="modal-icon danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <h2 data-i18n="clear_analytics_data">Clear Analytics Data</h2>
+            <p data-i18n="clear_data_warning">This will permanently delete all your usage statistics and cannot be undone.</p>
+          </div>
+          <div class="modal-actions">
+            <button id="cancelClear" class="action-btn secondary" data-i18n="cancel">Cancel</button>
+            <button id="confirmClear" class="action-btn danger" data-i18n="clear_all_data">Clear All Data</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gptpf-flash" class="flash sr-only" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span><span data-i18n="footer_copyright">© 2025 · Multi-AI File Paster · Developed by</span> <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a> | <span data-i18n="scrum_master">Scrum Master:</span> <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a> | <span data-i18n="powered_by">powered by</span> <a href="https://hostwek.com" target="_blank" rel="noopener" aria-label="Hostwek website"><img src="../../logo/hostwek.png" alt="Hostwek" class="logo" /></a></span>
+      </div>
+      <div class="footer-icons">
+        <button id="aboutBtn" class="icon-btn help" type="button" data-i18n-aria-label="about_help" data-i18n-title="about_help" aria-label="About & Help" title="About & Help">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+        </button>
+        <a class="icon-btn help" href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener" data-i18n-aria-label="github_repository" data-i18n-title="view_on_github" aria-label="GitHub Repository" title="View on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.36-1.37-3.36-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.52 1.06 1.52 1.06.89 1.56 2.34 1.11 2.9.85.09-.66.35-1.11.64-1.36-2.22-.26-4.56-1.14-4.56-5.09 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.31.1-2.74 0 0 .85-.28 2.78 1.05A9.35 9.35 0 0 1 12 7.1c.86 0 1.73.12 2.54.34 1.93-1.33 2.78-1.05 2.78-1.05.55 1.43.2 2.48.1 2.74.64.71 1.03 1.62 1.03 2.74 0 3.96-2.34 4.82-4.57 5.08.36.32.68.93.68 1.88 0 1.36-.01 2.45-.01 2.78 0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <button id="feedbackBtn" class="icon-btn help" type="button" data-i18n-aria-label="send_feedback" data-i18n-title="send_feedback" aria-label="Send Feedback" title="Send Feedback">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+        </button>
+        <button id="likeBtn" class="icon-btn help" type="button" data-i18n-aria-label="star_github" data-i18n-title="star_github" aria-label="Star on GitHub" title="⭐ Star on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </button>
+      </div>
+    </footer>
+
+    <div id="aboutModal" class="modal" hidden>
+      <div class="modal-backdrop" data-close="1"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" tabindex="-1">
+        <header class="modal-head">
+          <h2 id="aboutTitle" data-i18n="about_title">About & Help</h2>
+          <button class="modal-close" id="aboutClose" type="button" data-i18n-aria-label="close" aria-label="Close">×</button>
+        </header>
+        <div class="modal-body">
+          <div class="modal-section">
+            <h3 data-i18n="smart_file_attachment">Smart File Attachment for AI Chats</h3>
+            <p data-i18n="about_description">Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits.</p>
+            <p><strong data-i18n="key_features">Key Features:</strong> <span data-i18n="key_features_text">Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions.</span></p>
+            <p><strong data-i18n="new_version">New in v1.1.0:</strong> <span data-i18n="new_version_text">Batch Mode splits large content into multiple files, GZIP compression reduces file sizes by 60-80%, and improved analytics dashboard tracks your usage patterns.</span></p>
+          </div>
+
+          <div class="modal-section">
+            <h3 data-i18n="configuration">Configuration</h3>
+            <ul>
+              <li data-i18n="config_auto_attach">Auto Attach: Automatically detects and converts long pastes (customizable word threshold: 50-15,000 words)</li>
+              <li data-i18n="config_delay">Delay: Optional 1-15 second countdown prevents accidental attachments</li>
+              <li data-i18n="config_multi_format">Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions</li>
+              <li data-i18n="config_platform_optimization">Platform Optimization: Special handling for each AI platform's unique file attachment system</li>
+              <li data-i18n="config_batch_processing">Batch Processing: Split large content into 2-4 files with smart line division</li>
+              <li data-i18n="config_file_compression">File Compression: GZIP compression reduces file sizes for better performance</li>
+              <li data-i18n="config_manual_override">Manual Override: On-demand conversion of typed text to file attachments</li>
+              <li data-i18n="config_claude_integration">Claude Integration: Works alongside or replaces Claude's built-in paste-to-file feature</li>
+              <li data-i18n="config_analytics_dashboard">Analytics Dashboard: Track usage patterns and file creation statistics</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h3 data-i18n="supported_platforms">Supported AI Platforms</h3>
+            <p data-i18n="platforms_description">Integrates with the most popular AI chat platforms:</p>
+            <ul id="platformsList"></ul>
+            <p><strong data-i18n="platforms_why">Why this matters:</strong> <span data-i18n="platforms_why_text">Each platform has different file attachment systems. Our extension handles these differences automatically, ensuring your files attach correctly regardless of which AI you're using.</span></p>
+          </div>
+
+          <div class="modal-section">
+            <h3 data-i18n="privacy">Privacy</h3>
+            <p><strong data-i18n="zero_data_collection">Zero Data Collection:</strong> <span data-i18n="privacy_description">All text processing happens entirely on your device. Your content never leaves your computer - no servers, no cloud processing, no data transmission.</span></p>
+            <p><strong data-i18n="what_we_dont_do">What we DON'T do:</strong> <span data-i18n="privacy_dont">We never read, store, or transmit your text content, URLs, personal information, or browsing data. Your conversations with AI remain completely private.</span></p>
+            <p><strong data-i18n="what_we_do">What we DO:</strong> <span data-i18n="privacy_do">Process your text locally to create file attachments, then immediately discard the processed data. Simple, secure, transparent.</span></p>
+
+            <div class="privacy-setting">
+              <label for="telemetryToggle" class="privacy-label">
+                <input type="checkbox" id="telemetryToggle" />
+                <strong data-i18n="anonymous_analytics">Anonymous Usage Analytics (Optional)</strong>
+              </label>
+              <p class="privacy-desc" data-i18n="analytics_description">Help improve the extension by sharing anonymous usage counts only (files created, errors encountered). Never collects content, URLs, or personal data. Fully optional and can be disabled anytime.</p>
+              <p class="privacy-desc"><strong data-i18n="analytics_note">Note:</strong> <span data-i18n="analytics_note_text">Analytics dashboard is only visible when this option is enabled.</span></p>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <h3 data-i18n="development_team">Development Team & Support</h3>
+            <p>
+              <strong data-i18n="lead_developer">Lead Developer:</strong> <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a><br>
+              <strong data-i18n="scrum_master">Scrum Master:</strong> <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a><br>
+              <strong data-i18n="company">Company:</strong> <a href="https://hostwek.com" target="_blank" rel="noopener">WekTurbo Designs - Hostwek LTD</a>
+            </p>
+            <p>
+              <strong data-i18n="support_contacts">Support Contacts:</strong><br>
+              • <span data-i18n="extension_support">Extension Support:</span> <a href="mailto:wekturbo@hostwek.com">wekturbo@hostwek.com</a><br>
+              • <span data-i18n="technical_issues">Technical Issues:</span> <a href="mailto:dev@josephmatino.com">dev@josephmatino.com</a>
+            </p>
+            <p>
+              <strong data-i18n="resources">Resources:</strong> <a href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener"><span data-i18n="github_repository">GitHub Repository</span></a> ·
+              <a href="https://josephmatino.com" target="_blank" rel="noopener"><span data-i18n="developer_website">Developer Website</span></a> ·
+              <a href="https://hostwek.com/wekturbo" target="_blank" rel="noopener"><span data-i18n="wekturbo_page">WekTurbo Page</span></a> ·
+              <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a>
+            </p>
+            <p class="hint"><strong data-i18n="keyboard_shortcut">Keyboard Shortcut:</strong> <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> (<span data-i18n="manual_action">Manual Save</span>)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="feedbackModal" class="modal" hidden>
+      <div class="modal-backdrop" data-close="1"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle" tabindex="-1">
+        <header class="modal-head">
+          <h2 id="feedbackTitle" data-i18n="feedback_title">Send Feedback</h2>
+          <button class="modal-close" data-close="1" type="button" data-i18n-aria-label="close" aria-label="Close">×</button>
+        </header>
+        <div class="modal-body">
+          <div class="modal-section">
+            <h3 data-i18n="feedback_question">What type of feedback would you like to send?</h3>
+            <div class="feedback-options">
+              <button class="feedback-option" data-type="support" data-email="wekturbo@hostwek.com" data-subject="Multi-AI File Paster - Support Request">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <div>
+                  <strong data-i18n="support_request">Support Request</strong>
+                  <p data-i18n="support_request_desc">Get help with issues, bugs, or technical problems</p>
+                </div>
+              </button>
+              <button class="feedback-option" data-type="feedback" data-email="wekturbo@hostwek.com" data-subject="Multi-AI File Paster - User Feedback">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 13h-2v-2h2v2zm0-4h-2V7h2v4z"/></svg>
+                <div>
+                  <strong data-i18n="general_feedback">General Feedback</strong>
+                  <p data-i18n="general_feedback_desc">Share your thoughts, suggestions, or user experience</p>
+                </div>
+              </button>
+              <button class="feedback-option" data-type="improvement" data-email="dev@josephmatino.com" data-subject="Multi-AI File Paster - Feature Request">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <div>
+                  <strong data-i18n="feature_request">Feature Request</strong>
+                  <p data-i18n="feature_request_desc">Suggest new features or improvements to make it better</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Language Dropdown - Outside container for proper z-index -->
+  <div class="language-backdrop" id="languageBackdrop" hidden></div>
+
+  <div class="language-loading-overlay" id="languageLoadingOverlay" hidden>
+    <div class="language-loading-card">
+      <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12a9 9 0 11-6.219-8.56"/>
+      </svg>
+      <span data-i18n="translating_wait">Translating, please wait...</span>
+    </div>
+  </div>
+  <div class="language-dropdown" id="languageDropdown" hidden>
+    <button class="language-option" data-lang="en" type="button">
+      <div class="flag-icon uk-flag"></div>
+      <span data-i18n="language_english">English</span>
+    </button>
+    <button class="language-option" data-lang="sw" type="button">
+      <div class="flag-icon tanzania-flag"></div>
+      <span data-i18n="language_swahili">Kiswahili</span>
+    </button>
+    <button class="language-option" data-lang="ar" type="button">
+      <div class="flag-icon arabic-flag"></div>
+      <span data-i18n="language_arabic">العربية</span>
+    </button>
+  </div>
+
+  <script src="../shared/config.js"></script>
+  <script src="../shared/validation.js"></script>
+  <script src="../shared/messages.js"></script>
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/metrics.js"></script>
+  <script src="tooltips.js"></script>
+  <script src="modals.js"></script>
+  <script src="analytics.js"></script>
+  <script src="breakdowns.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

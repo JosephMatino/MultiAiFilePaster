@@ -1,0 +1,100 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extension_name__",
+  "short_name": "__MSG_extension_short_name__",
+  "version": "1.1.0",
+  "description": "__MSG_extension_description__",
+  "default_locale": "en",
+  "author": "Joseph Matino",
+  "homepage_url": "https://github.com/JosephMatino/MultiAiFilePaster",
+  "minimum_chrome_version": "88",
+  "icons": {
+    "16": "logo/mfp_16.png",
+    "32": "logo/mfp_32.png",
+    "48": "logo/mfp_48.png",
+    "128": "logo/mfp_128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://chat.deepseek.com/*",
+    "https://grok.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/index.js"
+  },
+  "action": {
+    "default_title": "__MSG_extension_name__",
+    "default_popup": "src/popup/index.html"
+  },
+  "commands": {
+    "save_current_message": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "__MSG_keyboard_shortcut_text__"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*"
+      ],
+      "css": [
+        "src/content/styles.css"
+      ],
+      "js": [
+        "src/shared/config.js",
+        "src/shared/validation.js",
+        "src/shared/messages.js",
+        "src/shared/metrics.js",
+        "src/shared/languagedetector.js",
+        "src/shared/compression.js",
+        "src/shared/batchprocessor.js",
+        "src/content/components/toast.js",
+        "src/content/components/loader.js",
+        "src/content/components/modal.js",
+        "src/content/components/fileattach.js",
+        "src/content/platforms/chatgpt.js",
+        "src/content/platforms/claude.js",
+        "src/content/platforms/gemini.js",
+        "src/content/platforms/deepseek.js",
+        "src/content/platforms/grok.js",
+        "src/content/platforms/factory.js",
+        "src/content/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/content/styles.css",
+        "_locales/en/messages.json",
+        "_locales/sw/messages.json",
+        "_locales/ar/messages.json"
+      ],
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*"
+      ]
+    }
+  ]
+}

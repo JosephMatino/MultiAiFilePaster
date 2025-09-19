@@ -1,0 +1,326 @@
+#!/bin/bash
+# ================================================================================
+# Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+# ================================================================================
+#
+# MODULE: .github/hooks/pre-commit
+# FUNCTION: Pre-commit validation hook for Chrome extension quality standards
+# ARCHITECTURE: Git hook script with Chrome extension validation pipeline
+#
+# DEVELOPMENT TEAM:
+# • Lead Developer: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
+# • Scrum Master: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+#
+# ORGANIZATION: WekTurbo Designs - Hostwek LTD | https://hostwek.com/wekturbo
+# REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+# TECHNICAL SUPPORT: wekturbo@hostwek.com
+#
+# Copyright (c) 2025 WekTurbo Designs - Hostwek LTD. All rights reserved.
+# Licensed under Hostwek Custom License | See LICENSE
+# ================================================================================
+
+set -e
+
+# Colors and icons for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+GRAY='\033[0;37m'
+NC='\033[0m'
+
+ICON_SUCCESS="✅"
+ICON_ERROR="❌"
+ICON_WARNING="⚠️"
+ICON_INFO="ℹ️"
+ICON_CHECK="🔍"
+
+echo -e "${BLUE}${ICON_CHECK} Running comprehensive pre-commit validation...${NC}"
+echo ""
+
+# Staged files summary
+staged_files=$(git diff --cached --name-only)
+staged_count=$(echo "$staged_files" | sed '/^$/d' | wc -l)
+echo -e "${GRAY}   Staged files: ${staged_count}${NC}"
+if [[ $staged_count -gt 0 ]]; then
+    echo -e "${GRAY}   First files:${NC}"
+    echo "$staged_files" | head -10 | sed 's/^/      • /'
+    if [[ $staged_count -gt 10 ]]; then echo -e "${GRAY}      • ... (${staged_count}-10 more)${NC}"; fi
+fi
+
+# Branch validation
+current_branch=$(git branch --show-current)
+if [[ "$current_branch" != "develop" ]]; then
+    echo -e "${YELLOW}${ICON_WARNING} Warning: You're committing to '${current_branch}' branch${NC}"
+    echo -e "${GRAY}   Recommended: Work from 'develop' branch${NC}"
+    echo -e "${GRAY}   Switch with: ./git.sh 8${NC}"
+else
+    echo -e "${GREEN}${ICON_SUCCESS} Working on correct branch: develop${NC}"
+fi
+
+# Validate manifest.json structure and content
+if [[ -f "manifest.json" ]]; then
+    echo -e "${BLUE}${ICON_INFO} Validating manifest.json structure...${NC}"
+
+    if ! node -e "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))" 2>/dev/null; then
+        echo -e "${RED}${ICON_ERROR} Invalid JSON syntax in manifest.json${NC}"
+        exit 1
+    fi
+
+    # Check required manifest fields
+    required_fields=("name" "version" "manifest_version" "description")
+    for field in "${required_fields[@]}"; do
+        if ! node -e "const m=require('./manifest.json'); if(!m.$field) process.exit(1)" 2>/dev/null; then
+            echo -e "${RED}${ICON_ERROR} Missing required field '$field' in manifest.json${NC}"
+            exit 1
+        fi
+    done
+
+    echo -e "${GREEN}${ICON_SUCCESS} manifest.json is valid and complete${NC}"
+else
+    echo -e "${RED}${ICON_ERROR} manifest.json not found${NC}"
+    exit 1
+fi
+
+    # Validate locale JSON files
+    echo -e "${BLUE}${ICON_INFO} Validating locale JSON files...${NC}"
+    if command -v node >/dev/null 2>&1; then
+        locale_parse_errors=()
+        while IFS= read -r -d '' locfile; do
+            if ! node -e "const fs=require('fs'); const f=process.argv[1]; try{const j=JSON.parse(fs.readFileSync(f,'utf8')); if(!j||typeof j!=='object'||Array.isArray(j)) process.exit(2); for(const [k,v] of Object.entries(j)){ if(!v||typeof v!=='object'||typeof v.message!=='string'){ process.exit(3);} } }catch(e){ process.exit(1);} " "$locfile"; then
+                locale_parse_errors+=("$locfile")
+            fi
+        done < <(find _locales -type f -name "messages.json" -print0 2>/dev/null)
+        if [[ ${#locale_parse_errors[@]} -gt 0 ]]; then
+            echo -e "${RED}${ICON_ERROR} Invalid locale files:${NC}"
+            printf "${RED}   - %s${NC}\n" "${locale_parse_errors[@]}"
+            echo -e "${GRAY}   Ensure valid JSON and each key has a { message: string } shape${NC}"
+            exit 1
+        fi
+        echo -e "${GREEN}${ICON_SUCCESS} Locale files valid${NC}"
+    else
+        echo -e "${YELLOW}${ICON_WARNING} Node.js not found. Skipping locale validation${NC}"
+    fi
+
+# Chrome Extension file structure validation
+echo -e "${BLUE}${ICON_INFO} Validating Chrome extension file structure...${NC}"
+
+# Core extension files
+core_files=(
+    "manifest.json"
+    "LICENSE"
+    "readme.md"
+    "src/background/index.js"
+    "src/content/index.js"
+    "src/content/styles.css"
+    "src/popup/index.html"
+    "src/popup/index.js"
+    "src/popup/styles.css"
+    "src/shared/i18n.js"
+    "src/shared/config.js"
+    "src/shared/validation.js"
+    "src/shared/languagedetector.js"
+)
+
+# Content script components
+content_components=(
+    "src/content/components/fileattach.js"
+    "src/content/components/loader.js"
+    "src/content/components/modal.js"
+    "src/content/components/toast.js"
+)
+
+# Platform integrations
+platform_files=(
+    "src/content/platforms/factory.js"
+    "src/content/platforms/chatgpt.js"
+    "src/content/platforms/claude.js"
+    "src/content/platforms/deepseek.js"
+    "src/content/platforms/gemini.js"
+    "src/content/platforms/grok.js"
+)
+
+# Popup modules
+popup_modules=(
+    "src/popup/analytics.js"
+    "src/popup/breakdowns.js"
+    "src/popup/modals.js"
+    "src/popup/tooltips.js"
+)
+
+# Shared utilities
+shared_utils=(
+    "src/shared/batchprocessor.js"
+    "src/shared/compression.js"
+    "src/shared/metrics.js"
+)
+
+# Add missing files to validation
+shared_utils+=(
+    "src/shared/messages.js"
+)
+
+# Locales (authoritative EN must exist)
+locales_required=(
+    "_locales/en/messages.json"
+)
+
+# Check all file categories
+all_files=("${core_files[@]}" "${content_components[@]}" "${platform_files[@]}" "${popup_modules[@]}" "${shared_utils[@]}" "${locales_required[@]}")
+missing_files=()
+
+for file in "${all_files[@]}"; do
+    if [[ ! -f "$file" ]]; then
+        missing_files+=("$file")
+    fi
+done
+
+if [[ ${#missing_files[@]} -gt 0 ]]; then
+    echo -e "${RED}${ICON_ERROR} Missing required Chrome extension files:${NC}"
+    printf "${RED}   - %s${NC}\n" "${missing_files[@]}"
+    exit 1
+fi
+
+echo -e "${GREEN}${ICON_SUCCESS} All Chrome extension files present (${#all_files[@]} files validated)${NC}"
+
+# CSS/JS separation validation
+echo -e "${BLUE}${ICON_INFO} Validating CSS/JS separation...${NC}"
+if grep -r "style=" src/ --include="*.js" >/dev/null 2>&1; then
+    echo -e "${RED}${ICON_ERROR} Inline styles found in JS files${NC}"
+    echo -e "${GRAY}   Use separate CSS files for styling${NC}"
+    exit 1
+fi
+echo -e "${GREEN}${ICON_SUCCESS} CSS/JS separation maintained${NC}"
+
+# Centralization validation - check for fallback patterns
+echo -e "${BLUE}${ICON_INFO} Validating centralization standards...${NC}"
+fallback_violations=()
+
+# Check for amateur ?? operators (exclude legitimate API safety patterns)
+while IFS= read -r -d '' file; do
+    if grep -n "?? ['\"]" "$file" | grep -v "?? 'txt'" | grep -v '?? "unknown"' | grep -v "?? 'unknown'" >/dev/null 2>&1; then
+        fallback_violations+=("$file: Uses ?? with hardcoded strings")
+    fi
+done < <(find src/ -name "*.js" -print0)
+
+# Check for amateur || operators with hardcoded user-facing strings (exclude legitimate fallbacks)
+while IFS= read -r -d '' file; do
+    if grep -n "|| ['\"][^'\"]*['\"]" "$file" | grep -v "|| ''" | grep -v '|| ""' | grep -v "|| 'txt'" | grep -v "|| 'auto'" | grep -v "|| 'unknown'" | grep -v "|| 'AI Model'" >/dev/null 2>&1; then
+        fallback_violations+=("$file: Uses || with hardcoded user-facing strings")
+    fi
+done < <(find src/ -name "*.js" -print0)
+
+# Check for actual alert/confirm/prompt function calls (exclude variable names and aria-labels)
+while IFS= read -r -d '' file; do
+    if grep -nE "\b(alert|confirm|prompt)\s*\(" "$file" >/dev/null 2>&1; then
+        fallback_violations+=("$file: Uses hardcoded alert/confirm/prompt function calls")
+    fi
+done < <(find src/ -name "*.js" -print0)
+
+if [[ ${#fallback_violations[@]} -gt 0 ]]; then
+    echo -e "${RED}${ICON_ERROR} Centralization violations found:${NC}"
+    printf "${RED}   - %s${NC}\n" "${fallback_violations[@]}"
+    echo -e "${GRAY}   Use centralized getMessage() and config systems${NC}"
+    exit 1
+fi
+echo -e "${GREEN}${ICON_SUCCESS} Centralization standards maintained${NC}"
+
+# Professional code standards validation
+echo -e "${BLUE}${ICON_INFO} Checking code quality standards...${NC}"
+
+# Check for amateur comments (excluding signature headers)
+amateur_comments=()
+while IFS= read -r -d '' file; do
+    # Skip signature header lines (first 50 lines typically contain headers)
+    if tail -n +51 "$file" | grep -n "// TODO\|// FIXME\|// HACK\|console\.log\|/\*.*\*/.*[a-zA-Z]" >/dev/null 2>&1; then
+        amateur_comments+=("$file: Contains amateur comments or inline comments")
+    fi
+done < <(find src/ -name "*.js" -print0)
+
+if [[ ${#amateur_comments[@]} -gt 0 ]]; then
+    echo -e "${RED}${ICON_ERROR} Amateur code patterns found:${NC}"
+    printf "${RED}   - %s${NC}\n" "${amateur_comments[@]}"
+    echo -e "${GRAY}   Remove all comments except signature headers${NC}"
+    exit 1
+fi
+echo -e "${GREEN}${ICON_SUCCESS} No amateur comments found${NC}"
+
+# i18n coverage validation (only when relevant files staged)
+if git diff --cached --name-only | grep -E '^(src/|_locales/|manifest.json)' >/dev/null 2>&1; then
+    echo -e "${BLUE}${ICON_INFO} Validating i18n coverage...${NC}"
+    if command -v node >/dev/null 2>&1; then
+        if ! node .github/hooks/check-i18n.js; then
+            echo -e "${RED}${ICON_ERROR} Missing i18n keys detected. See report above.${NC}"
+            echo -e "${GRAY}   Add missing keys to _locales/en/messages.json (and other locales)${NC}"
+            exit 1
+        fi
+        echo -e "${GREEN}${ICON_SUCCESS} i18n keys are complete for current usage${NC}"
+    else
+        echo -e "${YELLOW}${ICON_WARNING} Node.js not found. Skipping i18n coverage check${NC}"
+    fi
+fi
+
+# Validate professional file headers (staged files only)
+echo -e "${BLUE}${ICON_INFO} Validating signature headers on staged files...${NC}"
+
+# Collect staged files in relevant paths and extensions
+mapfile -t staged_candidate_files < <(
+    git diff --cached --name-only \
+    | grep -Ei '^(src/|docs/|mcp-servers/|\\.github/hooks/|readme\\.md|contributing\\.md|changelog\\.md)' \
+    | grep -Ei '\\.(js|css|html|py)$' || true
+)
+
+missing_headers=()
+if [[ ${#staged_candidate_files[@]} -gt 0 ]]; then
+    for file in "${staged_candidate_files[@]}"; do
+        # Skip deleted files
+        [[ -f "$file" ]] || continue
+        if ! head -n 60 "$file" | grep -qi "MULTI-AI FILE PASTER\|HOSTWEK CUSTOM LICENSE\|HOSTWEK LTD\|WEKTURBO DESIGNS\|Joseph Matino" 2>/dev/null; then
+            missing_headers+=("$file")
+        fi
+    done
+fi
+
+if [[ ${#missing_headers[@]} -gt 0 ]]; then
+    echo -e "${RED}${ICON_ERROR} Files missing Hostwek signature headers:${NC}"
+    printf "${RED}   - %s${NC}\n" "${missing_headers[@]}"
+    echo -e "${GRAY}   Add the full Hostwek signature header (canonical in src/content/platforms/chatgpt.js)${NC}"
+    echo -e "${GRAY}   Tip: Run MCP tool 'license_audit' for a full repo scan${NC}"
+    exit 1
+fi
+echo -e "${GREEN}${ICON_SUCCESS} Staged files have proper signature headers${NC}"
+
+# File size validation
+echo -e "${BLUE}${ICON_INFO} Checking file sizes...${NC}"
+large_files=()
+while IFS= read -r -d '' file; do
+    size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo 0)
+    if [[ $size -gt 1048576 ]]; then  # 1MB
+        large_files+=("$file ($(($size / 1024))KB)")
+    fi
+done < <(find src/ -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -print0)
+
+if [[ ${#large_files[@]} -gt 0 ]]; then
+    echo -e "${YELLOW}${ICON_WARNING} Large files detected:${NC}"
+    printf "${GRAY}   - %s${NC}\n" "${large_files[@]}"
+    echo -e "${GRAY}   Consider optimization for Chrome Web Store${NC}"
+fi
+
+# Documentation consistency check (only on develop branch)
+echo -e "${BLUE}${ICON_INFO} Validating documentation consistency...${NC}"
+current_branch=$(git branch --show-current)
+if [[ "$current_branch" == "develop" ]]; then
+    if [[ -f "docs/internal/TECHNICAL_DOCS.md" ]] && [[ -f "docs/internal/GIT_WORKFLOW.md" ]]; then
+        echo -e "${GREEN}${ICON_SUCCESS} Internal documentation present${NC}"
+    else
+        echo -e "${YELLOW}${ICON_WARNING} Internal documentation incomplete${NC}"
+    fi
+else
+    echo -e "${GREEN}${ICON_SUCCESS} Production branch - internal docs not required${NC}"
+fi
+
+echo ""
+echo -e "${GREEN}${ICON_SUCCESS} Pre-commit validation complete!${NC}"
+echo -e "${GRAY}   Files validated: $(git diff --cached --name-only | wc -l)${NC}"
+echo -e "${GRAY}   Next step: Use './git.sh 2' to push to develop${NC}"
+echo ""

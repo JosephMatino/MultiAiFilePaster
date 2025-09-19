@@ -1,0 +1,569 @@
+{
+  "extension_name": {
+    "message": "Multi-AI File Paster"
+  },
+  "extension_description": {
+    "message": "Automatically create file attachments from pasted text content on ChatGPT, Claude, Gemini, DeepSeek & Grok platforms. Features batch processing and file compression."
+  },
+  "extension_short_name": {
+    "message": "Multi-AI"
+  },
+  "header_title": {
+    "message": "Multi-AI File Paster"
+  },
+  "header_subtitle": {
+    "message": "Auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 20+ formats including code files."
+  },
+  "status_connected": {
+    "message": "Connected to $PLATFORM$",
+    "placeholders": {
+      "platform": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "debug_mode": {
+    "message": "Debug Mode"
+  },
+  "auto_attach": {
+    "message": "Auto Attach"
+  },
+  "auto_attach_tooltip": {
+    "message": "<span class='tip-badge feature'>FEATURE</span> Converts long pastes into a clean file and auto-attaches it to your chat. Keeps messages tidy and within limits on ChatGPT, Claude, Gemini, DeepSeek and Grok. Turn off to paste normally and use Manual Save."
+  },
+  "claude_override": {
+    "message": "Override Claude's Auto-Attach"
+  },
+  "claude_override_tooltip": {
+    "message": "<span class='tip-badge feature'>FEATURE</span> Claude includes its own paste-to-file feature. Enable this to always use Multi-AI File Paster for more consistent formatting and naming."
+  },
+  "min_words_trigger": {
+    "message": "Min Words to Trigger"
+  },
+  "min_words_tooltip": {
+    "message": "<span class='tip-badge settings'>SETTINGS</span> Auto-attach only runs when your paste is at least this long. Recommended: 100+ words so short messages stay inline."
+  },
+  "use_delay": {
+    "message": "Use Delay"
+  },
+  "use_delay_tooltip": {
+    "message": "<span class='tip-badge timing'>TIMING</span> Adds a short countdown before attaching. Helpful if you sometimes paste by mistake - you can cancel during the countdown."
+  },
+  "file_format": {
+    "message": "File Format"
+  },
+  "file_format_tooltip": {
+    "message": "<span class='tip-badge settings'>SETTINGS</span> Pick a file type, or choose Auto-Detect. Auto-Detect uses conservative language detection with a safe fallback to .txt to avoid mislabeling code. Custom allows any extension but use with caution."
+  },
+  "auto_detect": {
+    "message": "Auto-Detect"
+  },
+  "more_formats": {
+    "message": "More formats…"
+  },
+  "custom_format_placeholder": {
+    "message": "e.g. log, cfg, data"
+  },
+  "custom_format_tooltip": {
+    "message": "<span class='tip-badge security'>SECURITY</span> Enter only letters/numbers of the extension without dots (e.g., log, data, cfg). Risky executable types are blocked."
+  },
+  "batch_mode": {
+    "message": "Batch Mode"
+  },
+  "batch_mode_beta": {
+    "message": "BETA"
+  },
+  "batch_mode_tooltip": {
+    "message": "<span class='tip-badge beta'>BETA</span> Splits large content into multiple files based on your Max Files setting. Divides content by lines and uses smart language detection for file extensions. Creates files named part1, part2, part3, part4. Perfect for splitting large documents, code files, or any content that exceeds platform limits. Each part gets proper file extension based on content analysis."
+  },
+  "max_files": {
+    "message": "Max Files"
+  },
+  "max_files_tooltip": {
+    "message": "<span class='tip-badge settings'>SETTINGS</span> Number of files to split content into. Range: 2-4 files. Content is divided equally by lines across the selected number of files. Higher numbers create smaller files but may trigger platform spam detection. Only activates when content exceeds your word limit setting."
+  },
+  "delay": {
+    "message": "Delay"
+  },
+  "batch_delay_tooltip": {
+    "message": "<span class='tip-badge timing'>TIMING</span> Time delay between uploading each batch file (100ms to 2000ms). Higher delays reduce the chance of being flagged for spam by AI platforms. This setting is automatically disabled when the main 'User Delay' toggle is active above - in that case, the main delay setting takes priority for all file uploads."
+  },
+  "compression": {
+    "message": "Compression"
+  },
+  "batch_compression_tooltip": {
+    "message": "<span class='tip-badge compression'>COMPRESSION</span> Apply compression to each individual batch file to reduce file sizes. This is separate from the main 'File Compression' setting above. When main compression is enabled, this option is automatically disabled to prevent conflicts. Use this when you want compression only for batch files but not regular single files."
+  },
+  "file_compression": {
+    "message": "File Compression"
+  },
+  "file_compression_tooltip": {
+    "message": "<span class='tip-badge compression'>COMPRESSION</span> Automatically compresses large files (1KB+) using GZIP compression. Reduces file size by 60-80% for text content. Only compresses when it saves good space."
+  },
+  "bytes": {
+    "message": "bytes"
+  },
+  "manual_action": {
+    "message": "Manual Action"
+  },
+  "attach_typed_text": {
+    "message": "Attach typed text as file"
+  },
+  "manual_action_tooltip": {
+    "message": "<span class='tip-badge feature'>FEATURE</span> Manually convert any text you've typed into the chat input into a file attachment. Works on any AI platform. Perfect for when you want to create a file from your current message without auto-detection."
+  },
+  "usage_analytics": {
+    "message": "Usage Analytics"
+  },
+  "file_creation_insights": {
+    "message": "Your file creation insights"
+  },
+  "days_7": {
+    "message": "7 days"
+  },
+  "days_30": {
+    "message": "30 days"
+  },
+  "days_90": {
+    "message": "90 days"
+  },
+  "all_time": {
+    "message": "All time"
+  },
+  "total_files": {
+    "message": "Total Files"
+  },
+  "this_week": {
+    "message": "This Week"
+  },
+  "ai_platforms": {
+    "message": "AI Platforms"
+  },
+  "files_per_day": {
+    "message": "Files per day"
+  },
+  "bar_chart": {
+    "message": "Bar"
+  },
+  "line_chart": {
+    "message": "Line"
+  },
+  "top_models": {
+    "message": "Top Models"
+  },
+  "file_formats": {
+    "message": "File Formats"
+  },
+  "no_data_yet": {
+    "message": "No data yet"
+  },
+  "export": {
+    "message": "Export"
+  },
+  "clear_data": {
+    "message": "Clear Data"
+  },
+  "clear_analytics_data": {
+    "message": "Clear Analytics Data"
+  },
+  "clear_data_warning": {
+    "message": "This will permanently delete all your usage statistics and cannot be undone."
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "clear_all_data": {
+    "message": "Clear All Data"
+  },
+  "footer_copyright": {
+    "message": "© 2025 · Multi-AI File Paster · Developed by"
+  },
+  "scrum_master": {
+    "message": "Scrum Master:"
+  },
+  "powered_by": {
+    "message": "powered by"
+  },
+  "about_help": {
+    "message": "About & Help"
+  },
+  "send_feedback": {
+    "message": "Send Feedback"
+  },
+  "star_github": {
+    "message": "⭐ Star on GitHub"
+  },
+  "about_title": {
+    "message": "About & Help"
+  },
+  "feedback_title": {
+    "message": "Send Feedback"
+  },
+  "translating_wait": {
+    "message": "Translating, please wait..."
+  },
+  "close": {
+    "message": "Close"
+  },
+  "smart_file_attachment": {
+    "message": "Smart File Attachment for AI Chats"
+  },
+  "about_description": {
+    "message": "Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits."
+  },
+  "key_features": {
+    "message": "Key Features:"
+  },
+  "key_features_text": {
+    "message": "Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions."
+  },
+  "new_version": {
+    "message": "New in v1.1.0:"
+  },
+  "new_version_text": {
+    "message": "Batch Mode splits large content into multiple files, GZIP compression reduces file sizes by 60-80%, and improved analytics dashboard tracks your usage patterns."
+  },
+  "configuration": {
+    "message": "Configuration"
+  },
+  "supported_platforms": {
+    "message": "Supported AI Platforms"
+  },
+  "platforms_description": {
+    "message": "Integrates with the most popular AI chat platforms:"
+  },
+  "platforms_why": {
+    "message": "Why this matters:"
+  },
+  "platforms_why_text": {
+    "message": "Each platform has different file attachment systems. Our extension handles these differences automatically, ensuring your files attach correctly regardless of which AI you're using."
+  },
+  "privacy": {
+    "message": "Privacy"
+  },
+  "zero_data_collection": {
+    "message": "Zero Data Collection:"
+  },
+  "privacy_description": {
+    "message": "All text processing happens entirely on your device. Your content never leaves your computer - no servers, no cloud processing, no data transmission."
+  },
+  "what_we_dont_do": {
+    "message": "What we DON'T do:"
+  },
+  "privacy_dont": {
+    "message": "We never read, store, or transmit your text content, URLs, personal information, or browsing data. Your conversations with AI remain completely private."
+  },
+  "what_we_do": {
+    "message": "What we DO:"
+  },
+  "privacy_do": {
+    "message": "Process your text locally to create file attachments, then immediately discard the processed data. Simple, secure, transparent."
+  },
+  "anonymous_analytics": {
+    "message": "Anonymous Usage Analytics (Optional)"
+  },
+  "analytics_description": {
+    "message": "Help improve the extension by sharing anonymous usage counts only (files created, errors encountered). Never collects content, URLs, or personal data. Fully optional and can be disabled anytime."
+  },
+  "analytics_note": {
+    "message": "Note:"
+  },
+  "analytics_note_text": {
+    "message": "Analytics dashboard is only visible when this option is enabled."
+  },
+  "development_team": {
+    "message": "Development Team & Support"
+  },
+  "lead_developer": {
+    "message": "Lead Developer:"
+  },
+  "company": {
+    "message": "Company:"
+  },
+  "support_contacts": {
+    "message": "Support Contacts:"
+  },
+  "extension_support": {
+    "message": "Extension Support:"
+  },
+  "technical_issues": {
+    "message": "Technical Issues:"
+  },
+  "resources": {
+    "message": "Resources:"
+  },
+  "keyboard_shortcut": {
+    "message": "Keyboard Shortcut:"
+  },
+  "keyboard_shortcut_text": {
+    "message": "Ctrl/Cmd + Shift + S (Manual Save)"
+  },
+  "feedback_question": {
+    "message": "What type of feedback would you like to send?"
+  },
+  "support_request": {
+    "message": "Support Request"
+  },
+  "support_request_desc": {
+    "message": "Get help with issues, bugs, or technical problems"
+  },
+  "general_feedback": {
+    "message": "General Feedback"
+  },
+  "general_feedback_desc": {
+    "message": "Share your thoughts, suggestions, or user experience"
+  },
+  "feature_request": {
+    "message": "Feature Request"
+  },
+  "feature_request_desc": {
+    "message": "Suggest new features or improvements to make it better"
+  },
+  "language_selector": {
+    "message": "Language"
+  },
+  "language_english": {
+    "message": "English"
+  },
+  "language_swahili": {
+    "message": "Kiswahili"
+  },
+  "language_arabic": {
+    "message": "Arabic"
+  },
+  "config_auto_attach": {
+    "message": "Auto Attach: Automatically detects and converts long pastes (customizable word threshold: 50-15,000 words)"
+  },
+  "config_delay": {
+    "message": "Delay: Optional 1-15 second countdown prevents accidental attachments"
+  },
+  "config_multi_format": {
+    "message": "Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions"
+  },
+  "config_platform_optimization": {
+    "message": "Platform Optimization: Special handling for each AI platform's unique file attachment system"
+  },
+  "config_batch_processing": {
+    "message": "Batch Processing: Split large content into 2-4 files with smart line division"
+  },
+  "config_file_compression": {
+    "message": "File Compression: GZIP compression reduces file sizes for better performance"
+  },
+  "config_manual_override": {
+    "message": "Manual Override: On-demand conversion of typed text to file attachments"
+  },
+  "config_claude_integration": {
+    "message": "Claude Integration: Works alongside or replaces Claude's built-in paste-to-file feature"
+  },
+  "config_analytics_dashboard": {
+    "message": "Analytics Dashboard: Track usage patterns and file creation statistics"
+  },
+  "platform_chatgpt": {
+    "message": "OpenAI ChatGPT: Full support for both chat.openai.com and chatgpt.com"
+  },
+  "platform_claude": {
+    "message": "Anthropic Claude: Advanced integration with claude.ai including override for built-in features"
+  },
+  "platform_gemini": {
+    "message": "Google Gemini: Optimized file handling for gemini.google.com"
+  },
+  "platform_deepseek": {
+    "message": "DeepSeek AI: Complete compatibility with chat.deepseek.com"
+  },
+  "platform_grok": {
+    "message": "Grok: Standard integration with grok.com (attach button + drag-drop)"
+  },
+  "batch_active_short": {
+    "message": "BATCH ACTIVE"
+  },
+  "ui_components_custom_format_label": {
+    "message": "Custom"
+  },
+  "ui_components_connected_to": {
+    "message": "Connected to $MODEL$",
+    "placeholders": {
+      "model": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "ui_components_stopped_on": {
+    "message": "Stopped on $MODEL$",
+    "placeholders": {
+      "model": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "ui_components_ai_model_default": {
+    "message": "AI Model"
+  },
+  "modals_about_title": {
+    "message": "About Multi-AI File Paster"
+  },
+  "modals_feedback_title": {
+    "message": "Send Feedback"
+  }
+  ,
+  "beta": { "message": "BETA" },
+
+  "platforms_chatgpt": { "message": "ChatGPT: Full integration with chat.openai.com" },
+  "platforms_claude": { "message": "Claude: Native support for claude.ai conversations" },
+  "platforms_gemini": { "message": "Gemini: Seamless integration with gemini.google.com" },
+  "platforms_deepseek": { "message": "DeepSeek: Complete support for chat.deepseek.com" },
+  "platforms_grok": { "message": "Grok: Full compatibility with x.ai platform" },
+
+  "ui_components_banner_not_supported": { "message": "Not on a supported AI platform. Open ChatGPT, Claude, Gemini, DeepSeek, or Grok first" },
+  "ui_components_batch_active_badge": { "message": "BATCH" },
+  "ui_components_toggle_theme": { "message": "Toggle theme" },
+  "ui_components_custom_format_placeholder": { "message": "e.g. log, cfg, data" },
+  "ui_components_close": { "message": "Close" },
+  "ui_components_modal_title": { "message": "Rename file" },
+  "ui_components_modal_description": { "message": "Enter a filename (without extension). Leave blank to use the default name." },
+  "ui_components_modal_placeholder": { "message": "e.g. conversation-notes" },
+  "ui_components_modal_hint": { "message": "Allowed: letters, numbers, spaces, dashes, underscores (max 64). No extension." },
+  "ui_components_modal_keys_hint": { "message": "Press <span class=\"key\">Enter</span> to save · <span class=\"key\">Esc</span> to cancel" },
+  "ui_components_modal_cancel": { "message": "Cancel" },
+  "ui_components_modal_save": { "message": "Save" },
+  "ui_components_loader_cancel": { "message": "Cancel" },
+  "ui_components_retry": { "message": "Retry" },
+  "ui_components_searching_for_file_input": { "message": "Searching for file input..." },
+  "ui_components_delay_countdown": { "message": "Attaching in $1 seconds" },
+  "ui_components_data_cleared_success": { "message": "Data cleared successfully" },
+  "ui_components_batch_active_tip": { "message": "<span class='tip-badge batch'>BATCH ACTIVE</span> File Compression is disabled when Batch Mode is enabled. Only one compression method can be active at a time." },
+  "ui_components_export_filename_prefix": { "message": "multi-ai-paster-analytics-" },
+  "ui_components_export_by_prefix": { "message": "Multi-AI File Paster v" },
+  "ui_components_feedback_support_description": { "message": "issue or question" },
+  "ui_components_feedback_improvement_description": { "message": "feature request or improvement idea" },
+  "ui_components_feedback_default_description": { "message": "feedback or suggestion" },
+  "ui_components_disabled_title": { "message": "Open AI chat and type text to attach as file" },
+  "ui_components_disabled_compression_tooltip": { "message": "Disabled when file compression is enabled" },
+  "ui_components_language_changed": {
+    "message": "Language changed to $LANGUAGE$",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_batch_delay_tip": { "message": "<span class='tip-badge batch'>BATCH ACTIVE</span> This setting is disabled when Batch Mode is enabled. Batch Mode uses its own delay setting for file uploads. Turn off Batch Mode to use this delay setting." },
+  "ui_components_batch_auto_attach_tip": { "message": "<span class='tip-badge batch'>BATCH ACTIVE</span> Auto Attach is disabled when Batch Mode is enabled. Batch Mode handles file attachment automatically for split content. Turn off Batch Mode to use Auto Attach for regular single files." },
+
+  "file_format_back_to_main": { "message": "Back to main formats" },
+  "file_format_next_page": { "message": "Next page loaded" },
+  "file_format_previous_page": { "message": "Previous page loaded" },
+  "file_format_enter_custom": { "message": "Enter custom extension" },
+  "file_format_changed": { "message": "File format updated" },
+  "file_format_format_selected": { "message": "File format set to .$1" },
+  "file_format_more_formats_loaded": { "message": "More formats loaded" },
+  "file_format_custom_format_set": { "message": "Custom format set to $1" },
+
+  "file_operations_attachment_cancelled": { "message": "File attachment cancelled" },
+  "file_operations_attachment_preparing": { "message": "Preparing your file" },
+  "file_operations_attachment_attaching": { "message": "Attaching file" },
+  "file_operations_attachment_uploading": { "message": "Uploading file" },
+  "file_operations_attachment_success": { "message": "Attached $1" },
+  "file_operations_manual_save_success": { "message": "File attached" },
+  "file_operations_batch_detected": { "message": "Large content detected. Splitting into $1 files" },
+  "file_operations_batch_processing_start": { "message": "Processing $1 files" },
+  "file_operations_batch_processing": { "message": "Processing file $1 of $2: $3" },
+  "file_operations_batch_attaching": { "message": "Attaching $1" },
+  "file_operations_batch_uploading": { "message": "Uploading $1" },
+  "file_operations_batch_success": { "message": "Processed $1 files from batch" },
+  "file_operations_compression_optimized": { "message": "File optimized from $1 to $2 ($3% smaller)" },
+
+  "errors_extension_reloaded": { "message": "Extension was reloaded. Please refresh the page and try again" },
+  "errors_extension_context": { "message": "Extension context issue. Please refresh the page and try again" },
+  "errors_no_file_input": { "message": "Cannot find file upload area. Try clicking the attachment button on the platform first" },
+  "errors_network_error": { "message": "Network error. Check your internet connection and try again" },
+  "errors_permission_denied": { "message": "Permission denied. Please refresh the page and try again" },
+  "errors_attachment_failed": { "message": "File attachment failed. Please refresh the page and try again" },
+  "errors_no_text_input": { "message": "No text found in chat input. Type your message first" },
+  "errors_text_too_short": { "message": "Text too short ($1 words). Minimum $2 words required" },
+  "errors_text_too_short_manual": { "message": "Text too short for manual save. Either add more text or lower the Min Words setting" },
+  "errors_busy_processing": { "message": "Another file attachment is in progress. Please wait" },
+  "errors_platform_not_supported": { "message": "This AI platform is not supported. Try ChatGPT, Claude, Gemini, DeepSeek, or Grok" },
+  "errors_no_input_field": { "message": "Cannot find chat input field. Make sure you are on a supported AI chat page" },
+  "errors_connection_failed": { "message": "Cannot connect to the page. Please refresh and try again" },
+  "errors_no_response": { "message": "No response from the page. Please refresh and try again" },
+  "errors_no_tab_access": { "message": "Cannot access the current tab. Please try again" },
+  "errors_batch_processing_failed": { "message": "Batch processing failed: $1" },
+  "errors_export_failed": { "message": "Export failed. Please try again" },
+
+  "platform_specific_try_attachment_button": { "message": "Try clicking the attachment button on the platform first, then retry" },
+  "platform_specific_manual_drag_drop": { "message": "Still cannot find file input. Please attach the file manually by dragging it to the chat" },
+
+  "analytics_last_7_days": { "message": "Last 7 Days" },
+  "analytics_last_30_days": { "message": "Last 30 Days" },
+  "analytics_last_90_days": { "message": "Last 90 Days" },
+  "analytics_all_time": { "message": "All Time" },
+  "analytics_analytics_updated": {
+    "message": "Analytics updated: $PERIOD$",
+    "placeholders": {
+      "period": {
+        "content": "$1",
+        "example": "Last 7 Days"
+      }
+    }
+  },
+  "analytics_no_data": { "message": "No data" },
+  "analytics_no_data_yet": { "message": "No data yet" },
+  "analytics_error_loading": { "message": "Error loading data" },
+  "analytics_clearing_data": { "message": "Clearing data..." },
+  "analytics_chart_error": { "message": "Chart error" },
+  "analytics_chart_unavailable": { "message": "Chart unavailable" },
+  "analytics_today": { "message": "Today" },
+  "analytics_yesterday": { "message": "Yesterday" },
+  "analytics_days_ago": {
+    "message": "$DAYS$ days ago",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "analytics_files_label": { "message": "files" },
+
+  "success_analytics_exported": { "message": "Analytics data exported successfully" },
+  "success_github_star": { "message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> Thanks! Opening GitHub to star the repository" },
+  "success_feedback_sent": { "message": "Feedback email opened successfully! Thank you for helping us improve." },
+  "success_not_on_platform": { "message": "Not on a supported AI platform. Open ChatGPT, Claude, Gemini, DeepSeek, or Grok first" },
+
+  "validation_system_unavailable": { "message": "Validation system not available" },
+  "validation_extension_required": { "message": "Extension is required" },
+  "validation_letters_numbers_only": { "message": "Enter letters or numbers only" },
+  "validation_security_risk": { "message": "Security risk: executable extensions are not allowed" }
+  ,
+  "validation_security_risk_executable": { "message": "Security risk: executable extensions are not allowed" }
+  ,
+  "settings_saving": { "message": "Saving settings" },
+  "settings_word_limit_updated": { "message": "Word limit updated to $1 words" },
+  "settings_delay_enabled": { "message": "Attachment delay enabled for $1 seconds" },
+  "settings_delay_disabled": { "message": "Attachment delay disabled" },
+  "settings_batch_mode_enabled": { "message": "Batch mode enabled. Auto attach disabled while batch mode is active" },
+  "settings_batch_mode_disabled": { "message": "Batch mode disabled. Auto attach restored" },
+  "settings_compression_enabled": { "message": "File compression enabled for files over $1 bytes" },
+  "settings_compression_disabled": { "message": "File compression disabled" },
+  "settings_batch_compression_enabled": { "message": "Batch compression enabled" },
+  "settings_batch_compression_disabled": { "message": "Batch compression disabled" },
+  "settings_auto_attach_enabled": { "message": "Auto attach enabled. Files will attach automatically when you paste" },
+  "settings_auto_attach_disabled": { "message": "Auto attach disabled. Use the manual save button to attach files" },
+  "settings_claude_override_enabled": { "message": "Claude override enabled. Extension will work on Claude" },
+  "settings_claude_override_disabled": { "message": "Claude override disabled. Claude will use built-in features" },
+  "settings_telemetry_enabled": { "message": "Analytics enabled. This helps improve the extension" },
+  "settings_telemetry_disabled": { "message": "Analytics disabled. No usage data will be collected" },
+  "settings_debug_enabled": { "message": "Debug mode enabled" },
+  "settings_debug_disabled": { "message": "Debug mode disabled" },
+  "settings_max_batch_files_updated": { "message": "Maximum batch files set to $1" },
+  "settings_batch_delay_updated": { "message": "Batch processing delay set to $1ms" },
+  "settings_compression_threshold_updated": { "message": "Compression threshold set to $1 bytes" },
+  "github_repository": { "message": "GitHub Repository" },
+  "view_on_github": { "message": "View on GitHub" },
+  "developer_website": { "message": "Developer Website" },
+  "wekturbo_page": { "message": "WekTurbo Page" }
+}

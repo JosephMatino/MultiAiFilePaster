@@ -1,0 +1,30 @@
+blank_issues_enabled: false
+auto_assign:
+  - JosephMatino
+labels:
+  - needs-triage
+contact_links:
+  - name: 📧 Technical Support
+    url: mailto:dev@josephmatino.com
+    about: Direct email support for technical issues and development questions
+  - name: 🏢 General Support
+    url: mailto:wekturbo@hostwek.com
+    about: General support and business inquiries
+  - name: 📚 Documentation
+    url: https://github.com/JosephMatino/MultiAiFilePaster/blob/main/readme.md
+    about: Complete documentation and user guide
+  - name: 🤝 Contributing Guide
+    url: https://github.com/JosephMatino/MultiAiFilePaster/blob/main/CONTRIBUTING.md
+    about: Guidelines for contributing to the project
+  - name: 🔒 Security Policy
+    url: https://github.com/JosephMatino/MultiAiFilePaster/blob/main/.github/SECURITY.md
+    about: Report security vulnerabilities privately
+  - name: 🌐 Joseph Matino
+    url: https://josephmatino.com
+    about: Lead Developer - Technical architecture and implementation
+  - name: 🎯 Majok Deng
+    url: https://majokdeng.com
+    about: Scrum Master - Project management and coordination
+  - name: 🏢 WekTurbo Designs
+    url: https://hostwek.com/wekturbo
+    about: Company website and additional resources
