@@ -38,7 +38,7 @@
 
 ## 🚀 Getting Started & Quick Help
 
-Multi-AI File Paster helps with large content across ChatGPT, Claude, Gemini, DeepSeek, and Grok. If you need assistance, this support page lists clear ways to get help quickly.
+Multi-AI File Paster helps with large content across ChatGPT, Claude, Gemini, DeepSeek, and Grok. With complete support for 11 languages (677 translation keys each), if you need assistance, this support page lists clear ways to get help quickly.
 
 ## 📚 Documentation & Resources
 

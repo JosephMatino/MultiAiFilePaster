@@ -19,7 +19,7 @@
 
 ## 🌿 Branch Strategy
 
-The Multi-AI File Paster uses a sophisticated dual-branch architecture designed for Chrome Web Store compliance and development efficiency.
+The Multi-AI File Paster project uses a sophisticated dual-branch architecture designed for Chrome Web Store compliance and development efficiency. This strategy ensures that development tools and internal documentation remain available for the team while maintaining a clean, production-ready codebase for public distribution and Chrome Web Store submission.
 
 ### Dual-Branch Architecture
 - **develop**: Complete development environment containing all project files, documentation, MCP servers, and development tools
@@ -54,7 +54,7 @@ DEVELOPMENT_FILES=(
 
 ## 📋 Daily Workflow
 
-The git.sh tool enforces a structured four-step daily workflow that maintains code quality and deployment readiness.
+The git.sh automation tool enforces a structured four-step daily workflow that maintains code quality and deployment readiness throughout the development process. This standardized approach ensures consistent development practices while automating the complex process of maintaining separate development and production branches.
 
 ### Core Workflow (1→2→3→4)
 

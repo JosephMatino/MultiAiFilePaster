@@ -62,4 +62,13 @@ if git diff --name-only HEAD~1 HEAD | grep -E "(src/|manifest\.json)" >/dev/null
     echo -e "${GRAY}  📝 Consider updating documentation${NC}"
 fi
 
+# MCP analysis suggestion
+if [[ -f "mcp-servers/multi_ai_assistant.py" ]]; then
+    echo ""
+    echo -e "${BLUE}${ICON_INFO} Quality Assurance:${NC}"
+    echo -e "${GRAY}  • Run MCP analysis: ${NC}python mcp-servers/multi_ai_assistant.py project"
+    echo -e "${GRAY}  • Check i18n compliance: ${NC}python3 .github/hooks/check-i18n.py"
+    echo -e "${GRAY}  • Validate duplicates: ${NC}python mcp-servers/multi_ai_assistant.py i18n --check_duplicates"
+fi
+
 echo ""

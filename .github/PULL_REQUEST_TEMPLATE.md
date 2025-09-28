@@ -1,6 +1,6 @@
 <!--
 ================================================================================
-Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+Multi-AI File Paster Chrome Extension | Production Release v1.1.0 | 11 Languages
 ================================================================================
 
 TEMPLATE: Pull Request Template

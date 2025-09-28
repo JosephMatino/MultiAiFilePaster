@@ -210,6 +210,35 @@ while IFS= read -r -d '' file; do
     fi
 done < <(find src/ -name "*.js" -print0)
 
+# Enhanced MCP validation integration
+if command -v python3 >/dev/null 2>&1 && [[ -f "mcp-servers/multi_ai_assistant.py" ]]; then
+    echo -e "${BLUE}${ICON_CHECK} Running MCP quality analysis...${NC}"
+
+    # Check if MCP server is syntactically valid
+    if python3 -m py_compile mcp-servers/multi_ai_assistant.py 2>/dev/null; then
+        echo -e "${GREEN}   ${ICON_SUCCESS} MCP server syntax validation passed${NC}"
+    else
+        echo -e "${RED}   ${ICON_ERROR} MCP server has syntax errors${NC}"
+        fallback_violations+=("mcp-servers/multi_ai_assistant.py: Python syntax errors detected")
+    fi
+
+    # Validate MCP server dependencies
+    if python3 -c "import mcp" 2>/dev/null; then
+        echo -e "${GREEN}   ${ICON_SUCCESS} MCP dependencies available${NC}"
+    else
+        echo -e "${YELLOW}   ${ICON_WARNING} MCP dependencies not available (install with: pip install mcp)${NC}"
+    fi
+else
+    echo -e "${YELLOW}   ${ICON_WARNING} MCP validation skipped (Python3 or MCP server not available)${NC}"
+fi
+
+# Check for deprecated chrome.i18n.getMessage calls (should use window.GPTPF_I18N.getMessage)
+while IFS= read -r -d '' file; do
+    if grep -n "chrome\.i18n\.getMessage" "$file" | grep -v "src/shared/i18n.js" >/dev/null 2>&1; then
+        fallback_violations+=("$file: Uses deprecated chrome.i18n.getMessage (use window.GPTPF_I18N.getMessage)")
+    fi
+done < <(find src/ -name "*.js" -print0)
+
 # Check for actual alert/confirm/prompt function calls (exclude variable names and aria-labels)
 while IFS= read -r -d '' file; do
     if grep -nE "\b(alert|confirm|prompt)\s*\(" "$file" >/dev/null 2>&1; then
@@ -220,7 +249,7 @@ done < <(find src/ -name "*.js" -print0)
 if [[ ${#fallback_violations[@]} -gt 0 ]]; then
     echo -e "${RED}${ICON_ERROR} Centralization violations found:${NC}"
     printf "${RED}   - %s${NC}\n" "${fallback_violations[@]}"
-    echo -e "${GRAY}   Use centralized getMessage() and config systems${NC}"
+    echo -e "${GRAY}   Use centralized window.GPTPF_I18N.getMessage() and config systems${NC}"
     exit 1
 fi
 echo -e "${GREEN}${ICON_SUCCESS} Centralization standards maintained${NC}"
@@ -248,15 +277,16 @@ echo -e "${GREEN}${ICON_SUCCESS} No amateur comments found${NC}"
 # i18n coverage validation (only when relevant files staged)
 if git diff --cached --name-only | grep -E '^(src/|_locales/|manifest.json)' >/dev/null 2>&1; then
     echo -e "${BLUE}${ICON_INFO} Validating i18n coverage...${NC}"
-    if command -v node >/dev/null 2>&1; then
-        if ! node .github/hooks/check-i18n.js; then
+    if command -v python3 >/dev/null 2>&1; then
+        if ! python3 .github/hooks/check-i18n.py; then
             echo -e "${RED}${ICON_ERROR} Missing i18n keys detected. See report above.${NC}"
             echo -e "${GRAY}   Add missing keys to _locales/en/messages.json (and other locales)${NC}"
+            echo -e "${GRAY}   Current system uses window.GPTPF_I18N.getMessage() for translations${NC}"
             exit 1
         fi
         echo -e "${GREEN}${ICON_SUCCESS} i18n keys are complete for current usage${NC}"
     else
-        echo -e "${YELLOW}${ICON_WARNING} Node.js not found. Skipping i18n coverage check${NC}"
+        echo -e "${YELLOW}${ICON_WARNING} Python3 not found. Skipping i18n coverage check${NC}"
     fi
 fi
 

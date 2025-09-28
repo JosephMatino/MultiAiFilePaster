@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,74 +98,66 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   let activeTooltip = null;
-
   function showTooltip(button) {
+    window.GPTPF_DEBUG?.log('debug_tooltip_show');
     hideTooltip();
-
     const text = button.getAttribute('data-tip');
-    if (!text) return;
-
+    if (!text) {
+      window.GPTPF_DEBUG?.warn('debug_tooltip_missing_text');
+      return;
+    }
     const tooltip = document.createElement('div');
     tooltip.className = 'professional-tooltip';
     tooltip.innerHTML = text;
-
     const arrow = document.createElement('div');
     arrow.className = 'professional-tooltip-arrow';
     tooltip.appendChild(arrow);
-
     document.body.appendChild(tooltip);
-
     const buttonRect = button.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
-
     let left = buttonRect.left + (buttonRect.width / 2) - (tooltipRect.width / 2);
     let top = buttonRect.top - tooltipRect.height - 8;
     let arrowTop = tooltipRect.height - 1;
-
     const padding = 16;
     if (left < padding) left = padding;
     if (left + tooltipRect.width > window.innerWidth - padding) {
       left = window.innerWidth - tooltipRect.width - padding;
     }
-
     if (top < padding) {
       top = buttonRect.bottom + 8;
       arrowTop = -5;
     }
-
     tooltip.style.left = left + 'px';
     tooltip.style.top = top + 'px';
-
     const buttonCenter = buttonRect.left + (buttonRect.width / 2);
     const tooltipLeft = left;
     const arrowLeft = buttonCenter - tooltipLeft - 5;
-
     arrow.style.left = Math.max(5, Math.min(tooltipRect.width - 15, arrowLeft)) + 'px';
     arrow.style.top = arrowTop + 'px';
-
     tooltip.classList.add('show');
     button.setAttribute('aria-expanded', 'true');
-
     activeTooltip = { tooltip, button };
+    window.GPTPF_DEBUG?.log('debug_tooltip_displayed');
   }
-
   function hideTooltip() {
     if (activeTooltip) {
+      window.GPTPF_DEBUG?.log('debug_tooltip_hide');
       activeTooltip.tooltip.remove();
       activeTooltip.button.setAttribute('aria-expanded', 'false');
       activeTooltip = null;
+      window.GPTPF_DEBUG?.log('debug_tooltip_hidden');
     }
   }
-
   function initTooltips() {
+    window.GPTPF_DEBUG?.log('debug_tooltip_system_init');
     document.addEventListener('click', (e) => {
       const t = e.target;
       if (t && t.classList && t.classList.contains('help')){
         const hasTip = t.hasAttribute('data-tip');
         if (hasTip) {
+          window.GPTPF_DEBUG?.log('debug_tooltip_help_clicked');
           e.preventDefault();
           if (activeTooltip && activeTooltip.button === t) {
             hideTooltip();
@@ -177,15 +169,22 @@
       }
       hideTooltip();
     });
-
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') hideTooltip();
+      if (e.key === 'Escape') {
+        window.GPTPF_DEBUG?.log('debug_tooltip_escape_pressed');
+        hideTooltip();
+      }
     });
+    window.GPTPF_DEBUG?.log('debug_tooltip_system_ready');
   }
-
   window.GPTPF_TOOLTIPS = {
     showTooltip,
     hideTooltip,
     initTooltips
   };
-})();
+  window.addEventListener('beforeunload', () => {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.info('tooltips_cleanup', window.GPTPF_I18N.getMessage('tooltips_cleanup_complete'));
+    }
+  });
+})();

@@ -13,17 +13,17 @@
  * RELIABILITY: Quality error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,49 +98,53 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
-/* ============================== STATE =================================== */
 const PLATFORM_TIMEOUTS = window.GPTPF_CONFIG?.PLATFORM_TIMEOUTS;
-
 let settings = window.GPTPF_CONFIG?.DEFAULTS;
 let busy = false;
 let lastHash = "";
 let claudeProcessing = false;
-
 let toastComponent = null;
 let loaderComponent = null;
 let modalComponent = null;
 let fileAttachComponent = null;
 let platformHandler = null;
 function getCurrentPlatform() {
-  if (window.PlatformFactory) {
-    return window.PlatformFactory.getCurrentPlatform();
-  }
-  const map = window.GPTPF_CONFIG?.PLATFORM_DOMAINS;
-  const host = window.location.hostname;
-  for (const name in map) {
-    const list = map[name];
-    if (list?.some(d => host.includes(d))) return name;
-  }
-  return 'unknown';
+  return window.PlatformFactory.getCurrentPlatform();
 }
-
-
+function detectActualPlatform() {
+  const url = window.location.href;
+  if (url.includes('chatgpt') || url.includes('openai')) return 'chatgpt';
+  if (url.includes('claude')) return 'claude';
+  if (url.includes('gemini')) return 'gemini';
+  if (url.includes('deepseek')) return 'deepseek';
+  if (url.includes('grok')) return 'grok';
+  return 'default';
+}
+function applyContentTheme(theme) {
+  try {
+    if (theme === 'default') {
+      const actualPlatform = detectActualPlatform();
+      if (actualPlatform !== 'default') {
+        theme = actualPlatform;
+      }
+    }
+    document.documentElement.setAttribute('data-platform', theme);
+    window.GPTPF_DEBUG?.log('debug_content_theme_applied', [theme]);
+  } catch (err) {
+    window.GPTPF_DEBUG?.error('debug_content_theme_error', err);
+  }
+}
 function trackFileCreation(file, platform) {
   try {
     const storage = (typeof chrome !== 'undefined' && chrome?.storage?.local) ? chrome.storage.local : null;
     if (!storage || typeof storage.get !== 'function' || typeof storage.set !== 'function') {
-
       return;
     }
-
     storage.get(['telemetryEnabled'], (result = {}) => {
       try {
         if (!result.telemetryEnabled) return;
-
         const fileExt = file?.name?.split('.')?.pop();
         const timestamp = Date.now();
-
         storage.get(['__analytics_data'], (data = {}) => {
           try {
             const analytics = data.__analytics_data || {
@@ -149,11 +153,9 @@ function trackFileCreation(file, platform) {
               formats: {},
               history: []
             };
-
             analytics.totalFiles = (analytics.totalFiles || 0) + 1;
             analytics.platforms[platform] = (analytics.platforms[platform] || 0) + 1;
             analytics.formats[fileExt] = (analytics.formats[fileExt] || 0) + 1;
-
             analytics.history.push({ timestamp, platform, format: fileExt, filename: file?.name });
             const limits = window.GPTPF_CONFIG?.ANALYTICS_LIMITS;
             if (analytics.history.length > (limits?.maxHistoryItems || 1000)) {
@@ -162,67 +164,56 @@ function trackFileCreation(file, platform) {
             }
             storage.set({ __analytics_data: analytics });
           } catch (err) {
-            void err;
+            if (window.GPTPF_DEBUG) {
+              window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+            }
           }
         });
       } catch (err) {
-        void err;
+        if (window.GPTPF_DEBUG) {
+          window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+        }
       }
     });
   } catch (err) {
-    void err;
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+    }
   }
 }
-
-
 function getPlatformSettings() {
-  if (window.PlatformFactory) {
-    return window.PlatformFactory.getPlatformSettings(settings);
-  }
-  const platform = getCurrentPlatform();
-  const baseSettings = { ...settings };
-  const timeout = PLATFORM_TIMEOUTS[platform];
-  const platformSettings = { ...baseSettings, timeout };
-
-  if (platform === 'gemini') {
-    platformSettings.useDelay = false;
-    platformSettings.delaySeconds = 0;
-  }
-
-  if (platformSettings.batchMode) {
-    platformSettings.enableCompression = false;
-  }
-
-  return platformSettings;
+  return window.PlatformFactory.getPlatformSettings(settings);
 }
-
-
 function initializeComponents() {
   try {
     if (window.ToastComponent) toastComponent = new window.ToastComponent();
     if (window.LoaderComponent) loaderComponent = new window.LoaderComponent();
     if (window.RenameModal) modalComponent = new window.RenameModal();
     if (window.FileAttachComponent) fileAttachComponent = new window.FileAttachComponent();
-
-    if (window.LanguageDetector) {
-      window.GPTPF_LANGUAGE_DETECTOR = new window.LanguageDetector();
+    if (window.LanguageDetector && !window.GPTPF_LANGUAGE_DETECTOR) {
+      try {
+        window.GPTPF_LANGUAGE_DETECTOR = new window.LanguageDetector();
+      } catch (err) {
+        console.warn('[Multi-AI] LanguageDetector initialization failed:', err);
+        window.GPTPF_LANGUAGE_DETECTOR = null;
+      }
     }
-
     if (window.PlatformFactory) {
       platformHandler = window.PlatformFactory.createPlatformHandler();
     }
-
     const platform = getCurrentPlatform();
     if (platform !== 'unknown') {
       document.documentElement.setAttribute('data-platform', platform);
     }
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.updateSettings();
+    }
   } catch (error) {
-    if (window.GPTPF_MESSAGES && window.GPTPF_MESSAGES.logError) {
-      window.GPTPF_MESSAGES.logError('Component initialization failed', error);
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_component_init_error', error);
     }
   }
 }
-
 chrome.runtime.sendMessage({ type:"GET_SETTINGS" }, r => {
   if (r?.ok) {
     const merged = { ...settings, ...r.settings };
@@ -230,6 +221,8 @@ chrome.runtime.sendMessage({ type:"GET_SETTINGS" }, r => {
       merged.autoAttachEnabled = !!merged.autoPasteEnabled;
     }
     settings = merged;
+    const userTheme = settings.selectedTheme || 'default';
+    applyContentTheme(userTheme);
   }
   initializeComponents();
 });
@@ -252,15 +245,12 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     }
   }
 });
-
-/* ============================== UI ====================================== */
 function toast(text, ok=true, action){
   if (toastComponent) {
     toastComponent.show(text, ok, action);
   }
 }
-
-
+window.toast = toast;
 function loader(text){
   if (loaderComponent) {
     loaderComponent.show(text);
@@ -271,33 +261,25 @@ function hideLoader(){
     loaderComponent.hide();
   }
 }
-
-
 function delayCountdown(ms){
   if (loaderComponent) {
     return loaderComponent.delayCountdown(ms);
   }
   return Promise.resolve();
 }
-
-
 function renameModal(){
   if (modalComponent) {
     return modalComponent.show();
   }
-  return Promise.reject(new Error('Modal component not available'));
+  return Promise.reject(new Error(window.GPTPF_I18N?.getMessage('errors_modal_not_available')));
 }
-
-/* ============================== DOM HELPERS ============================== */
 const isTA = el => el && el.tagName === "TEXTAREA";
 const isCE = el => el && el.getAttribute && el.getAttribute("contenteditable") === "true";
-
 function getComposer(){
   if (platformHandler && platformHandler.getComposer) {
     return platformHandler.getComposer();
   }
   const a = document.activeElement; if (a && (isCE(a)||isTA(a))) return a;
-
   const __p = getCurrentPlatform();
   if (__p === 'claude') {
     return document.querySelector('div[contenteditable="true"].ProseMirror')
@@ -317,14 +299,12 @@ function getComposer(){
       || document.querySelector('div[role="textbox"][contenteditable="true"]')
       || document.querySelector("textarea") || null;
 }
-
 function readComposerText(el){
   if (!el) return "";
   if (isTA(el)) return el.value;
   if (isCE(el)) return el.innerText || el.textContent;
   return "";
 }
-
 function clearComposer(el){
   if (!el) return;
   try {
@@ -336,11 +316,11 @@ function clearComposer(el){
       el.dispatchEvent(new Event('input', { bubbles: true }));
     }
   } catch (error) {
-    void error;
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_platform_handler_error', error);
+    }
   }
 }
-
-
 let pendingRestore = null;
 function captureCaret(el){
   try {
@@ -354,10 +334,13 @@ function captureCaret(el){
         return { type: 'ce', range: r };
       }
     }
-  } catch(err) { void err; }
+  } catch(err) {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+    }
+  }
   return { type: 'none' };
 }
-
 function restorePaste(ctx){
   if (!ctx || !ctx.comp || !ctx.text) return;
   const el = ctx.comp;
@@ -387,30 +370,64 @@ function restorePaste(ctx){
       el.dispatchEvent(new Event('input', { bubbles: true }));
       return;
     }
-  } catch(err) { void err; }
-
+  } catch(err) {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+    }
+  }
   try {
     if (isTA(el)) { el.value += ctx.text; el.dispatchEvent(new Event('input', { bubbles: true })); return; }
     if (isCE(el)) { el.appendChild(document.createTextNode(ctx.text)); el.dispatchEvent(new Event('input', { bubbles: true })); return; }
-  } catch(err) { void err; }
+  } catch(err) {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+    }
+  }
 }
-
-/* ============================== FILE + UPLOAD ============================ */
-const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
-const wc    = s => s?.trim().match(/\b\w+\b/g)?.length;
-const hash  = s => s ? String(s.length)+":"+s.slice(0,32) : "";
-
-
+const clamp = window.GPTPF_VALIDATION.clamp;
+const wc = window.GPTPF_VALIDATION.wc;
+const hash = window.GPTPF_VALIDATION.hash;
 function makeFile(content, fmt, customName=""){
-  if (fileAttachComponent) {
-    return fileAttachComponent.makeFile(content, fmt, customName);
+  if (!content || typeof content !== 'string') {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('makeFile_invalid_content', { content, type: typeof content });
+    }
+    throw new Error(window.GPTPF_I18N?.getMessage('errors_makefile_invalid_content'));
   }
 
-  const blob = new Blob([content], { type: "text/plain" });
-  return new File([blob], `paste.${Date.now()}.${fmt}`, { type: "text/plain" });
+  if (!fmt || typeof fmt !== 'string') {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.warn('makeFile_invalid_format', { fmt });
+    }
+    fmt = 'txt';
+  }
+
+  if (fileAttachComponent) {
+    try {
+      const result = fileAttachComponent.makeFile(content, fmt, customName);
+      if (!result || !(result instanceof File)) {
+        throw new Error(window.GPTPF_I18N?.getMessage('errors_fileattach_invalid_result'));
+      }
+      return result;
+    } catch (error) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG.error('fileAttachComponent_error', error);
+      }
+      throw error;
+    }
+  }
+
+  try {
+    const blob = new Blob([content], { type: "text/plain" });
+    const filename = `paste.${Date.now()}.${fmt}`;
+    return new File([blob], filename, { type: "text/plain" });
+  } catch (error) {
+    if (window.GPTPF_DEBUG) {
+      window.GPTPF_DEBUG.error('blob_creation_error', error);
+    }
+    throw new Error(`Failed to create file: ${error.message}`);
+  }
 }
-
-
 const plusBtn = () => {
   if (fileAttachComponent) {
     return fileAttachComponent.getPlusButton();
@@ -423,91 +440,99 @@ const fileInput = () => {
   }
   return null;
 };
-
-
 async function ensureFileInput(wait=2000){
   if (fileAttachComponent) {
     return await fileAttachComponent.ensureFileInput(wait);
   }
   return null;
 }
-
 async function processText(text, overrideExt){
   try{
     busy = true;
     const platformSettings = getPlatformSettings();
-
     if (platformSettings.batchMode && window.GPTPF_BATCH) {
       const words = wc(text);
       const wordLimit = platformSettings.wordLimit;
-
       if (words >= wordLimit) {
         const parts = window.GPTPF_BATCH.splitContent(text, platformSettings.maxBatchFiles);
-
         if (parts.length > 1) {
-          const batchDetectedMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_DETECTED', parts.length);
+          const batchDetectedMsg = window.GPTPF_I18N.getMessage('batch_detected', [parts.length.toString()]);
           toast(batchDetectedMsg, true);
           return await processBatchFiles(parts, platformSettings);
         }
       }
     }
-
     let newName = '';
     try {
       newName = await renameModal();
     } catch {
-
-      if (pendingRestore) { try { restorePaste(pendingRestore); } catch(err) { void err; } pendingRestore = null; }
+      if (pendingRestore) {
+        try { restorePaste(pendingRestore); } catch(err) {
+          if (window.GPTPF_DEBUG) {
+            window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+          }
+        }
+        pendingRestore = null;
+      }
       lastHash = "";
       hideLoader();
-      const cancelMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_CANCELLED');
+      const cancelMsg = window.GPTPF_I18N.getMessage('attachment_cancelled');
       toast(cancelMsg, false);
       throw new Error('cancelled');
     }
-    const preparingMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_PREPARING');
+    const preparingMsg = window.GPTPF_I18N.getMessage('attachment_preparing');
     loader(preparingMsg);
-
-    let compressionInfo = null;
-    if (platformSettings.enableCompression && window.GPTPF_COMPRESSION) {
-      const compressionResult = await window.GPTPF_COMPRESSION.compressText(text, {
-        threshold: platformSettings.compressionThreshold
-      });
-      if (compressionResult.compressed) {
-        compressionInfo = window.GPTPF_COMPRESSION.getCompressionInfo(compressionResult);
-        const compressionMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'COMPRESSION_OPTIMIZED',
-          compressionInfo.originalSize, compressionInfo.compressedSize, compressionInfo.savingsPercent);
-        toast(compressionMsg, true);
-      }
+    if (!text || typeof text !== 'string') {
+      throw new Error(window.GPTPF_I18N?.getMessage('errors_invalid_content_type'));
     }
 
+    if (text.length === 0) {
+      throw new Error(window.GPTPF_I18N?.getMessage('errors_invalid_content_empty'));
+    }
+
+    let compressionInfo = null;
+    if (platformSettings.enableCompression && window.GPTPF_COMPRESSION && text.length > 2048) {
+      try {
+        const compressionResult = await window.GPTPF_COMPRESSION.compressText(text, {
+          threshold: platformSettings.compressionThreshold || 2048
+        });
+        if (compressionResult.compressed) {
+          compressionInfo = window.GPTPF_COMPRESSION.getCompressionInfo(compressionResult);
+          const compressionMsg = window.GPTPF_I18N.getMessage('compression_optimized',
+            [compressionInfo.originalSize, compressionInfo.compressedSize, compressionInfo.savingsPercent]);
+          toast(compressionMsg, true);
+        } else if (compressionResult.error) {
+          if (window.GPTPF_DEBUG) {
+            window.GPTPF_DEBUG.warn('compression_failed', compressionResult.error);
+          }
+        }
+      } catch (compressionError) {
+        if (window.GPTPF_DEBUG) {
+          window.GPTPF_DEBUG.error('compression_exception', compressionError);
+        }
+      }
+    }
     const file = makeFile(text, (overrideExt || platformSettings.fileFormat), newName);
-
-
     if (platformHandler && platformHandler.attachFile) {
       if (platformSettings.useDelay && platformSettings.delaySeconds > 0) {
         await delayCountdown(platformSettings.delaySeconds * 1000);
       }
-
-      const attachingMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_ATTACHING');
+      const attachingMsg = window.GPTPF_I18N.getMessage('attachment_attaching');
       loader(attachingMsg);
       const success = await platformHandler.attachFile(file);
-
       if (success) {
         hideLoader();
-        const successMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_SUCCESS', file.name);
+        const successMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
         toast(successMsg, true);
         lastHash = "";
-
-
         trackFileCreation(file, getCurrentPlatform());
       } else {
-        throw new Error('Platform handler failed to attach file');
+        throw new Error(window.GPTPF_I18N?.getMessage('errors_platform_attach_failed'));
       }
     } else {
-
       let input = await ensureFileInput(platformSettings.timeout);
       if (input){
-        const uploadingMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_UPLOADING');
+        const uploadingMsg = window.GPTPF_I18N.getMessage('attachment_uploading');
         loader(uploadingMsg);
         if (fileAttachComponent) {
           fileAttachComponent.attachFileToInput(file, input);
@@ -519,28 +544,23 @@ async function processText(text, overrideExt){
           input.dispatchEvent(new Event("input", { bubbles:true }));
         }
         hideLoader();
-        const successMsg2 = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_SUCCESS', file.name);
+        const successMsg2 = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
         toast(successMsg2, true);
         lastHash = "";
-
-
         trackFileCreation(file, getCurrentPlatform());
       } else {
         hideLoader();
         let handled = false;
         const platform = getCurrentPlatform();
-        const errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'NO_FILE_INPUT');
-        const suggestion = window.GPTPF_MESSAGES.getMessage('PLATFORM_SPECIFIC', 'TRY_ATTACHMENT_BUTTON');
-
+        const errorMsg = window.GPTPF_I18N.getMessage('no_file_input');
+        const suggestion = window.GPTPF_I18N.getMessage('try_attachment_button');
         toast(`${errorMsg} ${suggestion}`, false, {
-          label: window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'RETRY'),
+          label: window.GPTPF_I18N.getMessage('retry'),
           onClick: async ()=>{
             if (handled) return;
             handled = true;
-            loader(window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'SEARCHING_FOR_FILE_INPUT'));
-
+            loader(window.GPTPF_I18N.getMessage('searching_for_file_input'));
             const again = await ensureFileInput(platformSettings.timeout + 1000);
-
             if (again){
               const dt2 = new DataTransfer();
               dt2.items.add(file);
@@ -548,17 +568,17 @@ async function processText(text, overrideExt){
               again.dispatchEvent(new Event("change", { bubbles:true }));
               again.dispatchEvent(new Event("input", { bubbles:true }));
               hideLoader();
-              const retrySuccessMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_SUCCESS', file.name);
+              const retrySuccessMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
               toast(retrySuccessMsg, true);
               lastHash = "";
             } else if (platform === 'gemini' && platformHandler && await platformHandler.tryDropAttach(file)) {
               hideLoader();
-              const geminiSuccessMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_SUCCESS', file.name);
+              const geminiSuccessMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
               toast(geminiSuccessMsg, true);
               lastHash = "";
             } else {
               hideLoader();
-              const manualDragMsg = window.GPTPF_MESSAGES.getMessage('PLATFORM_SPECIFIC', 'MANUAL_DRAG_DROP');
+              const manualDragMsg = window.GPTPF_I18N.getMessage('manual_drag_drop');
               toast(manualDragMsg, false);
               lastHash = "";
             }
@@ -569,25 +589,23 @@ async function processText(text, overrideExt){
   } catch (error) {
     hideLoader();
     const msg = (error && (error.message || String(error))) || '';
-
     if (msg === 'cancelled') {
       lastHash = "";
       throw error;
     }
-
     let errorMsg;
     if (msg.includes('Extension context invalidated')) {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'EXTENSION_RELOADED');
+      errorMsg = window.GPTPF_I18N.getMessage('extension_reloaded');
     } else if (msg.includes('Cannot read properties of undefined') && msg.includes('(reading \"get\")')) {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'EXTENSION_CONTEXT');
+      errorMsg = window.GPTPF_I18N.getMessage('extension_context');
     } else if (msg.includes('file input')) {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'NO_FILE_INPUT');
+      errorMsg = window.GPTPF_I18N.getMessage('no_file_input');
     } else if (msg.includes('network') || msg.includes('fetch')) {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'NETWORK_ERROR');
+      errorMsg = window.GPTPF_I18N.getMessage('network_error');
     } else if (msg.includes('permission')) {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'PERMISSION_DENIED');
+      errorMsg = window.GPTPF_I18N.getMessage('permission_denied');
     } else {
-      errorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'ATTACHMENT_FAILED');
+      errorMsg = window.GPTPF_I18N.getMessage('attachment_failed');
     }
     toast(errorMsg, false);
     lastHash = "";
@@ -597,45 +615,37 @@ async function processText(text, overrideExt){
     pendingRestore = null;
   }
 }
-
 async function processBatchFiles(parts, platformSettings) {
   try {
-    const startMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_PROCESSING_START', parts.length);
+    const startMsg = window.GPTPF_I18N.getMessage('file_operations_batch_processing_start', [parts.length]);
     loader(startMsg);
-
     const processor = new window.GPTPF_BATCH.BatchProcessor();
     let processedCount = 0;
-
     processor.onProgress = (progress) => {
-      const progressMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_PROCESSING',
-        progress.current, progress.total, progress.filename);
+      const progressMsg = window.GPTPF_I18N.getMessage('file_operations_batch_processing',
+        [progress.current, progress.total, progress.filename]);
       loader(progressMsg);
     };
-
     const batchDelay = platformSettings.useDelay
       ? (platformSettings.delaySeconds * 1000)
       : platformSettings.batchProcessingDelay;
-
     const result = await processor.processParts(parts, {
       maxFiles: platformSettings.maxBatchFiles,
       delay: batchDelay,
       enableCompression: platformSettings.batchCompression,
       compressionThreshold: platformSettings.compressionThreshold
     });
-
     if (!result.success) {
       throw new Error(result.error);
     }
-
     for (const processedPart of result.results) {
       const file = makeFile(
         processedPart.content,
         processedPart.extension,
         processedPart.filename
       );
-
       if (platformHandler && platformHandler.attachFile) {
-        const attachingMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_ATTACHING', processedPart.filename);
+        const attachingMsg = window.GPTPF_I18N.getMessage('file_operations_batch_attaching', [processedPart.filename]);
         loader(attachingMsg);
         const success = await platformHandler.attachFile(file);
         if (success) {
@@ -645,49 +655,39 @@ async function processBatchFiles(parts, platformSettings) {
       } else {
         const input = await ensureFileInput(platformSettings.timeout);
         if (input && fileAttachComponent) {
-          const uploadingMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_UPLOADING', processedPart.filename);
+          const uploadingMsg = window.GPTPF_I18N.getMessage('file_operations_batch_uploading', [processedPart.filename]);
           loader(uploadingMsg);
           fileAttachComponent.attachFileToInput(file, input);
           processedCount++;
           trackFileCreation(file, getCurrentPlatform());
         }
       }
-
       if (processedCount < result.results.length) {
         await new Promise(resolve => setTimeout(resolve, batchDelay));
       }
     }
-
     hideLoader();
-    const batchSuccessMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'BATCH_SUCCESS', processedCount);
+    const batchSuccessMsg = window.GPTPF_I18N.getMessage('file_operations_batch_success', [processedCount]);
     toast(batchSuccessMsg, true);
     lastHash = "";
-
   } catch (error) {
     hideLoader();
-    const batchErrorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'BATCH_PROCESSING_FAILED', error.message);
+    const batchErrorMsg = window.GPTPF_I18N.getMessage('errors_batch_processing_failed', [error.message]);
     toast(batchErrorMsg, false);
     throw error;
   } finally {
     busy = false;
   }
 }
-
-/* ============================== PASTE & SAVE ============================= */
-
-
 function onPasteCapture(e){
   const comp = getComposer(); if (!comp) return;
-
   const platformSettings = getPlatformSettings();
   if (platformSettings.autoAttachEnabled === false) return;
   if (busy || claudeProcessing) return;
-
   const limits = window.GPTPF_CONFIG?.VALIDATION_LIMITS;
   const userMin = clamp(Number(platformSettings.wordLimit), limits.minWordLimit, limits.maxWordLimit);
   const text = (e.clipboardData || window.clipboardData)?.getData("text");
   const words = wc(text); if (words < userMin) return;
-
   const h = hash(text);
   if (h === lastHash) return;
   if (platformHandler && platformHandler.shouldHandlePaste) {
@@ -695,32 +695,27 @@ function onPasteCapture(e){
       return;
     }
   } else {
-
     const isOnClaude = (getCurrentPlatform() === 'claude');
     if (isOnClaude && !platformSettings.claudeOverride) {
       return;
     }
   }
-
-
   lastHash = h;
   busy = true;
   const snapshot = captureCaret(comp);
   pendingRestore = { comp, snapshot, text };
-
-
   e.preventDefault();
   const currentPlatform = getCurrentPlatform();
   if (currentPlatform === 'claude') {
     try {
       e.stopImmediatePropagation();
       e.stopPropagation();
-    } catch(err) { void err; }
+    } catch(err) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+      }
+    }
   }
-
-
-
-
   if (platformSettings.useDelay){
     const ms = clamp(Number(platformSettings.delaySeconds), 1, 15) * 1000;
     delayCountdown(ms)
@@ -728,69 +723,89 @@ function onPasteCapture(e){
       .catch(()=> {
         lastHash = "";
         busy = false;
-        const cancelMsg2 = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_CANCELLED');
+        const cancelMsg2 = window.GPTPF_I18N.getMessage('file_operations_attachment_cancelled');
         toast(cancelMsg2, false);
-        if (pendingRestore){ try { restorePaste(pendingRestore); } catch(err) { void err; } pendingRestore = null; }
+        if (pendingRestore){
+          try { restorePaste(pendingRestore); } catch(err) {
+            if (window.GPTPF_DEBUG) {
+              window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+            }
+          }
+          pendingRestore = null;
+        }
       });
   } else {
     processText(text).catch(()=>{});
   }
 }
-
 window.addEventListener("paste", onPasteCapture, true);
 document.addEventListener("paste", onPasteCapture, true);
-
-
 chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
   if (m && m.type === 'SHOW_TOAST') {
     const level = m.level?.toLowerCase();
     const ok = (level === 'success' || level === 'info');
-    try { toast(m.message, ok); } catch(err) { void err; }
+    try { toast(m.message, ok); } catch(err) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+      }
+    }
+    sendResponse && sendResponse({ ok: true });
+    return true;
+  }
+  if (m && m.action === 'applyTheme') {
+    applyContentTheme(m.theme);
+    sendResponse && sendResponse({ ok: true });
+    return true;
+  }
+  if (m && m.action === 'setLanguage') {
+    if (window.GPTPF_I18N && m.language) {
+      window.GPTPF_I18N.setLanguage(m.language);
+      // Dispatch the translations-updated event for modal synchronization
+      try {
+        const evt = new CustomEvent('gptpf:translations-updated', { detail: { language: m.language } });
+        document.dispatchEvent(evt);
+      } catch(_) {}
+    }
     sendResponse && sendResponse({ ok: true });
     return true;
   }
 });
-
+if (window.GPTPF_I18N) {
+  window.GPTPF_I18N.initializeI18n();
+}
 chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
   if (m?.type !== "GPTPF_SAVE_NOW") return;
-
   if (busy) {
     sendResponse && sendResponse({ ok:false, reason:"busy" });
     return true;
   }
-
   const comp = getComposer();
   if (!comp) {
-    const noInputMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'NO_INPUT_FIELD');
+    const noInputMsg = window.GPTPF_I18N.getMessage('errors_no_input_field');
     toast(noInputMsg, false);
     sendResponse && sendResponse({ ok:false, reason:"no_input" });
     return true;
   }
-
   const val = readComposerText(comp);
   if (!val || !val.trim()) {
-    const noTextMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'NO_TEXT_INPUT');
+    const noTextMsg = window.GPTPF_I18N.getMessage('errors_no_text_input');
     toast(noTextMsg, false);
     sendResponse && sendResponse({ ok:false, reason:"empty" });
     return true;
   }
-
   const words = wc(val);
-
   chrome.storage.local.get(['wordLimit'], (result) => {
     const minWords = result.wordLimit;
-
     if (words < minWords) {
-      const tooShortMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'TEXT_TOO_SHORT', words, minWords);
+      const tooShortMsg = window.GPTPF_I18N.getMessage('errors_text_too_short', [words, minWords]);
       toast(tooShortMsg, false);
       sendResponse && sendResponse({ ok:false, reason:"too_short" });
       return;
     }
-
     processText(val)
       .then(() => {
         clearComposer(comp);
-        const manualSuccessMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'MANUAL_SAVE_SUCCESS');
+        const manualSuccessMsg = window.GPTPF_I18N.getMessage('file_operations_manual_save_success');
         toast(manualSuccessMsg, true);
         sendResponse && sendResponse({ ok:true });
       })
@@ -798,14 +813,19 @@ chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
         if (err.message === 'cancelled') {
           sendResponse && sendResponse({ ok:false, reason:"cancelled" });
         } else {
-          if (window.GPTPF_MESSAGES && window.GPTPF_MESSAGES.logError) {
-            window.GPTPF_MESSAGES.logError('Manual save failed', err);
+          if (window.GPTPF_DEBUG) {
+            window.GPTPF_DEBUG.error('console_manual_save_error', err);
           }
-          const manualErrorMsg = window.GPTPF_MESSAGES.getMessage('ERRORS', 'ATTACHMENT_FAILED');
+          const manualErrorMsg = window.GPTPF_I18N.getMessage('errors_attachment_failed');
           toast(manualErrorMsg, false);
           sendResponse && sendResponse({ ok:false, reason:"error" });
         }
       });
   });
   return true;
+});
+window.addEventListener('beforeunload', () => {
+  if (window.GPTPF_DEBUG) {
+    window.GPTPF_DEBUG.info('content_cleanup', window.GPTPF_I18N.getMessage('content_cleanup_complete'));
+  }
 });

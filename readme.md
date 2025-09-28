@@ -16,7 +16,7 @@
 
 [![6 AI Platforms](https://img.shields.io/badge/🤖%20Works%20with-6%20AI%20Platforms-blue?style=for-the-badge)](#-supported-platforms)
 [![20+ File Formats](https://img.shields.io/badge/🧠%20Detects-20+%20File%20Formats-orange?style=for-the-badge)](#-file-format-support)
-[![3 Languages](https://img.shields.io/badge/🌍%20Multilingual-Arabic%20•%20English%20•%20Swahili-green?style=for-the-badge)](#-internationalization)
+[![11 Languages](https://img.shields.io/badge/🌍%20Multilingual-11%20Languages%20Supported-green?style=for-the-badge)](#-internationalization)
 [![Privacy First](https://img.shields.io/badge/🔒%20Privacy-First-green?style=for-the-badge)](#-privacy--security)
 [![Completely Free](https://img.shields.io/badge/💰%20Completely-FREE-brightgreen?style=for-the-badge)](#-installation)
 
@@ -274,7 +274,7 @@ Multi-AI File Paster delivers exceptional performance with instant language dete
 
 ## 🌍 Internationalization
 
-Multi-AI File Paster supports multiple languages with native translations:
+Multi-AI File Paster supports 11 languages with complete native translations:
 
 ### **Supported Languages**
 
@@ -282,20 +282,30 @@ Multi-AI File Paster supports multiple languages with native translations:
 
 | Language | Native | Status | Coverage |
 |:--------:|:------:|:------:|:--------:|
-| **English** | English | ✅ Complete | 100% |
-| **العربية** | Arabic | ✅ Complete | 100% |
-| **Kiswahili** | Swahili | ✅ Complete | 100% |
+| **English** | English | ✅ Complete | 677/677 keys |
+| **العربية** | Arabic | ✅ Complete | 677/677 keys |
+| **Kiswahili** | Swahili | ✅ Complete | 677/677 keys |
+| **Español** | Spanish | ✅ Complete | 677/677 keys |
+| **日本語** | Japanese | ✅ Complete | 677/677 keys |
+| **Français** | French | ✅ Complete | 677/677 keys |
+| **Русский** | Russian | ✅ Complete | 677/677 keys |
+| **中文** | Chinese | ✅ Complete | 677/677 keys |
+| **Português** | Portuguese | ✅ Complete | 677/677 keys |
+| **Deutsch** | German | ✅ Complete | 677/677 keys |
+| **हिंदी** | Hindi | ✅ Complete | 677/677 keys |
 
 </div>
 
 ### **Language Features**
 - **RTL Support**: Full right-to-left text support for Arabic
-- **Context-Aware**: Different translations for different UI contexts  
+- **Context-Aware**: Different translations for different UI contexts
 - **Chrome Standards**: Following Chrome extension i18n best practices
 - **Auto-Detection**: Browser language automatically detected
 - **Manual Selection**: Override language in extension settings
+- **SHORT UI Text**: Layout-optimized translations prevent UI overflow
+- **Real-time Sync**: Language changes sync instantly across all components
 
-The extension automatically detects your browser language and displays the appropriate interface. All user-facing text, tooltips, error messages, and settings are fully translated.
+The extension automatically detects your browser language and displays the appropriate interface. All user-facing text, tooltips, error messages, and settings are fully translated with professional quality.
 
 ---
 

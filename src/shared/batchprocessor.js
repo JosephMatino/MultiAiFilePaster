@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,11 +98,9 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   const root = (typeof self !== 'undefined') ? self : window;
   if (root.GPTPF_BATCH) return;
-
   class BatchProcessor {
     constructor() {
       this.queue = [];
@@ -110,67 +108,113 @@
       this.onProgress = null;
       this.onComplete = null;
     }
-
     static splitContent(text, maxFiles) {
       if (!text || typeof text !== 'string') return [];
-
       const config = root.GPTPF_CONFIG?.VALIDATION_LIMITS || {};
       const actualMaxFiles = Math.min(maxFiles || 4, config.maxBatchFiles || 4);
-
       if (actualMaxFiles <= 1) return [];
+
+      const textLength = text.length;
+      if (textLength < 1000) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('batch_split_skipped', root.GPTPF_I18N?.getMessage('debug_batch_content_too_short'));
+        }
+        return [];
+      }
+
+      const detector = root.GPTPF_LANGUAGE_DETECTOR || (root.LanguageDetector ? (() => {
+        try { return new root.LanguageDetector(); } 
+        catch(e) { return { detectLanguage() { return { extension: 'txt', language: 'text' }; } }; }
+      })() : { detectLanguage() { return { extension: 'txt', language: 'text' }; } });
+
+      const globalDetection = detector.detectLanguage(text);
+      const isStructured = ['json', 'xml', 'yaml', 'html', 'css'].includes(globalDetection.language);
+      
+      if (isStructured && globalDetection.confidence > 0.7) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.warn('batch_split_avoided', `Structured ${globalDetection.language} content should not be split`);
+        }
+        return [];
+      }
 
       const lines = text.split('\n');
       const totalLines = lines.length;
-      const linesPerFile = Math.ceil(totalLines / actualMaxFiles);
+      
+      if (totalLines < 50) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('batch_split_skipped', 'Too few lines for meaningful splitting');
+        }
+        return [];
+      }
 
+      const linesPerFile = Math.ceil(totalLines / actualMaxFiles);
       const parts = [];
+
       for (let i = 0; i < actualMaxFiles && i * linesPerFile < totalLines; i++) {
         const startLine = i * linesPerFile;
         const endLine = Math.min((i + 1) * linesPerFile, totalLines);
-        const partContent = lines.slice(startLine, endLine).join('\n').trim();
+        let partContent = lines.slice(startLine, endLine).join('\n').trim();
 
-        if (partContent.length > 0) {
-          const detector = root.GPTPF_LANGUAGE_DETECTOR || new (root.LanguageDetector || class { detectLanguage() { return { extension: 'txt' }; } })();
-          const detection = detector.detectLanguage(partContent);
+        if (partContent.length === 0) continue;
 
-          const actualEndLine = startLine + partContent.split('\n').length - 1;
+        if (partContent.length < 100) {
+          if (root.GPTPF_DEBUG) {
+            root.GPTPF_DEBUG.info('batch_part_skipped', `Part ${i + 1} too small: ${partContent.length} chars`);
+          }
+          continue;
+        }
 
-          parts.push({
-            content: partContent,
-            partNumber: i + 1,
-            startLine: startLine + 1,
-            endLine: actualEndLine + 1,
-            extension: detection.extension || 'txt',
-            filename: BatchProcessor.generateFilename(detection.extension || 'txt', i + 1, startLine + 1, actualEndLine + 1)
+        const partDetection = detector.detectLanguage(partContent);
+        const extension = partDetection.confidence > 0.4 ? partDetection.extension : globalDetection.extension || 'txt';
+        const actualEndLine = startLine + partContent.split('\n').length - 1;
+
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('batch_part_created', {
+            part: i + 1,
+            lines: `${startLine + 1}-${actualEndLine + 1}`,
+            size: partContent.length,
+            extension: extension,
+            confidence: partDetection.confidence
           });
         }
+
+        parts.push({
+          content: partContent,
+          partNumber: i + 1,
+          startLine: startLine + 1,
+          endLine: actualEndLine + 1,
+          extension: extension,
+          filename: BatchProcessor.generateFilename(extension, i + 1, startLine + 1, actualEndLine + 1),
+          originalDetection: globalDetection
+        });
+      }
+
+      if (parts.length <= 1) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('batch_split_insufficient', root.GPTPF_I18N?.getMessage('debug_batch_split_insufficient'));
+        }
+        return [];
       }
 
       return parts;
     }
-
     static generateFilename(extension, partNumber, startLine, endLine) {
       return `part${partNumber}-lines${startLine}-${endLine}.${extension}`;
     }
-
     async processParts(parts, options = {}) {
-      if (this.processing) return { success: false, error: 'Already processing' };
-
+      if (this.processing) return { success: false, error: root.GPTPF_I18N?.getMessage('errors_busy_processing') };
       this.processing = true;
       this.queue = [...parts];
-
       const results = [];
       const configLimit = root.GPTPF_CONFIG?.VALIDATION_LIMITS?.maxBatchFiles || 4;
       const maxFiles = Math.min(options.maxFiles || configLimit, configLimit);
       const delay = options.delay || 500;
-
       try {
         for (let i = 0; i < Math.min(parts.length, maxFiles); i++) {
           if (!this.processing) {
-            return { success: false, error: 'Processing cancelled', results };
+            return { success: false, error: root.GPTPF_I18N?.getMessage('file_operations_attachment_cancelled'), results };
           }
           const part = parts[i];
-
           if (this.onProgress) {
             this.onProgress({
               current: i + 1,
@@ -179,21 +223,17 @@
               size: part.content.length
             });
           }
-
           let processedContent = part.content;
           let compressionInfo = null;
-
           if (root.GPTPF_COMPRESSION && options.enableCompression) {
             const compressionResult = await root.GPTPF_COMPRESSION.compressText(
               part.content,
               { threshold: options.compressionThreshold || 1024 }
             );
-
             if (compressionResult.compressed) {
               compressionInfo = compressionResult;
             }
           }
-
           results.push({
             ...part,
             processedContent,
@@ -201,22 +241,21 @@
             originalSize: part.content.length,
             finalSize: processedContent.length
           });
-
           if (i < Math.min(parts.length, maxFiles) - 1) {
             if (!this.processing) {
-              return { success: false, error: 'Processing cancelled', results };
+              return { success: false, error: root.GPTPF_I18N?.getMessage('file_operations_attachment_cancelled'), results };
             }
             await new Promise(resolve => setTimeout(resolve, delay));
           }
         }
-
         if (this.onComplete) {
           this.onComplete({ success: true, results, processed: results.length });
         }
-
         return { success: true, results, processed: results.length };
-
       } catch (error) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.error('console_platform_handler_error', error);
+        }
         if (this.onComplete) {
           this.onComplete({ success: false, error: error.message });
         }
@@ -226,17 +265,14 @@
         this.queue = [];
       }
     }
-
     cancel() {
       this.processing = false;
       this.queue = [];
     }
-
     isProcessing() {
       return this.processing;
     }
   }
-
   root.GPTPF_BATCH = Object.freeze({
     BatchProcessor,
     splitContent: BatchProcessor.splitContent.bind(BatchProcessor),

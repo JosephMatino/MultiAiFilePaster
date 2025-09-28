@@ -105,7 +105,10 @@ graph TB
     </tr>
   </table>
 </div>
+
 ### 🗂️ Detailed Directory Structure
+
+The Multi-AI File Paster project maintains a comprehensive directory structure designed for efficient development workflows, automated quality control, and clear separation between internal and public-facing resources. Each directory serves specific purposes in the overall development and deployment pipeline, ensuring maintainable code organization and professional project management standards.
 
 <div align="center">
   <img src="https://img.shields.io/badge/🌳_Full_Development_Tree-Complete_Structure-14B8A6?style=for-the-badge&logo=tree&logoColor=white" alt="Full Tree">
@@ -188,12 +191,15 @@ src/
 │   ├── modals.js               # Modal dialog management
 │   └── tooltips.js             # Premium tooltip system
 └── shared/                     # Cross-context utilities
-    ├── config.js               # Centralized configuration
-    ├── metrics.js              # Performance monitoring
-    ├── validation.js           # Security-focused validation
+    ├── batchprocessor.js       # Content splitting processor for large files
     ├── compression.js          # File compression algorithms
-    ├── batchprocessor.js       # Queue-based batch processing
-    └── languagedetector.js     # Programming language detection
+    ├── config.js               # Centralized configuration
+    ├── debug.js                # Centralized debug logging and error handling
+    ├── i18n.js                 # Chrome i18n API integration
+    ├── languagedetector.js     # Programming language detection
+    ├── metrics.js              # Performance monitoring
+    ├── utils.js                # Unified Chrome API operations utilities
+    └── validation.js           # Security-focused validation
 ```
 </details>
 
@@ -279,6 +285,8 @@ Every header signature must include:
 - **Repository Details**: GitHub link and branch context
 
 ### 📖 Header Template Structure
+
+The standardized header template provides comprehensive metadata about each source code file, including technical specifications, development team information, and project context. This template ensures consistency across all source files while providing essential information for development team coordination and project maintenance activities.
 
 ```javascript
 /*
@@ -603,10 +611,40 @@ Every header signature must include:
     <th>Performance Impact</th>
   </tr>
   <tr>
+    <td><code>batchprocessor.js</code></td>
+    <td>Content Splitting Engine</td>
+    <td>• Line-based content division<br>• Metadata generation<br>• Progress tracking</td>
+    <td>Resource-aware processing, adaptive throttling</td>
+  </tr>
+  <tr>
+    <td><code>compression.js</code></td>
+    <td>File Optimization</td>
+    <td>• GZIP compression<br>• Streaming processing<br>• Ratio evaluation</td>
+    <td>Efficient memory usage, background processing</td>
+  </tr>
+  <tr>
     <td><code>config.js</code></td>
     <td>Configuration Management</td>
     <td>• Reactive state system<br>• Automatic propagation<br>• Validation pipeline</td>
     <td>Optimized for frequent reads, cached values</td>
+  </tr>
+  <tr>
+    <td><code>debug.js</code></td>
+    <td>Debug System</td>
+    <td>• Centralized logging<br>• Toast integration<br>• Environment detection</td>
+    <td>Minimal overhead in production, efficient logging</td>
+  </tr>
+  <tr>
+    <td><code>i18n.js</code></td>
+    <td>Internationalization</td>
+    <td>• Chrome i18n API<br>• 11 language support<br>• Placeholder substitution</td>
+    <td>Cached message retrieval, efficient translations</td>
+  </tr>
+  <tr>
+    <td><code>languagedetector.js</code></td>
+    <td>Language Analysis</td>
+    <td>• Pattern matching<br>• Heuristic analysis<br>• Confidence scoring</td>
+    <td>Fast detection algorithms, cached patterns</td>
   </tr>
   <tr>
     <td><code>metrics.js</code></td>
@@ -615,28 +653,16 @@ Every header signature must include:
     <td>Minimal overhead, efficient aggregation</td>
   </tr>
   <tr>
+    <td><code>utils.js</code></td>
+    <td>Chrome API Utilities</td>
+    <td>• Unified API access<br>• Error handling<br>• Timeout management</td>
+    <td>Consistent performance, graceful degradation</td>
+  </tr>
+  <tr>
     <td><code>validation.js</code></td>
     <td>Security Layer</td>
     <td>• Multi-layer validation<br>• XSS prevention<br>• Input sanitization</td>
     <td>Optimized regex patterns, cached rules</td>
-  </tr>
-  <tr>
-    <td><code>compression.js</code></td>
-    <td>File Optimization</td>
-    <td>• Multi-algorithm support<br>• Streaming processing<br>• Memory management</td>
-    <td>Efficient memory usage, background processing</td>
-  </tr>
-  <tr>
-    <td><code>batchprocessor.js</code></td>
-    <td>Queue Management</td>
-    <td>• Concurrent operations<br>• Progress tracking<br>• Error isolation</td>
-    <td>Resource-aware processing, adaptive throttling</td>
-  </tr>
-  <tr>
-    <td><code>languagedetector.js</code></td>
-    <td>Language Analysis</td>
-    <td>• Pattern matching<br>• Heuristic analysis<br>• Confidence scoring</td>
-    <td>Fast detection algorithms, cached patterns</td>
   </tr>
 </table>
 

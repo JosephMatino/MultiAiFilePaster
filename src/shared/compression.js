@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,11 +98,9 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   const root = (typeof self !== 'undefined') ? self : window;
   if (root.GPTPF_COMPRESSION) return;
-
   class CompressionUtils {
     static async compressText(text, options = {}) {
       const {
@@ -111,49 +109,78 @@
         level = 'default'
       } = options;
 
-      if (!text || text.length < threshold) {
-        return { compressed: false, data: text, originalSize: text.length };
+      if (!text || typeof text !== 'string') {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.warn('compression_invalid_input', root.GPTPF_I18N?.getMessage('debug_compression_invalid_input'));
+        }
+        return { compressed: false, data: text, originalSize: 0, error: root.GPTPF_I18N?.getMessage('errors_compression_invalid_input') };
+      }
+
+      if (text.length < threshold) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('compression_skipped', root.GPTPF_I18N?.getMessage('debug_compression_skipped', [`${text.length}`, `${threshold}`]) || `Content too small: ${text.length} < ${threshold}`);
+        }
+        return { compressed: false, data: text, originalSize: text.length, reason: root.GPTPF_I18N?.getMessage('compression_below_threshold') };
       }
 
       try {
         if (!window.CompressionStream) {
-          return { compressed: false, data: text, originalSize: text.length, error: 'Compression not supported' };
+          if (root.GPTPF_DEBUG) {
+            root.GPTPF_DEBUG.warn('compression_not_supported', root.GPTPF_I18N?.getMessage('debug_compression_not_supported'));
+          }
+          return { compressed: false, data: text, originalSize: text.length, error: root.GPTPF_I18N?.getMessage('errors_compression_not_supported') };
         }
 
         const encoder = new TextEncoder();
-        const decoder = new TextDecoder();
         const input = encoder.encode(text);
+        
+        if (input.length !== new Blob([text]).size) {
+          if (root.GPTPF_DEBUG) {
+            root.GPTPF_DEBUG.warn('compression_encoding_mismatch', root.GPTPF_I18N?.getMessage('debug_compression_encoding_mismatch'));
+          }
+        }
 
         const compressionStream = new CompressionStream(format);
         const writer = compressionStream.writable.getWriter();
         const reader = compressionStream.readable.getReader();
-
-        writer.write(input);
-        writer.close();
-
+        
+        await writer.write(input);
+        await writer.close();
+        
         const chunks = [];
         let done = false;
-
         while (!done) {
           const { value, done: readerDone } = await reader.read();
           done = readerDone;
           if (value) chunks.push(value);
         }
-
+        
         const compressed = new Uint8Array(chunks.reduce((acc, chunk) => acc + chunk.length, 0));
         let offset = 0;
         for (const chunk of chunks) {
           compressed.set(chunk, offset);
           offset += chunk.length;
         }
-
+        
         const compressionRatio = compressed.length / input.length;
-
+        
         if (compressionRatio > 0.9) {
-          return { compressed: false, data: text, originalSize: text.length, reason: 'Poor compression ratio' };
+          if (root.GPTPF_DEBUG) {
+            root.GPTPF_DEBUG.info('compression_poor_ratio', root.GPTPF_I18N?.getMessage('debug_compression_poor_ratio', [`${compressionRatio.toFixed(2)}`]) || `Ratio ${compressionRatio.toFixed(2)} too high`);
+          }
+          return { compressed: false, data: text, originalSize: text.length, reason: root.GPTPF_I18N?.getMessage('compression_poor_ratio') };
         }
 
         const base64Data = btoa(String.fromCharCode(...compressed));
+        
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.info('compression_success', {
+            originalSize: input.length,
+            compressedSize: compressed.length,
+            ratio: compressionRatio.toFixed(3),
+            savings: `${((1 - compressionRatio) * 100).toFixed(1)}%`
+          });
+        }
 
         return {
           compressed: true,
@@ -164,59 +191,54 @@
           compressionRatio: compressionRatio,
           format: format
         };
-
       } catch (error) {
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.error('console_platform_handler_error', error);
+        }
         return { compressed: false, data: text, originalSize: text.length, error: error.message };
       }
     }
-
     static async decompressText(compressedData, format = 'gzip') {
       try {
         if (!window.DecompressionStream) {
-          throw new Error('Decompression not supported');
+          throw new Error(root.GPTPF_I18N?.getMessage('errors_decompression_not_supported'));
         }
-
         const binaryString = atob(compressedData);
         const bytes = new Uint8Array(binaryString.length);
         for (let i = 0; i < binaryString.length; i++) {
           bytes[i] = binaryString.charCodeAt(i);
         }
-        
         const decompressionStream = new DecompressionStream(format);
         const writer = decompressionStream.writable.getWriter();
         const reader = decompressionStream.readable.getReader();
-        
         writer.write(bytes);
         writer.close();
-        
         const chunks = [];
         let done = false;
-        
         while (!done) {
           const { value, done: readerDone } = await reader.read();
           done = readerDone;
           if (value) chunks.push(value);
         }
-        
         const decompressed = new Uint8Array(chunks.reduce((acc, chunk) => acc + chunk.length, 0));
         let offset = 0;
         for (const chunk of chunks) {
           decompressed.set(chunk, offset);
           offset += chunk.length;
         }
-        
         const decoder = new TextDecoder();
         return decoder.decode(decompressed);
-        
       } catch (error) {
-        throw new Error(`Decompression failed: ${error.message}`);
+        if (root.GPTPF_DEBUG) {
+          root.GPTPF_DEBUG.error('console_platform_handler_error', error);
+        }
+        const errorMsg = root.GPTPF_I18N?.getMessage('errors_decompression_failed');
+        throw new Error(`${errorMsg}: ${error.message}`);
       }
     }
-
     static shouldCompress(text, threshold = 1024) {
       return text && text.length >= threshold && window.CompressionStream;
     }
-
     static formatSize(bytes) {
       if (bytes === 0) return '0 B';
       const k = 1024;
@@ -224,13 +246,10 @@
       const i = Math.floor(Math.log(bytes) / Math.log(k));
       return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
     }
-
     static getCompressionInfo(result) {
       if (!result.compressed) return null;
-      
       const savings = result.originalSize - result.compressedSize;
       const savingsPercent = Math.round((savings / result.originalSize) * 100);
-      
       return {
         originalSize: this.formatSize(result.originalSize),
         compressedSize: this.formatSize(result.compressedSize),
@@ -240,7 +259,6 @@
       };
     }
   }
-
   root.GPTPF_COMPRESSION = Object.freeze({
     compressText: CompressionUtils.compressText.bind(CompressionUtils),
     decompressText: CompressionUtils.decompressText.bind(CompressionUtils),

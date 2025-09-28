@@ -42,7 +42,7 @@ The Model Context Protocol (MCP) is a simple way for an AI client (Augment, Clau
 6. Results are returned instantly; no network calls, no remote services.
 
 ### Reusing In Other Projects
-Copy `mcp-servers/`, `.vscode/mcp.json`, and `requirements.txt` into a new repo. Adjust or remove tools you don't need. Update any project‑specific constants in the analysis scripts. Run the setup task; tools will appear automatically in compatible MCP clients.
+Copy `mcp-servers/`, `.vscode/mcp.json`, and `requirements.txt` into a new repo. Adjust or remove tools you do not need. Update any project-specific constants in the analysis scripts. Run the setup task; tools will appear automatically in compatible MCP clients.
 
 ### Mental Model
 “Local JSON API of project-aware utilities.” Each tool is a small focused function; no persistent DB, no background daemon, no external telemetry.
@@ -426,6 +426,70 @@ The MCP server automatically detects the project root and configures itself appr
 - **📦 Git Exclusion**: `.venv/` is excluded from Git (never synced between machines)
 - **🔄 Automatic Recovery**: Missing or corrupted environments are rebuilt automatically
 - **🌐 Platform Agnostic**: No hardcoded paths or platform-specific assumptions
+
+## ⚠️ CRITICAL: Terminal Environment Management
+
+### 🚨 Git Bash Terminal Protection
+
+**IMPORTANT**: The `.venv` folder in your Chrome extension project root **WILL CORRUPT** your Git Bash terminal if it exists during Chrome extension development.
+
+**What happens when .venv exists:**
+- **PATH gets hijacked** by `.venv/Scripts` (Windows) or `.venv/bin` (Linux)
+- **Git Bash loses essential tools** like `git`, `sed`, `ls`, `clear`
+- **No git branch display** because `git` command is not in PATH
+- **Terminal shows errors** like `bash: sed: command not found`
+
+**Immediate fix when terminal is corrupted:**
+```bash
+# Remove the problematic .venv folder
+rm -rf .venv
+
+# Your Git Bash will immediately recover:
+# ✅ Git branch display returns: (develop)
+# ✅ All bash commands work: git, sed, ls, clear
+# ✅ No terminal restart needed
+```
+
+### 🔧 Correct Terminal Usage Strategy
+
+**For Chrome Extension Development (Git Bash):**
+- **ALWAYS remove .venv** before Chrome extension work: `rm -rf .venv`
+- **Use Git Bash terminal** for all git operations, file editing, i18n work
+- **Keep .venv removed** to maintain clean PATH and git branch display
+
+**For MCP Server Operations (WSL/Ubuntu):**
+- **Use WSL/Ubuntu terminal** as configured in `.vscode/mcp.json`
+- **MCP creates .venv in WSL environment** - this won't affect your Git Bash
+- **Separate environments** prevent conflicts between Chrome extension and MCP work
+
+### 📋 Terminal Selection Guide
+
+| Task | Recommended Terminal | Why |
+|------|---------------------|-----|
+| **Chrome Extension Development** | Git Bash | Clean PATH, git branch display, Windows file system |
+| **MCP Server Operations** | WSL/Ubuntu | Isolated Python environment, Linux compatibility |
+| **i18n Migration Work** | Git Bash | Direct file access, git operations, no PATH conflicts |
+| **Node.js/npm Operations** | Git Bash | Windows Node.js integration, package management |
+| **Python MCP Development** | WSL/Ubuntu | Python virtual environments, Linux tools |
+
+### 🔄 Workflow Best Practices
+
+**Daily Development Workflow:**
+1. **Start with clean Git Bash**: Ensure no `.venv` in project root
+2. **Chrome extension work**: Use Git Bash for all file operations
+3. **MCP analysis**: Switch to WSL/Ubuntu terminal when needed
+4. **Return to Git Bash**: For git commits, pushes, and file editing
+
+**When switching between tasks:**
+```bash
+# Before Chrome extension work (Git Bash)
+rm -rf .venv  # Remove if exists
+git branch    # Verify branch display works
+
+# For MCP operations (WSL/Ubuntu)
+# .venv will be created in WSL environment only
+# Your Git Bash remains unaffected
+```
 
 ## 🎯 Usage Scenarios
 

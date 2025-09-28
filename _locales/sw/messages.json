@@ -1,570 +1,911 @@
 {
-  "extension_name": {
-    "message": "Multi-AI File Paster"
-  },
-  "extension_description": {
-    "message": "Kuunda kiotomatiki viambatisho vya faili kutoka kwa maudhui ya maandishi yaliyobandikwa kwenye ChatGPT, Claude, Gemini, DeepSeek na Grok. Ina uchakataji wa kundi na mkandamizo wa faili."
-  },
-  "extension_short_name": {
-    "message": "Multi-AI"
-  },
-  "header_title": {
-    "message": "Multi-AI File Paster"
-  },
-  "header_subtitle": {
-    "message": "Hubadilisha kiotomatiki mabandiko marefu na kuambatisha faili safi katika ChatGPT, Claude, Gemini, DeepSeek na Grok. Inasaidia Kutambua-Kiotomatiki na miundo 20+ ikiwa ni pamoja na faili za msimbo."
-  },
-  "status_connected": {
-    "message": "Imeunganishwa na $PLATFORM$",
-    "placeholders": {
-      "platform": {
-        "content": "$1",
-        "example": "ChatGPT"
-      }
-    }
-  },
-  "debug_mode": {
-    "message": "Hali ya Utatuzi"
-  },
-  "auto_attach": {
-    "message": "Kiotomatiki"
-  },
-  "auto_attach_tooltip": {
-    "message": "<span class='tip-badge feature'>KIPENGELE</span> Hubadilisha mabandiko marefu kuwa faili safi na kuiambatisha kiotomatiki kwenye mazungumzo yako. Huhifadhi ujumbe ukiwa safi na ndani ya mipaka kwenye ChatGPT, Claude, Gemini, DeepSeek na Grok. Zima ili ubandike kawaida na utumie Hifadhi ya Mkononi."
-  },
-  "claude_override": {
-    "message": "Pindua Claude"
-  },
-  "claude_override_tooltip": {
-    "message": "<span class='tip-badge feature'>KIPENGELE</span> Claude ina kipengele chake cha kubadilisha-bandiko-kuwa-faili. Washa hii ili kutumia Multi-AI File Paster kila wakati kwa muundo na majina thabiti zaidi."
-  },
-  "min_words_trigger": {
-    "message": "Maneno ya Chini"
-  },
-  "min_words_tooltip": {
-    "message": "<span class='tip-badge settings'>MIPANGILIO</span> Ambatisha-kiotomatiki inafanya kazi tu wakati bandiko lako ni la urefu huu au zaidi. Inapendekezwa: maneno 100+ ili ujumbe mfupi ubaki ndani ya mstari."
-  },
-  "use_delay": {
-    "message": "Tumia Ucheleweshaji"
-  },
-  "use_delay_tooltip": {
-    "message": "<span class='tip-badge timing'>MUDA</span> Huongeza hesabu fupi kabla ya kuambatisha. Inasaidia ikiwa wakati mwingine unabandika kwa makosa - unaweza kughairi wakati wa hesabu."
-  },
-  "file_format": {
-    "message": "Muundo wa Faili"
-  },
-  "file_format_tooltip": {
-    "message": "<span class='tip-badge settings'>MIPANGILIO</span> Chagua aina ya faili, au chagua Kutambua-Kiotomatiki. Kutambua-Kiotomatiki hutumia utambuzi wa lugha wa hekima na kurudi kwa .txt kwa usalama ili kuepuka kubadilisha vibaya msimbo. Maalum inaruhusu kiendelezi chochote lakini tumia kwa tahadhari."
-  },
-  "auto_detect": {
-    "message": "Kutambua-Kiotomatiki"
-  },
-  "more_formats": {
-    "message": "Miundo zaidi…"
-  },
-  "custom_format_placeholder": {
-    "message": "k.m. log, cfg, data"
-  },
-  "custom_format_tooltip": {
-    "message": "<span class='tip-badge security'>USALAMA</span> Ingiza herufi/nambari tu za kiendelezi bila nukta (k.m., log, data, cfg). Aina za kiendelezi zenye hatari zimezuiliwa."
-  },
-  "batch_mode": {
-    "message": "Hali ya Kundi"
-  },
-  "batch_mode_beta": {
-    "message": "BETA"
-  },
-  "batch_mode_tooltip": {
-    "message": "<span class='tip-badge beta'>BETA</span> Hugawanya maudhui makubwa katika faili nyingi kulingana na mpangilio wako wa Faili za Juu. Hugawanya maudhui kwa mistari na hutumia utambuzi wa lugha wa akili kwa viendelezi vya faili. Huunda faili zilizopewa majina sehemu1, sehemu2, sehemu3, sehemu4. Bora kwa kugawanya hati kubwa, faili za msimbo, au maudhui yoyote yanayozidi mipaka ya jukwaa. Kila sehemu inapata kiendelezi sahihi cha faili kulingana na uchambuzi wa maudhui."
-  },
-  "max_files": {
-    "message": "Faili za Juu"
-  },
-  "max_files_tooltip": {
-    "message": "<span class='tip-badge settings'>MIPANGILIO</span> Idadi ya faili za kugawanyia maudhui. Kiwango: faili 2-4. Maudhui hugawanywa kwa usawa kwa mistari katika idadi iliyochaguliwa ya faili. Nambari za juu huunda faili ndogo lakini zinaweza kuchochea utambuzi wa barua taka wa jukwaa. Inafanya kazi tu wakati maudhui yanazidi mpangilio wako wa kikomo cha maneno."
-  },
-  "delay": {
-    "message": "Ucheleweshaji"
-  },
-  "batch_delay_tooltip": {
-    "message": "<span class='tip-badge timing'>MUDA</span> Ucheleweshaji wa muda kati ya kupakia kila faili ya kundi (100ms hadi 2000ms). Ucheleweshaji mkubwa hupunguza uwezekano wa kuashiria kwa barua taka na majukwaa ya AI. Mpangilio huu unazimwa kiotomatiki wakati kipengele kikuu cha 'Ucheleweshaji wa Mtumiaji' kinafanya kazi hapo juu - katika hali hiyo, mpangilio wa ucheleweshaji mkuu unachukua kipaumbele kwa upakiaji wote wa faili."
-  },
-  "compression": {
-    "message": "Mkandamizo"
-  },
-  "batch_compression_tooltip": {
-    "message": "<span class='tip-badge compression'>MKANDAMIZO</span> Tekeleza mkandamizo kwa kila faili ya kundi ili kupunguza ukubwa wa faili. Hii ni tofauti na mpangilio wa 'Mkandamizo wa Faili' mkuu hapo juu. Wakati mkandamizo mkuu umewezesha, chaguo hili linazimwa kiotomatiki ili kuzuia migongano. Tumia hii unapotaka mkandamizo kwa faili za kundi tu lakini si faili za kawaida za moja."
-  },
-  "file_compression": {
-    "message": "Mkandamizo"
-  },
-  "file_compression_tooltip": {
-    "message": "<span class='tip-badge compression'>MKANDAMIZO</span> Hukandamiza kiotomatiki faili kubwa (1KB+) kwa kutumia mkandamizo wa GZIP. Hupunguza ukubwa wa faili kwa 60-80% kwa maudhui ya maandishi. Hukandamiza tu wakati inaokoa nafasi nzuri."
-  },
-  "bytes": {
-    "message": "baiti"
-  },
-  "manual_action": {
-    "message": "Mkononi"
-  },
-  "attach_typed_text": {
-    "message": "Ambatisha kama faili"
-  },
-  "manual_action_tooltip": {
-    "message": "<span class='tip-badge feature'>KIPENGELE</span> Badilisha kwa mikono maandishi yoyote uliyoandika kwenye ingizo la mazungumzo kuwa kiambatisho cha faili. Hufanya kazi kwenye jukwaa lolote la AI. Bora wakati unataka kuunda faili kutoka ujumbe wako wa sasa bila kutambua kiotomatiki."
-  },
-  "usage_analytics": {
-    "message": "Uchambuzi wa Matumizi"
-  },
-  "file_creation_insights": {
-    "message": "Maarifa yako ya kuunda faili"
-  },
-  "days_7": {
-    "message": "siku 7"
-  },
-  "days_30": {
-    "message": "siku 30"
-  },
-  "days_90": {
-    "message": "siku 90"
-  },
-  "all_time": {
-    "message": "Wakati wote"
-  },
-  "total_files": {
-    "message": "Faili Zote"
-  },
-  "this_week": {
-    "message": "Wiki Hii"
-  },
-  "ai_platforms": {
-    "message": "Majukwaa ya AI"
-  },
-  "files_per_day": {
-    "message": "Faili kwa siku"
-  },
-  "bar_chart": {
-    "message": "Pau"
-  },
-  "line_chart": {
-    "message": "Mstari"
-  },
-  "top_models": {
-    "message": "Mifano ya Juu"
-  },
-  "file_formats": {
-    "message": "Miundo ya Faili"
-  },
-  "no_data_yet": {
-    "message": "Hakuna Data"
-  },
-  "export": {
-    "message": "Hamisha"
-  },
-  "clear_data": {
-    "message": "Futa Data"
-  },
-  "clear_analytics_data": {
-    "message": "Futa Data ya Uchambuzi"
-  },
-  "clear_data_warning": {
-    "message": "Hii itafuta kabisa takwimu zako zote za matumizi na haiwezi kutenduliwa."
-  },
-  "cancel": {
-    "message": "Ghairi"
-  },
-  "clear_all_data": {
-    "message": "Futa Data Zote"
-  },
-  "footer_copyright": {
-    "message": "© 2025 · Multi-AI File Paster · Imetengenezwa na"
-  },
-  "scrum_master": {
-    "message": "Mkuu wa Scrum:"
-  },
-  "powered_by": {
-    "message": "inaendeshwa na"
-  },
-  "about_help": {
-    "message": "Kuhusu na Msaada"
-  },
-  "send_feedback": {
-    "message": "Tuma Maoni"
-  },
-  "star_github": {
-    "message": "⭐ Nyota kwenye GitHub"
-  },
-  "about_title": {
-    "message": "Kuhusu na Msaada"
-  },
-  "feedback_title": {
-    "message": "Tuma Maoni"
-  },
-  "translating_wait": {
-    "message": "Inatafasiri, subiri kidogo..."
-  },
-  "close": {
-    "message": "Funga"
-  },
-  "smart_file_attachment": {
-    "message": "Kiambatisho cha Faili cha Akili kwa Mazungumzo ya AI"
-  },
-  "about_description": {
-    "message": "Multi-AI File Paster hutambua unapobandika maandishi marefu (msimbo, nyaraka, data) na kuyabadilisha kuwa faili zilizopangwa vizuri. Hii huhifadhi mazungumzo yakiwa safi na ndani ya mipaka ya jukwaa."
-  },
-  "key_features": {
-    "message": "Vipengele Muhimu:"
-  },
-  "key_features_text": {
-    "message": "Kutambua-Kiotomatiki huchagua aina sahihi ya faili kutoka kwa maudhui yako na kurudi kwa .txt kwa uhakika. Inafanya kazi katika ChatGPT, Claude, Gemini, DeepSeek, na Grok. Inasaidia miundo 20+ ya faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi maalum."
-  },
-  "new_version": {
-    "message": "Mpya katika v1.1.0:"
-  },
-  "new_version_text": {
-    "message": "Hali ya Kundi hugawanya maudhui makubwa katika faili nyingi, mkandamizo wa GZIP hupunguza ukubwa wa faili kwa 60-80%, na dashibodi iliyoboreshwa ya uchambuzi inafuatilia mifumo yako ya matumizi."
-  },
-  "configuration": {
-    "message": "Usanidi"
-  },
-  "supported_platforms": {
-    "message": "Majukwaa ya AI Yanayosaidiwa"
-  },
-  "platforms_description": {
-    "message": "Inaunganishwa na majukwaa maarufu zaidi ya mazungumzo ya AI:"
-  },
-  "platforms_why": {
-    "message": "Kwa nini hii ni muhimu:"
-  },
-  "platforms_why_text": {
-    "message": "Kila jukwaa lina mifumo tofauti ya kiambatisho cha faili. Kiendelezi chetu kinashughulikia tofauti hizi kiotomatiki, kuhakikisha faili zako zinaambatishwa kwa usahihi bila kujali ni AI gani unayotumia."
-  },
-  "privacy": {
-    "message": "Faragha"
-  },
-  "zero_data_collection": {
-    "message": "Hakuna Ukusanyaji wa Data:"
-  },
-  "privacy_description": {
-    "message": "Uchakataji wote wa maandishi unafanyika kabisa kwenye kifaa chako. Maudhui yako hayatoki kwenye kompyuta yako - hakuna seva, hakuna uchakataji wa wingu, hakuna uhamishaji wa data."
-  },
-  "what_we_dont_do": {
-    "message": "Kile tusichofanya:"
-  },
-  "privacy_dont": {
-    "message": "Hatusomai, hatuhifadhi, wala hatuhamishi maudhui yako ya maandishi, URL, maelezo ya kibinafsi, au data ya kuvinjari. Mazungumzo yako na AI yanabaki faragha kabisa."
-  },
-  "what_we_do": {
-    "message": "Kile tunachofanya:"
-  },
-  "privacy_do": {
-    "message": "Kuchakata maandishi yako ndani ya eneo ili kuunda viambatisho vya faili, kisha kutupa mara moja data iliyochakatwa. Rahisi, salama, wazi."
-  },
-  "anonymous_analytics": {
-    "message": "Uchambuzi wa Matumizi Usio na Utambulisho (Hiari)"
-  },
-  "analytics_description": {
-    "message": "Saidia kuboresha kiendelezi kwa kushiriki hesabu za matumizi zisizo na utambulisho tu (faili zilizotengenezwa, makosa yaliyokutana nayo). Haijamkusanya maudhui, URL, au data ya kibinafsi. Ni hiari kabisa na inaweza kuzimwa wakati wowote."
-  },
-  "analytics_note": {
-    "message": "Kumbuka:"
-  },
-  "analytics_note_text": {
-    "message": "Dashibodi ya uchambuzi inaonekana tu wakati chaguo hili limewezesha."
-  },
-  "development_team": {
-    "message": "Timu ya Maendeleo na Msaada"
-  },
-  "lead_developer": {
-    "message": "Msanidi Mkuu:"
-  },
-  "company": {
-    "message": "Kampuni:"
-  },
-  "support_contacts": {
-    "message": "Mawasiliano ya Msaada:"
-  },
-  "extension_support": {
-    "message": "Msaada wa Kiendelezi:"
-  },
-  "technical_issues": {
-    "message": "Masuala ya Kiufundi:"
-  },
-  "resources": {
-    "message": "Rasilimali:"
-  },
-  "keyboard_shortcut": {
-    "message": "Njia ya Mkato ya Kibodi:"
-  },
-  "keyboard_shortcut_text": {
-    "message": "Ctrl/Cmd + Shift + S (Hifadhi ya Mkononi)"
-  },
-  "feedback_question": {
-    "message": "Ni aina gani ya maoni ungependa kutuma?"
-  },
-  "support_request": {
-    "message": "Ombi la Msaada"
-  },
-  "support_request_desc": {
-    "message": "Pata msaada na masuala, hitilafu, au matatizo ya kiufundi"
-  },
-  "general_feedback": {
-    "message": "Maoni ya Jumla"
-  },
-  "general_feedback_desc": {
-    "message": "Shiriki mawazo yako, mapendekezo, au uzoefu wa mtumiaji"
-  },
-  "feature_request": {
-    "message": "Ombi la Kipengele"
-  },
-  "feature_request_desc": {
-    "message": "Pendekeza vipengele vipya au maboresho ili kuvifanya bora zaidi"
-  },
-  "language_selector": {
-    "message": "Lugha"
-  },
-  "language_english": {
-    "message": "English"
-  },
-  "language_swahili": {
-    "message": "Kiswahili"
-  },
-  "language_arabic": {
-    "message": "Kiarabu"
-  },
-  "config_auto_attach": {
-    "message": "Ambatisha Kiotomatiki: Hutambua kiotomatiki na kubadilisha mabandiko marefu (kiwango cha maneno kinachoweza kubadilishwa: maneno 50-15,000)"
-  },
-  "config_delay": {
-    "message": "Ucheleweshaji: Hesabu ya hiari ya sekunde 1-15 huzuia viambatisho vya bahati mbaya"
-  },
-  "config_multi_format": {
-    "message": "Msaada wa Miundo Mingi: Chagua kutoka kwa aina 20+ za faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi maalum"
-  },
-  "config_platform_optimization": {
-    "message": "Uboreshaji wa Jukwaa: Ushughulikaji maalum kwa kila mfumo wa kipekee wa kiambatisho cha faili cha jukwaa la AI"
-  },
-  "config_batch_processing": {
-    "message": "Uchakataji wa Kundi: Gawanya maudhui makubwa katika faili 2-4 kwa mgawanyo wa mistari wa akili"
-  },
-  "config_file_compression": {
-    "message": "Mkandamizo wa Faili: Mkandamizo wa GZIP hupunguza ukubwa wa faili kwa utendaji bora"
-  },
-  "config_manual_override": {
-    "message": "Ubadilishaji wa Mkononi: Ubadilishaji wa maandishi yaliyoandikwa kuwa viambatisho vya faili kwa mahitaji"
-  },
-  "config_claude_integration": {
-    "message": "Muunganisho wa Claude: Hufanya kazi pamoja na au kubadilisha kipengele cha Claude cha kubadilisha-bandiko-kuwa-faili"
-  },
-  "config_analytics_dashboard": {
-    "message": "Dashibodi ya Uchambuzi: Fuatilia mifumo ya matumizi na takwimu za kuunda faili"
-  },
-  "platform_chatgpt": {
-    "message": "OpenAI ChatGPT: Msaada kamili kwa chat.openai.com na chatgpt.com"
-  },
-  "platform_claude": {
-    "message": "Anthropic Claude: Muunganisho wa hali ya juu na claude.ai"
-  },
-  "platform_gemini": {
-    "message": "Google Gemini: Ushughulikaji wa faili ulioboreshwa kwa gemini.google.com"
-  },
-  "platform_deepseek": {
-    "message": "DeepSeek AI: Upatanifu kamili na chat.deepseek.com"
-  },
-  "platform_grok": {
-    "message": "Grok: Muunganisho wa kawaida na grok.com"
-  },
-  "batch_active_short": {
-    "message": "BATCH"
-  },
-  "ui_components_custom_format_label": {
-    "message": "Maalum"
-  },
-  "ui_components_connected_to": {
-    "message": "Imeunganishwa na $MODEL$",
-    "placeholders": {
-      "model": {
-        "content": "$1",
-        "example": "ChatGPT"
-      }
-    }
-  },
-  "ui_components_stopped_on": {
-    "message": "Imesimamishwa kwenye $MODEL$",
-    "placeholders": {
-      "model": {
-        "content": "$1",
-        "example": "ChatGPT"
-      }
-    }
-  },
-  "ui_components_ai_model_default": {
-    "message": "Mfano wa AI"
-  },
-  "modals_about_title": {
-    "message": "Kuhusu Multi-AI File Paster"
-  },
-  "modals_feedback_title": {
-    "message": "Tuma Maoni"
-  }
-  ,
-  "beta": { "message": "BETA" },
-
-  "platforms_chatgpt": { "message": "ChatGPT: Msaada kamili kwa chat.openai.com" },
-  "platforms_claude": { "message": "Claude: Msaada asili kwa mazungumzo ya claude.ai" },
-  "platforms_gemini": { "message": "Gemini: Muunganiko wa gemini.google.com" },
-  "platforms_deepseek": { "message": "DeepSeek: Msaada kamili kwa chat.deepseek.com" },
-  "platforms_grok": { "message": "Grok: Ulinganifu kamili na x.ai" },
-
-  "ui_components_banner_not_supported": { "message": "Sio kwenye jukwaa linalosaidiwa. Fungua ChatGPT, Claude, Gemini, DeepSeek, au Grok kwanza" },
-  "ui_components_batch_active_badge": { "message": "BATCH" },
-  "ui_components_toggle_theme": { "message": "Badilisha mandhari" },
-  "ui_components_custom_format_placeholder": { "message": "k.m. log, cfg, data" },
-  "ui_components_close": { "message": "Funga" },
-  "ui_components_modal_title": { "message": "Badilisha jina la faili" },
-  "ui_components_modal_description": { "message": "Weka jina la faili (bila kiendelezi). Acha tupu kutumia jina chaguomsingi." },
-  "ui_components_modal_placeholder": { "message": "k.m. mazungumzo-dondoo" },
-  "ui_components_modal_hint": { "message": "Zinazoruhusiwa: herufi, nambari, nafasi, viungo, na mistari (kikomo 64). Bila kiendelezi." },
-  "ui_components_modal_keys_hint": { "message": "Bonyeza <span class=\"key\">Enter</span> kuhifadhi · <span class=\"key\">Esc</span> kughairi" },
-  "ui_components_modal_cancel": { "message": "Ghairi" },
-  "ui_components_modal_save": { "message": "Hifadhi" },
-  "ui_components_loader_cancel": { "message": "Ghairi" },
-  "ui_components_retry": { "message": "Jaribu Tena" },
-  "ui_components_searching_for_file_input": { "message": "Kutafuta eneo la kuambatisha faili..." },
-  "ui_components_delay_countdown": { "message": "Inaambatisha baada ya sekunde $1" },
-  "ui_components_data_cleared_success": { "message": "Data imesafishwa kwa mafanikio" },
-  "ui_components_batch_active_tip": { "message": "<span class='tip-badge batch'>BATCH</span> Mkandamizo wa Faili umezimwa wakati Hali ya Kundi imewezeshwa. Njia moja tu ya mkandamizo inaweza kuwa hai kwa wakati mmoja." },
-  "ui_components_export_filename_prefix": { "message": "multi-ai-paster-analytics-" },
-  "ui_components_export_by_prefix": { "message": "Multi-AI File Paster v" },
-  "ui_components_feedback_support_description": { "message": "tatizo au swali" },
-  "ui_components_feedback_improvement_description": { "message": "ombi la kipengele au wazo la uboreshaji" },
-  "ui_components_feedback_default_description": { "message": "maoni au pendekezo" },
-  "ui_components_disabled_title": { "message": "Fungua gumzo la AI na andika maandishi ya kuambatisha kama faili" },
-  "ui_components_disabled_compression_tooltip": { "message": "Imezimwa wakati mkandamizo wa faili umewezeshwa" },
-  "ui_components_language_changed": {
-    "message": "Lugha imebadilishwa kuwa $LANGUAGE$",
-    "placeholders": {
-      "language": {
-        "content": "$1",
-        "example": "Kiswahili"
-      }
-    }
-  },
-  "ui_components_batch_delay_tip": { "message": "<span class='tip-badge batch'>BATCH</span> Mpangilio huu umezimwa wakati Hali ya Kundi imewezeshwa. Hali ya Kundi hutumia ucheleweshaji wake kwa upakiaji wa faili. Zima Hali ya Kundi ili kutumia mpangilio huu wa ucheleweshaji." },
-  "ui_components_batch_auto_attach_tip": { "message": "<span class='tip-badge batch'>BATCH</span> Kiambatisho Kiotomatiki kimezimwa wakati Hali ya Kundi imewezeshwa. Hali ya Kundi hushughulikia kiambatisho kiotomatiki kwa maudhui yaliyogawanywa. Zima Hali ya Kundi ili kutumia Kiambatisho Kiotomatiki kwa faili za kawaida." },
-
-  "file_format_back_to_main": { "message": "Rudi kwenye miundo mikuu" },
-  "file_format_next_page": { "message": "Ukurasa unaofuata umepakiwa" },
-  "file_format_previous_page": { "message": "Ukurasa uliopita umepakiwa" },
-  "file_format_enter_custom": { "message": "Ingiza kiendelezi maalum" },
-  "file_format_changed": { "message": "Muundo wa faili umesasishwa" },
-  "file_format_format_selected": { "message": "Muundo wa faili umewekwa kuwa .$1" },
-  "file_format_more_formats_loaded": { "message": "Miundo zaidi imepakiwa" },
-  "file_format_custom_format_set": { "message": "Muundo maalum umewekwa kuwa $1" },
-
-  "file_operations_attachment_cancelled": { "message": "Kiambatisho cha faili kimeghairiwa" },
-  "file_operations_attachment_preparing": { "message": "Kuandaa faili yako" },
-  "file_operations_attachment_attaching": { "message": "Kuambatisha faili" },
-  "file_operations_attachment_uploading": { "message": "Kupakia faili" },
-  "file_operations_attachment_success": { "message": "Imeambatishwa $1" },
-  "file_operations_manual_save_success": { "message": "Faili imeambatishwa" },
-  "file_operations_batch_detected": { "message": "Maudhui makubwa yamegunduliwa. Yanagawanywa katika faili $1" },
-  "file_operations_batch_processing_start": { "message": "Inachakata faili $1" },
-  "file_operations_batch_processing": { "message": "Inachakata faili $1 kati ya $2: $3" },
-  "file_operations_batch_attaching": { "message": "Inaambatisha $1" },
-  "file_operations_batch_uploading": { "message": "Inapakia $1" },
-  "file_operations_batch_success": { "message": "Imeshughulikia faili $1 kutoka kwenye kundi" },
-  "file_operations_compression_optimized": { "message": "Faili imeboreshwa kutoka $1 hadi $2 ($3% ndogo)" },
-
-  "errors_extension_reloaded": { "message": "Kiendelezi kimepakiwa upya. Tafadhali onyesha upya ukurasa na ujaribu tena" },
-  "errors_extension_context": { "message": "Hitilafu ya muktadha wa kiendelezi. Onyesha upya ukurasa na ujaribu tena" },
-  "errors_no_file_input": { "message": "Huwezi kupata eneo la kupakia faili. Jaribu kubofya kitufe cha kiambatisho kwenye jukwaa kwanza" },
-  "errors_network_error": { "message": "Hitilafu ya mtandao. Angalia muunganisho wa intaneti na ujaribu tena" },
-  "errors_permission_denied": { "message": "Ruhusa imekataliwa. Onyesha upya ukurasa na ujaribu tena" },
-  "errors_attachment_failed": { "message": "Kiambatisho cha faili kimeshindwa. Onyesha upya ukurasa na ujaribu tena" },
-  "errors_no_text_input": { "message": "Hakuna maandishi yaliyopatikana kwenye ingizo la gumzo. Andika ujumbe wako kwanza" },
-  "errors_text_too_short": { "message": "Maandishi mafupi sana ($1 maneno). Kima cha chini kinahitajika: $2 maneno" },
-  "errors_text_too_short_manual": { "message": "Maandishi mafupi sana kwa hifadhi ya mkononi. Ongeza maandishi au punguza mpangilio wa Maneno ya Chini" },
-  "errors_busy_processing": { "message": "Kiambatisho kingine kinaendelea. Tafadhali subiri" },
-  "errors_platform_not_supported": { "message": "Jukwaa hili la AI halijaungwa mkono. Jaribu ChatGPT, Claude, Gemini, DeepSeek, au Grok" },
-  "errors_no_input_field": { "message": "Huwezi kupata kisanduku cha kuingiza. Hakikisha uko kwenye ukurasa wa mazungumzo wa AI unaosaidiwa" },
-  "errors_connection_failed": { "message": "Huwezi kuunganisha na ukurasa. Onyesha upya na ujaribu tena" },
-  "errors_no_response": { "message": "Hakuna jibu kutoka kwenye ukurasa. Onyesha upya na ujaribu tena" },
-  "errors_no_tab_access": { "message": "Huwezi kufikia kichupo cha sasa. Jaribu tena" },
-  "errors_batch_processing_failed": { "message": "Uchakataji wa kundi umeshindikana: $1" },
-  "errors_export_failed": { "message": "Uhamishaji umeshindikana. Jaribu tena" },
-
-  "platform_specific_try_attachment_button": { "message": "Jaribu kubofya kitufe cha kiambatisho kwenye jukwaa kwanza, kisha ujaribu tena" },
-  "platform_specific_manual_drag_drop": { "message": "Bado hujaweza kupata ingizo la faili. Tafadhali buruta na udondoshe faili kwenye gumzo kwa mikono" },
-
-  "analytics_last_7_days": { "message": "Siku 7 Zilizopita" },
-  "analytics_last_30_days": { "message": "Siku 30 Zilizopita" },
-  "analytics_last_90_days": { "message": "Siku 90 Zilizopita" },
-  "analytics_all_time": { "message": "Wakati Wote" },
+  "extension_name": {"message": "Multi-AI File Paster"},
+  "extension_description": {"message": "Kuunda kiotomatiki viambatisho vya faili kutoka kwa maudhui ya maandishi yaliyobandikwa kwenye ChatGPT, Claude, Gemini, DeepSeek na Grok. Ina uchakataji wa kundi na mkandamizo wa faili."},
+  "extension_short_name": {"message": "Multi-AI"},
+  "extension_context": {"message": "Muktadha wa kiendelezi umepotea - tafadhali onyesha upya ukurasa"},
+  "extension_reloaded": {"message": "Kiendelezi kimepakiwa upya - tafadhali onyesha upya ukurasa"},
+  "extension_support": {"message": "Msaada wa Kiendelezi:"},
+  "header_title": {"message": "Multi-AI File Paster"},
+  "header_subtitle": {"message": "Hubadilisha kiotomatiki mabandiko marefu na kuambatisha faili safi katika ChatGPT, Claude, Gemini, DeepSeek na Grok. Inasaidia Kutambua-Kiotomatiki na miundo 20+ ikiwa ni pamoja na faili za msimbo."},
+  "about_description": {"message": "Multi-AI File Paster hutambua unapobandika maandishi marefu (msimbo, nyaraka, data) na kuyabadilisha kuwa faili zilizopangwa vizuri. Hii huhifadhi mazungumzo yakiwa safi na ndani ya mipaka ya jukwaa."},
+  "about_help": {"message": "Kuhusu na Msaada"},
+  "ai_model_default": {"message": "Mfano wa AI"},
+  "ai_platforms": {"message": "Majukwaa ya AI"},
+  "all_time": {"message": "Wakati wote"},
+  "analytics": {"message": "Uchanganuzi"},
+  "analytics_all_time": {"message": "Wakati Wote"},
   "analytics_analytics_updated": {
     "message": "Uchambuzi umesasishwa: $PERIOD$",
     "placeholders": {
-      "period": {
+      "PERIOD": {
         "content": "$1",
         "example": "Siku 7 Zilizopita"
       }
     }
   },
-
-  "analytics_no_data": { "message": "Hakuna Data" },
-  "analytics_no_data_yet": { "message": "Hakuna Data" },
-  "analytics_error_loading": { "message": "Hitilafu ya kupakia data" },
-  "analytics_clearing_data": { "message": "Inafuta data..." },
-  "analytics_chart_error": { "message": "Hitilafu ya mchoro" },
-  "analytics_chart_unavailable": { "message": "Mchoro haupatikani" },
-  "analytics_today": { "message": "Leo" },
-  "analytics_yesterday": { "message": "Jana" },
+  "analytics_chart_error": {"message": "Hitilafu ya mchoro"},
+  "analytics_chart_unavailable": {"message": "Mchoro haupatikani"},
+  "analytics_cleanup": {"message": "[DEBUG] Usafishaji wa uchanganuzi umekamilika"},
+  "analytics_cleanup_complete": {"message": "Usafishaji wa uchanganuzi umekamilika"},
+  "analytics_clearing_data": {"message": "Inafuta data..."},
   "analytics_days_ago": {
     "message": "Siku $DAYS$ zilizopita",
     "placeholders": {
-      "days": {
+      "DAYS": {
         "content": "$1",
         "example": "2"
       }
     }
   },
-  "analytics_files_label": { "message": "faili" },
-
-  "success_analytics_exported": { "message": "Data ya uchambuzi imesafirishwa kwa mafanikio" },
-  "success_github_star": { "message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> Asante! Kufungua GitHub kuipa nyota hifadhidata" },
-  "success_feedback_sent": { "message": "Barua pepe ya maoni imefunguliwa! Asante kwa kutusaidia kuboresha." },
-  "success_not_on_platform": { "message": "Sio kwenye jukwaa linalosaidiwa. Fungua ChatGPT, Claude, Gemini, DeepSeek, au Grok kwanza" },
-
-  "validation_system_unavailable": { "message": "Mfumo wa uthibitishaji haupatikani" },
-  "validation_extension_required": { "message": "Kiendelezi kinahitajika" },
-  "validation_letters_numbers_only": { "message": "Ingiza herufi au nambari tu" },
-  "validation_security_risk": { "message": "Hatari ya usalama: viendelezi vinavyotekelezeka haviruhusiwi" }
-  ,
-  "validation_security_risk_executable": { "message": "Hatari ya usalama: viendelezi vinavyotekelezeka haviruhusiwi" }
-  ,
-  "settings_saving": { "message": "Inahifadhi mipangilio" },
-  "settings_word_limit_updated": { "message": "Kikomo cha maneno kimesetwa kuwa maneno $1" },
-  "settings_delay_enabled": { "message": "Ucheleweshaji wa kiambatisho umewezeshwa kwa sekunde $1" },
-  "settings_delay_disabled": { "message": "Ucheleweshaji wa kiambatisho umezimwa" },
-  "settings_batch_mode_enabled": { "message": "Hali ya Kundi imewezeshwa. Kiambatisho Kiotomatiki kimezimwa wakati Hali ya Kundi inafanya kazi" },
-  "settings_batch_mode_disabled": { "message": "Hali ya Kundi imezimwa. Kiambatisho Kiotomatiki kimerudishwa" },
-  "settings_compression_enabled": { "message": "Mkandamizo wa faili umewezeshwa kwa faili zaidi ya baiti $1" },
-  "settings_compression_disabled": { "message": "Mkandamizo wa faili umezimwa" },
-  "settings_batch_compression_enabled": { "message": "Mkandamizo wa kundi umewezeshwa" },
-  "settings_batch_compression_disabled": { "message": "Mkandamizo wa kundi umezimwa" },
-  "settings_auto_attach_enabled": { "message": "Kiambatisho Kiotomatiki kimewezeshwa. Faili zitaambatishwa kiotomatiki unapobandika" },
-  "settings_auto_attach_disabled": { "message": "Kiambatisho Kiotomatiki kimezimwa. Tumia kitufe cha hifadhi ya mkononi kuambatisha faili" },
-  "settings_claude_override_enabled": { "message": "Ubadilishaji wa Claude umewezeshwa. Kiendelezi kitafanya kazi kwenye Claude" },
-  "settings_claude_override_disabled": { "message": "Ubadilishaji wa Claude umezimwa. Claude itatumia vipengele vilivyojengwa ndani" },
-  "settings_telemetry_enabled": { "message": "Uchambuzi umewezeshwa. Hii husaidia kuboresha kiendelezi" },
-  "settings_telemetry_disabled": { "message": "Uchambuzi umezimwa. Hakuna data ya matumizi itakayokusanywa" },
-  "settings_debug_enabled": { "message": "Hali ya utatuzi imewezeshwa" },
-  "settings_debug_disabled": { "message": "Hali ya utatuzi imezimwa" },
-  "settings_max_batch_files_updated": { "message": "Idadi ya juu ya faili za kundi imesetwa kuwa $1" },
-  "settings_batch_delay_updated": { "message": "Ucheleweshaji wa uchakataji wa kundi umesetwa kuwa $1ms" },
-  "settings_compression_threshold_updated": { "message": "Kizingiti cha mkandamizo kimesetwa kuwa baiti $1" },
-  "github_repository": { "message": "Hifadhidata ya GitHub" },
-  "view_on_github": { "message": "Tazama kwenye GitHub" },
-  "developer_website": { "message": "Tovuti ya Msanidi" },
-  "wekturbo_page": { "message": "Ukurasa wa WekTurbo" }
+  "analytics_description": {"message": "Saidia kuboresha kiendelezi kwa kushiriki hesabu za matumizi zisizo na utambulisho tu (faili zilizotengenezwa, makosa yaliyokutana nayo). Haijamkusanya maudhui, URL, au data ya kibinafsi. Ni hiari kabisa na inaweza kuzimwa wakati wowote."},
+  "analytics_error_loading": {"message": "Hitilafu ya kupakia data"},
+  "analytics_exported": {"message": "Data ya uchambuzi imehamishwa"},
+  "analytics_files_label": {"message": "faili"},
+  "analytics_last_30_days": {"message": "Siku 30 Zilizopita"},
+  "analytics_last_7_days": {"message": "Siku 7 Zilizopita"},
+  "analytics_last_90_days": {"message": "Siku 90 Zilizopita"},
+  "analytics_no_data": {"message": "Hakuna data"},
+  "analytics_note": {"message": "Kumbuka:"},
+  "analytics_note_text": {"message": "Dashibodi ya uchambuzi inaonekana tu wakati chaguo hili limewezesha."},
+  "analytics_today": {"message": "Leo"},
+  "analytics_yesterday": {"message": "Jana"},
+  "anonymous_analytics": {"message": "Uchambuzi wa Matumizi Usio na Utambulisho (Hiari)"},
+  "aria_batch_compression": {"message": "Mkandamizo wa Kundi"},
+  "aria_batch_delay": {"message": "Kuchelewa kwa Kundi"},
+  "aria_batch_processing": {"message": "Uchanganuzi wa Kundi"},
+  "aria_chart_type": {"message": "Aina ya chati"},
+  "aria_choose_debug_level": {"message": "Chagua kiwango cha utatuzi"},
+  "aria_choose_file_format": {"message": "Chagua muundo wa faili"},
+  "aria_choose_theme": {"message": "Chagua mandhari"},
+  "aria_claude_override": {"message": "Pindua Claude"},
+  "aria_compression_threshold": {"message": "Kizingiti cha mkandamizo kwa baiti"},
+  "aria_custom_format_help": {"message": "Msaada wa muundo binafsi"},
+  "aria_debug_level": {"message": "Msaada wa kiwango cha utatuzi"},
+  "aria_delay_seconds": {"message": "Sekunde za kuchelewa (1-15)"},
+  "aria_files_per_day_chart": {"message": "Chati ya mstari ya faili kwa siku"},
+  "aria_files_per_day_trend": {"message": "Mwelekeo wa faili kwa siku"},
+  "aria_hostwek_website": {"message": "Tovuti ya Hostwek"},
+  "aria_more_file_formats": {"message": "Miundo zaidi ya faili"},
+  "aria_theme_help": {"message": "Msaada wa uchaguzi wa mandhari"},
+  "aria_what_is_auto_attach": {"message": "Kiotomatiki ni nini?"},
+  "aria_what_is_delay": {"message": "Kuchelewa ni nini?"},
+  "aria_what_is_min_words": {"message": "Maneno ya Chini ni nini?"},
+  "attach_typed_text": {"message": "Ambatisha kama faili"},
+  "attachment_attaching": {"message": "Inaambatisha faili..."},
+  "attachment_cancelled": {"message": "Kiambatisho kimeghairiwa"},
+  "attachment_failed": {"message": "Kiambatisho kimeshindwa"},
+  "attachment_preparing": {"message": "Inaandaa faili..."},
+  "attachment_success": {
+    "message": "Imeambatisha kwa ufanisi $FILE$",
+    "placeholders": {
+      "FILE": {
+        "content": "$1",
+        "example": "document.txt"
+      }
+    }
+  },
+  "attachment_uploading": {"message": "Inapakia faili..."},
+  "auto_attach": {"message": "Kiotomatiki"},
+  "auto_attach_tooltip": {"message": "<span class='tip-badge feature'>KIPENGELE</span> Hubadilisha mabandiko marefu kuwa faili safi na kuiambatisha kiotomatiki kwenye mazungumzo yako. Huweka ujumbe kuwa safi na ndani ya mipaka kwenye ChatGPT, Claude, Gemini, DeepSeek na Grok. Zima ili ubandike kawaida na utumie Hifadhi ya Mkononi."},
+  "auto_detect": {"message": "Kutambua-Kiotomatiki"},
+  "auto_filename_generated": {"message": "Jina la faili la kiotomatiki limetengenezwa"},
+  "back_to_main": {"message": "Rudi Kuu"},
+  "banner_not_supported": {"message": "Ukurasa huu hauauniwi"},
+  "bar_chart": {"message": "Pau"},
+  "batch_active_badge": {"message": "KUNDI"},
+  "batch_active_short": {"message": "KUNDI KIMEAMILISHWA"},
+  "batch_active_tip": {"message": "Hali ya kundi imeamilishwa - faili nyingi zitachakatwa"},
+  "batch_auto_attach_tip": {"message": "Kiotomatiki itachakatu faili zote katika hali ya kundi"},
+  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>MKANDAMIZO</span> Tumia mkandamizo kwa kila faili ya kundi ili kupunguza ukubwa wa faili. Hii ni tofauti na mpangilio mkuu wa 'Mkandamizo wa Faili' hapo juu. Wakati mkandamizo mkuu umewezesha, chaguo hili linazimwa kiotomatiki ili kuzuia migogoro. Tumia hii unapotaka mkandamizo kwa faili za kundi tu lakini sio faili za kawaida za moja."},
+  "batch_delay_tip": {"message": "Kuchelewa kunatumika kwa kila faili katika uchakataji wa kundi"},
+  "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>MUDA</span> Kuchelewa kwa muda kati ya kupakia kila faili ya kundi (100ms hadi 2000ms). Kuchelewa kwa kiwango cha juu kunapunguza uwezekano wa kutambuliwa kama barua taka na majukwaa ya AI. Mpangilio huu unazimwa kiotomatiki wakati kipimo kikuu cha 'Kuchelewa kwa Mtumiaji' kimeamilishwa hapo juu - katika hali hiyo, mpangilio mkuu wa kuchelewa una kipaumbele kwa upakiaji wote wa faili."},
+  "batch_detected": {
+    "message": "Hali ya kundi: faili $COUNT$ zimetambuliwa",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "batch_mode": {"message": "Hali ya Kundi"},
+  "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>JARIBIO</span> Hugawa maudhui makubwa kuwa faili nyingi kulingana na mpangilio wako wa Faili za Juu. Hugawanya maudhui kwa mistari na hutumia utambuzi wa lugha wenye akili kwa viendelezi vya faili. Huunda faili zilizojulikana kama sehemu1, sehemu2, sehemu3, sehemu4. Ni bora kwa kugawa nyaraka kubwa, faili za msimbo, au maudhui yoyote yanayozidi mipaka ya jukwaa. Kila sehemu inapata kiendelezi sahihi cha faili kulingana na uchambuzi wa maudhui."},
+  "beta": {"message": "JARIBIO"},
+  "bytes": {"message": "baiti"},
+  "cancel": {"message": "Ghairi"},
+  "claude_override": {"message": "Pindua Kiotomatiki cha Claude"},
+  "claude_override_tooltip": {"message": "<span class='tip-badge feature'>KIPENGELE</span> Claude inajumuisha kipengele chake cha kubandika-kwenye-faili. Washa hii ili kutumia Multi-AI File Paster kila wakati kwa upangaji na uwekaji majina thabiti zaidi."},
+  "clear_all_data": {"message": "Futa Data Zote"},
+  "clear_analytics_data": {"message": "Futa Data za Uchanganuzi"},
+  "clear_data": {"message": "Futa Data"},
+  "clear_data_warning": {"message": "Hii itafuta kabisa takwimu zako zote za matumizi na haiwezi kurejeshwa."},
+  "close": {"message": "Funga"},
+  "company": {"message": "Kampuni:"},
+  "compression": {"message": "Mkandamizo"},
+  "compression_optimized": {
+    "message": "Mkandamizo umeboresha: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$% imehifadhiwa)",
+    "placeholders": {
+      "original": {
+        "content": "$1",
+        "example": "100KB"
+      },
+      "compressed": {
+        "content": "$2",
+        "example": "75KB"
+      },
+      "savings": {
+        "content": "$3",
+        "example": "25"
+      }
+    }
+  },
+  "compression_poor_ratio": {"message": "Uwiano wa mkandamizo ni wa chini sana, tunabaki na faili ya awali"},
+  "compression_below_threshold": {"message": "Chini ya kizingiti"},
+  "config_analytics_dashboard": {"message": "Dashibodi ya Uchanganuzi: Fuatilia mifumo ya matumizi na takwimu za uundaji wa faili"},
+  "config_auto_attach": {"message": "Kiambatisho Otomatiki: Hutambua na kubadilisha mabandiko marefu kiotomatiki (kizingiti cha maneno kinachoweza kubadilishwa: maneno 50-15,000)"},
+  "config_batch_processing": {"message": "Uchakataji wa Kundi: Gawa maudhui makubwa kuwa faili 2-4 kwa mgawanyo wenye akili wa mistari"},
+  "config_claude_integration": {"message": "Ujumuishaji wa Claude: Inafanya kazi pamoja na au inabadilisha kipengele cha Claude cha ndani cha kubandika-kwenye-faili"},
+  "config_delay": {"message": "Kuchelewa: Hesabu ya hiari ya sekunde 1-15 inazuia viambatisho vya bahati mbaya"},
+  "config_file_compression": {"message": "Mkandamizo wa Faili: Mkandamizo wa GZIP unapunguza ukubwa wa faili kwa utendaji bora"},
+  "config_manual_override": {"message": "Mabadiliko ya Mkononi: Ubadilishaji wa maandishi yaliyoandikwa kuwa viambatisho vya faili kwa muktadha"},
+  "config_multi_format": {"message": "Msaada wa Miundo Mingi: Chagua kutoka kwa aina zaidi ya 20 za faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi binafsi"},
+  "config_platform_optimization": {"message": "Uboreishaji wa Jukwaa: Ushughulikaji maalum kwa mfumo wa kipekee wa kiambatisho cha faili wa kila jukwaa la AI"},
+  "configuration": {"message": "Usanidi"},
+  "connected_to": {
+    "message": "Imeunganishwa na $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "GPT-4"
+      }
+    }
+  },
+  "console_component_init_error": {"message": "Hitilafu ya kuanzisha kipengele:"},
+  "console_config_load_failed": {"message": "GPTPF: Imeshindwa kupakia config.js katika kazi ya mandharinyuma:"},
+  "console_i18n_load_failed": {"message": "Imeshindwa kupakia ujumbe kwa"},
+  "console_manual_save_error": {"message": "Hitilafu ya uhifadhi wa mkononi:"},
+  "console_platform_handler_error": {"message": "Hitilafu ya kishughulikia cha jukwaa:"},
+  "content_cleanup": {"message": "[DEBUG] Usafishaji wa maudhui umekamilika"},
+  "content_cleanup_complete": {"message": "Usafishaji wa hati za maudhui umekamilika"},
+  "custom_filename_processed": {"message": "Jina la faili binafsi limechakatwa"},
+  "custom_format_label": {"message": "Binafsi:"},
+  "custom_format_placeholder": {"message": "Ingiza muundo (mfano txt, md, json)"},
+  "custom_format_set": {
+    "message": "Muundo binafsi umewekwa kwa .$EXT$",
+    "placeholders": {
+      "EXT": {
+        "content": "$1",
+        "example": "txt"
+      }
+    }
+  },
+  "custom_format_tooltip": {"message": "<span class='tip-badge security'>USALAMA</span> Ingiza herufi/namba tu za kiendelezi bila nukta (mfano, log, data, cfg). Aina hatari za utekelezaji zinazuiliwa."},
+  "data_cleared_success": {"message": "Data zote zimefutwa kwa ufanisi"},
+  "days_30": {"message": "siku 30"},
+  "days_7": {"message": "siku 7"},
+  "days_90": {"message": "siku 90"},
+  "debug_analytics_clear_confirm": {"message": "Uthibitisho wa kufuta uchanganuzi"},
+  "debug_analytics_data_cleared": {"message": "Data za uchanganuzi zimefutwa kutoka uhifadhini"},
+  "debug_background_command_received": {"message": "Amri ya mandharinyuma imepokelewa"},
+  "debug_background_config_resolve": {"message": "Kutatua usanidi wa mandharinyuma"},
+  "debug_background_config_resolved": {"message": "Usanidi wa mandharinyuma umetatuliwa"},
+  "debug_background_config_unavailable": {"message": "Usanidi wa mandharinyuma haupatikani"},
+  "debug_background_extension_installed": {"message": "Tukio la kusakinishwa kwa kiendelezi"},
+  "debug_background_extension_startup": {"message": "Tukio la kuanza kwa kiendelezi"},
+  "debug_background_extension_updated": {"message": "Kiendelezi kimesasishwa"},
+  "debug_background_first_install": {"message": "Usakinishaji wa mara ya kwanza"},
+  "debug_background_get_debug_request": {"message": "Ombi la kupata utatuzi limepokelewa"},
+  "debug_background_get_settings_request": {"message": "Ombi la kupata mipangilio limepokelewa"},
+  "debug_background_message_received": {"message": "Ujumbe wa mandharinyuma umepokelewa"},
+  "debug_background_metric_event_request": {"message": "Ombi la tukio la kipimo limepokelewa"},
+  "debug_background_platform_check_request": {"message": "Ombi la ukaguzi wa jukwaa limepokelewa"},
+  "debug_background_save_chat_complete": {"message": "Operesheni ya kuhifadhi mazungumzo imekamilika"},
+  "debug_background_save_chat_start": {"message": "Kuanza operesheni ya kuhifadhi mazungumzo"},
+  "debug_background_save_connection_failed": {"message": "Muunganisho umeshindwa wakati wa kuhifadhi"},
+  "debug_background_save_message_request": {"message": "Ombi la kuhifadhi ujumbe limepokelewa"},
+  "debug_background_save_no_tab": {"message": "Hakuna tab amilifu iliyopatikana kwa kuhifadhi"},
+  "debug_background_save_unsupported_platform": {"message": "Jukwaa lisilotumika kwa kuhifadhi"},
+  "debug_background_script_init": {"message": "Kuanzisha hati ya mandharinyuma"},
+  "debug_background_scripts_loaded": {"message": "Hati za mandharinyuma zimepakiwa kwa ufanisi"},
+  "debug_background_set_settings_request": {"message": "Ombi la kuweka mipangilio limepokelewa"},
+  "debug_background_settings_get": {"message": "Kupata mipangilio ya mandharinyuma"},
+  "debug_background_settings_saved": {"message": "Mipangilio ya mandharinyuma imehifadhiwa"},
+  "debug_background_settings_set": {"message": "Kuweka mipangilio ya mandharinyuma"},
+  "debug_badge_refresh_error": {"message": "Hitilafu ya kuonyesha upya kibadiliko imefanyika"},
+  "debug_badges_refreshed": {"message": "Vibadiliko vya jukwaa vimeonyeshwa upya kwa ufanisi"},
+  "debug_config_defaults_missing": {"message": "Kitu cha DEFAULTS cha usanidi hakikupatikani"},
+  "debug_config_error": {"message": "[DEBUG] Hitilafu ya usanidi"},
+  "debug_config_get": {"message": "[DEBUG] Kupata usanidi"},
+  "debug_config_get_complete": {"message": "Upataji wa usanidi umekamilika"},
+  "debug_config_get_start": {"message": "Kuanza upataji wa usanidi"},
+  "debug_config_init": {"message": "[DEBUG] Kuanzisha usanidi"},
+  "debug_config_initialized": {"message": "[DEBUG] Usanidi umeanzishwa"},
+  "debug_config_load": {"message": "[DEBUG] Kupakia usanidi"},
+  "debug_config_save": {"message": "[DEBUG] Kuhifadhi usanidi"},
+  "debug_config_set": {"message": "[DEBUG] Kuweka usanidi"},
+  "debug_config_set_complete": {"message": "Uhifadhi wa usanidi umekamilika"},
+  "debug_config_set_start": {"message": "Kuanza uhifadhi wa usanidi"},
+  "debug_config_system_init": {"message": "Kuanzisha mfumo wa usanidi"},
+  "debug_config_system_ready": {"message": "Mfumo wa usanidi uko tayari"},
+  "debug_config_url_check": {"message": "Kuangalia msaada wa URL"},
+  "debug_config_url_supported": {"message": "[DEBUG] URL ya usanidi inasaidiwa"},
+  "debug_config_url_unsupported": {"message": "[DEBUG] URL ya usanidi haisaidiwi"},
+  "debug_content_theme_applied": {"message": "Mandhari ya hati za maudhui imetumika"},
+  "debug_content_theme_error": {"message": "Hitilafu ya kutumia mandhari ya hati za maudhui"},
+  "debug_deepseek_attach_button_get": {"message": "Kupata kitufe cha kuambatisha cha DeepSeek"},
+  "debug_deepseek_attach_file": {"message": "Kuambatisha faili kwenye DeepSeek"},
+  "debug_deepseek_composer_get": {"message": "Kupata kipengele cha mtunga wa DeepSeek"},
+  "debug_deepseek_constructor": {"message": "Mjenzi wa jukwaa la DeepSeek"},
+  "debug_deepseek_ensure_file_input": {"message": "Kuhakikisha ingizo la faili la DeepSeek"},
+  "debug_deepseek_file_attached": {"message": "Faili imeambatishwa kwenye DeepSeek kwa ufanisi"},
+  "debug_deepseek_file_input_get": {"message": "Kupata ingizo la faili la DeepSeek"},
+  "debug_deepseek_platform_check": {"message": "Kuangalia jukwaa la DeepSeek"},
+  "debug_deepseek_post_paste_handle": {"message": "Kushughulikia baada ya kubandika kwa DeepSeek"},
+  "debug_deepseek_settings_get": {"message": "Kupata mipangilio ya jukwaa la DeepSeek"},
+  "debug_deepseek_should_handle_paste": {"message": "Kuangalia kama DeepSeek inashughulikia kubandika"},
+  "debug_disabled": {"message": "Hali ya utatuzi imezimwa - Makosa tu yataonyeshwa"},
+  "debug_enabled": {"message": "Hali ya utatuzi imeamilishwa - Ujumbe wa utatuzi na arifa za popup zitaonyeshwa"},
+  "debug_error": {"message": "[HITILAFU]"},
+  "debug_factory_create_handler": {"message": "Kuunda kishughulikia cha jukwaa"},
+  "debug_factory_default_settings": {"message": "Kutumia mipangilio ya chaguo-msingi ya kiwanda"},
+  "debug_factory_get_platform": {"message": "Kupata jukwaa la sasa"},
+  "debug_factory_get_settings": {"message": "Kupata mipangilio ya kiwanda"},
+  "debug_factory_handler_created": {"message": "Kishughulikia cha jukwaa kimeundwa"},
+  "debug_factory_no_handler": {"message": "Hakuna kishughulikia kilichopatikana kwa jukwaa"},
+  "debug_factory_platform_detected": {"message": "Jukwaa limetambuliwa kwa ufanisi"},
+  "debug_factory_settings_configured": {"message": "Mipangilio ya kiwanda imesanidiwa"},
+  "debug_factory_unknown_platform": {"message": "Jukwaa lisilojulikana limetambuliwa"},
+  "debug_grok_attach_button_get": {"message": "Kupata kitufe cha kuambatisha cha Grok"},
+  "debug_grok_attach_file": {"message": "Kuambatisha faili kwenye Grok"},
+  "debug_grok_composer_get": {"message": "Kupata kipengele cha mtunga wa Grok"},
+  "debug_grok_constructor": {"message": "Mjenzi wa jukwaa la Grok"},
+  "debug_grok_ensure_file_input": {"message": "Kuhakikisha ingizo la faili la Grok"},
+  "debug_grok_file_attached": {"message": "Faili imeambatishwa kwenye Grok kwa ufanisi"},
+  "debug_grok_file_input_get": {"message": "Kupata ingizo la faili la Grok"},
+  "debug_grok_platform_check": {"message": "Kuangalia jukwaa la Grok"},
+  "debug_grok_post_paste_handle": {"message": "Kushughulikia baada ya kubandika kwa Grok"},
+  "debug_grok_settings_get": {"message": "Kupata mipangilio ya jukwaa la Grok"},
+  "debug_grok_should_handle_paste": {"message": "Kuangalia kama Grok inashughulikia kubandika"},
+  "debug_info": {"message": "[DEBUG]"},
+  "debug_level_all_messages": {"message": "Ujumbe Wote"},
+  "debug_level_errors_only": {"message": "Makosa Tu"},
+  "debug_level_tooltip": {"message": "<span class='tip-badge debug-info'>DEBUG</span> Dhibiti ni ujumbe gani wa utatuzi unaonekana katika arifa za popup. Makosa Tu inaonyesha masuala muhimu, Maonyo na Makosa inajumuisha maonyo, Ujumbe Wote inaonyesha kila kitu ikiwa ni pamoja na kumbuka za habari."},
+  "debug_level_warnings_errors": {"message": "Maonyo na Makosa"},
+  "debug_loader_countdown_cancelled": {"message": "Uhesabu wa upakizi umeghairiwa"},
+  "debug_loader_countdown_complete": {"message": "Uhesabu wa upakizi umekamilika"},
+  "debug_loader_countdown_error": {"message": "Hitilafu ya uhesabu wa upakizi"},
+  "debug_loader_countdown_start": {"message": "Kuanza uhesabu wa upakizi"},
+  "debug_loader_displayed": {"message": "Upakizi umeonyeshwa"},
+  "debug_loader_hidden": {"message": "Upakizi umefichwa"},
+  "debug_loader_hide": {"message": "Kuficha upakizi"},
+  "debug_loader_show": {"message": "Kuonyesha upakizi"},
+  "debug_log": {"message": "[LOG]"},
+  "debug_log_level": {"message": "Kiwango cha Utatuzi"},
+  "debug_log_level_changed": {
+    "message": "Kiwango cha kumbuka za utatuzi kimebadilishwa kuwa: $LEVEL$",
+    "placeholders": {
+      "LEVEL": {
+        "content": "$1",
+        "example": "info"
+      }
+    }
+  },
+  "debug_modal_about_close": {"message": "Kufunga modal ya kuhusu"},
+  "debug_modal_about_close_missing": {"message": "Kufunga modal ya kuhusu - kipengele hakikupatikani"},
+  "debug_modal_about_closed": {"message": "Modal ya kuhusu imefungwa kwa ufanisi"},
+  "debug_modal_about_element_missing": {"message": "Kipengele cha modal ya kuhusu hakikupatikani"},
+  "debug_modal_about_init": {"message": "[DEBUG] Kuanzisha modal ya kuhusu"},
+  "debug_modal_about_open": {"message": "Kufungua modal ya kuhusu"},
+  "debug_modal_about_opened": {"message": "Modal ya kuhusu imefunguliwa kwa ufanisi"},
+  "debug_modal_cancel": {"message": "Kitufe cha kughairi cha modal kimebonyezwa"},
+  "debug_modal_clear_close": {"message": "Kufunga modal ya kufuta data"},
+  "debug_modal_clear_close_missing": {"message": "Kufunga modal ya kufuta - kipengele hakikupatikani"},
+  "debug_modal_clear_closed": {"message": "Modal ya kufuta data imefungwa kwa ufanisi"},
+  "debug_modal_clear_data": {"message": "[DEBUG] Data za modal ya kufuta"},
+  "debug_modal_clear_element_missing": {"message": "Kipengele cha modal ya kufuta data hakikupatikani"},
+  "debug_modal_clear_escape": {"message": "Escape imebonyezwa katika modal ya kufuta"},
+  "debug_modal_clear_init": {"message": "[DEBUG] Kuanzisha modal ya kufuta"},
+  "debug_modal_clear_open": {"message": "Kufungua modal ya kufuta data"},
+  "debug_modal_clear_opened": {"message": "Modal ya kufuta data imefunguliwa kwa ufanisi"},
+  "debug_modal_closed": {"message": "[DEBUG] Modal imefungwa"},
+  "debug_modal_constructor": {"message": "Mjenzi wa modal"},
+  "debug_modal_content_load": {"message": "Kupakia maudhui ya modal"},
+  "debug_modal_error": {"message": "[DEBUG] Hitilafu ya modal"},
+  "debug_modal_escape_pressed": {"message": "Ufunguo wa Escape umebonyezwa katika modal"},
+  "debug_modal_hidden": {"message": "Modal imefichwa"},
+  "debug_modal_hide": {"message": "Kuficha modal"},
+  "debug_modal_initialized": {"message": "[DEBUG] Modal imeanzishwa"},
+  "debug_modal_initializing": {"message": "[DEBUG] Kuanzisha modal"},
+  "debug_modal_ok": {"message": "Kitufe cha OK cha modal kimebonyezwa"},
+  "debug_modal_opened": {"message": "[DEBUG] Modal imefunguliwa"},
+  "debug_modal_setup_background": {"message": "[DEBUG] Kusanidi mandharinyuma ya modal"},
+  "debug_modal_setup_close": {"message": "[DEBUG] Kusanidi kufunga modal"},
+  "debug_modal_setup_overlay": {"message": "[DEBUG] Kusanidi uwazi wa modal"},
+  "debug_modal_show": {"message": "Kuonyesha modal"},
+  "debug_modal_show_complete": {"message": "Kuonyesha modal kumekamilika"},
+  "debug_modal_show_error": {"message": "Hitilafu ya kuonyesha modal"},
+  "debug_modal_show_promise_start": {"message": "Kuanza ahadi ya kuonyesha modal"},
+  "debug_modal_system_init": {"message": "Kuanzisha mfumo wa modal"},
+  "debug_modal_system_ready": {"message": "Mfumo wa modal uko tayari"},
+  "debug_mode": {"message": "Hali ya Utatuzi"},
+  "debug_platform_detection_error": {"message": "Hitilafu ya utambuzi wa jukwaa imefanyika"},
+  "debug_setting_reset": {
+    "message": "Kurejesha mpangilio $KEY$ kuwa $VALUE$",
+    "placeholders": {
+      "KEY": {
+        "content": "$1",
+        "example": "theme"
+      },
+      "VALUE": {
+        "content": "$2",
+        "example": "default"
+      }
+    }
+  },
+  "debug_settings_reset_complete": {"message": "Kurejesha mipangilio kumekamilika kwa ufanisi"},
+  "debug_settings_reset_count": {
+    "message": "Kurejesha mipangilio $COUNT$",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "debug_settings_reset_error": {
+    "message": "Hitilafu ya kurejesha mipangilio: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Storage error"
+      }
+    }
+  },
+  "debug_settings_reset_start": {"message": "Kuanza kurejesha mipangilio"},
+  "debug_system_ready": {"message": "Mfumo wa utatuzi umeanzishwa na uko tayari"},
+  "debug_theme_apply_complete": {
+    "message": "Utumizi wa mandhari umekamilika: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "deepseek"
+      }
+    }
+  },
+  "debug_theme_apply_start": {
+    "message": "Kutumia mandhari: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_change_complete": {
+    "message": "Mabadiliko ya mandhari yamekamilika: $THEME$ ($NAME$)",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      },
+      "NAME": {
+        "content": "$2",
+        "example": "Claude"
+      }
+    }
+  },
+  "debug_theme_change_start": {
+    "message": "Mabadiliko ya mandhari yameanza: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_colors_applied": {
+    "message": "Rangi za mandhari zimetumika kwa: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "grok"
+      }
+    }
+  },
+  "debug_theme_default_cleared": {"message": "Mandhari ya chaguo-msingi imesafisha mtindo wa jukwaa"},
+  "debug_theme_default_detected": {
+    "message": "Mandhari ya chaguo-msingi imetambua jukwaa: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_default_using": {
+    "message": "Mandhari ya chaguo-msingi inatumia jukwaa: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_dropdown_set": {
+    "message": "Menyu kunjuzi ya mandhari imewekwa kuwa: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_grok_fx_added": {"message": "Athari za nyota za kuruka za Grok zimeongezwa"},
+  "debug_theme_load": {
+    "message": "Kupakia mandhari: iliyohifadhiwa=$STORED$, chaguo-msingi=$DEFAULT$, ya mwisho=$FINAL$",
+    "placeholders": {
+      "STORED": {
+        "content": "$1",
+        "example": "chatgpt"
+      },
+      "DEFAULT": {
+        "content": "$2",
+        "example": "default"
+      },
+      "FINAL": {
+        "content": "$3",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_sync_error": {"message": "Hitilafu ya usawazishaji wa mandhari"},
+  "debug_language_sync_error": {"message": "Hitilafu ya usawazishaji wa lugha"},
+  "debug_toast_constructor": {"message": "Mjenzi wa kipengele cha toast"},
+  "debug_toast_ensure_host": {"message": "Kuhakikisha kipengele cha mwenyeji wa toast"},
+  "debug_toast_error": {"message": "Toast ya hitilafu imetumiwa"},
+  "debug_toast_hidden": {"message": "Arifa ya toast imefichwa"},
+  "debug_toast_hide": {"message": "Kuficha arifa ya toast"},
+  "debug_toast_host_created": {"message": "Kipengele cha mwenyeji wa toast kimeundwa"},
+  "debug_toast_show": {"message": "Kuonyesha arifa ya toast"},
+  "debug_toast_shown": {"message": "Arifa ya toast imeonyeshwa"},
+  "debug_toast_success": {"message": "Toast ya mafanikio imetumiwa"},
+  "debug_tooltip_cleanup": {"message": "[DEBUG] Usafishaji wa kidokezo"},
+  "debug_tooltip_created": {"message": "[DEBUG] Kidokezo kimeundwa"},
+  "debug_tooltip_displayed": {"message": "Kidokezo kimeonyeshwa kwa ufanisi"},
+  "debug_tooltip_error": {"message": "[DEBUG] Hitilafu ya kidokezo"},
+  "debug_tooltip_escape_pressed": {"message": "Escape imebonyezwa katika kidokezo"},
+  "debug_tooltip_help_clicked": {"message": "Kitufe cha msaada kimebonyezwa"},
+  "debug_tooltip_hidden": {"message": "Kidokezo kimefichwa kwa ufanisi"},
+  "debug_tooltip_hide": {"message": "Kuficha kidokezo"},
+  "debug_tooltip_init": {"message": "[DEBUG] Kuanzisha kidokezo"},
+  "debug_tooltip_initialized": {"message": "[DEBUG] Kidokezo kimeanzishwa"},
+  "debug_tooltip_missing_text": {"message": "Kidokezo hakikina sifa ya maandishi"},
+  "debug_tooltip_position": {"message": "[DEBUG] Nafasi ya kidokezo"},
+  "debug_tooltip_setup": {"message": "[DEBUG] Kusanidi kidokezo"},
+  "debug_tooltip_show": {"message": "Kuonyesha kidokezo"},
+  "debug_tooltip_system_init": {"message": "Kuanzisha mfumo wa kidokezo"},
+  "debug_tooltip_system_ready": {"message": "Mfumo wa kidokezo uko tayari"},
+  "debug_ui_refresh_after_reset": {"message": "Kuonyesha upya kiolesura baada ya kurejesha mipangilio"},
+  "debug_utils_message_send_error": {"message": "Kutuma ujumbe wa runtime kumeshindwa"},
+  "debug_utils_message_send_start": {"message": "Kuanza kutuma ujumbe wa runtime"},
+  "debug_utils_message_send_success": {"message": "Kutuma ujumbe wa runtime kumefanikiwa"},
+  "debug_utils_storage_get_error": {"message": "Operesheni ya kupata hifadhi imeshindwa"},
+  "debug_utils_storage_get_start": {"message": "Kuanza operesheni ya kupata hifadhi"},
+  "debug_utils_storage_get_success": {"message": "Operesheni ya kupata hifadhi imefanikiwa"},
+  "debug_utils_storage_set_error": {"message": "Operesheni ya kuweka hifadhi imeshindwa"},
+  "debug_utils_storage_set_start": {"message": "Kuanza operesheni ya kuweka hifadhi"},
+  "debug_utils_storage_set_success": {"message": "Operesheni ya kuweka hifadhi imefanikiwa"},
+  "debug_validation_custom_invalid": {"message": "[DEBUG] Uthibitisho binafsi si sahihi"},
+  "debug_validation_custom_start": {"message": "[DEBUG] Kuanza uthibitisho binafsi"},
+  "debug_validation_custom_valid": {"message": "[DEBUG] Uthibitisho binafsi ni sahihi"},
+  "debug_validation_display_check": {"message": "[DEBUG] Ukaguzi wa onyesho wa uthibitisho"},
+  "debug_validation_display_safe": {"message": "[DEBUG] Onyesho la uthibitisho ni salama"},
+  "debug_validation_display_safety": {"message": "Kuangalia usalama wa onyesho"},
+  "debug_validation_display_unsafe": {"message": "Maudhui hayako salama kwa onyesho"},
+  "debug_validation_error": {"message": "[DEBUG] Hitilafu ya uthibitisho"},
+  "debug_validation_event_name": {"message": "Kuthibitisha jina la tukio"},
+  "debug_validation_extension_empty": {"message": "Ingizo la kiendelezi ni tupu"},
+  "debug_validation_extension_invalid_input": {"message": "Ingizo batili la kiendelezi limetolewa"},
+  "debug_validation_extension_risky": {"message": "Kiendelezi cha hatari kimetambuliwa"},
+  "debug_validation_extension_start": {"message": "Kuanza uthibitisho wa kiendelezi"},
+  "debug_validation_extension_truncated": {"message": "Kiendelezi kimepunguzwa hadi herufi 5"},
+  "debug_validation_extension_valid": {"message": "Uthibitisho wa kiendelezi umepita"},
+  "debug_validation_filename_complete": {"message": "Uthibitisho wa jina la faili umekamilika"},
+  "debug_validation_filename_invalid_input": {"message": "Ingizo batili la jina la faili limetolewa"},
+  "debug_validation_filename_no_extension": {"message": "Jina la faili limechakatwa bila kiendelezi"},
+  "debug_validation_filename_start": {"message": "Kuanza uthibitisho wa jina la faili"},
+  "debug_validation_filename_with_extension": {"message": "Jina la faili limechakatwa na kiendelezi"},
+  "debug_validation_html_escape": {"message": "Kuepuka maudhui ya HTML"},
+  "debug_validation_result": {"message": "[DEBUG] Matokeo ya uthibitisho"},
+  "debug_validation_sanitize_event": {"message": "[DEBUG] Kusafisha tukio la uthibitisho"},
+  "debug_validation_sanitize_filename": {"message": "[DEBUG] Kusafisha jina la faili la uthibitisho"},
+  "debug_validation_system_init": {"message": "Kuanzisha mfumo wa uthibitisho"},
+  "debug_validation_system_ready": {"message": "Mfumo wa uthibitisho uko tayari"},
+  "debug_warn": {"message": "[ONYO]"},
+  "debug_warning": {"message": "[ONYO]"},
+  "debug_compression_invalid_input": {"message": "Maandishi ni yabatili, hayajabainishwa, au siyo mfululizo"},
+  "debug_compression_skipped": {"message": "Maudhui madogo sana: $1 < $2"},
+  "debug_compression_not_supported": {"message": "CompressionStream API haipatikani"},
+  "debug_compression_encoding_mismatch": {"message": "Kutoelewana kwa saizi ya uwekaji msimbo wa maandishi kumegunduliwa"},
+  "debug_compression_poor_ratio": {"message": "Uwiano $1 ni wa juu sana"},
+  "debug_batch_content_too_short": {"message": "Maudhui mafupi sana kwa usindikaji wa kizuizi"},
+  "debug_batch_split_insufficient": {"message": "Maudhui hayakuweza kugawanywa kwa maana katika sehemu nyingi"},
+  "debug_file_content_empty": {"message": "Maudhui ni tupu au batili"},
+  "debug_json_content_valid": {"message": "Maudhui ni JSON halali tayari"},
+  "debug_json_wrap_applied": {"message": "Maudhui yamefungwa katika muundo wa JSON"},
+  "debug_claude_replacing_pasted": {"message": "Kubadilisha maandishi yaliyobandikwa na faili"},
+  "debug_file_no_content": {"message": "Faili haina maudhui"},
+  "default_auto_generated": {"message": "iliyo-undwa-otomatiki"},
+  "delay": {"message": "Kuchelewa"},
+  "delay_countdown": {
+    "message": "Kuambatisha katika sekunde $SECONDS$...",
+    "placeholders": {
+      "SECONDS": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "developer_website": {"message": "Tovuti ya Msanidi"},
+  "development_team": {"message": "Timu ya Maendeleo na Msaada"},
+  "disabled_compression_tooltip": {"message": "Mkandamizo umezimwa kwa muundo huu"},
+  "disabled_title": {"message": "Kipengele kimezimwa kwenye ukurasa huu"},
+  "enter_custom": {"message": "Ingiza Muundo Binafsi"},
+  "errors": {"message": "Makosa"},
+  "errors_attachment_failed": {"message": "Kiambatisho cha faili kimeshindwa. Tafadhali onyesha upya ukurasa na ujaribu tena"},
+  "errors_batch_processing_failed": {"message": "Uchakataji wa kundi umeshindwa: $1"},
+  "errors_busy_processing": {"message": "Kiambatisho kingine cha faili kinaendelea. Tafadhali subiri"},
+  "errors_compression_not_supported": {"message": "Mkandamizo hausaidiwi"},
+  "errors_connection_failed": {"message": "Haiwezi kuunganishwa na ukurasa. Tafadhali onyesha upya na ujaribu tena"},
+  "errors_decompression_failed": {"message": "Imeshindwa kufungua mkandamizo wa faili"},
+  "errors_decompression_not_supported": {"message": "Kufungua mkandamizo hakusaidiwi kwa aina hii ya faili"},
+  "errors_export_failed": {"message": "Uhamishaji umeshindwa. Tafadhali jaribu tena"},
+  "errors_extension_context": {"message": "Tatizo la muktadha wa kiendelezi. Tafadhali onyesha upya ukurasa na ujaribu tena"},
+  "errors_extension_reloaded": {"message": "Kiendelezi kimepakiwa upya. Tafadhali onyesha upya ukurasa na ujaribu tena"},
+  "errors_network_error": {"message": "Hitilafu ya mtandao. Angalia muunganisho wako wa intaneti na ujaribu tena"},
+  "errors_no_file_input": {"message": "Haiwezi kupata eneo la kupakia faili. Jaribu kubofya kitufe cha kiambatisho kwenye jukwaa kwanza"},
+  "errors_no_input_field": {"message": "Haiwezi kupata uwanda wa ingizo la mazungumzo. Hakikisha uko kwenye ukurasa wa mazungumzo ya AI unaoauniwa"},
+  "errors_no_response": {"message": "Hakuna jibu kutoka ukurasa. Tafadhali onyesha upya na ujaribu tena"},
+  "errors_no_tab_access": {"message": "Haiwezi kufikia tab ya sasa. Tafadhali jaribu tena"},
+  "errors_no_text_input": {"message": "Hakuna maandishi yaliyopatikana katika ingizo la mazungumzo. Andika ujumbe wako kwanza"},
+  "errors_permission_denied": {"message": "Ruhusa imekataliwa. Tafadhali onyesha upya ukurasa na ujaribu tena"},
+  "errors_platform_not_supported": {"message": "Jukwaa hili la AI halitumiki. Jaribu ChatGPT, Claude, Gemini, DeepSeek, au Grok"},
+  "errors_text_too_short": {"message": "Maandishi ni mafupi sana (maneno $1). Maneno ya chini zaidi $2 yanahitajika"},
+  "errors_text_too_short_manual": {"message": "Maandishi ni mafupi sana kwa uhifadhi wa mkononi. Ama ongeza maandishi zaidi au punguza mpangilio wa Maneno ya Chini"},
+  "errors_compression_invalid_input": {"message": "Uingizaji batili kwa kubanishwa"},
+  "errors_invalid_content_type": {"message": "Maudhui batili: maandishi lazima yawe mfululizo usio tupu"},
+  "errors_invalid_content_empty": {"message": "Maudhui batili: maandishi hayawezi kuwa tupu"},
+  "errors_file_creation_failed": {"message": "Imeshindwa kuunda kitu cha faili halali"},
+  "errors_text_content_empty": {"message": "Maudhui ya maandishi ni tupu au batili"},
+  "errors_makefile_invalid_content": {"message": "makeFile inahitaji maudhui ya maandishi halali"},
+  "errors_fileattach_invalid_result": {"message": "fileAttachComponent ilirejesha matokeo batili"},
+  "errors_platform_attach_failed": {"message": "Mshughulikaji wa jukwaa ameshindwa kuambatisha faili"},
+  "errors_modal_not_available": {"message": "Sehemu ya modal haipatikani"},
+  "export": {"message": "Hamisha"},
+  "export_by_prefix": {"message": "Hamisha kwa Kiambishi"},
+  "export_filename_prefix": {"message": "Kiambishi cha Jina la Faili"},
+  "feature_request": {"message": "Ombi la Kipengele"},
+  "feature_request_desc": {"message": "Pendekeza vipengele vipya au maboresho ili kuvifanya vizuri zaidi"},
+  "feedback_default_description": {"message": "Tafadhali elezea maoni yako au tatizo"},
+  "feedback_improvement_description": {"message": "Ni maboresho gani ungependa kuona?"},
+  "feedback_question": {"message": "Ni aina gani ya maoni ungependa kutuma?"},
+  "feedback_sent": {"message": "Maoni yametumwa kwa ufanisi"},
+  "feedback_support_description": {"message": "Ni tatizo gani unalokumbana nalo?"},
+  "file_blob_created": {"message": "Blob ya faili imeundwa"},
+  "file_compression": {"message": "Mkandamizo wa Faili"},
+  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>MKANDAMIZO</span> Inakandamiza faili kubwa (1KB+) kiotomatiki kwa kutumia mkandamizo wa GZIP. Inapunguza ukubwa wa faili kwa 60-80% kwa maudhui ya maandishi. Inakandamiza tu inapohifadhi nafasi nzuri."},
+  "file_creation_insights": {"message": "Maarifa yako ya kuunda faili"},
+  "file_creation_started": {"message": "Uundaji wa faili umeanza"},
+  "file_format": {"message": "Muundo wa Faili"},
+  "file_format_auto_selected": {"message": "Muundo wa kutambua-kiotomatiki umewezesha"},
+  "file_format_back_to_main": {"message": "Rudi kwa miundo kuu"},
+  "file_format_changed": {"message": "Muundo wa faili umesasishwa"},
+  "file_format_custom_format_set": {"message": "Muundo binafsi umewekwa kuwa $1"},
+  "file_format_enter_custom": {"message": "Ingiza kiendelezi binafsi"},
+  "file_format_format_selected": {"message": "Muundo wa faili umewekwa kuwa .$1"},
+  "file_format_next_page": {"message": "Ukurasa unaofuata umepakiwa"},
+  "file_format_previous_page": {"message": "Ukurasa uliopita umepakiwa"},
+  "file_format_tooltip": {"message": "<span class='tip-badge settings'>MIPANGILIO</span> Chagua aina ya faili, au chagua Kutambua-Kiotomatiki. Kutambua-Kiotomatiki hutumia utambuzi wa lugha wenye tahadhari na kurudi salama kwa .txt ili kuepuka kubadilisha vibaya msimbo. Binafsi inaruhusu kiendelezi chochote lakini tumia kwa uangalifu."},
+  "file_formats": {"message": "Miundo ya Faili"},
+  "file_operations": {"message": "Operesheni za Faili"},
+  "file_operations_attachment_attaching": {"message": "Kuambatisha faili"},
+  "file_operations_attachment_cancelled": {"message": "Kiambatisho cha faili kimeghairiwa"},
+  "file_operations_attachment_preparing": {"message": "Kuandaa faili yako"},
+  "file_operations_attachment_success": {"message": "Imeambatisha $1"},
+  "file_operations_attachment_uploading": {"message": "Kupakia faili"},
+  "file_operations_batch_attaching": {"message": "Kuambatisha $1"},
+  "file_operations_batch_detected": {"message": "Maudhui makubwa yametambuliwa. Kugawanya katika faili $1"},
+  "file_operations_batch_processing": {"message": "Kuchakata faili $1 ya $2: $3"},
+  "file_operations_batch_processing_start": {"message": "Kuchakata faili $1"},
+  "file_operations_batch_success": {"message": "Imechakata faili $1 kutoka kundi"},
+  "file_operations_batch_uploading": {"message": "Kupakia $1"},
+  "file_operations_compression_optimized": {"message": "Faili imeboreshwa kutoka $1 hadi $2 ($3% ndogo)"},
+  "file_operations_manual_save_success": {"message": "Faili imeambatishwa"},
+  "files_per_day": {"message": "Faili kwa siku"},
+  "flash_called": {"message": "Ujumbe wa flash umetumiwa"},
+  "flash_timeout_set": {"message": "Muda wa flash umesanidiwa"},
+  "footer_copyright": {"message": "© 2025 · Multi-AI File Paster · Imetengenezwa na"},
+  "format_auto_detected": {"message": "Muundo wa faili umetambuliwa kiotomatiki"},
+  "format_changed": {"message": "Muundo wa faili umebadilishwa"},
+  "format_selected": {
+    "message": "Muundo $FORMAT$ umechaguliwa",
+    "placeholders": {
+      "FORMAT": {
+        "content": "$1",
+        "example": ".txt"
+      }
+    }
+  },
+  "general_feedback": {"message": "Maoni ya Jumla"},
+  "general_feedback_desc": {"message": "Shiriki mawazo yako, mapendekezo, au uzoefu wa mtumiaji"},
+  "github_repository": {"message": "Hifadhi ya GitHub"},
+  "github_star": {"message": "Nyota kwenye GitHub"},
+  "hostwek_logo": {"message": "Nembo ya Hostwek"},
+  "html_sections_about_modal_content": {"message": "Maudhui ya modal ya kuhusu"},
+  "html_sections_controls_section": {"message": "Sehemu ya vidhibiti"},
+  "html_sections_feedback_modal_content": {"message": "Maudhui ya modal ya maoni"},
+  "html_sections_footer_section": {"message": "Sehemu ya miguu"},
+  "html_sections_header_section": {"message": "Sehemu ya kichwa"},
+  "i18n_cleanup": {"message": "[DEBUG] Usafishaji wa i18n umekamilika"},
+  "i18n_cleanup_complete": {"message": "Usafishaji wa i18n umekamilika"},
+  "json_wrap_applied": {"message": "Mfunga wa JSON umetumika"},
+  "key_features": {"message": "Vipengele Muhimu:"},
+  "key_features_text": {"message": "Kutambua-Kiotomatiki huchagua aina sahihi ya faili kutoka kwa maudhui yako na kurudi kwa uhakika kwa .txt. Inafanya kazi katika ChatGPT, Claude, Gemini, DeepSeek, na Grok. Inasaidia miundo 20+ ya faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi binafsi."},
+  "keyboard_shortcut": {"message": "Njia ya Mkato ya Kibodi:"},
+  "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Hifadhi ya Mkononi)"},
+  "language_abbreviation": {"message": "Lugha"},
+  "language_abbreviation_": {"message": "Lugha"},
+  "language_abbreviation_ar": {"message": "AR"},
+  "language_abbreviation_en": {"message": "EN"},
+  "language_abbreviation_sw": {"message": "SW"},
+  "language_abbreviation_es": {"message": "ES"},
+  "language_abbreviation_ja": {"message": "JA"},
+  "language_abbreviation_fr": {"message": "FR"},
+  "language_abbreviation_ru": {"message": "RU"},
+  "language_abbreviation_zh": {"message": "ZH"},
+  "language_abbreviation_pt": {"message": "PT"},
+  "language_abbreviation_de": {"message": "DE"},
+  "language_arabic": {"message": "Kiarabu"},
+  "language_changed": {"message": "Lugha imebadilishwa kwa ufanisi"},
+  "language_chinese": {"message": "Kichina"},
+  "language_english": {"message": "Kiingereza"},
+  "language_french": {"message": "Kifaransa"},
+  "language_german": {"message": "Kijerumani"},
+  "language_hindi": {"message": "Kihindi"},
+  "language_japanese": {"message": "Kijapani"},
+  "language_portuguese": {"message": "Kireno"},
+  "language_russian": {"message": "Kirusi"},
+  "language_selector": {"message": "Uchaguzi wa Lugha"},
+  "language_spanish": {"message": "Kihispania"},
+  "language_swahili": {"message": "Kiswahili"},
+  "lead_developer": {"message": "Msanidi Mkuu:"},
+  "letters_numbers_only": {"message": "Herufi na namba tu"},
+  "line_chart": {"message": "Mstari"},
+  "loader_cleanup": {"message": "[DEBUG] Usafishaji wa upakizi umekamilika"},
+  "loader_cleanup_complete": {"message": "Usafishaji wa upakizi umekamilika"},
+  "manual_action": {"message": "Mkononi"},
+  "manual_action_tooltip": {"message": "<span class='tip-badge feature'>KIPENGELE</span> Badilisha kwa mikono maandishi yoyote uliyoandika kwenye ingizo la mazungumzo kuwa kiambatisho cha faili. Hufanya kazi kwenye jukwaa lolote la AI. Bora wakati unataka kuunda faili kutoka ujumbe wako wa sasa bila kutambua kiotomatiki."},
+  "manual_drag_drop": {"message": "Kuvuta na kudondosha kwa mkononi kunaweza kuhitajika"},
+  "max_files": {"message": "Faili za Juu"},
+  "max_files_tooltip": {"message": "<span class='tip-badge settings'>MIPANGILIO</span> Idadi ya faili za kugawanya maudhui. Kiwango: faili 2-4. Maudhui hugawanywa sawa kwa mistari katika idadi iliyochaguliwa ya faili. Namba za juu huunda faili ndogo lakini zinaweza kuchochea utambuzi wa barua taka wa jukwaa. Inaamilishwa tu wakati maudhui inazidi mpangilio wako wa kikomo cha maneno."},
+  "min_words_tooltip": {"message": "<span class='tip-badge settings'>MIPANGILIO</span> Kiambatisho otomatiki kinafanya kazi tu wakati bandiko lako lina urefu wa angalau huu. Inashauriwa: maneno 100+ ili ujumbe mfupi ubaki ndani ya mstari."},
+  "min_words_trigger": {"message": "Maneno ya Chini ya Kuchochea"},
+  "misc_section": {"message": "MBALIMBALI"},
+  "modal_description": {"message": "Ingiza kiendelezi cha muundo wa faili binafsi"},
+  "modal_hint": {"message": "Acha tupu kwa utambuzi otomatiki"},
+  "modal_keys_hint": {"message": "<kbd>Enter</kbd> ili uhifadhi, <kbd>Esc</kbd> ili ughairi"},
+  "modal_placeholder": {"message": "mfano txt, md, json..."},
+  "modal_title": {"message": "Muundo Binafsi"},
+  "modals_about_title": {"message": "Kuhusu Multi-AI File Paster"},
+  "modals_help_content": {"message": "Maudhui ya msaada"},
+  "modals_help_title": {"message": "Msaada"},
+  "more_formats": {"message": "Miundo zaidi…"},
+  "more_formats_loaded": {"message": "Miundo zaidi imepakiwa"},
+  "network_error": {"message": "Hitilafu ya mtandao imefanyika"},
+  "new_version": {"message": "Mpya katika v1.1.0:"},
+  "new_version_text": {"message": "Hali ya Kundi hugawanya maudhui makubwa katika faili nyingi, mkandamizo wa GZIP hupunguza ukubwa wa faili kwa 60-80%, na dashibodi iliyoboreshwa ya uchambuzi inafuatilia mifumo yako ya matumizi."},
+  "next_page": {"message": "Ukurasa Unaofuata"},
+  "no_data_yet": {"message": "Hakuna Data"},
+  "no_file_input": {"message": "Hakuna ingizo la faili lililopatikana kwenye ukurasa"},
+  "not_on_platform": {"message": "Siyo kwenye jukwaa linaloauniwa"},
+  "permission_denied": {"message": "Ruhusa imekataliwa"},
+  "platform_chatgpt": {"message": "OpenAI ChatGPT: Msaada kamili kwa chat.openai.com na chatgpt.com zote"},
+  "platform_claude": {"message": "Anthropic Claude: Ujumuishaji wa hali ya juu na claude.ai ikiwa ni pamoja na kupindua vipengele vilivyojengwa ndani"},
+  "platform_deepseek": {"message": "DeepSeek AI: Utangamano kamili na chat.deepseek.com"},
+  "platform_gemini": {"message": "Google Gemini: Ushughulikaji ulioboresha wa faili kwa gemini.google.com"},
+  "platform_grok": {"message": "Grok: Ujumuishaji wa kawaida na grok.com (kitufe cha kuambatisha + kuvuta-kudondosha)"},
+  "platform_specific_chatgpt_no_input": {"message": "Haiwezi kupata ingizo la faili la ChatGPT. Jaribu kubofya kitufe cha kiambatisho kwanza, kisha jaribu tena"},
+  "platform_specific_claude_no_input": {"message": "Haiwezi kupata ingizo la faili la Claude. Jaribu kubofya aikoni ya kiambatisho kwanza, kisha jaribu tena"},
+  "platform_specific_gemini_no_input": {"message": "Haiwezi kupata ingizo la faili la Gemini. Jaribu kubofya aikoni ya paperclip kwanza, kisha jaribu tena"},
+  "platform_specific_generic_no_input": {"message": "Jaribu kubofya kitufe cha kiambatisho kwenye jukwaa kwanza, kisha jaribu tena"},
+  "platform_specific_manual_drag_drop": {"message": "Bado haiwezi kupata ingizo la faili. Tafadhali ambatisha faili kwa mkononi kwa kuivuta kwenye mazungumzo"},
+  "platform_specific_try_attachment_button": {"message": "Jaribu kitufe cha kiambatisho"},
+  "platforms_chatgpt": {"message": "ChatGPT: Ujumuishaji kamili na chat.openai.com"},
+  "platforms_claude": {"message": "Claude: Msaada wa asili kwa mazungumzo ya claude.ai"},
+  "platforms_deepseek": {"message": "DeepSeek: Msaada kamili kwa chat.deepseek.com"},
+  "platforms_description": {"message": "Inaunganishwa na majukwaa maarufu zaidi ya mazungumzo ya AI:"},
+  "platforms_gemini": {"message": "Gemini: Ujumuishaji usio na mtatizo na gemini.google.com"},
+  "platforms_grok": {"message": "Grok: Utangamano kamili na jukwaa la x.ai"},
+  "platforms_why": {"message": "Kwa nini hii ni muhimu:"},
+  "platforms_why_text": {"message": "Kila jukwaa lina mifumo tofauti ya kiambatisho cha faili. Kiendelezi chetu kinashughulikia tofauti hizi kiotomatiki, kuhakikisha faili zako zinaambatishwa kwa usahihi bila kujali ni AI gani unayotumia."},
+  "popup_cleanup": {"message": "[DEBUG] Usafishaji wa popup umekamilika"},
+  "popup_cleanup_complete": {"message": "Usafishaji wa popup umekamilika"},
+  "powered_by": {"message": "inarushwa na"},
+  "previous_page": {"message": "Ukurasa Uliopita"},
+  "privacy": {"message": "Faragha"},
+  "privacy_description": {"message": "Uchakataji wote wa maandishi unafanyika kabisa kwenye kifaa chako. Maudhui yako hayatoki kwenye kompyuta yako - hakuna seva, hakuna uchakataji wa wingu, hakuna uhamishaji wa data."},
+  "privacy_do": {"message": "Kuchakata maandishi yako ndani ya eneo ili kuunda viambatisho vya faili, kisha kutupa mara moja data iliyochakatwa. Rahisi, salama, wazi."},
+  "privacy_dont": {"message": "Hatusomai, hatuhifadhi, wala hatuhamishi maudhui yako ya maandishi, URL, maelezo ya kibinafsi, au data ya kuvinjari. Mazungumzo yako na AI yanabaki faragha kabisa."},
+  "reset_modal_changes_title": {"message": "Hii itarejesha:"},
+  "reset_modal_debug_item": {"message": "Kiwango cha Utatuzi: Makosa Tu"},
+  "reset_modal_question": {"message": "Una uhakika unataka kurejesha mipangilio yote ya Multi-AI File Paster kwa maadili yao ya chaguo-msingi?"},
+  "reset_modal_theme_item": {"message": "Mandhari: Chaguo-msingi"},
+  "reset_modal_title": {"message": "Rejesha Mipangilio"},
+  "reset_modal_warning": {"message": "Kitendo hiki hakiwezi kurejeshwa."},
+  "reset_to_default": {"message": "Rejesha kwa Chaguo-msingi"},
+  "resources": {"message": "Rasilimali:"},
+  "retry": {"message": "Jaribu Tena"},
+  "saving": {"message": "Inahifadhi..."},
+  "scrum_master": {"message": "Bwana Scrum:"},
+  "searching_for_file_input": {"message": "Kutafuta ingizo la faili..."},
+  "send_feedback": {"message": "Tuma Maoni"},
+  "sending_message_to_content": {"message": "Kutuma ujumbe kwa hati za maudhui"},
+  "setting_save_initiated": {"message": "Kuhifadhi mpangilio kumeanzishwa"},
+  "setting_saved_to_storage": {"message": "Mpangilio umehifadhiwa kwenye hifadhi"},
+  "settings_auto_attach_disabled": {"message": "Kiambatisho otomatiki kimezimwa. Tumia kitufe cha uhifadhi wa mkononi ili kuambatisha faili"},
+  "settings_auto_attach_enabled": {"message": "Kiambatisho otomatiki kimewezesha. Faili zitaambatishwa kiotomatiki unapobandika"},
+  "settings_batch_compression_disabled": {"message": "Mkandamizo wa kundi umezimwa"},
+  "settings_batch_compression_enabled": {"message": "Mkandamizo wa kundi umewezesha"},
+  "settings_batch_delay_updated": {"message": "Kuchelewa kwa uchakataji wa kundi kumewekwa kuwa $1ms"},
+  "settings_batch_mode_disabled": {"message": "Hali ya kundi imezimwa. Kiambatisho otomatiki kimerejelezwa"},
+  "settings_batch_mode_enabled": {"message": "Hali ya kundi imewezesha. Kiambatisho otomatiki kimezimwa wakati hali ya kundi iko amilifu"},
+  "settings_claude_override_disabled": {"message": "Kupindua Claude kumezimwa. Claude itatumia vipengele vilivyojengwa ndani"},
+  "settings_claude_override_enabled": {"message": "Kupindua Claude kumewezesha. Kiendelezi kitafanya kazi kwenye Claude"},
+  "settings_compression_disabled": {"message": "Mkandamizo wa faili umezimwa"},
+  "settings_compression_enabled": {"message": "Mkandamizo wa faili umewezesha kwa faili zaidi ya baiti $1"},
+  "settings_compression_threshold_updated": {"message": "Kizingiti cha mkandamizo kimewekwa kuwa baiti $1"},
+  "settings_debug_disabled": {"message": "Hali ya utatuzi imezimwa"},
+  "settings_debug_enabled": {"message": "Hali ya utatuzi imewezesha"},
+  "settings_delay_disabled": {"message": "Kuchelewa kwa kiambatisho kumezimwa"},
+  "settings_delay_enabled": {"message": "Kuchelewa kwa kiambatisho kumewezesha kwa sekunde $1"},
+  "settings_max_batch_files_updated": {"message": "Faili za juu za kundi zimewekwa kuwa $1"},
+  "settings_reset": {"message": "Mipangilio imerejeshwa kwa maadili ya chaguo-msingi"},
+  "settings_saving": {"message": "Inahifadhi mipangilio"},
+  "settings_telemetry_disabled": {"message": "Uchambuzi umezimwa. Hakuna data ya matumizi itakayokusanywa"},
+  "settings_telemetry_enabled": {"message": "Uchambuzi umewezesha. Hii inasaidia kuboresha kiendelezi"},
+  "settings_word_limit_updated": {"message": "Kikomo cha maneno kimesasishwa kuwa maneno $1"},
+  "smart_file_attachment": {"message": "Kiambatisho cha Faili cha Akili kwa Mazungumzo ya AI"},
+  "star_github": {"message": "⭐ Nyota kwenye GitHub"},
+  "status_connected": {
+    "message": "Imeunganishwa na $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "stopped_on": {
+    "message": "Imesimama kwenye $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "success_analytics_exported": {"message": "Data za uchambuzi zimehamishwa kwa ufanisi"},
+  "success_feedback_sent": {"message": "Barua pepe ya maoni imefunguliwa kwa ufanisi! Asante kwa kutusaidia kuboresha."},
+  "success_github_star": {"message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> Asante! Kufungua GitHub ili kunyota hifadhi"},
+  "success_not_on_platform": {"message": "Siyo kwenye jukwaa la AI linaloauniwa. Fungua ChatGPT, Claude, Gemini, DeepSeek, au Grok kwanza"},
+  "support_contacts": {"message": "Mawasiliano ya Msaada:"},
+  "support_request": {"message": "Ombi la Msaada"},
+  "support_request_desc": {"message": "Pata msaada na masuala, makosa, au matatizo ya kiufundi"},
+  "supported_platforms": {"message": "Majukwaa ya AI Yanayosaidiwa"},
+  "system_unavailable": {"message": "Mfumo haupatikani"},
+  "tab_detection": {"message": "Utambuzi wa jukwaa la tab"},
+  "technical_issues": {"message": "Masuala ya Kiufundi:"},
+  "theme_changed": {
+    "message": "Mandhari imebadilishwa kuwa $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "theme_chatgpt": {"message": "ChatGPT"},
+  "theme_claude": {"message": "Claude"},
+  "theme_deepseek": {"message": "DeepSeek"},
+  "theme_default": {"message": "Chaguo-msingi"},
+  "theme_gemini": {"message": "Gemini"},
+  "theme_grok": {"message": "Grok"},
+  "theme_selection": {"message": "Mandhari"},
+  "theme_selection_tooltip": {"message": "<span class='tip-badge settings'>MIPANGILIO</span> Chagua mandhari yako unayopendelea kwa kuangazia na rangi. Kila mandhari inatoa mtindo tofauti wa kuona kwa kiolesura cha kiendelezi."},
+  "this_week": {"message": "Wiki Hii"},
+  "toast_cleanup": {"message": "[DEBUG] Usafishaji wa toast umekamilika"},
+  "toast_cleanup_complete": {"message": "Usafishaji wa toast umekamilika"},
+  "toggle_theme": {"message": "Geuza Mandhari"},
+  "tooltips_cleanup": {"message": "[DEBUG] Usafishaji wa vidokezo umekamilika"},
+  "tooltips_cleanup_complete": {"message": "Usafishaji wa vidokezo umekamilika"},
+  "top_models": {"message": "Mifano ya Juu"},
+  "total_files": {"message": "Faili Zote"},
+  "translating_wait": {"message": "Inatafasiri, subiri kidogo..."},
+  "try_attachment_button": {"message": "Jaribu kutumia kitufe cha kiambatisho badala yake"},
+  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>KUNDI KIMEAMILISHWA</span> Mkandamizo wa Faili umezimwa wakati Hali ya Kundi imewezesha. Njia moja tu ya mkandamizo inaweza kuwa amilifu wakati mmoja."},
+  "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>KUNDI KIMEAMILISHWA</span> Kiambatisho Otomatiki kimezimwa wakati Hali ya Kundi imewezesha. Hali ya Kundi inashughulikia kiambatisho cha faili kiotomatiki kwa maudhui yaliyogawanywa. Zima Hali ya Kundi ili kutumia Kiambatisho Otomatiki kwa faili za kawaida za moja."},
+  "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>KUNDI KIMEAMILISHWA</span> Mpangilio huu umezimwa wakati Hali ya Kundi imewezesha. Hali ya Kundi hutumia mpangilio wake wa kuchelewa kwa upakiaji wa faili. Zima Hali ya Kundi ili kutumia mpangilio huu wa kuchelewa."},
+  "ui_components_custom_format_label": {"message": "Binafsi"},
+  "ui_components_custom_format_placeholder": {"message": "mfano log, cfg, data"},
+  "ui_components_data_cleared_success": {"message": "Data imefutwa kwa ufanisi"},
+  "ui_components_delay_countdown": {"message": "Kuambatisha katika sekunde $1"},
+  "ui_components_disabled_compression_tooltip": {"message": "Imezimwa wakati mkandamizo wa faili umewezesha"},
+  "ui_components_disabled_title": {"message": "Fungua mazungumzo ya AI na uandike maandishi ya kuambatisha kama faili"},
+  "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
+  "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
+  "ui_components_feedback_default_description": {"message": "maoni au pendekezo"},
+  "ui_components_feedback_improvement_description": {"message": "ombi la kipengele au wazo la kuboresha"},
+  "ui_components_feedback_support_description": {"message": "tatizo au swali"},
+  "ui_components_language_changed": {
+    "message": "Lugha imebadilishwa kuwa $LANGUAGE$",
+    "placeholders": {
+      "LANGUAGE": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_modal_description": {"message": "Ingiza jina la faili (bila kiendelezi). Acha tupu ili kutumia jina la chaguo-msingi."},
+  "ui_components_modal_hint": {"message": "Inaruhusiwa: herufi, namba, nafasi, mistari, mistari ya chini (juu 64). Hakuna kiendelezi."},
+  "ui_components_modal_keys_hint": {"message": "Bofya <span class=\"key\">Enter</span> ili uhifadhi · <span class=\"key\">Esc</span> ili ughairi"},
+  "ui_components_modal_placeholder": {"message": "mfano mazungumzo-maelezo"},
+  "ui_components_modal_save": {"message": "Hifadhi"},
+  "ui_components_modal_title": {"message": "Badilisha faili"},
+  "ui_components_searching_for_file_input": {"message": "Kutafuta ingizo la faili"},
+  "ui_components_stopped_on": {"message": "Imesimama kwenye"},
+  "ui_components_toggle_theme": {"message": "Geuza mandhari"},
+  "usage_analytics": {"message": "Uchambuzi wa Matumizi"},
+  "use_delay": {"message": "Tumia Kuchelewa"},
+  "use_delay_tooltip": {"message": "<span class='tip-badge timing'>MUDA</span> Inaongeza uhesabu mfupi kabla ya kuambatisha. Ni ya msaada kama wakati mwingine unabandika kwa makosa - unaweza kughairi wakati wa uhesabu."},
+  "using_popup_flash": {"message": "Kutumia onyesho la flash la popup"},
+  "validation_extension_required": {"message": "Kiendelezi kinahitajika"},
+  "validation_invalid_characters": {"message": "Herufi, namba, nafasi, mistari na mistari ya chini tu ndizo zinaruhusiwa"},
+  "validation_letters_numbers_only": {"message": "Ingiza herufi au namba tu"},
+  "validation_no_dots_needed": {"message": "Hakuna nukta au viendelezi vinavyohitajika - muundo wa faili umewekwa katika popup ya kiendelezi"},
+  "validation_security_risk": {"message": "Hatari ya usalama: viendelezi vya utekelezaji haviruhusiwi"},
+  "validation_security_risk_executable": {"message": "Hatari ya usalama: Viendelezi vya faili za utekelezaji haviruhusiwi"},
+  "validation_system_unavailable": {"message": "Mfumo wa uthibitisho haupatikani"},
+  "view_on_github": {"message": "Ona kwenye GitHub"},
+  "wekturbo_page": {"message": "Ukurasa wa WekTurbo"},
+  "what_we_do": {"message": "Kile tunachofanya:"},
+  "what_we_dont_do": {"message": "Kile tusichofanya:"},
+  "zero_data_collection": {"message": "Hakuna Ukusanyaji wa Data:"},
+  "batch_part_created": {"message": "Sehemu ya kundi imeundwa kwa mafanikio"},
+  "batch_part_skipped": {"message": "Sehemu ya kundi imepitiliwa - maudhui madogo sana"},
+  "batch_split_avoided": {"message": "Kugawa kwa kundi kumeepukwa kwa maudhui yaliyopangiliwa"},
+  "batch_split_insufficient": {"message": "Maudhui hayakuweza kugawanywa kwa manufaa katika sehemu"},
+  "batch_split_skipped": {"message": "Maudhui mafupi sana kwa uchakataji wa kundi"},
+  "blob_creation_error": {"message": "Imeshindwa kuunda blob ya faili"},
+  "claude_creating_file": {"message": "Kuunda faili kwa jukwaa la Claude"},
+  "claude_file_attached": {"message": "Faili limeambatishwa kwa mafanikio kwenye Claude"},
+  "claude_invalid_text": {"message": "Maudhui ya maandishi yasiyosahihi kwa uchakataji wa Claude"},
+  "claude_removing_pasted_element": {"message": "Kuondoa kipengele cha maandishi kilichobandikwa kutoka Claude"},
+  "compression_encoding_mismatch": {"message": "Kutofautiana kwa ukubwa wa usimbaji wa maandishi kumegundulika"},
+  "compression_exception": {"message": "Mkandamizo umeshindwa kwa kipengele"},
+  "compression_failed": {"message": "Uendeshaji wa mkandamizo umeshindwa"},
+  "compression_invalid_input": {"message": "Ingizo lisilofaa limetolewa kwa mkandamizo"},
+  "compression_not_supported": {"message": "Mkandamizo hauhamiliwi katika kivinjari hiki"},
+  "compression_skipped": {"message": "Mkandamizo umepitiliwa - maudhui madogo sana"},
+  "compression_success": {"message": "Mkandamizo umekamilika kwa mafanikio"},
+  "empty_file_created": {"message": "Onyo: Faili tupu limeundwa"},
+  "fileAttachComponent_error": {"message": "Sehemu ya kuambatisha faili imekutana na hitilafu"},
+  "file_creation_complete": {"message": "Mchakato wa kuunda faili umekamilika"},
+  "file_creation_empty_content": {"message": "Onyo: Faili limeundwa bila maudhui"},
+  "file_extension_decision": {"message": "Uamuzi wa kiendelezi cha faili umekamilika"},
+  "file_extension_fallback": {"message": "Kutumia kiendelezi cha faili cha msimbo"},
+  "json_content_valid": {"message": "Maudhui ni JSON halali tayari"},
+  "language_detection_fallback": {"message": "Kugundua lugha kutumia njia ya msimbo"},
+  "language_detection_success": {"message": "Kugundua lugha kumekamilika kwa mafanikio"},
+  "makeFile_invalid_content": {"message": "Maudhui yasiyosahihi yametolewa kwa kazi ya makeFile"},
+  "makeFile_invalid_format": {"message": "Umbizo lisilofaa limetolewa kwa kazi ya makeFile"}
 }

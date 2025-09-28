@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -105,14 +105,20 @@
       messageCache[lang] = messages;
       return messages;
     } catch (error) {
-      console.error(`Failed to load messages for ${lang}:`, error);
+      if (root.GPTPF_DEBUG) {
+        root.GPTPF_DEBUG.error('console_i18n_load_failed', { lang, error });
+      }
       return {};
     }
   }
 
   async function setLanguage(lang) {
-    if (lang && (lang === 'en' || lang === 'sw' || lang === 'ar')) {
-      showLanguageLoading();
+    if (lang && (lang === 'en' || lang === 'sw' || lang === 'ar' || lang === 'es' || lang === 'ja' || lang === 'fr' || lang === 'ru' || lang === 'zh' || lang === 'pt' || lang === 'de' || lang === 'hi')) {
+      const hasLoadingUI = typeof showLanguageLoading === 'function';
+
+      if (hasLoadingUI) {
+        showLanguageLoading();
+      }
 
       await loadMessages(lang);
 
@@ -130,13 +136,15 @@
       updateAllTranslations();
       updateLanguageSelector();
 
-      const overlayMs = (window.GPTPF_CONFIG?.UI_TIMINGS?.languageOverlayMs ?? 3000);
-      await new Promise(r => setTimeout(r, overlayMs));
-      hideLanguageLoading();
+      if (hasLoadingUI) {
+        const overlayMs = (window.GPTPF_CONFIG?.UI_TIMINGS?.languageOverlayMs ?? 3000);
+        await new Promise(r => setTimeout(r, overlayMs));
+        hideLanguageLoading();
+      }
 
-      if (window.GPTPF_FLASH && window.GPTPF_MESSAGES) {
-        const displayName = (lang === 'sw') ? 'Kiswahili' : (lang === 'ar' ? 'العربية' : 'English');
-        const message = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'LANGUAGE_CHANGED', displayName);
+      if (window.GPTPF_FLASH) {
+        const displayName = (lang === 'sw') ? 'Kiswahili' : (lang === 'ar' ? 'العربية' : (lang === 'es' ? 'Español' : (lang === 'ja' ? '日本語' : (lang === 'fr' ? 'Français' : (lang === 'ru' ? 'Русский' : (lang === 'zh' ? '中文' : (lang === 'pt' ? 'Português' : (lang === 'de' ? 'Deutsch' : (lang === 'hi' ? 'हिंदी' : 'English')))))))));
+        const message = getMessage('language_changed', [displayName]);
         window.GPTPF_FLASH(message, 'success');
       }
     }
@@ -148,10 +156,14 @@
       const entry = messages[key];
       let result = entry.message;
 
-      if (substitutions && substitutions.length > 0) {
-        substitutions.forEach((sub, index) => {
-          result = result.replace(new RegExp(`\\$${index + 1}(?![0-9])`, 'g'), String(sub));
-        });
+
+      if (substitutions) {
+        const subsArray = Array.isArray(substitutions) ? substitutions : [substitutions];
+        if (subsArray.length > 0) {
+          subsArray.forEach((sub, index) => {
+            result = result.replace(new RegExp(`\\$${index + 1}`, 'g'), String(sub));
+          });
+        }
       }
 
       try {
@@ -172,12 +184,7 @@
 
       return result;
     }
-    try {
-      const fallback = chrome.i18n.getMessage(key, substitutions);
-      return fallback || key;
-    } catch (_) {
-      return key;
-    }
+    return key;
   }
 
   function updateAllTranslations() {
@@ -197,7 +204,7 @@
       const key = element.getAttribute('data-i18n');
       if (key) {
         const message = getMessage(key);
-        if (message && message !== key) {
+        if (message) {
           element.textContent = message;
         }
       }
@@ -247,6 +254,17 @@
       }
     });
 
+    const altElements = document.querySelectorAll('[data-i18n-alt]');
+    altElements.forEach(element => {
+      const key = element.getAttribute('data-i18n-alt');
+      if (key) {
+        const message = getMessage(key);
+        if (message && message !== key) {
+          element.setAttribute('alt', message);
+        }
+      }
+    });
+
     try {
       const evt = new CustomEvent('gptpf:translations-updated', { detail: { language: currentLanguage } });
       document.dispatchEvent(evt);
@@ -258,11 +276,13 @@
     const currentFlag = document.getElementById('currentFlag');
 
     if (currentLanguageSpan) {
-      currentLanguageSpan.textContent = currentLanguage === 'sw' ? 'SW' : (currentLanguage === 'ar' ? 'AR' : 'EN');
+      const langKey = `language_abbreviation_${currentLanguage}`;
+      const abbreviation = getMessage(langKey);
+      currentLanguageSpan.textContent = abbreviation !== langKey ? abbreviation : (currentLanguage === 'sw' ? 'SW' : (currentLanguage === 'ar' ? 'AR' : (currentLanguage === 'es' ? 'ES' : (currentLanguage === 'ja' ? 'JA' : (currentLanguage === 'fr' ? 'FR' : (currentLanguage === 'ru' ? 'RU' : (currentLanguage === 'zh' ? 'ZH' : (currentLanguage === 'pt' ? 'PT' : (currentLanguage === 'de' ? 'DE' : (currentLanguage === 'hi' ? 'HI' : 'EN'))))))))));
     }
 
     if (currentFlag) {
-      currentFlag.className = currentLanguage === 'sw' ? 'flag-icon tanzania-flag' : (currentLanguage === 'ar' ? 'flag-icon arabic-flag' : 'flag-icon uk-flag');
+      currentFlag.className = currentLanguage === 'sw' ? 'flag-icon tanzania-flag' : (currentLanguage === 'ar' ? 'flag-icon arabic-flag' : (currentLanguage === 'es' ? 'flag-icon spain-flag' : (currentLanguage === 'ja' ? 'flag-icon japan-flag' : (currentLanguage === 'fr' ? 'flag-icon france-flag' : (currentLanguage === 'ru' ? 'flag-icon russia-flag' : (currentLanguage === 'zh' ? 'flag-icon china-flag' : (currentLanguage === 'pt' ? 'flag-icon portugal-flag' : (currentLanguage === 'de' ? 'flag-icon germany-flag' : (currentLanguage === 'hi' ? 'flag-icon india-flag' : 'flag-icon uk-flag')))))))));
     }
   }
 
@@ -323,6 +343,9 @@
         const lang = option.getAttribute('data-lang');
         if (lang) {
           setLanguage(lang);
+          if (typeof window !== 'undefined' && window.sendLanguageToContentScript) {
+            window.sendLanguageToContentScript(lang);
+          }
           hideDropdown();
         }
       });
@@ -344,19 +367,27 @@
     } catch(_) {}
 
     const savedLanguage = localStorage.getItem('gptpf_language');
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'sw' || savedLanguage === 'ar')) {
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'sw' || savedLanguage === 'ar' || savedLanguage === 'es' || savedLanguage === 'ja' || savedLanguage === 'fr' || savedLanguage === 'ru' || savedLanguage === 'zh' || savedLanguage === 'pt' || savedLanguage === 'de' || savedLanguage === 'hi')) {
       currentLanguage = savedLanguage;
     } else {
       const cfg = (typeof window !== 'undefined' ? window.GPTPF_CONFIG : (typeof self !== 'undefined' ? self.GPTPF_CONFIG : null)) || {};
       const fallbackLang = (typeof cfg.LANGUAGE_DEFAULT === 'string' && cfg.LANGUAGE_DEFAULT) ? cfg.LANGUAGE_DEFAULT : 'en';
       const browserLang = chrome?.i18n?.getUILanguage?.() || navigator.language || fallbackLang;
-      currentLanguage = browserLang.startsWith('sw') ? 'sw' : (browserLang.startsWith('ar') ? 'ar' : fallbackLang);
+      currentLanguage = browserLang.startsWith('sw') ? 'sw' : (browserLang.startsWith('ar') ? 'ar' : (browserLang.startsWith('es') ? 'es' : (browserLang.startsWith('ja') ? 'ja' : (browserLang.startsWith('fr') ? 'fr' : (browserLang.startsWith('ru') ? 'ru' : (browserLang.startsWith('zh') ? 'zh' : (browserLang.startsWith('pt') ? 'pt' : (browserLang.startsWith('de') ? 'de' : (browserLang.startsWith('hi') ? 'hi' : fallbackLang)))))))));
     }
 
     await Promise.all([
       loadMessages('en'),
       loadMessages('sw'),
-      loadMessages('ar')
+      loadMessages('ar'),
+      loadMessages('es'),
+      loadMessages('ja'),
+      loadMessages('fr'),
+      loadMessages('ru'),
+      loadMessages('zh'),
+      loadMessages('pt'),
+      loadMessages('de'),
+      loadMessages('hi')
     ]);
 
     try {
@@ -388,5 +419,11 @@
     setLanguage,
     updateAllTranslations,
     initializeI18n
+  });
+
+  root.addEventListener('beforeunload', () => {
+    if (root.GPTPF_DEBUG) {
+      root.GPTPF_DEBUG.info('i18n_cleanup', root.GPTPF_I18N.getMessage('i18n_cleanup_complete'));
+    }
   });
 })();

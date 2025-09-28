@@ -65,8 +65,8 @@ Multi-AI File Paster applies layered security practices for Chrome extension dev
 | **Version** | **Security Support** | **Status** | **End of Life** |
 |:-----------:|:--------------------:|:----------:|:---------------:|
 | 1.1.0   | ✅ Full Support | Current Release | TBD |
-| 1.0.8   | ✅ Critical Updates Only | Previous Stable | 2025-06-01 |
-| < 1.0.8 | ❌ No Support | Deprecated | Immediate |
+| 1.0.9   | ✅ Critical Updates Only | Previous Stable | 2025-06-01 |
+| < 1.0.9 | ❌ No Support | Deprecated | Immediate |
 
 </div>
 

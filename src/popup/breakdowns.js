@@ -12,17 +12,17 @@
  * COMPATIBILITY: Chrome 88+, Edge 88+, Opera 74+, modern browser APIs
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -97,7 +97,6 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   function animateCount(el, target, duration = 900) {
     if (!el) return;
@@ -113,7 +112,6 @@
     };
     requestAnimationFrame(step);
   }
-
   function animateBreakdown(container) {
     container.querySelectorAll('.bar-fill').forEach(bar => {
       const width = bar.getAttribute('data-width');
@@ -125,15 +123,12 @@
       animateCount(countEl, target);
     });
   }
-
   function updatePlatformBreakdown(periodHistory) {
     const container = document.getElementById('platformBreakdown');
     if (!container) return;
-
     try {
       const counts = {};
       const validHistory = Array.isArray(periodHistory) ? periodHistory : [];
-
       validHistory.forEach(entry => {
         if (entry && typeof entry === 'object') {
           const platform = String(entry.platform || 'unknown').trim();
@@ -142,24 +137,19 @@
           }
         }
       });
-
       const entries = Object.entries(counts)
         .sort(([,a],[,b]) => b - a)
         .slice(0, 3)
         .filter(([name, count]) => name && count > 0);
-
       const total = Object.values(counts).reduce((s,n) => s+n, 0) || 1;
-
       if (entries.length === 0) {
-        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'NO_DATA_YET')}</span><span class="item-count">—</span></div>`;
+        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('no_data_yet')}</span><span class="item-count">—</span></div>`;
         return;
       }
-
       container.innerHTML = entries.map(([name, count]) => {
         const safeName = String(name).replace(/[<>&"']/g, '');
         const safeCount = Math.max(0, parseInt(count) || 0);
         const pct = Math.min(100, Math.max(0, Math.round((safeCount / total) * 100)));
-
         return `
           <div class="breakdown-item">
             <span class="item-name">${safeName}</span>
@@ -168,35 +158,31 @@
           <div class="mini-bar"><span class="bar-fill" data-width="${pct}"></span></div>
         `;
       }).join('');
-
       animateBreakdown(container);
     } catch (error) {
-      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'ERROR_LOADING')}</span><span class="item-count">—</span></div>`;
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', error);
+      }
+      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('analytics_error_loading')}</span><span class="item-count">—</span></div>`;
     }
   }
-
   function updatePlatformBreakdownAllTime(platforms) {
     const container = document.getElementById('platformBreakdown');
     if (!container) return;
-
     try {
       const entries = Object.entries(platforms)
         .sort(([,a],[,b]) => b - a)
         .slice(0, 3)
         .filter(([name, count]) => name && count > 0);
-
       const total = Object.values(platforms).reduce((s,n) => s+n, 0) || 1;
-
       if (entries.length === 0) {
-        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'NO_DATA_YET')}</span><span class="item-count">—</span></div>`;
+        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('no_data_yet')}</span><span class="item-count">—</span></div>`;
         return;
       }
-
       container.innerHTML = entries.map(([name, count]) => {
         const safeName = String(name).replace(/[<>&"']/g, '');
         const safeCount = Math.max(0, parseInt(count) || 0);
         const pct = Math.min(100, Math.max(0, Math.round((safeCount / total) * 100)));
-
         return `
           <div class="breakdown-item">
             <span class="item-name">${safeName}</span>
@@ -205,25 +191,23 @@
           <div class="mini-bar"><span class="bar-fill" data-width="${pct}"></span></div>
         `;
       }).join('');
-
       animateBreakdown(container);
     } catch (error) {
-      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'ERROR_LOADING')}</span><span class="item-count">—</span></div>`;
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', error);
+      }
+      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('analytics_error_loading')}</span><span class="item-count">—</span></div>`;
     }
   }
-
   function updateFormatBreakdown(history) {
     const container = document.getElementById('formatBreakdown');
     if (!container) return;
-
     try {
       const validHistory = Array.isArray(history) ? history : [];
-
       if (validHistory.length === 0) {
-        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'NO_DATA_YET')}</span><span class="item-count">—</span></div>`;
+        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('no_data_yet')}</span><span class="item-count">—</span></div>`;
         return;
       }
-
       const counts = {};
       validHistory.forEach(entry => {
         if (entry && typeof entry === 'object') {
@@ -233,24 +217,19 @@
           }
         }
       });
-
       const entries = Object.entries(counts)
         .sort(([,a],[,b]) => b - a)
         .slice(0, 3)
         .filter(([fmt, count]) => fmt && count > 0);
-
       const total = Object.values(counts).reduce((s,n) => s+n, 0) || 1;
-
       if (entries.length === 0) {
-        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'NO_DATA_YET')}</span><span class="item-count">—</span></div>`;
+        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('no_data_yet')}</span><span class="item-count">—</span></div>`;
         return;
       }
-
       container.innerHTML = entries.map(([fmt, count]) => {
         const safeFormat = String(fmt).replace(/[<>&"']/g, '');
         const safeCount = Math.max(0, parseInt(count) || 0);
         const pct = Math.min(100, Math.max(0, Math.round((safeCount / total) * 100)));
-
         return `
           <div class="breakdown-item">
             <span class="item-name">${safeFormat}</span>
@@ -259,35 +238,31 @@
           <div class="mini-bar"><span class="bar-fill" data-width="${pct}"></span></div>
         `;
       }).join('');
-
       animateBreakdown(container);
     } catch (error) {
-      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'ERROR_LOADING')}</span><span class="item-count">—</span></div>`;
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', error);
+      }
+      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('analytics_error_loading')}</span><span class="item-count">—</span></div>`;
     }
   }
-
   function updateFormatBreakdownAllTime(formats) {
     const container = document.getElementById('formatBreakdown');
     if (!container) return;
-
     try {
       const entries = Object.entries(formats)
         .sort(([,a],[,b]) => b - a)
         .slice(0, 3)
         .filter(([fmt, count]) => fmt && count > 0);
-
       const total = Object.values(formats).reduce((s,n) => s+n, 0) || 1;
-
       if (entries.length === 0) {
-        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'NO_DATA_YET')}</span><span class="item-count">—</span></div>`;
+        container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('no_data_yet')}</span><span class="item-count">—</span></div>`;
         return;
       }
-
       container.innerHTML = entries.map(([fmt, count]) => {
         const safeFormat = String(fmt).toUpperCase().replace(/[<>&"']/g, '');
         const safeCount = Math.max(0, parseInt(count) || 0);
         const pct = Math.min(100, Math.max(0, Math.round((safeCount / total) * 100)));
-
         return `
           <div class="breakdown-item">
             <span class="item-name">${safeFormat}</span>
@@ -296,17 +271,18 @@
           <div class="mini-bar"><span class="bar-fill" data-width="${pct}"></span></div>
         `;
       }).join('');
-
       animateBreakdown(container);
     } catch (error) {
-      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_MESSAGES.getMessage('ANALYTICS', 'ERROR_LOADING')}</span><span class="item-count">—</span></div>`;
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', error);
+      }
+      container.innerHTML = `<div class="breakdown-item"><span class="item-name">${window.GPTPF_I18N.getMessage('analytics_error_loading')}</span><span class="item-count">—</span></div>`;
     }
   }
-
   window.GPTPF_BREAKDOWNS = {
     updatePlatformBreakdown,
     updatePlatformBreakdownAllTime,
     updateFormatBreakdown,
     updateFormatBreakdownAllTime
   };
-})();
+})();

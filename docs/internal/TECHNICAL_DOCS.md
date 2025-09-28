@@ -23,7 +23,7 @@
 
 ## 🏛️ System Architecture Overview
 
-Multi-AI File Paster is a Chrome Extension Manifest V3 application that provides intelligent file attachment capabilities across multiple AI platforms. The system uses a sophisticated content script injection pattern with platform-specific adapters to seamlessly integrate with existing AI interfaces.
+Multi-AI File Paster is a Chrome Extension Manifest V3 application that provides intelligent file attachment capabilities across multiple AI platforms. The system uses a sophisticated content script injection pattern with platform-specific adapters to seamlessly integrate with existing AI interfaces while maintaining security, performance, and compatibility standards required for modern Chrome extensions.
 
 ### 🔧 Core Architecture Pattern
 
@@ -117,13 +117,29 @@ Multi-AI File Paster/
 │       ├── 📄 messages.js     # Centralized message system (GPTPF_MESSAGES)
 │       ├── 📄 metrics.js      # Local-only analytics collection
 │       └── 📄 validation.js   # Input validation and security sanitization
-├── 📁 _locales/               # Chrome Extension Internationalization
-│   ├── 📁 ar/                 # Arabic translations (partial coverage)
-│   │   └── 📄 messages.json   # Arabic locale messages (440 lines)
+├── 📁 _locales/               # Chrome Extension Internationalization (11 Languages)
+│   ├── 📁 ar/                 # Arabic translations (complete coverage)
+│   │   └── 📄 messages.json   # Arabic locale messages (677 keys)
+│   ├── 📁 de/                 # German translations (complete coverage)
+│   │   └── 📄 messages.json   # German locale messages (677 keys)
 │   ├── 📁 en/                 # English (baseline reference)
-│   │   └── 📄 messages.json   # English locale messages (568 lines, complete)
-│   └── 📁 sw/                 # Swahili translations (~95% coverage)
-│       └── 📄 messages.json   # Swahili locale messages (569 lines)
+│   │   └── 📄 messages.json   # English locale messages (677 keys, complete)
+│   ├── 📁 es/                 # Spanish translations (complete coverage)
+│   │   └── 📄 messages.json   # Spanish locale messages (677 keys)
+│   ├── 📁 fr/                 # French translations (complete coverage)
+│   │   └── 📄 messages.json   # French locale messages (677 keys)
+│   ├── 📁 hi/                 # Hindi translations (complete coverage)
+│   │   └── 📄 messages.json   # Hindi locale messages (677 keys)
+│   ├── 📁 ja/                 # Japanese translations (complete coverage)
+│   │   └── 📄 messages.json   # Japanese locale messages (677 keys)
+│   ├── 📁 pt/                 # Portuguese translations (complete coverage)
+│   │   └── 📄 messages.json   # Portuguese locale messages (677 keys)
+│   ├── 📁 ru/                 # Russian translations (complete coverage)
+│   │   └── 📄 messages.json   # Russian locale messages (677 keys)
+│   ├── 📁 sw/                 # Swahili translations (complete coverage)
+│   │   └── 📄 messages.json   # Swahili locale messages (677 keys)
+│   └── 📁 zh/                 # Chinese translations (complete coverage)
+│       └── 📄 messages.json   # Chinese locale messages (677 keys)
 ├── 📁 docs/                   # Project Documentation
 │   └── 📁 internal/           # Internal development documentation
 │       ├── 📄 description.md  # Chrome Web Store listing descriptions
@@ -364,6 +380,184 @@ export async function compressContent(content, options = {}) {
 - **Ratio Evaluation**: Only keeps compressed version if size reduction > 20%
 - **Memory Management**: Returns both original and compressed (optimization opportunity)
 - **Error Handling**: Graceful fallback to uncompressed content
+
+#### `src/shared/utils.js` - Chrome API Utilities
+```javascript
+// Unified Chrome API operations for consistent extension functionality
+const GPTPF_UTILS = {
+    // Storage operations with error handling
+    async getStorageData(keys) {
+        try {
+            return await chrome.storage.sync.get(keys);
+        } catch (error) {
+            GPTPF_DEBUG.error('Storage get failed:', error);
+            return {};
+        }
+    },
+
+    async setStorageData(data) {
+        try {
+            await chrome.storage.sync.set(data);
+            return true;
+        } catch (error) {
+            GPTPF_DEBUG.error('Storage set failed:', error);
+            return false;
+        }
+    },
+
+    // Runtime messaging with timeout handling
+    async sendMessage(message, options = {}) {
+        const timeout = options.timeout || 5000;
+
+        return new Promise((resolve, reject) => {
+            const timer = setTimeout(() => {
+                reject(new Error('Message timeout'));
+            }, timeout);
+
+            chrome.runtime.sendMessage(message, (response) => {
+                clearTimeout(timer);
+                if (chrome.runtime.lastError) {
+                    reject(new Error(chrome.runtime.lastError.message));
+                } else {
+                    resolve(response);
+                }
+            });
+        });
+    }
+};
+```
+
+**Utility Features:**
+- **Unified Chrome API Access**: Consistent interface for storage, messaging, and tabs
+- **Error Handling**: Graceful degradation with debug logging
+- **Timeout Management**: Prevents hanging operations
+- **Cross-Context Compatibility**: Works in popup, content, and background scripts
+
+#### `src/shared/debug.js` - Debug System
+```javascript
+// Centralized debug logging with toast integration
+const GPTPF_DEBUG = {
+    enabled: false,
+
+    // Initialize debug system
+    init() {
+        this.enabled = window.location.hostname === 'localhost' ||
+                      chrome.runtime.getManifest().version.includes('dev');
+    },
+
+    // Log with toast notification
+    log(message, data = null) {
+        if (!this.enabled) return;
+
+        console.log(`[GPTPF] ${message}`, data);
+
+        // Show toast if available
+        if (window.GPTPF_TOAST) {
+            window.GPTPF_TOAST.show(message, 'info');
+        }
+    },
+
+    error(message, error = null) {
+        console.error(`[GPTPF ERROR] ${message}`, error);
+
+        // Always show error toasts
+        if (window.GPTPF_TOAST) {
+            window.GPTPF_TOAST.show(`Error: ${message}`, 'error');
+        }
+    }
+};
+```
+
+**Debug Features:**
+- **Environment Detection**: Automatically enables in development
+- **Toast Integration**: Visual feedback for debug messages
+- **Error Tracking**: Always logs errors regardless of debug mode
+- **Consistent Formatting**: Standardized log prefixes for easy filtering
+
+#### `src/shared/validation.js` - Security Validation
+```javascript
+// Input validation and sanitization utilities
+const GPTPF_VALIDATION = {
+    // Filename sanitization
+    sanitizeFilename(filename) {
+        return filename
+            .replace(/[<>:"/\\|?*]/g, '_')  // Replace invalid characters
+            .replace(/\s+/g, '_')          // Replace spaces with underscores
+            .replace(/_{2,}/g, '_')        // Collapse multiple underscores
+            .replace(/^_+|_+$/g, '')       // Remove leading/trailing underscores
+            .substring(0, 255);            // Limit length
+    },
+
+    // File extension validation
+    isValidExtension(extension) {
+        const allowedExtensions = [
+            'js', 'ts', 'py', 'java', 'cpp', 'c', 'cs', 'go', 'rs', 'rb', 'php',
+            'html', 'css', 'scss', 'json', 'xml', 'sql', 'csv', 'md', 'txt',
+            'sh', 'bat', 'yml', 'yaml', 'toml', 'ini'
+        ];
+        return allowedExtensions.includes(extension.toLowerCase());
+    },
+
+    // Content sanitization
+    sanitizeContent(content) {
+        // Remove potential XSS vectors while preserving code structure
+        return content
+            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+            .replace(/javascript:/gi, '')
+            .replace(/on\w+\s*=/gi, '');
+    }
+};
+```
+
+**Validation Features:**
+- **Filename Security**: Prevents path traversal and invalid characters
+- **Extension Filtering**: Only allows safe file extensions
+- **Content Sanitization**: Removes potential XSS vectors
+- **Platform URL Validation**: Ensures extension only runs on supported platforms
+
+#### `src/shared/batchprocessor.js` - Content Splitting Engine
+```javascript
+// Content splitting processor for large files
+const GPTPF_BATCH = {
+    // Split content into manageable chunks
+    async processContent(content, options = {}) {
+        const maxLinesPerFile = options.maxLines || 1000;
+        const lines = content.split('\n');
+
+        if (lines.length <= maxLinesPerFile) {
+            return [{ content, filename: 'single-file', lines: lines.length }];
+        }
+
+        const parts = [];
+        let currentPart = 1;
+
+        for (let i = 0; i < lines.length; i += maxLinesPerFile) {
+            const chunk = lines.slice(i, i + maxLinesPerFile);
+            const startLine = i + 1;
+            const endLine = Math.min(i + maxLinesPerFile, lines.length);
+
+            parts.push({
+                content: chunk.join('\n'),
+                filename: `part${currentPart}-lines${startLine}-${endLine}`,
+                lines: chunk.length,
+                startLine,
+                endLine,
+                part: currentPart
+            });
+
+            currentPart++;
+        }
+
+        return parts;
+    }
+};
+```
+
+**Batch Processing Features:**
+- **Intelligent Splitting**: Divides content by line count for readability
+- **Metadata Generation**: Provides detailed information about split files
+- **Consistent Naming**: Uses predictable filename patterns
+- **Progress Tracking**: Supports progress callbacks for UI updates
 
 #### `src/content/platforms/chatgpt.js` - ChatGPT Integration
 ```javascript
@@ -694,9 +888,17 @@ pie title Memory Usage Distribution
 
 | Locale | Coverage | Status | Key Count | Implementation Notes |
 |--------|----------|--------|-----------|-------------------|
-| **English (en)** | 100% | ✅ Complete | 568 keys | Baseline reference implementation |
-| **Swahili (sw)** | ~95% | 🔄 Active | 569 keys | BETA token intentionally untranslated |
-| **Arabic (ar)** | ~70% | ⚠️ Partial | 440 keys | Reduced key set, modal HTML remains English |
+| **English (en)** | 100% | ✅ Complete | 677 keys | Baseline reference implementation |
+| **Arabic (ar)** | 100% | ✅ Complete | 677 keys | Full RTL support with proper translations |
+| **Swahili (sw)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **Spanish (es)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
+| **Japanese (ja)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **French (fr)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
+| **Russian (ru)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **Chinese (zh)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
+| **Portuguese (pt)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **German (de)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
+| **Hindi (hi)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
 
 ### 🔧 i18n Architecture Implementation
 
