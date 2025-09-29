@@ -56,7 +56,7 @@ graph TB
 - User pastes content into AI platform interface
 - Language detector analyzes content patterns and structure
 - Validation layer sanitizes filenames and ensures compatibility
-- Optional compression reduces file size for large content
+- Content validation ensures compatibility across platforms
 
 **3. File Creation & Attachment**
 - Batch processor splits multi-section content if needed
@@ -110,7 +110,7 @@ Multi-AI File Paster/
 │   │   └── 📄 tooltips.js     # Custom tooltip system with premium design
 │   └── 📁 shared/             # Shared Utilities (Cross-Context Libraries)
 │       ├── 📄 batchprocessor.js # Batch processing engine for multiple files
-│       ├── 📄 compression.js  # GZIP compression with ratio optimization
+
 │       ├── 📄 config.js       # Centralized configuration management
 │       ├── 📄 i18n.js         # Internationalization utilities with Chrome i18n API
 │       ├── 📄 languagedetector.js # Programming language detection (40+ languages)
@@ -119,27 +119,27 @@ Multi-AI File Paster/
 │       └── 📄 validation.js   # Input validation and security sanitization
 ├── 📁 _locales/               # Chrome Extension Internationalization (11 Languages)
 │   ├── 📁 ar/                 # Arabic translations (complete coverage)
-│   │   └── 📄 messages.json   # Arabic locale messages (677 keys)
+│   │   └── 📄 messages.json   # Arabic locale messages (648 keys)
 │   ├── 📁 de/                 # German translations (complete coverage)
-│   │   └── 📄 messages.json   # German locale messages (677 keys)
+│   │   └── 📄 messages.json   # German locale messages (648 keys)
 │   ├── 📁 en/                 # English (baseline reference)
-│   │   └── 📄 messages.json   # English locale messages (677 keys, complete)
+│   │   └── 📄 messages.json   # English locale messages (648 keys, complete)
 │   ├── 📁 es/                 # Spanish translations (complete coverage)
-│   │   └── 📄 messages.json   # Spanish locale messages (677 keys)
+│   │   └── 📄 messages.json   # Spanish locale messages (648 keys)
 │   ├── 📁 fr/                 # French translations (complete coverage)
-│   │   └── 📄 messages.json   # French locale messages (677 keys)
+│   │   └── 📄 messages.json   # French locale messages (648 keys)
 │   ├── 📁 hi/                 # Hindi translations (complete coverage)
-│   │   └── 📄 messages.json   # Hindi locale messages (677 keys)
+│   │   └── 📄 messages.json   # Hindi locale messages (648 keys)
 │   ├── 📁 ja/                 # Japanese translations (complete coverage)
-│   │   └── 📄 messages.json   # Japanese locale messages (677 keys)
+│   │   └── 📄 messages.json   # Japanese locale messages (648 keys)
 │   ├── 📁 pt/                 # Portuguese translations (complete coverage)
-│   │   └── 📄 messages.json   # Portuguese locale messages (677 keys)
+│   │   └── 📄 messages.json   # Portuguese locale messages (648 keys)
 │   ├── 📁 ru/                 # Russian translations (complete coverage)
-│   │   └── 📄 messages.json   # Russian locale messages (677 keys)
+│   │   └── 📄 messages.json   # Russian locale messages (648 keys)
 │   ├── 📁 sw/                 # Swahili translations (complete coverage)
-│   │   └── 📄 messages.json   # Swahili locale messages (677 keys)
+│   │   └── 📄 messages.json   # Swahili locale messages (648 keys)
 │   └── 📁 zh/                 # Chinese translations (complete coverage)
-│       └── 📄 messages.json   # Chinese locale messages (677 keys)
+│       └── 📄 messages.json   # Chinese locale messages (648 keys)
 ├── 📁 docs/                   # Project Documentation
 │   └── 📁 internal/           # Internal development documentation
 │       ├── 📄 description.md  # Chrome Web Store listing descriptions
@@ -321,65 +321,7 @@ export function detectLanguage(content, filename = '') {
 - **Fallback Strategy**: Defaults to `text` when detection fails
 - **Language Coverage**: 40+ programming languages supported
 
-#### `src/shared/compression.js` - GZIP Processing Pipeline
-```javascript
-// Intelligent compression with size ratio evaluation
-export async function compressContent(content, options = {}) {
-    const originalSize = new Blob([content]).size;
-    const threshold = options.minCompressionRatio || 0.8;
-    
-    try {
-        // CompressionStream API (Chrome 80+)
-        const stream = new CompressionStream('gzip');
-        const writer = stream.writable.getWriter();
-        const reader = stream.readable.getReader();
-        
-        // Process content through compression pipeline
-        await writer.write(new TextEncoder().encode(content));
-        await writer.close();
-        
-        const chunks = [];
-        let done = false;
-        while (!done) {
-            const { value, done: readerDone } = await reader.read();
-            done = readerDone;
-            if (value) chunks.push(value);
-        }
-        
-        const compressed = new Uint8Array(chunks.reduce((acc, chunk) => acc + chunk.length, 0));
-        let offset = 0;
-        for (const chunk of chunks) {
-            compressed.set(chunk, offset);
-            offset += chunk.length;
-        }
-        
-        // Evaluate compression effectiveness
-        const compressionRatio = compressed.length / originalSize;
-        
-        return {
-            compressed: compressionRatio < threshold ? compressed : null,
-            original: content,
-            ratio: compressionRatio,
-            worthCompressing: compressionRatio < threshold
-        };
-    } catch (error) {
-        // Fallback: return original content without compression
-        return {
-            compressed: null,
-            original: content,
-            ratio: 1.0,
-            worthCompressing: false,
-            error: error.message
-        };
-    }
-}
-```
 
-**Technical Characteristics:**
-- **Streaming Compression**: Uses native `CompressionStream` API for efficiency
-- **Ratio Evaluation**: Only keeps compressed version if size reduction > 20%
-- **Memory Management**: Returns both original and compressed (optimization opportunity)
-- **Error Handling**: Graceful fallback to uncompressed content
 
 #### `src/shared/utils.js` - Chrome API Utilities
 ```javascript
@@ -701,7 +643,6 @@ const GPTPF_CONFIG = {
     // Default configuration values
     defaults: {
         telemetryEnabled: false,
-        compressionThreshold: 0.8,
         maxFileSize: 10 * 1024 * 1024, // 10MB
         supportedPlatforms: ['chatgpt', 'claude', 'gemini', 'grok', 'deepseek'],
         batchProcessing: true,
@@ -842,7 +783,7 @@ const GPTPF_METRICS = {
         return {
             fileSize: sanitized.fileSize,
             language: sanitized.language,
-            compressionRatio: sanitized.compressionRatio,
+            detectionConfidence: sanitized.detectionConfidence,
             processingTime: sanitized.processingTime
         };
     }
@@ -863,7 +804,6 @@ const GPTPF_METRICS = {
 |-----------|-------------------|-------------------------|------------------------|
 | **ChatGPT Upload Detection** | 500ms polling intervals | MutationObserver pattern | P1 - High Impact |
 | **Gemini Shadow Traversal** | Re-traverses each request | Path caching strategy | P2 - Moderate Impact |
-| **Compression Pipeline** | Stores both versions in memory | Single representation strategy | P1 - Memory Critical |
 | **Language Detection** | Analyzes full content | Smart sampling algorithms | P3 - Minor Gain |
 
 ### 📈 Memory Usage Analysis
@@ -878,7 +818,7 @@ pie title Memory Usage Distribution
 ```
 
 **Memory Optimization Strategy:**
-1. **Compression Memory Duplication**: Store only the version that will be used
+1. **Memory Optimization**: Efficient content processing without duplication
 2. **DOM Reference Caching**: Cache frequently accessed selectors
 3. **Event Listener Cleanup**: Proper removal of event listeners on platform changes
 
@@ -888,17 +828,17 @@ pie title Memory Usage Distribution
 
 | Locale | Coverage | Status | Key Count | Implementation Notes |
 |--------|----------|--------|-----------|-------------------|
-| **English (en)** | 100% | ✅ Complete | 677 keys | Baseline reference implementation |
-| **Arabic (ar)** | 100% | ✅ Complete | 677 keys | Full RTL support with proper translations |
-| **Swahili (sw)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **Spanish (es)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Japanese (ja)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **French (fr)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Russian (ru)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **Chinese (zh)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Portuguese (pt)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **German (de)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Hindi (hi)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **English (en)** | 100% | ✅ Complete | 648 keys | Baseline reference implementation |
+| **Arabic (ar)** | 100% | ✅ Complete | 648 keys | Full RTL support with proper translations |
+| **Swahili (sw)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **Spanish (es)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Japanese (ja)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **French (fr)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Russian (ru)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **Chinese (zh)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Portuguese (pt)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **German (de)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Hindi (hi)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
 
 ### 🔧 i18n Architecture Implementation
 
@@ -958,7 +898,7 @@ const PRIVACY_CONTROLS = {
             language: data.language,
             platform: data.platform,
             processingTime: data.processingTime,
-            compressionRatio: data.compressionRatio
+            detectionConfidence: data.detectionConfidence
         };
         
         // Explicitly exclude sensitive data
@@ -1023,28 +963,27 @@ gantt
 |-----------|-------------|--------------|-------------------|
 | **Platform Detection** | <5ms | 1KB | Minimal (optimized) |
 | **Language Detection** | 50-200ms | 2-5KB | <50ms (sample optimization) |
-| **File Compression** | 100-500ms | 2x content size | <200ms, 1x size |
 | **ChatGPT Upload** | 2-10s | 50KB | <5s (MutationObserver) |
 | **Gemini Attachment** | 1-3s | 25KB | <1s (path caching) |
 
 ### 📈 Memory Usage Optimization
 
 ```javascript
-// Proposed memory optimization for compression
-export async function optimizedCompression(content, options = {}) {
-    const threshold = options.minCompressionRatio || 0.8;
-    
-    // Single-pass evaluation
-    const compressed = await compressStream(content);
-    const ratio = compressed.length / content.length;
-    
-    // Return only the optimal representation
-    if (ratio < threshold) {
-        return { content: compressed, type: 'compressed', ratio };
+// Language detection with confidence scoring
+export function detectLanguageWithConfidence(content, options = {}) {
+    const threshold = options.minConfidence || 0.35;
+
+    // Pattern analysis
+    const detection = analyzeContentPatterns(content);
+    const confidence = detection.confidence;
+
+    // Return detection result with confidence
+    if (confidence >= threshold) {
+        return { extension: detection.extension, language: detection.language, confidence };
     } else {
-        return { content, type: 'original', ratio: 1.0 };
+        return { extension: 'txt', language: 'text', confidence: 0.0 };
     }
-    // No memory duplication - single representation only
+    // High accuracy language detection
 }
 ```
 
@@ -1070,7 +1009,7 @@ graph TB
     
     A1[Shared Utilities] --> A
     A2[Language Detection] --> A
-    A3[Compression] --> A
+    A3[Language Detection] --> A
     A4[Validation] --> A
     
     B1[Toast Components] --> B
@@ -1087,7 +1026,7 @@ graph TB
 ```
 
 **Testing Implementation Roadmap:**
-1. **Phase 1**: Unit tests for shared utilities (validation, compression, language detection)
+1. **Phase 1**: Unit tests for shared utilities (validation, language detection)
 2. **Phase 2**: Component tests for UI elements (toast, modal, file attachment)
 3. **Phase 3**: Integration tests for platform factory and configuration
 4. **Phase 4**: E2E tests for each platform integration
@@ -1167,8 +1106,8 @@ This technical documentation provides a full, **code-verified** analysis of the 
 - **Testing Infrastructure**: Establish broad test coverage
 - **Performance Optimization**: Address identified memory and performance bottlenecks  
 - **Platform Expansion**: Systematic approach to new AI platform integration
-- **Internationalization**: Complete localization for all supported languages
+- **Performance Optimization**: Address identified memory and performance bottlenecks
 
 ---
 
-*This document reflects the actual state of the codebase as of September 18, 2025. All technical claims have been verified against source code implementation.*
+*This document reflects the actual state of the codebase as of September 29, 2025. All technical claims have been verified against source code implementation.*

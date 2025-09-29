@@ -50,7 +50,7 @@
   "analytics_today": {"message": "今日"},
   "analytics_yesterday": {"message": "昨日"},
   "anonymous_analytics": {"message": "匿名使用分析（オプション）"},
-  "aria_batch_compression": {"message": "バッチ圧縮"},
+
   "aria_batch_delay": {"message": "バッチ遅延"},
   "aria_batch_processing": {"message": "バッチ処理"},
   "aria_chart_type": {"message": "チャートタイプ"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "ファイル形式を選択"},
   "aria_choose_theme": {"message": "テーマを選択"},
   "aria_claude_override": {"message": "Claude上書き"},
-  "aria_compression_threshold": {"message": "圧縮しきい値（バイト）"},
+
   "aria_custom_format_help": {"message": "カスタム形式ヘルプ"},
   "aria_debug_level": {"message": "デバッグレベルヘルプ"},
   "aria_delay_seconds": {"message": "遅延秒数（1-15）"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "バッチ有効"},
   "batch_active_tip": {"message": "バッチモードが有効 - 複数ファイルが処理されます"},
   "batch_auto_attach_tip": {"message": "自動添付はバッチモードですべてのファイルを処理します"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>圧縮</span> 各バッチファイルに圧縮を適用してファイルサイズを削減。これは上記のメイン「ファイル圧縮」設定とは別です。メイン圧縮が有効な場合、このオプションは競合を防ぐため自動的に無効になります。バッチファイルのみに圧縮を適用し、通常の単一ファイルには適用しない場合に使用します。"},
+
   "batch_delay_tip": {"message": "遅延はバッチ処理の各ファイルに適用されます"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>タイミング</span> 各バッチファイルのアップロード間の時間遅延（100ms〜2000ms）。遅延が長いほど、AIプラットフォームでスパムとしてフラグされる可能性が低くなります。この設定は、上記のメイン「ユーザー遅延」トグルが有効な場合は自動的に無効になります - その場合、メイン遅延設定がすべてのファイルアップロードで優先されます。"},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "バッチモード"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>ベータ</span> 最大ファイル数設定に基づいて大きなコンテンツを複数ファイルに分割。コンテンツを行で分割し、ファイル拡張子にスマート言語検出を使用。part1、part2、part3、part4という名前のファイルを作成。大きなドキュメント、コードファイル、プラットフォーム制限を超えるコンテンツの分割に最適。各部分はコンテンツ分析に基づいて適切なファイル拡張子を取得します。"},
   "beta": {"message": "ベータ"},
-  "bytes": {"message": "バイト"},
   "cancel": {"message": "キャンセル"},
   "claude_override": {"message": "Claude自動添付を上書き"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>機能</span> Claudeには独自の貼り付けからファイル機能が含まれています。これを有効にすると、より一貫したフォーマットと命名のためにMulti-AI File Pasterを常に使用します。"},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "これにより使用統計がすべて永続的に削除され、元に戻すことはできません。"},
   "close": {"message": "閉じる"},
   "company": {"message": "会社:"},
-  "compression": {"message": "圧縮"},
-  "compression_optimized": {
-    "message": "圧縮最適化: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$%節約)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "圧縮率が低すぎるため、元のファイルを保持"},
-  "compression_below_threshold": {"message": "しきい値以下"},
+
   "config_analytics_dashboard": {"message": "分析ダッシュボード: 使用パターンとファイル作成統計を追跡"},
   "config_auto_attach": {"message": "自動添付: 長い貼り付けを自動検出・変換（カスタマイズ可能な単語しきい値: 50-15,000単語）"},
   "config_batch_processing": {"message": "バッチ処理: 大きなコンテンツをスマート行分割で2-4ファイルに分割"},
   "config_claude_integration": {"message": "Claude統合: Claudeの組み込み貼り付けからファイル機能と連携または置換"},
   "config_delay": {"message": "遅延: オプションの1-15秒カウントダウンで誤った添付を防止"},
-  "config_file_compression": {"message": "ファイル圧縮: GZIP圧縮でファイルサイズを削減し、パフォーマンスを向上"},
+
   "config_manual_override": {"message": "手動上書き: 入力されたテキストをファイル添付にオンデマンド変換"},
   "config_multi_format": {"message": "マルチフォーマットサポート: プログラミング言語、マークアップ、データ形式、カスタム拡張子を含む20以上のファイルタイプから選択"},
   "config_platform_optimization": {"message": "プラットフォーム最適化: 各AIプラットフォーム固有のファイル添付システムに特別対応"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "検証システム準備完了"},
   "debug_warn": {"message": "[警告]"},
   "debug_warning": {"message": "[警告]"},
-  "debug_compression_invalid_input": {"message": "テキストがnull、未定義、または文字列でない"},
-  "debug_compression_skipped": {"message": "コンテンツが小さすぎる: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API利用不可"},
-  "debug_compression_encoding_mismatch": {"message": "テキストエンコーディングサイズ不一致検出"},
-  "debug_compression_poor_ratio": {"message": "比率$1が高すぎる"},
+
   "debug_batch_content_too_short": {"message": "バッチ処理にはコンテンツが短すぎる"},
   "debug_batch_split_insufficient": {"message": "コンテンツを複数部分に意味のある分割ができない"},
+  "debug_batch_part_too_small": {"message": "パート$1が小さすぎます: $2文字"},
+  "debug_batch_structured_content": {"message": "構造化コンテンツを検出: $1"},
+  "debug_batch_too_few_lines": {"message": "意味のあるバッチ分割には行数が少なすぎます: $1行"},
   "debug_file_content_empty": {"message": "コンテンツが空または無効"},
   "debug_json_content_valid": {"message": "コンテンツは既に有効なJSON"},
   "debug_json_wrap_applied": {"message": "コンテンツをJSON構造でラップ"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "開発者ウェブサイト"},
   "development_team": {"message": "開発チーム・サポート"},
-  "disabled_compression_tooltip": {"message": "この形式では圧縮無効"},
+
   "disabled_title": {"message": "このページで機能無効"},
   "enter_custom": {"message": "カスタム形式入力"},
   "errors": {"message": "エラー"},
   "errors_attachment_failed": {"message": "ファイル添付失敗。ページを更新して再試行してください"},
   "errors_batch_processing_failed": {"message": "バッチ処理失敗: $1"},
   "errors_busy_processing": {"message": "別のファイル添付が進行中。お待ちください"},
-  "errors_compression_not_supported": {"message": "圧縮サポート外"},
+
   "errors_connection_failed": {"message": "ページに接続できません。更新して再試行してください"},
-  "errors_decompression_failed": {"message": "ファイル展開失敗"},
-  "errors_decompression_not_supported": {"message": "このファイルタイプでは展開サポート外"},
+
   "errors_export_failed": {"message": "エクスポート失敗。再試行してください"},
   "errors_extension_context": {"message": "拡張機能コンテキスト問題。ページを更新して再試行してください"},
   "errors_extension_reloaded": {"message": "拡張機能が再読み込みされました。ページを更新して再試行してください"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "このAIプラットフォームはサポートされていません。ChatGPT、Claude、Gemini、DeepSeek、Grokを試してください"},
   "errors_text_too_short": {"message": "テキストが短すぎます（$1単語）。最低$2単語必要"},
   "errors_text_too_short_manual": {"message": "手動保存にはテキストが短すぎます。テキストを追加するか最小単語数設定を下げてください"},
-  "errors_compression_invalid_input": {"message": "圧縮への無効な入力"},
+
   "errors_invalid_content_type": {"message": "無効なコンテンツ: テキストは空でない文字列である必要があります"},
   "errors_invalid_content_empty": {"message": "無効なコンテンツ: テキストは空にできません"},
   "errors_file_creation_failed": {"message": "有効なファイルオブジェクトの作成に失敗"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "フィードバック正常送信"},
   "feedback_support_description": {"message": "どのような問題が発生していますか？"},
   "file_blob_created": {"message": "ファイルblob作成"},
-  "file_compression": {"message": "ファイル圧縮"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>圧縮</span> GZIP圧縮を使用して大きなファイル（1KB以上）を自動圧縮。テキストコンテンツのファイルサイズを60-80%削減。良いスペース節約時のみ圧縮。"},
+
   "file_creation_insights": {"message": "ファイル作成インサイト"},
   "file_creation_started": {"message": "ファイル作成開始"},
   "file_format": {"message": "ファイル形式"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "$1ファイルを処理中"},
   "file_operations_batch_success": {"message": "バッチから$1ファイルを処理"},
   "file_operations_batch_uploading": {"message": "$1をアップロード中"},
-  "file_operations_compression_optimized": {"message": "ファイルを$1から$2に最適化（$3%小さく）"},
+
   "file_operations_manual_save_success": {"message": "ファイル添付"},
   "files_per_day": {"message": "1日あたりファイル数"},
   "flash_called": {"message": "フラッシュメッセージ呼び出し"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "その他の形式読み込み"},
   "network_error": {"message": "ネットワークエラー発生"},
   "new_version": {"message": "v1.1.0の新機能:"},
-  "new_version_text": {"message": "バッチモードは大きなコンテンツを複数ファイルに分割、GZIP圧縮はファイルサイズを60-80%削減、改良された分析ダッシュボードは使用パターンを追跡。"},
+  "new_version_text": {"message": "バッチモードは大きなコンテンツを複数ファイルに分割、スマート言語検出はファイル拡張子を自動選択、改良された分析ダッシュボードは使用パターンを追跡。"},
   "next_page": {"message": "次ページ"},
   "no_data_yet": {"message": "データなし"},
   "no_file_input": {"message": "ページにファイル入力が見つかりません"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "設定をストレージに保存"},
   "settings_auto_attach_disabled": {"message": "自動添付無効。ファイル添付には手動保存ボタンを使用"},
   "settings_auto_attach_enabled": {"message": "自動添付有効。貼り付け時にファイルが自動添付されます"},
-  "settings_batch_compression_disabled": {"message": "バッチ圧縮無効"},
-  "settings_batch_compression_enabled": {"message": "バッチ圧縮有効"},
+
   "settings_batch_delay_updated": {"message": "バッチ処理遅延を$1msに設定"},
   "settings_batch_mode_disabled": {"message": "バッチモード無効。自動添付復元"},
   "settings_batch_mode_enabled": {"message": "バッチモード有効。バッチモード有効中は自動添付無効"},
   "settings_claude_override_disabled": {"message": "Claude上書き無効。Claudeは組み込み機能を使用"},
   "settings_claude_override_enabled": {"message": "Claude上書き有効。拡張機能がClaudeで動作"},
-  "settings_compression_disabled": {"message": "ファイル圧縮無効"},
-  "settings_compression_enabled": {"message": "$1バイト以上のファイルで圧縮有効"},
-  "settings_compression_threshold_updated": {"message": "圧縮しきい値を$1バイトに設定"},
+
   "settings_debug_disabled": {"message": "デバッグモード無効"},
   "settings_debug_enabled": {"message": "デバッグモード有効"},
   "settings_delay_disabled": {"message": "添付遅延無効"},
@@ -832,14 +806,18 @@
   "total_files": {"message": "総ファイル数"},
   "translating_wait": {"message": "翻訳中、お待ちください..."},
   "try_attachment_button": {"message": "代わりに添付ボタンを使用してください"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>バッチ有効</span> バッチモード有効時はファイル圧縮無効。一度に有効にできる圧縮方法は1つのみ。"},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>バッチ有効</span> バッチモード有効時は自動添付無効。バッチモードは分割コンテンツのファイル添付を自動処理。通常の単一ファイルで自動添付を使用するにはバッチモードをオフ。"},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>バッチ有効</span> バッチモード有効時はこの設定無効。バッチモードはファイルアップロード用の独自遅延設定を使用。この遅延設定を使用するにはバッチモードをオフ。"},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>バッチ有効</span> バッチモード有効時は手動操作無効。バッチモードはコンテンツを複数ファイルに自動処理。単一ファイルで手動操作を使用するにはバッチモードをオフ。"},
+  "ui_components_config_error": {"message": "設定エラー: DEFAULTSが見つかりません"},
+  "ui_components_reset_failed": {"message": "リセット失敗"},
+
   "ui_components_custom_format_label": {"message": "カスタム"},
   "ui_components_custom_format_placeholder": {"message": "例: log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "データ正常削除"},
   "ui_components_delay_countdown": {"message": "$1秒後に添付"},
-  "ui_components_disabled_compression_tooltip": {"message": "ファイル圧縮有効時は無効"},
+
   "ui_components_disabled_title": {"message": "AIチャットを開いてファイルとして添付するテキストを入力"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +868,8 @@
   "claude_file_attached": {"message": "Claudeにファイル正常添付"},
   "claude_invalid_text": {"message": "Claude処理用無効テキストコンテンツ"},
   "claude_removing_pasted_element": {"message": "Claudeから貼り付けテキスト要素削除中"},
-  "compression_encoding_mismatch": {"message": "テキストエンコーディングサイズ不一致検出"},
-  "compression_exception": {"message": "圧縮が例外で失敗"},
-  "compression_failed": {"message": "圧縮操作失敗"},
-  "compression_invalid_input": {"message": "圧縮に無効な入力提供"},
-  "compression_not_supported": {"message": "このブラウザでは圧縮サポート外"},
-  "compression_skipped": {"message": "圧縮スキップ - コンテンツが小さすぎる"},
-  "compression_success": {"message": "圧縮正常完了"},
+  "debug_using_popup_flash": {"message": "コンテンツテキストの代わりにポップアップフラッシュを使用"},
+
   "empty_file_created": {"message": "警告: 空ファイル作成"},
   "fileAttachComponent_error": {"message": "ファイル添付コンポーネントでエラー発生"},
   "file_creation_complete": {"message": "ファイル作成プロセス完了"},

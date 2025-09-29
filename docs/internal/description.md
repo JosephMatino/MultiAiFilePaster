@@ -20,7 +20,7 @@ Multi-AI File Paster automatically detects when your pasted content exceeds prac
 
 **Batch Processing**: Automatically detects multiple code blocks in pasted text and creates separate files for each block. Perfect for multi-file projects containing javascript, python, and css code blocks.
 
-**File Compression**: GZIP compression reduces large file attachments by 60 to 80 percent using browser compression with configurable thresholds.
+**Smart Language Detection**: Automatically recognizes programming languages and content types to select the most appropriate file extension with high accuracy.
 
 **Privacy First Design**: All processing happens entirely on your device. Your code and documents never leave your computer or get transmitted to external servers. No accounts, subscriptions, or data collection required.
 
@@ -44,7 +44,7 @@ Multi-AI File Paster automatically detects when your pasted content exceeds prac
 
 **Format Control**: Choose automatic detection or manually select from over 20 supported file types including custom extensions.
 
-**Batch Settings**: Configure processing delays and compression thresholds for optimal performance.
+**Batch Settings**: Configure processing delays and language detection settings for optimal performance.
 
 ## Privacy and Security Features
 
@@ -83,7 +83,7 @@ Users can specify any file extension for specialized formats not covered by buil
 Developers use the extension for debugging complex JavaScript applications by sharing entire component files with AI platforms for code review and optimization suggestions. Backend developers benefit when sharing API endpoint implementations, database migration scripts, or configuration files that exceed typical paste limits. The extension streamlines code review processes by automatically formatting shared code with proper syntax highlighting and file organization.
 
 ### Data Analysis Workflows
-Data scientists and analysts regularly share large datasets, SQL queries, and analysis scripts through the extension. CSV files with thousands of rows, complex database schemas, and Python data processing scripts become easily shareable without manual file creation steps. The automatic compression feature particularly benefits users working with large data files that would otherwise exceed platform upload limits.
+Data scientists and analysts regularly share large datasets, SQL queries, and analysis scripts through the extension. CSV files with thousands of rows, complex database schemas, and Python data processing scripts become easily shareable without manual file creation steps. The smart language detection feature particularly benefits users by ensuring proper file formatting and extension selection for different content types.
 
 ### Technical Writing Projects
 Technical writers use the extension for sharing documentation drafts, API documentation, and user guides that exceed standard paste limits. Markdown files with extensive code examples, configuration guides, and tutorial content benefit from automatic file creation with preserved formatting. The extension maintains document structure while ensuring AI platforms can properly process and provide feedback on technical content.
@@ -108,7 +108,7 @@ Enable a configurable delay of 1-15 seconds before file creation occurs, providi
 Choose between automatic language detection (recommended for most users) or manually specify a preferred file format for all attachments. The automatic detection uses advanced pattern recognition algorithms, while manual selection provides consistent formatting for users with specific requirements. Custom file extension specification is available for specialized formats not covered by built-in detection.
 
 ### Platform-Specific Settings Management
-Customize extension behavior for each AI platform individually through dedicated configuration panels. Options include disabling the extension on specific platforms like Claude if you prefer their native paste-to-file feature. Platform-specific timeout settings, compression thresholds, and integration preferences can be configured to optimize performance for each AI service.
+Customize extension behavior for each AI platform individually through dedicated configuration panels. Options include disabling the extension on specific platforms like Claude if you prefer their native paste-to-file feature. Platform-specific timeout settings, language detection preferences, and integration options can be configured to optimize performance for each AI service.
 
 ### Batch Processing Mode Configuration
 Enable processing of multiple code blocks or sections in a single paste operation through batch mode settings. This feature automatically detects and separates different code segments, creating individual files for each identified block. Batch processing delay intervals and block separation algorithms can be customized based on content type and user preferences.

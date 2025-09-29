@@ -21,10 +21,10 @@ All notable changes to the **Multi-AI File Paster** Chrome extension are documen
 - Project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Development practices and complete documentation
 
-## [1.1.0] - 2025-09-28
+## [1.1.0] - 2025-09-29
 
 ### Added - Major Feature Expansion
-- **Complete Internationalization** - 11 languages fully supported (677/677 keys each): English, Arabic, Swahili, Spanish, Japanese, French, Russian, Chinese, Portuguese, German, Hindi
+- **Complete Internationalization** - 11 languages fully supported (648/648 keys each): English, Arabic, Swahili, Spanish, Japanese, French, Russian, Chinese, Portuguese, German, Hindi
 - **SHORT UI Text Optimization** - Layout-conscious translations prevent UI overflow across all languages
 - **Real-time Language Sync** - Language changes sync instantly between main popup and content scripts
 - **Enhanced Debug System** - Centralized debug logging with toast integration (`src/shared/debug.js`)
@@ -49,16 +49,16 @@ All notable changes to the **Multi-AI File Paster** Chrome extension are documen
 - **Multi-Platform Support** - Works seamlessly with ChatGPT, Claude, Gemini, DeepSeek, and Grok
 - **Smart Language Detection** - Auto-detects 20+ file formats including all major programming languages
 - **Batch File Processing** - Automatically detects multiple code blocks and creates separate files
-- **File Compression** - GZIP compression for large files with 60-80% size reduction
+- **Smart Language Detection** - Automatic file extension selection based on content analysis
 - **Privacy-First Architecture** - All processing happens locally on your device
-- **Configurable Settings** - Word thresholds (50-15,000), compression controls, and delay systems
+- **Configurable Settings** - Word thresholds (50-15,000), smart language detection, and delay systems
 - **Manual Save Option** - Keyboard shortcut (Ctrl/Cmd + Shift + S) for manual file creation
 - **Analytics Dashboard** - Track your usage statistics and file creation trends
-- **Basic Internationalization** - English, Arabic, and Swahili language support
+- **Complete Internationalization** - 11 languages with 648 translation keys each
 
 ### Features
 - **Smart Code Detection** - Recognizes fenced (```language) and indented code blocks
-- **Progress Indicators** - Real-time feedback during batch processing and compression
+- **Progress Indicators** - Real-time feedback during batch processing and file operations
 - **Error Handling** - Clear error messages with platform-specific guidance
 - **Accessibility Support** - Screen reader compatible with full keyboard navigation
 - **Chrome Extension Manifest V3** - Latest security and performance standards
@@ -109,7 +109,7 @@ This changelog documents completed changes only. For support and feature request
 ## 🏆 Project Milestones
 
 - **🚀 v1.0.9** - Initial production release with core features (September 11, 2025)
-- **🌍 v1.1.0** - Complete internationalization with 11 languages (September 28, 2025)
+- **🌍 v1.1.0** - Complete internationalization with 11 languages (September 29, 2025)
 
 ## 📞 Support & Development
 

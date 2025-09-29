@@ -31,8 +31,8 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: Popup UI layer interacting with shared systems
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader API
- * • FEATURES: Batch processing, file compression, analytics, multi-platform support
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
+ * • FEATURES: Batch processing, analytics, multi-platform support
  * • TESTING: Automated unit tests, integration tests, cross-browser validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
  * • SCALABILITY: Modular design, plugin architecture, extensible configuration
@@ -162,7 +162,7 @@
           });
         } else if (sr) {
           if (window.GPTPF_DEBUG) {
-            window.GPTPF_DEBUG.info('using_popup_flash', 'Using popup flash instead of content script');
+            window.GPTPF_DEBUG.info('using_popup_flash', window.GPTPF_I18N.getMessage('debug_using_popup_flash'));
           }
           sr.textContent = `${type.toUpperCase()}: ${msg}`;
         }
@@ -208,16 +208,7 @@
                 ? window.GPTPF_I18N.getMessage('settings_batch_mode_enabled')
                 : window.GPTPF_I18N.getMessage('settings_batch_mode_disabled');
               break;
-            case 'enableCompression':
-              successMsg = val 
-                ? window.GPTPF_I18N.getMessage('settings_compression_enabled', [oldSettings?.compressionThreshold || 1024])
-                : window.GPTPF_I18N.getMessage('settings_compression_disabled');
-              break;
-            case 'batchCompression':
-              successMsg = val 
-                ? window.GPTPF_I18N.getMessage('settings_batch_compression_enabled')
-                : window.GPTPF_I18N.getMessage('settings_batch_compression_disabled');
-              break;
+
             case 'autoAttachEnabled':
               successMsg = val 
                 ? window.GPTPF_I18N.getMessage('settings_auto_attach_enabled')
@@ -244,9 +235,7 @@
             case 'batchProcessingDelay':
               successMsg = window.GPTPF_I18N.getMessage('settings_batch_delay_updated', [val]);
               break;
-            case 'compressionThreshold':
-              successMsg = window.GPTPF_I18N.getMessage('settings_compression_threshold_updated', [val]);
-              break;
+
             default:
               successMsg = window.GPTPF_I18N.getMessage('settings_saving');
           }
@@ -310,18 +299,17 @@
     },
 
     updateAllStates() {
-      window.GPTPF_UTILS.getStorageData(['batchMode', 'enableCompression', 'autoAttachEnabled', 'useDelay'], (result) => {
+      window.GPTPF_UTILS.getStorageData(['batchMode', 'autoAttachEnabled', 'useDelay'], (result) => {
         if (!result) return;
 
         const batchMode = result.batchMode;
-        const enableCompression = result.enableCompression;
         const autoAttachEnabled = result.autoAttachEnabled !== false;
         const useDelay = result.useDelay;
 
         this.updateMainDelayState(batchMode);
         this.updateBatchDelayState(useDelay);
-        this.updateCompressionState(batchMode, enableCompression);
         this.updateAutoAttachState(batchMode);
+        this.updateManualActionState(batchMode);
         this.updateMainUIState(autoAttachEnabled);
       });
     },
@@ -346,19 +334,7 @@
       }
     },
 
-    updateCompressionState(batchMode, enableCompression) {
-      const compressionToggle = $('#compressionToggle');
-      const batchCompressionToggle = $('#batchCompressionToggle');
 
-      this.updateElementState(compressionToggle, !batchMode, {
-        badge: batchMode,
-        tooltip: batchMode ? window.GPTPF_I18N.getMessage('batch_active_tip') : null
-      });
-
-      this.updateElementState(batchCompressionToggle, !enableCompression, {
-        tooltip: enableCompression ? window.GPTPF_I18N.getMessage('disabled_compression_tooltip') : null
-      });
-    },
 
     updateAutoAttachState(batchMode) {
       const attachToggle = $('#attachToggle');
@@ -368,13 +344,35 @@
       });
     },
 
+    updateManualActionState(batchMode) {
+      const saveBtn = $('#saveNow');
+      if (!saveBtn) return;
+
+
+      saveBtn.disabled = batchMode;
+      saveBtn.style.opacity = batchMode ? '0.5' : '1';
+      saveBtn.style.cursor = batchMode ? 'not-allowed' : 'pointer';
+      saveBtn.style.pointerEvents = batchMode ? 'none' : 'auto';
+
+
+      const helpBtn = saveBtn.parentElement?.querySelector('.help');
+      if (helpBtn) {
+        const tooltipKey = batchMode ? 'ui_components_batch_manual_action_tip' : 'manual_action_tooltip';
+        helpBtn.setAttribute('data-tip-i18n', tooltipKey);
+
+
+        if (window.GPTPF_TOOLTIPS && window.GPTPF_TOOLTIPS.refreshTooltip) {
+          window.GPTPF_TOOLTIPS.refreshTooltip(helpBtn);
+        }
+      }
+    },
+
     updateMainUIState(autoAttachEnabled) {
       const elements = [
         $('#formatSelect'),
         $('#moreFormats'),
         $('#customFormat'),
         $('#delayToggle'),
-        $('#compressionToggle'),
         $('#batchToggle')
       ];
 
@@ -382,25 +380,22 @@
         this.updateElementState(element, autoAttachEnabled, { opacity: true });
       });
 
-      const saveBtn = $('#saveNow');
-      if (saveBtn) {
-        saveBtn.disabled = !autoAttachEnabled;
-        saveBtn.style.opacity = autoAttachEnabled ? '1' : '0.5';
-      }
+
     }
   };
 
   function updateBatchDelayState(useDelay) {
     UIStateManager.updateBatchDelayState(useDelay);
   }
-  function updateCompressionControlsState() {
-    UIStateManager.updateAllStates();
-  }
+
   function updateMainDelayState(batchMode) {
     UIStateManager.updateMainDelayState(batchMode);
   }
   function updateAutoAttachState(batchMode) {
     UIStateManager.updateAutoAttachState(batchMode);
+  }
+  function updateManualActionState(batchMode) {
+    UIStateManager.updateManualActionState(batchMode);
   }
   function updateUIStateBasedOnAutoAttach(autoAttachEnabled) {
     UIStateManager.updateMainUIState(autoAttachEnabled);
@@ -408,7 +403,7 @@
   function initializeSettings() {
     GPTPF_CONFIG.getConfig(() => {
       window.GPTPF_UTILS.getStorageData([
-        'wordLimit', 'useDelay', 'delaySeconds', 'fileFormat', 'batchMode', 'maxBatchFiles', 'batchProcessingDelay', 'batchCompression', 'telemetryEnabled', 'showDebug', 'debugLevel', 'autoAttachEnabled', 'claudeOverride', 'selectedTheme'
+        'wordLimit', 'useDelay', 'delaySeconds', 'fileFormat', 'batchMode', 'maxBatchFiles', 'batchProcessingDelay', 'telemetryEnabled', 'showDebug', 'debugLevel', 'autoAttachEnabled', 'claudeOverride', 'selectedTheme'
       ], res => {
         if (!res) return;
         const defaults = window.GPTPF_CONFIG?.DEFAULTS;
@@ -471,16 +466,10 @@
         $('#maxFilesValue').textContent = maxFiles;
         $('#processingDelaySlider').value = delay;
         $('#processingDelayValue').textContent = `${delay}ms`;
-        const batchCompressionToggleEl = $('#batchCompressionToggle');
-        const compressionToggleEl = $('#compressionToggle');
-        if (batchCompressionToggleEl) batchCompressionToggleEl.checked = res.batchCompression ?? (defaults.batchCompression ?? false);
         updateBatchDelayState(res.useDelay ?? (defaults.useDelay ?? false));
-        updateCompressionControlsState();
         updateMainDelayState(res.batchMode ?? (defaults.batchMode ?? false));
         updateAutoAttachState(res.batchMode ?? (defaults.batchMode ?? false));
-        if (compressionToggleEl) compressionToggleEl.checked = !!res.enableCompression;
-        $('#compressionThreshold').value = res.compressionThreshold ?? 1024;
-        $('#compressionThresholdWrap').hidden = !res.enableCompression;
+        updateManualActionState(res.batchMode ?? (defaults.batchMode ?? false));
         const debugConfig = window.GPTPF_CONFIG.DEBUG;
         const debugEnabled = debugConfig.enabled;
         const userDebugSetting = res.showDebug || defaults.showDebug;
@@ -909,17 +898,12 @@
       }
       updateMainDelayState(isChecked);
       updateAutoAttachState(isChecked);
-      updateCompressionControlsState();
+      updateManualActionState(isChecked);
       setTimeout(() => {
         refreshBadgeTranslations();
       }, 50);
     });
-    $('#compressionToggle').addEventListener('change', e => {
-      saveSetting('enableCompression', e.target.checked);
-      $('#compressionThresholdWrap').hidden = !e.target.checked;
-      updateCompressionControlsState();
-    });
-    $('#compressionThreshold').addEventListener('change', e => saveSetting('compressionThreshold', parseInt(e.target.value)));
+
     $('#maxFilesSlider').addEventListener('input', e => {
       const value = parseInt(e.target.value);
       $('#maxFilesValue').textContent = value;
@@ -930,11 +914,7 @@
       $('#processingDelayValue').textContent = `${value}ms`;
       saveSetting('batchProcessingDelay', value);
     });
-    $('#batchCompressionToggle').addEventListener('change', e => {
-      const isChecked = e.target.checked;
-      saveSetting('batchCompression', isChecked);
-      updateCompressionControlsState();
-    });
+
     $('#delayToggle').addEventListener('change', e => {
       updateBatchDelayState(e.target.checked);
     });
@@ -964,6 +944,9 @@
               break;
             case 'busy':
               errorMsg = window.GPTPF_I18N.getMessage('errors_busy_processing');
+              break;
+            case 'batch_mode_active':
+              errorMsg = window.GPTPF_I18N.getMessage('ui_components_batch_manual_action_tip');
               break;
             case 'below_min':
             case 'too_short':
@@ -1342,7 +1325,7 @@ Thank you!`;
     window.GPTPF_DEBUG?.log('debug_settings_reset_start');
     if (!window.GPTPF_CONFIG?.DEFAULTS) {
       window.GPTPF_DEBUG?.error('debug_config_defaults_missing');
-      flash('Configuration error: DEFAULTS not found', 'error');
+      flash(window.GPTPF_I18N.getMessage('ui_components_config_error'), 'error');
       closeResetModal();
       return;
     }
@@ -1352,7 +1335,7 @@ Thank you!`;
     chrome.storage.local.clear(() => {
       if (chrome.runtime.lastError) {
         window.GPTPF_DEBUG?.error('debug_settings_reset_error', [chrome.runtime.lastError.message]);
-        flash('Reset failed: ' + chrome.runtime.lastError.message, 'error');
+        flash(window.GPTPF_I18N.getMessage('ui_components_reset_failed') + ': ' + chrome.runtime.lastError.message, 'error');
         closeResetModal();
         return;
       }

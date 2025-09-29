@@ -425,7 +425,7 @@ function makeFile(content, fmt, customName=""){
     if (window.GPTPF_DEBUG) {
       window.GPTPF_DEBUG.error('blob_creation_error', error);
     }
-    throw new Error(`Failed to create file: ${error.message}`);
+    throw new Error(window.GPTPF_I18N?.getMessage('errors_file_creation_failed') + ': ' + error.message);
   }
 }
 const plusBtn = () => {
@@ -446,10 +446,86 @@ async function ensureFileInput(wait=2000){
   }
   return null;
 }
+async function processManualText(text, overrideExt){
+  try{
+    busy = true;
+    const platformSettings = getPlatformSettings();
+    let newName = '';
+    try {
+      newName = await renameModal();
+    } catch {
+      lastHash = "";
+      hideLoader();
+      const cancelMsg = window.GPTPF_I18N.getMessage('attachment_cancelled');
+      toast(cancelMsg, false);
+      throw new Error('cancelled');
+    }
+    const preparingMsg = window.GPTPF_I18N.getMessage('attachment_preparing');
+    loader(preparingMsg);
+    if (!text || typeof text !== 'string') {
+      throw new Error(window.GPTPF_I18N?.getMessage('errors_invalid_content_type'));
+    }
+    if (text.length === 0) {
+      throw new Error(window.GPTPF_I18N?.getMessage('errors_invalid_content_empty'));
+    }
+    const file = makeFile(text, (overrideExt || platformSettings.fileFormat), newName);
+    if (platformHandler && platformHandler.attachFile) {
+      if (platformSettings.useDelay && platformSettings.delaySeconds > 0) {
+        await delayCountdown(platformSettings.delaySeconds * 1000);
+      }
+      const attachingMsg = window.GPTPF_I18N.getMessage('attachment_attaching');
+      loader(attachingMsg);
+      const success = await platformHandler.attachFile(file);
+      if (success) {
+        hideLoader();
+        const successMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
+        toast(successMsg, true);
+        lastHash = "";
+        trackFileCreation(file, getCurrentPlatform());
+      } else {
+        throw new Error(window.GPTPF_I18N?.getMessage('errors_platform_attach_failed'));
+      }
+    } else {
+      const platform = getCurrentPlatform();
+      if (platform === 'claude') {
+        const claudeMsg = window.GPTPF_I18N.getMessage('platform_specific_manual_drag_drop');
+        toast(claudeMsg, false, () => {
+          const again = document.querySelector('input[type="file"]');
+          if (again) {
+            const dt2 = new DataTransfer();
+            dt2.items.add(file);
+            again.files = dt2.files;
+            again.dispatchEvent(new Event("change", { bubbles:true }));
+            again.dispatchEvent(new Event("input", { bubbles:true }));
+            hideLoader();
+            const retrySuccessMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
+            toast(retrySuccessMsg, true);
+            lastHash = "";
+          } else {
+            hideLoader();
+            const manualDragMsg = window.GPTPF_I18N.getMessage('manual_drag_drop');
+            toast(manualDragMsg, false);
+            lastHash = "";
+          }
+        });
+      }
+    }
+  } catch (error) {
+    hideLoader();
+    const errorMsg = error.message || window.GPTPF_I18N?.getMessage('errors_attachment_failed');
+    toast(errorMsg, false);
+    lastHash = "";
+    throw error;
+  } finally {
+    busy = false;
+  }
+}
 async function processText(text, overrideExt){
   try{
     busy = true;
     const platformSettings = getPlatformSettings();
+
+
     if (platformSettings.batchMode && window.GPTPF_BATCH) {
       const words = wc(text);
       const wordLimit = platformSettings.wordLimit;
@@ -462,6 +538,7 @@ async function processText(text, overrideExt){
         }
       }
     }
+
     let newName = '';
     try {
       newName = await renameModal();
@@ -490,28 +567,7 @@ async function processText(text, overrideExt){
       throw new Error(window.GPTPF_I18N?.getMessage('errors_invalid_content_empty'));
     }
 
-    let compressionInfo = null;
-    if (platformSettings.enableCompression && window.GPTPF_COMPRESSION && text.length > 2048) {
-      try {
-        const compressionResult = await window.GPTPF_COMPRESSION.compressText(text, {
-          threshold: platformSettings.compressionThreshold || 2048
-        });
-        if (compressionResult.compressed) {
-          compressionInfo = window.GPTPF_COMPRESSION.getCompressionInfo(compressionResult);
-          const compressionMsg = window.GPTPF_I18N.getMessage('compression_optimized',
-            [compressionInfo.originalSize, compressionInfo.compressedSize, compressionInfo.savingsPercent]);
-          toast(compressionMsg, true);
-        } else if (compressionResult.error) {
-          if (window.GPTPF_DEBUG) {
-            window.GPTPF_DEBUG.warn('compression_failed', compressionResult.error);
-          }
-        }
-      } catch (compressionError) {
-        if (window.GPTPF_DEBUG) {
-          window.GPTPF_DEBUG.error('compression_exception', compressionError);
-        }
-      }
-    }
+
     const file = makeFile(text, (overrideExt || platformSettings.fileFormat), newName);
     if (platformHandler && platformHandler.attachFile) {
       if (platformSettings.useDelay && platformSettings.delaySeconds > 0) {
@@ -631,9 +687,7 @@ async function processBatchFiles(parts, platformSettings) {
       : platformSettings.batchProcessingDelay;
     const result = await processor.processParts(parts, {
       maxFiles: platformSettings.maxBatchFiles,
-      delay: batchDelay,
-      enableCompression: platformSettings.batchCompression,
-      compressionThreshold: platformSettings.compressionThreshold
+      delay: batchDelay
     });
     if (!result.success) {
       throw new Error(result.error);
@@ -717,7 +771,8 @@ function onPasteCapture(e){
     }
   }
   if (platformSettings.useDelay){
-    const ms = clamp(Number(platformSettings.delaySeconds), 1, 15) * 1000;
+    const limits = window.GPTPF_CONFIG?.VALIDATION_LIMITS;
+    const ms = clamp(Number(platformSettings.delaySeconds), limits.minDelaySeconds, limits.maxDelaySeconds) * 1000;
     delayCountdown(ms)
       .then(()=> processText(text))
       .catch(()=> {
@@ -760,7 +815,6 @@ chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
   if (m && m.action === 'setLanguage') {
     if (window.GPTPF_I18N && m.language) {
       window.GPTPF_I18N.setLanguage(m.language);
-      // Dispatch the translations-updated event for modal synchronization
       try {
         const evt = new CustomEvent('gptpf:translations-updated', { detail: { language: m.language } });
         document.dispatchEvent(evt);
@@ -779,6 +833,16 @@ chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
     sendResponse && sendResponse({ ok:false, reason:"busy" });
     return true;
   }
+
+
+  const platformSettings = getPlatformSettings();
+  if (platformSettings.batchMode) {
+    const batchModeActiveMsg = window.GPTPF_I18N.getMessage('ui_components_batch_manual_action_tip');
+    toast(batchModeActiveMsg, false);
+    sendResponse && sendResponse({ ok:false, reason:"batch_mode_active" });
+    return true;
+  }
+
   const comp = getComposer();
   if (!comp) {
     const noInputMsg = window.GPTPF_I18N.getMessage('errors_no_input_field');
@@ -802,7 +866,7 @@ chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
       sendResponse && sendResponse({ ok:false, reason:"too_short" });
       return;
     }
-    processText(val)
+    processManualText(val)
       .then(() => {
         clearComposer(comp);
         const manualSuccessMsg = window.GPTPF_I18N.getMessage('file_operations_manual_save_success');
@@ -816,8 +880,6 @@ chrome.runtime.onMessage.addListener((m, _sender, sendResponse) => {
           if (window.GPTPF_DEBUG) {
             window.GPTPF_DEBUG.error('console_manual_save_error', err);
           }
-          const manualErrorMsg = window.GPTPF_I18N.getMessage('errors_attachment_failed');
-          toast(manualErrorMsg, false);
           sendResponse && sendResponse({ ok:false, reason:"error" });
         }
       });

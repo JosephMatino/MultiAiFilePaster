@@ -151,7 +151,6 @@ popup_modules=(
 # Shared utilities
 shared_utils=(
     "src/shared/batchprocessor.js"
-    "src/shared/compression.js"
     "src/shared/metrics.js"
 )
 

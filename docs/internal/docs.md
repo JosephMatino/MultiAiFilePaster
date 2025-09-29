@@ -192,7 +192,7 @@ src/
 │   └── tooltips.js             # Premium tooltip system
 └── shared/                     # Cross-context utilities
     ├── batchprocessor.js       # Content splitting processor for large files
-    ├── compression.js          # File compression algorithms
+    ├── languagedetector.js     # Smart language detection algorithms
     ├── config.js               # Centralized configuration
     ├── debug.js                # Centralized debug logging and error handling
     ├── i18n.js                 # Chrome i18n API integration
@@ -321,8 +321,8 @@ The standardized header template provides comprehensive metadata about each sour
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: ChatGPT, Claude, Gemini, DeepSeek, Grok
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader API
- * • FEATURES: Batch processing, file compression, analytics, multi-platform support
+ * • CORE DEPENDENCIES: Chrome Extension APIs, Language Detection, FileReader API
+ * • FEATURES: Batch processing, smart language detection, analytics, multi-platform support
  * • TESTING: Automated unit tests, integration tests, cross-browser validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
  * • SCALABILITY: Modular design, plugin architecture, extensible configuration
@@ -617,9 +617,9 @@ The standardized header template provides comprehensive metadata about each sour
     <td>Resource-aware processing, adaptive throttling</td>
   </tr>
   <tr>
-    <td><code>compression.js</code></td>
-    <td>File Optimization</td>
-    <td>• GZIP compression<br>• Streaming processing<br>• Ratio evaluation</td>
+    <td><code>languagedetector.js</code></td>
+    <td>Smart Language Detection</td>
+    <td>• Pattern analysis<br>• Confidence scoring<br>• Extension mapping</td>
     <td>Efficient memory usage, background processing</td>
   </tr>
   <tr>

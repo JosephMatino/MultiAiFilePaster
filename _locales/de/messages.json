@@ -50,7 +50,7 @@
   "analytics_today": {"message": "Heute"},
   "analytics_yesterday": {"message": "Gestern"},
   "anonymous_analytics": {"message": "Anonyme Nutzungsanalysen (Optional)"},
-  "aria_batch_compression": {"message": "Stapel-Komprimierung"},
+
   "aria_batch_delay": {"message": "Stapel-Verzögerung"},
   "aria_batch_processing": {"message": "Stapelverarbeitung"},
   "aria_chart_type": {"message": "Diagrammtyp"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "Dateiformat wählen"},
   "aria_choose_theme": {"message": "Design wählen"},
   "aria_claude_override": {"message": "Claude-Überschreibung"},
-  "aria_compression_threshold": {"message": "Komprimierungsschwelle in Bytes"},
+
   "aria_custom_format_help": {"message": "Benutzerdefinierte Format-Hilfe"},
   "aria_debug_level": {"message": "Debug-Level-Hilfe"},
   "aria_delay_seconds": {"message": "Verzögerungssekunden (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "STAPEL AKTIV"},
   "batch_active_tip": {"message": "Stapelmodus ist aktiv - mehrere Dateien werden verarbeitet"},
   "batch_auto_attach_tip": {"message": "Auto-Anhängen verarbeitet alle Dateien im Stapelmodus"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>KOMPRIMIERUNG</span> Komprimierung auf jede einzelne Stapeldatei anwenden, um Dateigrößen zu reduzieren. Dies ist getrennt von der Haupteinstellung 'Dateikomprimierung' oben. Wenn die Hauptkomprimierung aktiviert ist, wird diese Option automatisch deaktiviert, um Konflikte zu vermeiden. Verwenden Sie dies, wenn Sie Komprimierung nur für Stapeldateien, aber nicht für reguläre Einzeldateien möchten."},
+
   "batch_delay_tip": {"message": "Verzögerung gilt für jede Datei in der Stapelverarbeitung"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>TIMING</span> Zeitverzögerung zwischen dem Hochladen jeder Stapeldatei (100ms bis 2000ms). Höhere Verzögerungen reduzieren die Chance, von KI-Plattformen als Spam markiert zu werden. Diese Einstellung wird automatisch deaktiviert, wenn der Hauptschalter 'Benutzerverzögerung' oben aktiv ist - in diesem Fall hat die Hauptverzögerungseinstellung Vorrang für alle Datei-Uploads."},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "Stapelmodus"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>TEST</span> Teilt große Inhalte in mehrere Dateien basierend auf Ihrer Max-Dateien-Einstellung auf. Teilt Inhalte nach Zeilen und verwendet intelligente Spracherkennung für Dateierweiterungen. Erstellt Dateien namens teil1, teil2, teil3, teil4. Perfekt zum Aufteilen großer Dokumente, Code-Dateien oder beliebiger Inhalte, die Plattformgrenzen überschreiten. Jeder Teil erhält die richtige Dateierweiterung basierend auf der Inhaltsanalyse."},
   "beta": {"message": "TEST"},
-  "bytes": {"message": "bytes"},
   "cancel": {"message": "Abbrechen"},
   "claude_override": {"message": "Claude Auto überschreiben"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>FUNKTION</span> Claude enthält eine eigene Einfügen-zu-Datei-Funktion. Aktivieren Sie dies, um immer Multi-AI File Paster für konsistentere Formatierung und Benennung zu verwenden."},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "Dies wird alle Ihre Nutzungsstatistiken dauerhaft löschen und kann nicht rückgängig gemacht werden."},
   "close": {"message": "Schließen"},
   "company": {"message": "Unternehmen:"},
-  "compression": {"message": "Komprimierung"},
-  "compression_optimized": {
-    "message": "Komprimierung optimiert: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$% gespart)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "Komprimierungsverhältnis zu niedrig, ursprüngliche Datei wird beibehalten"},
-  "compression_below_threshold": {"message": "Unter Schwellenwert"},
+
   "config_analytics_dashboard": {"message": "Analyse-Dashboard: Nutzungsmuster und Dateierstellungsstatistiken verfolgen"},
   "config_auto_attach": {"message": "Auto-Anhängen: Erkennt und konvertiert automatisch lange Einfügungen (anpassbarer Wortschwellenwert: 50-15.000 Wörter)"},
   "config_batch_processing": {"message": "Stapelverarbeitung: Große Inhalte in 2-4 Dateien mit intelligenter Zeilenaufteilung aufteilen"},
   "config_claude_integration": {"message": "Claude-Integration: Funktioniert neben oder ersetzt Claudes eingebaute Einfügen-zu-Datei-Funktion"},
   "config_delay": {"message": "Verzögerung: Optionaler 1-15 Sekunden Countdown verhindert versehentliche Anhänge"},
-  "config_file_compression": {"message": "Dateikomprimierung: GZIP-Komprimierung reduziert Dateigrößen für bessere Leistung"},
+
   "config_manual_override": {"message": "Manuelle Überschreibung: On-Demand-Konvertierung von getipptem Text zu Dateianhängen"},
   "config_multi_format": {"message": "Multi-Format-Unterstützung: Wählen Sie aus 20+ Dateitypen einschließlich Programmiersprachen, Markup, Datenformaten und benutzerdefinierten Erweiterungen"},
   "config_platform_optimization": {"message": "Plattform-Optimierung: Spezielle Behandlung für jedes KI-Plattform-eigene Dateianhang-System"},
@@ -249,13 +229,12 @@
   "debug_factory_create_handler": {"message": "Plattform-Handler wird erstellt"},
   "debug_factory_default_settings": {"message": "Standard-Factory-Einstellungen werden verwendet"},
   "debug_factory_get_platform": {"message": "Aktuelle Plattform wird abgerufen"},
-  "debug_compression_invalid_input": {"message": "Text ist null, undefined oder kein String"},
-  "debug_compression_skipped": {"message": "Inhalt zu klein: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API nicht verfügbar"},
-  "debug_compression_encoding_mismatch": {"message": "Text-Kodierungsgrößen-Diskrepanz erkannt"},
-  "debug_compression_poor_ratio": {"message": "Verhältnis $1 zu hoch"},
+
   "debug_batch_content_too_short": {"message": "Inhalt zu kurz für Stapelverarbeitung"},
   "debug_batch_split_insufficient": {"message": "Inhalt konnte nicht sinnvoll in mehrere Teile aufgeteilt werden"},
+  "debug_batch_part_too_small": {"message": "Teil $1 zu klein: $2 Zeichen"},
+  "debug_batch_structured_content": {"message": "Strukturierter Inhalt erkannt: $1"},
+  "debug_batch_too_few_lines": {"message": "Inhalt hat zu wenige Zeilen für sinnvolle Stapelaufteilung: $1 Zeilen"},
   "debug_file_content_empty": {"message": "Inhalt ist leer oder ungültig"},
   "debug_json_content_valid": {"message": "Inhalt ist bereits gültiges JSON"},
   "debug_json_wrap_applied": {"message": "Inhalt in JSON-Struktur eingehüllt"},
@@ -549,17 +528,15 @@
     }
   },
 
-  "disabled_compression_tooltip": {"message": "Komprimierung für dieses Format deaktiviert"},
   "disabled_title": {"message": "Funktion auf dieser Seite deaktiviert"},
   "enter_custom": {"message": "Benutzerdefiniertes Format eingeben"},
   "errors": {"message": "Fehler"},
   "errors_attachment_failed": {"message": "Dateianhang fehlgeschlagen. Bitte Seite aktualisieren und erneut versuchen"},
   "errors_batch_processing_failed": {"message": "Stapelverarbeitung fehlgeschlagen: $1"},
   "errors_busy_processing": {"message": "Ein anderer Dateianhang ist in Bearbeitung. Bitte warten"},
-  "errors_compression_not_supported": {"message": "Komprimierung nicht unterstützt"},
+
   "errors_connection_failed": {"message": "Verbindung zur Seite nicht möglich. Bitte aktualisieren und erneut versuchen"},
-  "errors_decompression_failed": {"message": "Dekomprimierung der Datei fehlgeschlagen"},
-  "errors_decompression_not_supported": {"message": "Dekomprimierung für diesen Dateityp nicht unterstützt"},
+
   "errors_export_failed": {"message": "Export fehlgeschlagen. Bitte erneut versuchen"},
   "errors_extension_context": {"message": "Erweiterungskontext-Problem. Bitte Seite aktualisieren und erneut versuchen"},
   "errors_extension_reloaded": {"message": "Erweiterung wurde neu geladen. Bitte Seite aktualisieren und erneut versuchen"},
@@ -573,7 +550,7 @@
   "errors_platform_not_supported": {"message": "Diese KI-Plattform wird nicht unterstützt. Versuchen Sie ChatGPT, Claude, Gemini, DeepSeek oder Grok"},
   "errors_text_too_short": {"message": "Text zu kurz ($1 Wörter). Mindestens $2 Wörter erforderlich"},
   "errors_text_too_short_manual": {"message": "Text zu kurz für manuelles Speichern. Entweder mehr Text hinzufügen oder Min. Wörter-Einstellung senken"},
-  "errors_compression_invalid_input": {"message": "Ungültige Eingabe für Komprimierung"},
+
   "errors_invalid_content_type": {"message": "Ungültiger Inhalt: Text muss eine nicht-leere Zeichenkette sein"},
   "errors_invalid_content_empty": {"message": "Ungültiger Inhalt: Text kann nicht leer sein"},
   "errors_file_creation_failed": {"message": "Erstellung eines gültigen Dateiobjekts fehlgeschlagen"},
@@ -593,8 +570,7 @@
   "feedback_sent": {"message": "Feedback erfolgreich gesendet"},
   "feedback_support_description": {"message": "Welches Problem haben Sie?"},
   "file_blob_created": {"message": "Datei-Blob erstellt"},
-  "file_compression": {"message": "Dateikomprimierung"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>KOMPRIMIERUNG</span> Komprimiert automatisch große Dateien (1KB+) mit GZIP-Komprimierung. Reduziert Dateigröße um 60-80% bei Textinhalten. Komprimiert nur wenn es guten Platz spart."},
+
   "file_creation_insights": {"message": "Ihre Dateierstellungs-Einblicke"},
   "file_creation_started": {"message": "Dateierstellung gestartet"},
   "file_format": {"message": "Dateiformat"},
@@ -620,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "$1 Dateien werden verarbeitet"},
   "file_operations_batch_success": {"message": "$1 Dateien aus Stapel verarbeitet"},
   "file_operations_batch_uploading": {"message": "$1 wird hochgeladen"},
-  "file_operations_compression_optimized": {"message": "Datei optimiert von $1 zu $2 ($3% kleiner)"},
+
   "file_operations_manual_save_success": {"message": "Datei angehängt"},
   "files_per_day": {"message": "Dateien pro Tag"},
   "flash_called": {"message": "Flash-Nachricht aufgerufen"},
@@ -704,7 +680,7 @@
   "more_formats_loaded": {"message": "Geladen"},
   "network_error": {"message": "Netzfehler"},
   "new_version": {"message": "Neu in v1.1.0:"},
-  "new_version_text": {"message": "Stapelmodus teilt große Inhalte in mehrere Dateien auf, GZIP-Komprimierung reduziert Dateigrößen um 60-80%, und verbessertes Analyse-Dashboard verfolgt Ihre Nutzungsmuster."},
+  "new_version_text": {"message": "Stapelmodus teilt große Inhalte in mehrere Dateien auf, intelligente Spracherkennung wählt automatisch Dateierweiterungen aus, und verbessertes Analyse-Dashboard verfolgt Ihre Nutzungsmuster."},
   "next_page": {"message": "Weiter"},
   "no_data_yet": {"message": "Keine Daten"},
   "no_file_input": {"message": "Keine Dateieingabe gefunden"},
@@ -755,16 +731,13 @@
   "setting_saved_to_storage": {"message": "Einstellung im Speicher gespeichert"},
   "settings_auto_attach_disabled": {"message": "Auto-Anhängen deaktiviert. Verwenden Sie den manuellen Speicher-Button zum Anhängen von Dateien"},
   "settings_auto_attach_enabled": {"message": "Auto-Anhängen aktiviert. Dateien werden automatisch angehängt, wenn Sie einfügen"},
-  "settings_batch_compression_disabled": {"message": "Stapel-Komprimierung deaktiviert"},
-  "settings_batch_compression_enabled": {"message": "Stapel-Komprimierung aktiviert"},
+
   "settings_batch_delay_updated": {"message": "Stapelverarbeitungs-Verzögerung auf $1ms gesetzt"},
   "settings_batch_mode_disabled": {"message": "Stapelmodus deaktiviert. Auto-Anhängen wiederhergestellt"},
   "settings_batch_mode_enabled": {"message": "Stapelmodus aktiviert. Auto-Anhängen deaktiviert während Stapelmodus aktiv ist"},
   "settings_claude_override_disabled": {"message": "Claude-Überschreibung deaktiviert. Claude wird eingebaute Funktionen verwenden"},
   "settings_claude_override_enabled": {"message": "Claude-Überschreibung aktiviert. Erweiterung wird auf Claude funktionieren"},
-  "settings_compression_disabled": {"message": "Dateikomprimierung deaktiviert"},
-  "settings_compression_enabled": {"message": "Dateikomprimierung aktiviert für Dateien über $1 Bytes"},
-  "settings_compression_threshold_updated": {"message": "Komprimierungsschwelle auf $1 Bytes gesetzt"},
+
   "settings_debug_disabled": {"message": "Debug-Modus deaktiviert"},
   "settings_debug_enabled": {"message": "Debug-Modus aktiviert"},
   "settings_delay_disabled": {"message": "Anhang-Verzögerung deaktiviert"},
@@ -833,14 +806,19 @@
   "total_files": {"message": "Dateien gesamt"},
   "translating_wait": {"message": "Übersetzen, bitte warten..."},
   "try_attachment_button": {"message": "Versuchen Sie stattdessen den Anhang-Button"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>STAPEL AKTIV</span> Dateikomprimierung ist deaktiviert, wenn Stapelmodus aktiviert ist. Nur eine Komprimierungsmethode kann gleichzeitig aktiv sein."},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>STAPEL AKTIV</span> Auto-Anhängen ist deaktiviert, wenn Stapelmodus aktiviert ist. Stapelmodus behandelt Dateianhang automatisch für geteilte Inhalte. Schalten Sie Stapelmodus aus, um Auto-Anhängen für reguläre Einzeldateien zu verwenden."},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>STAPEL AKTIV</span> Diese Einstellung ist deaktiviert, wenn Stapelmodus aktiviert ist. Stapelmodus verwendet seine eigene Verzögerungseinstellung für Datei-Uploads. Schalten Sie Stapelmodus aus, um diese Verzögerungseinstellung zu verwenden."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>STAPEL AKTIV</span> Manuelle Aktion ist deaktiviert, wenn Stapelmodus aktiviert ist. Stapelmodus verarbeitet Inhalte automatisch in mehrere Dateien. Schalten Sie Stapelmodus aus, um Manuelle Aktion für Einzeldateien zu verwenden."},
+  "ui_components_config_error": {"message": "Konfigurationsfehler: DEFAULTS nicht gefunden"},
+  "ui_components_reset_failed": {"message": "Zurücksetzen fehlgeschlagen"},
+  "debug_using_popup_flash": {"message": "Popup-Flash anstelle von Content-Script verwenden"},
+
   "ui_components_custom_format_label": {"message": "Benutzerdefiniert"},
   "ui_components_custom_format_placeholder": {"message": "z.B. log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "Daten erfolgreich gelöscht"},
   "ui_components_delay_countdown": {"message": "Anhängen in $1 Sekunden"},
-  "ui_components_disabled_compression_tooltip": {"message": "Deaktiviert wenn Dateikomprimierung aktiviert ist"},
+
   "ui_components_disabled_title": {"message": "KI-Chat öffnen und Text eingeben, um als Datei anzuhängen"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -891,13 +869,7 @@
   "claude_file_attached": {"message": "Datei erfolgreich an Claude angehängt"},
   "claude_invalid_text": {"message": "Ungültiger Textinhalt für Claude-Verarbeitung"},
   "claude_removing_pasted_element": {"message": "Eingefügtes Textelement von Claude entfernen"},
-  "compression_encoding_mismatch": {"message": "Text-Kodierungsgrößen-Diskrepanz erkannt"},
-  "compression_exception": {"message": "Komprimierung mit Ausnahme fehlgeschlagen"},
-  "compression_failed": {"message": "Komprimierungsvorgang fehlgeschlagen"},
-  "compression_invalid_input": {"message": "Ungültige Eingabe für Komprimierung bereitgestellt"},
-  "compression_not_supported": {"message": "Komprimierung in diesem Browser nicht unterstützt"},
-  "compression_skipped": {"message": "Komprimierung übersprungen - Inhalt zu klein"},
-  "compression_success": {"message": "Komprimierung erfolgreich abgeschlossen"},
+
   "empty_file_created": {"message": "Warnung: Leere Datei erstellt"},
   "fileAttachComponent_error": {"message": "Dateianhang-Komponente hat einen Fehler festgestellt"},
   "file_creation_complete": {"message": "Dateierstellungsprozess abgeschlossen"},

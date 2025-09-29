@@ -279,10 +279,6 @@ class LanguageDetector {
       JSON.parse(text.trim());
       return true;
     } catch(err) {
-
-      if (typeof window !== 'undefined' && window.GPTPF_DEBUG) {
-        window.GPTPF_DEBUG.error('console_platform_handler_error', err);
-      }
       return false;
     }
   }
@@ -326,7 +322,16 @@ class LanguageDetector {
     return Math.min(1, tags / Math.max(10, len/divisor));
   }
   detectLanguage(text){
-    if (!text || typeof text !== 'string') return { language:'text', extension:'txt', confidence:0 };
+    const startTime = performance?.now ? performance.now() : Date.now();
+
+    if (!text || typeof text !== 'string') {
+      if (root.GPTPF_METRICS) {
+        root.GPTPF_METRICS.record('language_detection_empty', {
+          duration: (performance?.now ? performance.now() : Date.now()) - startTime
+        });
+      }
+      return { language:'text', extension:'txt', confidence:0 };
+    }
     
     let t = text;
     const originalLength = t.length;
@@ -454,12 +459,25 @@ class LanguageDetector {
 
     const ext = (this.patterns[winner]?.extensions?.[0]) ? this.patterns[winner].extensions[0] : 'txt';
     
+    const duration = (performance?.now ? performance.now() : Date.now()) - startTime;
+
     if (window.GPTPF_DEBUG) {
-      window.GPTPF_DEBUG.info('language_detection_success', { 
-        language: winner, 
-        extension: ext, 
+      window.GPTPF_DEBUG.info('language_detection_success', {
+        language: winner,
+        extension: ext,
         confidence: Math.round(confidence * 100) / 100,
-        textLength 
+        textLength,
+        duration
+      });
+    }
+
+    if (root.GPTPF_METRICS) {
+      root.GPTPF_METRICS.record('language_detection_success', {
+        language: winner,
+        confidence: Math.round(confidence * 100) / 100,
+        duration,
+        textLength,
+        originalLength
       });
     }
 

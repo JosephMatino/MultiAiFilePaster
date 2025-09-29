@@ -50,7 +50,7 @@
   "analytics_today": {"message": "Hoy"},
   "analytics_yesterday": {"message": "Ayer"},
   "anonymous_analytics": {"message": "Análisis Anónimo"},
-  "aria_batch_compression": {"message": "Compresión"},
+
   "aria_batch_delay": {"message": "Retraso por Lotes"},
   "aria_batch_processing": {"message": "Procesamiento"},
   "aria_chart_type": {"message": "Tipo de gráfico"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "Formato"},
   "aria_choose_theme": {"message": "Elegir tema"},
   "aria_claude_override": {"message": "Anular Claude"},
-  "aria_compression_threshold": {"message": "Umbral compresión"},
+
   "aria_custom_format_help": {"message": "Ayuda de formato personalizado"},
   "aria_debug_level": {"message": "Ayuda de nivel de depuración"},
   "aria_delay_seconds": {"message": "Segundos de retraso (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "LOTES ACTIVO"},
   "batch_active_tip": {"message": "Modo por lotes está activo - se procesarán múltiples archivos"},
   "batch_auto_attach_tip": {"message": "Auto-adjuntar procesará todos los archivos en modo por lotes"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>COMPRESIÓN</span> Aplica compresión a cada archivo de lote individual para reducir el tamaño de los archivos. Esto es independiente de la configuración principal de 'Compresión de Archivos' arriba. Cuando la compresión principal está habilitada, esta opción se deshabilita automáticamente para evitar conflictos. Usa esto cuando quieras compresión solo para archivos por lotes pero no para archivos individuales regulares."},
+
   "batch_delay_tip": {"message": "El retraso aplica a cada archivo en el procesamiento por lotes"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>TIEMPO</span> Retraso de tiempo entre subir cada archivo por lotes (100ms a 2000ms). Retrasos más altos reducen la posibilidad de ser marcado como spam por las plataformas de IA. Esta configuración se deshabilita automáticamente cuando el interruptor principal de 'Retraso del Usuario' está activo arriba - en ese caso, la configuración de retraso principal toma prioridad para todas las subidas de archivos."},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "Modo por Lotes"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>PRUEBA</span> Divide contenido grande en múltiples archivos basado en tu configuración de Archivos Máximos. Divide el contenido por líneas y usa detección inteligente de idioma para extensiones de archivo. Crea archivos llamados parte1, parte2, parte3, parte4. Perfecto para dividir documentos grandes, archivos de código o cualquier contenido que exceda los límites de la plataforma. Cada parte obtiene la extensión de archivo apropiada basada en el análisis de contenido."},
   "beta": {"message": "PRUEBA"},
-  "bytes": {"message": "bytes"},
   "cancel": {"message": "Cancelar"},
   "claude_override": {"message": "Anular Claude"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>FUNCIÓN</span> Claude incluye su propia función de pegar-a-archivo. Habilita esto para usar siempre Multi-AI File Paster para un formateo y nomenclatura más consistentes."},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "Esto eliminará permanentemente todas tus estadísticas de uso y no se puede deshacer."},
   "close": {"message": "Cerrar"},
   "company": {"message": "Empresa:"},
-  "compression": {"message": "Compresión"},
-  "compression_optimized": {
-    "message": "Compresión optimizada: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$% ahorrado)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "Ratio de compresión muy bajo, manteniendo archivo original"},
-  "compression_below_threshold": {"message": "Por debajo del umbral"},
+
   "config_analytics_dashboard": {"message": "Panel de Análisis: Rastrea patrones de uso y estadísticas de creación de archivos"},
   "config_auto_attach": {"message": "Auto-Adjuntar: Detecta automáticamente y convierte textos largos pegados (umbral de palabras personalizable: 50-15,000 palabras)"},
   "config_batch_processing": {"message": "Procesamiento por Lotes: Divide contenido grande en 2-4 archivos con división inteligente de líneas"},
   "config_claude_integration": {"message": "Integración con Claude: Trabaja junto o reemplaza la función integrada de pegar-a-archivo de Claude"},
   "config_delay": {"message": "Retraso: Cuenta regresiva opcional de 1-15 segundos previene adjuntos accidentales"},
-  "config_file_compression": {"message": "Compresión de Archivos: La compresión GZIP reduce el tamaño de archivos para mejor rendimiento"},
+
   "config_manual_override": {"message": "Anulación Manual: Conversión bajo demanda de texto escrito a adjuntos de archivo"},
   "config_multi_format": {"message": "Soporte Multi-Formato: Elige entre más de 20 tipos de archivo incluyendo lenguajes de programación, marcado, formatos de datos y extensiones personalizadas"},
   "config_platform_optimization": {"message": "Optimización de Plataforma: Manejo especial para el sistema único de adjuntos de archivo de cada plataforma de IA"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "Sistema de validación listo"},
   "debug_warn": {"message": "[ADVERTENCIA]"},
   "debug_warning": {"message": "[ADVERTENCIA]"},
-  "debug_compression_invalid_input": {"message": "El texto es nulo, indefinido o no es una cadena"},
-  "debug_compression_skipped": {"message": "Contenido muy pequeño: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API no disponible"},
-  "debug_compression_encoding_mismatch": {"message": "Detectado desajuste de tamaño de codificación de texto"},
-  "debug_compression_poor_ratio": {"message": "Ratio $1 muy alto"},
+
   "debug_batch_content_too_short": {"message": "Contenido muy corto para procesamiento por lotes"},
   "debug_batch_split_insufficient": {"message": "El contenido no se pudo dividir significativamente en varias partes"},
+  "debug_batch_part_too_small": {"message": "Parte $1 muy pequeña: $2 caracteres"},
+  "debug_batch_structured_content": {"message": "Contenido estructurado detectado: $1"},
+  "debug_batch_too_few_lines": {"message": "El contenido tiene muy pocas líneas para división por lotes significativa: $1 líneas"},
   "debug_file_content_empty": {"message": "El contenido está vacío o es inválido"},
   "debug_json_content_valid": {"message": "El contenido ya es JSON válido"},
   "debug_json_wrap_applied": {"message": "Contenido envuelto en estructura JSON"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "Sitio Web del Desarrollador"},
   "development_team": {"message": "Equipo de Desarrollo y Soporte"},
-  "disabled_compression_tooltip": {"message": "Compresión deshabilitada para este formato"},
+
   "disabled_title": {"message": "Función deshabilitada en esta página"},
   "enter_custom": {"message": "Ingresar Formato Personalizado"},
   "errors": {"message": "Errores"},
   "errors_attachment_failed": {"message": "El adjunto de archivo falló. Por favor actualiza la página e intenta de nuevo"},
   "errors_batch_processing_failed": {"message": "Procesamiento por lotes falló: $1"},
   "errors_busy_processing": {"message": "Otro adjunto de archivo está en progreso. Por favor espera"},
-  "errors_compression_not_supported": {"message": "Compresión no soportada"},
+
   "errors_connection_failed": {"message": "No se puede conectar a la página. Por favor actualiza e intenta de nuevo"},
-  "errors_decompression_failed": {"message": "Error al descomprimir archivo"},
-  "errors_decompression_not_supported": {"message": "Descompresión no soportada para este tipo de archivo"},
+
   "errors_export_failed": {"message": "Exportación falló. Por favor intenta de nuevo"},
   "errors_extension_context": {"message": "Problema de contexto de extensión. Por favor actualiza la página e intenta de nuevo"},
   "errors_extension_reloaded": {"message": "La extensión se recargó. Por favor actualiza la página e intenta de nuevo"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "Esta plataforma de IA no está soportada. Intenta ChatGPT, Claude, Gemini, DeepSeek o Grok"},
   "errors_text_too_short": {"message": "Texto muy corto ($1 palabras). Se requieren mínimo $2 palabras"},
   "errors_text_too_short_manual": {"message": "Texto muy corto para guardado manual. O añade más texto o baja la configuración de Palabras Mínimas"},
-  "errors_compression_invalid_input": {"message": "Entrada inválida para compresión"},
+
   "errors_invalid_content_type": {"message": "Contenido inválido: el texto debe ser una cadena no vacía"},
   "errors_invalid_content_empty": {"message": "Contenido inválido: el texto no puede estar vacío"},
   "errors_file_creation_failed": {"message": "Error al crear objeto de archivo válido"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "Comentarios enviados con éxito"},
   "feedback_support_description": {"message": "¿Qué problema estás experimentando?"},
   "file_blob_created": {"message": "Blob de archivo creado"},
-  "file_compression": {"message": "Compresión"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>COMPRESIÓN</span> Comprime automáticamente archivos grandes (1KB+) usando compresión GZIP. Reduce el tamaño del archivo en un 60-80% para contenido de texto. Solo comprime cuando ahorra buen espacio."},
+
   "file_creation_insights": {"message": "Tus estadísticas de creación de archivos"},
   "file_creation_started": {"message": "Creación de archivo iniciada"},
   "file_format": {"message": "Formato de Archivo"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "Procesando $1 archivos"},
   "file_operations_batch_success": {"message": "Procesados $1 archivos del lote"},
   "file_operations_batch_uploading": {"message": "Subiendo $1"},
-  "file_operations_compression_optimized": {"message": "Archivo optimizado de $1 a $2 ($3% más pequeño)"},
+
   "file_operations_manual_save_success": {"message": "Archivo adjuntado"},
   "files_per_day": {"message": "Archivos por día"},
   "flash_called": {"message": "Mensaje flash llamado"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "Más formatos cargados"},
   "network_error": {"message": "Error de red ocurrido"},
   "new_version": {"message": "Nuevo en v1.1.0:"},
-  "new_version_text": {"message": "Modo Lote divide contenido grande en múltiples archivos, compresión GZIP reduce tamaños de archivo en 60-80%, y tablero de análisis mejorado rastrea tus patrones de uso."},
+  "new_version_text": {"message": "Modo Lote divide contenido grande en múltiples archivos, detección inteligente de idioma selecciona automáticamente extensiones de archivo, y tablero de análisis mejorado rastrea tus patrones de uso."},
   "next_page": {"message": "Siguiente Página"},
   "no_data_yet": {"message": "Sin datos aún"},
   "no_file_input": {"message": "No se encontró entrada de archivo en la página"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "Configuración guardada en almacenamiento"},
   "settings_auto_attach_disabled": {"message": "Auto adjuntar deshabilitado. Usa el botón de guardar manual para adjuntar archivos"},
   "settings_auto_attach_enabled": {"message": "Auto adjuntar habilitado. Los archivos se adjuntarán automáticamente cuando pegues"},
-  "settings_batch_compression_disabled": {"message": "Compresión de lote deshabilitada"},
-  "settings_batch_compression_enabled": {"message": "Compresión de lote habilitada"},
+
   "settings_batch_delay_updated": {"message": "Retraso de procesamiento de lote establecido a $1ms"},
   "settings_batch_mode_disabled": {"message": "Modo lote deshabilitado. Auto adjuntar restaurado"},
   "settings_batch_mode_enabled": {"message": "Modo lote habilitado. Auto adjuntar deshabilitado mientras el modo lote esté activo"},
   "settings_claude_override_disabled": {"message": "Anulación Claude deshabilitada. Claude usará funciones integradas"},
   "settings_claude_override_enabled": {"message": "Anulación Claude habilitada. La extensión funcionará en Claude"},
-  "settings_compression_disabled": {"message": "Compresión de archivos deshabilitada"},
-  "settings_compression_enabled": {"message": "Compresión de archivos habilitada para archivos sobre $1 bytes"},
-  "settings_compression_threshold_updated": {"message": "Umbral de compresión establecido a $1 bytes"},
+
   "settings_debug_disabled": {"message": "Modo debug deshabilitado"},
   "settings_debug_enabled": {"message": "Modo debug habilitado"},
   "settings_delay_disabled": {"message": "Retraso de adjuntar deshabilitado"},
@@ -832,14 +806,17 @@
   "total_files": {"message": "Archivos Totales"},
   "translating_wait": {"message": "Traduciendo, por favor espera..."},
   "try_attachment_button": {"message": "Intenta usar el botón de adjuntar en su lugar"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Compresión de Archivos está deshabilitada cuando Modo Lote está habilitado. Solo un método de compresión puede estar activo a la vez."},
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Auto Adjuntar está deshabilitado cuando Modo Lote está habilitado. Modo Lote maneja el adjuntar archivos automáticamente para contenido dividido. Apaga Modo Lote para usar Auto Adjuntar para archivos únicos regulares."},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Esta configuración está deshabilitada cuando Modo Lote está habilitado. Modo Lote usa su propia configuración de retraso para subidas de archivos. Apaga Modo Lote para usar esta configuración de retraso."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Acción Manual está deshabilitada cuando Modo Lote está habilitado. Modo Lote procesa contenido automáticamente en múltiples archivos. Apaga Modo Lote para usar Acción Manual para archivos individuales."},
+  "ui_components_config_error": {"message": "Error de configuración: DEFAULTS no encontrado"},
+  "ui_components_reset_failed": {"message": "Falló el reinicio"},
+
   "ui_components_custom_format_label": {"message": "Personalizado"},
   "ui_components_custom_format_placeholder": {"message": "ej. log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "Datos borrados con éxito"},
   "ui_components_delay_countdown": {"message": "Adjuntando en $1 segundos"},
-  "ui_components_disabled_compression_tooltip": {"message": "Deshabilitado cuando compresión de archivos está habilitada"},
+
   "ui_components_disabled_title": {"message": "Abre chat AI y escribe texto para adjuntar como archivo"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +867,8 @@
   "claude_file_attached": {"message": "Archivo adjuntado exitosamente a Claude"},
   "claude_invalid_text": {"message": "Contenido de texto inválido para procesamiento de Claude"},
   "claude_removing_pasted_element": {"message": "Removiendo elemento de texto pegado de Claude"},
-  "compression_encoding_mismatch": {"message": "Detectado desajuste de tamaño de codificación de texto"},
-  "compression_exception": {"message": "Error de compresión con excepción"},
-  "compression_failed": {"message": "Falló la operación de compresión"},
-  "compression_invalid_input": {"message": "Entrada inválida proporcionada para compresión"},
-  "compression_not_supported": {"message": "Compresión no soportada en este navegador"},
-  "compression_skipped": {"message": "Compresión omitida - contenido demasiado pequeño"},
-  "compression_success": {"message": "Compresión completada exitosamente"},
+  "debug_using_popup_flash": {"message": "Usando flash de popup en lugar de texto de contenido"},
+
   "empty_file_created": {"message": "Advertencia: Archivo vacío creado"},
   "fileAttachComponent_error": {"message": "El componente de adjuntar archivo encontró un error"},
   "file_creation_complete": {"message": "Proceso de creación de archivo completado"},

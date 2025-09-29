@@ -31,8 +31,8 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: Shared batch processing utilities used across all platforms
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader API
- * • FEATURES: Content splitting, optional compression, per-part metadata, progress callbacks
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
+ * • FEATURES: Content splitting, per-part metadata, progress callbacks
  * • TESTING: Automated unit tests and integration validation across supported platforms
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
  * • SCALABILITY: Modular design, plugin architecture, extensible configuration
@@ -132,7 +132,7 @@
       
       if (isStructured && globalDetection.confidence > 0.7) {
         if (root.GPTPF_DEBUG) {
-          root.GPTPF_DEBUG.warn('batch_split_avoided', `Structured ${globalDetection.language} content should not be split`);
+          root.GPTPF_DEBUG.warn('batch_split_avoided', root.GPTPF_I18N?.getMessage('debug_batch_structured_content', [globalDetection.language]));
         }
         return [];
       }
@@ -142,7 +142,7 @@
       
       if (totalLines < 50) {
         if (root.GPTPF_DEBUG) {
-          root.GPTPF_DEBUG.info('batch_split_skipped', 'Too few lines for meaningful splitting');
+          root.GPTPF_DEBUG.info('batch_split_skipped', root.GPTPF_I18N?.getMessage('debug_batch_too_few_lines'));
         }
         return [];
       }
@@ -159,7 +159,7 @@
 
         if (partContent.length < 100) {
           if (root.GPTPF_DEBUG) {
-            root.GPTPF_DEBUG.info('batch_part_skipped', `Part ${i + 1} too small: ${partContent.length} chars`);
+            root.GPTPF_DEBUG.info('batch_part_skipped', root.GPTPF_I18N?.getMessage('debug_batch_part_too_small', [i + 1, partContent.length]));
           }
           continue;
         }
@@ -190,6 +190,57 @@
       }
 
       if (parts.length <= 1) {
+
+        if (textLength >= 2000) {
+          const targetParts = actualMaxFiles;
+          const approxSize = Math.ceil(textLength / targetParts);
+          let cursor = 0;
+          const fallbackParts = [];
+          let partIndex = 0;
+          while (cursor < textLength && partIndex < targetParts) {
+            let sliceEnd = Math.min(cursor + approxSize, textLength);
+
+            if (sliceEnd < textLength) {
+              const wsIndex = text.lastIndexOf('\n', sliceEnd - 1);
+              const spaceIndex = text.lastIndexOf(' ', sliceEnd - 1);
+              const best = Math.max(wsIndex, spaceIndex);
+              if (best > cursor + 200) {
+                sliceEnd = best + 1;
+              }
+            }
+            const chunk = text.slice(cursor, sliceEnd).trim();
+            if (chunk.length >= 100) {
+              const partDetection = detector.detectLanguage(chunk);
+              const extension = partDetection.confidence > 0.4 ? partDetection.extension : globalDetection.extension || 'txt';
+              fallbackParts.push({
+                content: chunk,
+                partNumber: fallbackParts.length + 1,
+                startLine: 1,
+                endLine: 1,
+                extension,
+                filename: BatchProcessor.generateFilename(extension, fallbackParts.length + 1, 1, 1),
+                originalDetection: globalDetection
+              });
+              if (root.GPTPF_DEBUG) {
+                root.GPTPF_DEBUG.info('batch_part_created', {
+                  part: fallbackParts.length,
+                  lines: 'n/a',
+                  size: chunk.length,
+                  extension,
+                  confidence: partDetection.confidence,
+                  mode: 'char_fallback'
+                });
+              }
+            } else if (root.GPTPF_DEBUG) {
+              root.GPTPF_DEBUG.info('batch_part_skipped', `Fallback part too small: ${chunk.length} chars`);
+            }
+            cursor = sliceEnd;
+            partIndex++;
+          }
+          if (fallbackParts.length > 1) {
+            return fallbackParts;
+          }
+        }
         if (root.GPTPF_DEBUG) {
           root.GPTPF_DEBUG.info('batch_split_insufficient', root.GPTPF_I18N?.getMessage('debug_batch_split_insufficient'));
         }
@@ -223,23 +274,11 @@
               size: part.content.length
             });
           }
-          let processedContent = part.content;
-          let compressionInfo = null;
-          if (root.GPTPF_COMPRESSION && options.enableCompression) {
-            const compressionResult = await root.GPTPF_COMPRESSION.compressText(
-              part.content,
-              { threshold: options.compressionThreshold || 1024 }
-            );
-            if (compressionResult.compressed) {
-              compressionInfo = compressionResult;
-            }
-          }
           results.push({
             ...part,
-            processedContent,
-            compressionInfo,
+            processedContent: part.content,
             originalSize: part.content.length,
-            finalSize: processedContent.length
+            finalSize: part.content.length
           });
           if (i < Math.min(parts.length, maxFiles) - 1) {
             if (!this.processing) {

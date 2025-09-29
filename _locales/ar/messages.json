@@ -50,7 +50,7 @@
   "analytics_today": {"message": "اليوم"},
   "analytics_yesterday": {"message": "أمس"},
   "anonymous_analytics": {"message": "تحليلات الاستخدام المجهولة (اختيارية)"},
-  "aria_batch_compression": {"message": "ضغط الدفعة"},
+
   "aria_batch_delay": {"message": "تأخير الدفعة"},
   "aria_batch_processing": {"message": "معالجة الدفعات"},
   "aria_chart_type": {"message": "نوع الرسم البياني"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "اختر تنسيق الملف"},
   "aria_choose_theme": {"message": "اختر السمة"},
   "aria_claude_override": {"message": "تجاوز Claude"},
-  "aria_compression_threshold": {"message": "عتبة الضغط بالبايت"},
+
   "aria_custom_format_help": {"message": "مساعدة التنسيق المخصص"},
   "aria_debug_level": {"message": "مساعدة مستوى التصحيح"},
   "aria_delay_seconds": {"message": "ثواني التأخير (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "الدفعة نشطة"},
   "batch_active_tip": {"message": "وضع الدفعة نشط - سيتم معالجة عدة ملفات"},
   "batch_auto_attach_tip": {"message": "الإرفاق التلقائي سيعالج جميع الملفات في وضع الدفعة"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>ضغط</span> تطبيق الضغط على كل ملف دفعة فردي لتقليل أحجام الملفات. هذا منفصل عن إعداد 'ضغط الملفات' الرئيسي أعلاه. عند تفعيل الضغط الرئيسي، يتم إلغاء هذا الخيار تلقائياً لمنع التعارضات. استخدم هذا عندما تريد الضغط فقط لملفات الدفعة وليس الملفات المفردة العادية."},
+
   "batch_delay_tip": {"message": "التأخير ينطبق على كل ملف في معالجة الدفعة"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>توقيت</span> التأخير الزمني بين رفع كل ملف دفعة (100 ملي ثانية إلى 2000 ملي ثانية). التأخيرات الأعلى تقلل من احتمالية تسجيلك كمُرسل رسائل غير مرغوبة من قِبل منصات الذكاء الاصطناعي. يتم إلغاء هذا الإعداد تلقائياً عند تفعيل زر 'تأخير المستخدم' الرئيسي أعلاه - في هذه الحالة، إعداد التأخير الرئيسي له الأولوية لجميع رفوعات الملفات."},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "وضع الدفعة"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>تجريبي</span> يقسم المحتوى الكبير إلى عدة ملفات بناءً على إعداد الحد الأقصى للملفات. يقسم المحتوى حسب الأسطر ويستخدم كشف اللغة الذكي لامتدادات الملفات. ينشئ ملفات بأسماء part1، part2، part3، part4. مثالي لتقسيم المستندات الكبيرة أو ملفات الكود أو أي محتوى يتجاوز حدود المنصة. كل جزء يحصل على امتداد ملف مناسب بناءً على تحليل المحتوى."},
   "beta": {"message": "تجريبي"},
-  "bytes": {"message": "بايت"},
   "cancel": {"message": "إلغاء"},
   "claude_override": {"message": "تجاوز الإرفاق التلقائي لـ Claude"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>ميزة</span> Claude يتضمن ميزة لصق-إلى-ملف خاصة به. فعّل هذا لاستخدام Multi-AI File Paster دائماً للحصول على تنسيق وتسمية أكثر اتساقاً."},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "سيؤدي هذا إلى حذف جميع إحصائيات الاستخدام نهائياً ولا يمكن التراجع عنه."},
   "close": {"message": "إغلاق"},
   "company": {"message": "الشركة:"},
-  "compression": {"message": "الضغط"},
-  "compression_optimized": {
-    "message": "تم تحسين الضغط: $ORIGINAL$ ← $COMPRESSED$ (تم توفير $SAVINGS$%)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "نسبة الضغط منخفضة جداً، الاحتفاظ بالملف الأصلي"},
-  "compression_below_threshold": {"message": "أقل من الحد الأدنى"},
+
   "config_analytics_dashboard": {"message": "لوحة التحليلات: تتبع أنماط الاستخدام وإحصائيات إنشاء الملفات"},
   "config_auto_attach": {"message": "الإرفاق التلقائي: يكتشف ويحوّل اللصق الطويل تلقائياً (عتبة كلمات قابلة للتخصيص: 50-15000 كلمة)"},
   "config_batch_processing": {"message": "معالجة الدفعات: تقسيم المحتوى الكبير إلى 2-4 ملفات مع تقسيم أسطر ذكي"},
   "config_claude_integration": {"message": "تكامل Claude: يعمل جنباً إلى جنب مع أو يحل محل ميزة لصق-إلى-ملف المدمجة في Claude"},
   "config_delay": {"message": "التأخير: عد تنازلي اختياري 1-15 ثانية يمنع المرفقات العرضية"},
-  "config_file_compression": {"message": "ضغط الملفات: ضغط GZIP يقلل أحجام الملفات لأداء أفضل"},
+
   "config_manual_override": {"message": "التجاوز اليدوي: تحويل النص المكتوب عند الطلب إلى مرفقات ملفات"},
   "config_multi_format": {"message": "دعم تنسيقات متعددة: اختر من بين أكثر من 20 نوع ملف بما في ذلك لغات البرمجة والترميز وتنسيقات البيانات والامتدادات المخصصة"},
   "config_platform_optimization": {"message": "تحسين المنصة: تعامل خاص مع نظام إرفاق الملفات الفريد لكل منصة ذكاء اصطناعي"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "نظام التحقق جاهز"},
   "debug_warn": {"message": "[تحذير]"},
   "debug_warning": {"message": "[تحذير]"},
-  "debug_compression_invalid_input": {"message": "النص خالي أو غير محدد أو ليس نص"},
-  "debug_compression_skipped": {"message": "المحتوى صغير جداً: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API غير متوفر"},
-  "debug_compression_encoding_mismatch": {"message": "تم اكتشاف عدم تطابق حجم تشفير النص"},
-  "debug_compression_poor_ratio": {"message": "النسبة $1 مرتفعة جداً"},
+
   "debug_batch_content_too_short": {"message": "المحتوى قصير جداً للمعالجة المجمعة"},
   "debug_batch_split_insufficient": {"message": "لا يمكن تقسيم المحتوى إلى أجزاء متعددة بشكل مفيد"},
+  "debug_batch_part_too_small": {"message": "الجزء $1 صغير جداً: $2 حرف"},
+  "debug_batch_structured_content": {"message": "تم اكتشاف محتوى منظم: $1"},
+  "debug_batch_too_few_lines": {"message": "المحتوى يحتوي على أسطر قليلة جداً لتقسيم دفعة مفيد: $1 أسطر"},
   "debug_file_content_empty": {"message": "المحتوى فارغ أو غير صالح"},
   "debug_json_content_valid": {"message": "المحتوى هو JSON صالح بالفعل"},
   "debug_json_wrap_applied": {"message": "تم تغليف المحتوى في هيكل JSON"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "موقع المطور"},
   "development_team": {"message": "فريق التطوير والدعم"},
-  "disabled_compression_tooltip": {"message": "الضغط معطل لهذا التنسيق"},
+
   "disabled_title": {"message": "الميزة معطلة في هذه الصفحة"},
   "enter_custom": {"message": "إدخال تنسيق مخصص"},
   "errors": {"message": "أخطاء"},
   "errors_attachment_failed": {"message": "فشل إرفاق الملف. يرجى تحديث الصفحة والمحاولة مرة أخرى"},
   "errors_batch_processing_failed": {"message": "فشلت معالجة الدفعة: $1"},
   "errors_busy_processing": {"message": "إرفاق ملف آخر قيد التقدم. يرجى الانتظار"},
-  "errors_compression_not_supported": {"message": "الضغط غير مدعوم"},
+
   "errors_connection_failed": {"message": "لا يمكن الاتصال بالصفحة. يرجى التحديث والمحاولة مرة أخرى"},
-  "errors_decompression_failed": {"message": "فشل في إلغاء ضغط الملف"},
-  "errors_decompression_not_supported": {"message": "إلغاء الضغط غير مدعوم لهذا النوع من الملفات"},
+
   "errors_export_failed": {"message": "فشل التصدير. يرجى المحاولة مرة أخرى"},
   "errors_extension_context": {"message": "مشكلة في سياق الإضافة. يرجى تحديث الصفحة والمحاولة مرة أخرى"},
   "errors_extension_reloaded": {"message": "تم إعادة تحميل الإضافة. يرجى تحديث الصفحة والمحاولة مرة أخرى"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "هذه المنصة للذكاء الاصطناعي غير مدعومة. جرب ChatGPT أو Claude أو Gemini أو DeepSeek أو Grok"},
   "errors_text_too_short": {"message": "النص قصير جداً ($1 كلمة). الحد الأدنى $2 كلمة مطلوب"},
   "errors_text_too_short_manual": {"message": "النص قصير جداً للحفظ اليدوي. إما أضف المزيد من النص أو اخفض إعداد الحد الأدنى للكلمات"},
-  "errors_compression_invalid_input": {"message": "إدخال غير صالح للضغط"},
+
   "errors_invalid_content_type": {"message": "محتوى غير صالح: يجب أن يكون النص نص غير فارغ"},
   "errors_invalid_content_empty": {"message": "محتوى غير صالح: لا يمكن أن يكون النص فارغاً"},
   "errors_file_creation_failed": {"message": "فشل في إنشاء كائن ملف صالح"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "تم إرسال الملاحظات بنجاح"},
   "feedback_support_description": {"message": "ما المشكلة التي تواجهها؟"},
   "file_blob_created": {"message": "تم إنشاء كتلة الملف"},
-  "file_compression": {"message": "ضغط الملفات"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>ضغط</span> يضغط الملفات الكبيرة تلقائياً (1 كيلوبايت+) باستخدام ضغط GZIP. يقلل حجم الملف بنسبة 60-80% للمحتوى النصي. يضغط فقط عندما يوفر مساحة جيدة."},
+
   "file_creation_insights": {"message": "رؤى إنشاء الملفات الخاصة بك"},
   "file_creation_started": {"message": "بدأ إنشاء الملف"},
   "file_format": {"message": "تنسيق الملف"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "معالجة $1 ملفات"},
   "file_operations_batch_success": {"message": "تمت معالجة $1 ملفات من الدفعة"},
   "file_operations_batch_uploading": {"message": "رفع $1"},
-  "file_operations_compression_optimized": {"message": "تم تحسين الملف من $1 إلى $2 (أصغر بـ $3%)"},
+
   "file_operations_manual_save_success": {"message": "تم إرفاق الملف"},
   "files_per_day": {"message": "ملفات يومياً"},
   "flash_called": {"message": "تم استدعاء رسالة فلاش"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "تم تحميل المزيد من التنسيقات"},
   "network_error": {"message": "حدث خطأ في الشبكة"},
   "new_version": {"message": "جديد في الإصدار v1.1.0:"},
-  "new_version_text": {"message": "وضع الدفعة يقسم المحتوى الكبير إلى عدة ملفات، ضغط GZIP يقلل أحجام الملفات بنسبة 60-80%، ولوحة التحليلات المحسنة تتتبع أنماط الاستخدام."},
+  "new_version_text": {"message": "وضع الدفعة يقسم المحتوى الكبير إلى عدة ملفات، الكشف الذكي للغة يختار امتدادات الملفات تلقائياً، ولوحة التحليلات المحسنة تتتبع أنماط الاستخدام."},
   "next_page": {"message": "الصفحة التالية"},
   "no_data_yet": {"message": "لا توجد بيانات بعد"},
   "no_file_input": {"message": "لم يتم العثور على إدخال ملف في الصفحة"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "تم حفظ الإعداد للتخزين"},
   "settings_auto_attach_disabled": {"message": "الإرفاق التلقائي معطل. استخدم زر الحفظ اليدوي لإرفاق الملفات"},
   "settings_auto_attach_enabled": {"message": "الإرفاق التلقائي مُفعّل. ستُرفق الملفات تلقائياً عند اللصق"},
-  "settings_batch_compression_disabled": {"message": "ضغط الدفعة معطل"},
-  "settings_batch_compression_enabled": {"message": "ضغط الدفعة مُفعّل"},
+
   "settings_batch_delay_updated": {"message": "تم تعيين تأخير معالجة الدفعة إلى $1 ملي ثانية"},
   "settings_batch_mode_disabled": {"message": "وضع الدفعة معطل. تم استعادة الإرفاق التلقائي"},
   "settings_batch_mode_enabled": {"message": "وضع الدفعة مُفعّل. الإرفاق التلقائي معطل أثناء نشاط وضع الدفعة"},
   "settings_claude_override_disabled": {"message": "تجاوز Claude معطل. Claude سيستخدم الميزات المدمجة"},
   "settings_claude_override_enabled": {"message": "تجاوز Claude مُفعّل. الإضافة ستعمل على Claude"},
-  "settings_compression_disabled": {"message": "ضغط الملفات معطل"},
-  "settings_compression_enabled": {"message": "ضغط الملفات مُفعّل للملفات أكبر من $1 بايت"},
-  "settings_compression_threshold_updated": {"message": "تم تعيين عتبة الضغط إلى $1 بايت"},
+
   "settings_debug_disabled": {"message": "وضع التصحيح معطل"},
   "settings_debug_enabled": {"message": "وضع التصحيح مُفعّل"},
   "settings_delay_disabled": {"message": "تأخير الإرفاق معطل"},
@@ -832,14 +806,19 @@
   "total_files": {"message": "مجموع الملفات"},
   "translating_wait": {"message": "جاري الترجمة، يرجى الانتظار..."},
   "try_attachment_button": {"message": "جرب استخدام زر الإرفاق بدلاً من ذلك"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>الدفعة نشطة</span> ضغط الملفات معطل عند تفعيل وضع الدفعة. طريقة ضغط واحدة فقط يمكن أن تكون نشطة في نفس الوقت."},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>الدفعة نشطة</span> الإرفاق التلقائي معطل عند تفعيل وضع الدفعة. وضع الدفعة يتعامل مع إرفاق الملفات تلقائياً للمحتوى المقسم. أطفئ وضع الدفعة لاستخدام الإرفاق التلقائي للملفات المفردة العادية."},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>الدفعة نشطة</span> هذا الإعداد معطل عند تفعيل وضع الدفعة. وضع الدفعة يستخدم إعداد التأخير الخاص به لرفوعات الملفات. أطفئ وضع الدفعة لاستخدام إعداد التأخير هذا."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>الدفعة نشطة</span> الإجراء اليدوي معطل عند تفعيل وضع الدفعة. وضع الدفعة يعالج المحتوى تلقائياً إلى ملفات متعددة. أطفئ وضع الدفعة لاستخدام الإجراء اليدوي للملفات المفردة."},
+  "ui_components_config_error": {"message": "خطأ في التكوين: DEFAULTS غير موجود"},
+  "ui_components_reset_failed": {"message": "فشل الإعادة تعيين"},
+  "debug_using_popup_flash": {"message": "استخدام فلاش النافذة المنبثقة بدلاً من نص المحتوى"},
+
   "ui_components_custom_format_label": {"message": "مخصص"},
   "ui_components_custom_format_placeholder": {"message": "مثل log، cfg، data"},
   "ui_components_data_cleared_success": {"message": "تم مسح البيانات بنجاح"},
   "ui_components_delay_countdown": {"message": "الإرفاق خلال $1 ثانية"},
-  "ui_components_disabled_compression_tooltip": {"message": "معطل عند تفعيل ضغط الملفات"},
+
   "ui_components_disabled_title": {"message": "افتح محادثة ذكاء اصطناعي واكتب نصاً لإرفاقه كملف"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +869,7 @@
   "claude_file_attached": {"message": "تم إرفاق الملف بنجاح إلى Claude"},
   "claude_invalid_text": {"message": "نص غير صالح لمعالجة Claude"},
   "claude_removing_pasted_element": {"message": "إزالة عنصر النص الملصق من Claude"},
-  "compression_encoding_mismatch": {"message": "تم اكتشاف عدم تطابق في حجم ترميز النص"},
-  "compression_exception": {"message": "فشل الضغط مع استثناء"},
-  "compression_failed": {"message": "فشل في عملية الضغط"},
-  "compression_invalid_input": {"message": "مدخل غير صالح مقدم للضغط"},
-  "compression_not_supported": {"message": "الضغط غير مدعوم في هذا المتصفح"},
-  "compression_skipped": {"message": "تم تخطي الضغط - المحتوى صغير جداً"},
-  "compression_success": {"message": "تم الانتهاء من الضغط بنجاح"},
+
   "empty_file_created": {"message": "تحذير: تم إنشاء ملف فارغ"},
   "fileAttachComponent_error": {"message": "واجه مكون إرفاق الملف خطأ"},
   "file_creation_complete": {"message": "تم الانتهاء من عملية إنشاء الملف"},

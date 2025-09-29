@@ -66,7 +66,6 @@
         "src/shared/validation.js",
         "src/shared/metrics.js",
         "src/shared/languagedetector.js",
-        "src/shared/compression.js",
         "src/shared/batchprocessor.js",
         "src/content/components/toast.js",
         "src/content/components/loader.js",

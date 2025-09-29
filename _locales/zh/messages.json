@@ -50,7 +50,7 @@
   "analytics_today": {"message": "今天"},
   "analytics_yesterday": {"message": "昨天"},
   "anonymous_analytics": {"message": "匿名使用分析（可选）"},
-  "aria_batch_compression": {"message": "批量压缩"},
+
   "aria_batch_delay": {"message": "批量延迟"},
   "aria_batch_processing": {"message": "批量处理"},
   "aria_chart_type": {"message": "图表类型"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "选择文件格式"},
   "aria_choose_theme": {"message": "选择主题"},
   "aria_claude_override": {"message": "Claude覆盖"},
-  "aria_compression_threshold": {"message": "压缩阈值（字节）"},
+
   "aria_custom_format_help": {"message": "自定义格式帮助"},
   "aria_debug_level": {"message": "调试级别帮助"},
   "aria_delay_seconds": {"message": "延迟秒数（1-15）"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "批量激活"},
   "batch_active_tip": {"message": "批量模式已激活 - 将处理多个文件"},
   "batch_auto_attach_tip": {"message": "自动附加将在批量模式下处理所有文件"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>压缩</span> 对每个单独的批量文件应用压缩以减少文件大小。这与上面的主要\"文件压缩\"设置分开。当启用主压缩时，此选项会自动禁用以防止冲突。当您只想对批量文件而不是常规单个文件进行压缩时使用此选项。"},
+
   "batch_delay_tip": {"message": "延迟适用于批量处理中的每个文件"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>时间</span> 上传每个批量文件之间的时间延迟（100ms到2000ms）。更高的延迟减少被AI平台标记为垃圾邮件的机会。当上面的主要\"用户延迟\"切换激活时，此设置会自动禁用 - 在这种情况下，主延迟设置对所有文件上传具有优先级。"},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "批量模式"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>测试版</span> 根据您的最大文件设置将大内容拆分为多个文件。按行划分内容并使用智能语言检测进行文件扩展名。创建名为part1、part2、part3、part4的文件。非常适合拆分大文档、代码文件或任何超出平台限制的内容。每个部分根据内容分析获得适当的文件扩展名。"},
   "beta": {"message": "测试版"},
-  "bytes": {"message": "字节"},
   "cancel": {"message": "取消"},
   "claude_override": {"message": "覆盖Claude自动附加"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>功能</span> Claude包含自己的粘贴到文件功能。启用此选项以始终使用Multi-AI File Paster获得更一致的格式和命名。"},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "这将永久删除您的所有使用统计信息且无法撤消。"},
   "close": {"message": "关闭"},
   "company": {"message": "公司："},
-  "compression": {"message": "压缩"},
-  "compression_optimized": {
-    "message": "压缩已优化：$ORIGINAL$ → $COMPRESSED$（节省$SAVINGS$%）",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "压缩比太低，保留原始文件"},
-  "compression_below_threshold": {"message": "低于阈值"},
+
   "config_analytics_dashboard": {"message": "分析仪表板：跟踪使用模式和文件创建统计信息"},
   "config_auto_attach": {"message": "自动附加：自动检测并转换长粘贴（可自定义字数阈值：50-15,000字）"},
   "config_batch_processing": {"message": "批量处理：将大内容拆分为2-4个文件，智能行分割"},
   "config_claude_integration": {"message": "Claude集成：与Claude内置的粘贴到文件功能一起工作或替换它"},
   "config_delay": {"message": "延迟：可选的1-15秒倒计时防止意外附件"},
-  "config_file_compression": {"message": "文件压缩：GZIP压缩减少文件大小以获得更好的性能"},
+
   "config_manual_override": {"message": "手动覆盖：按需将键入的文本转换为文件附件"},
   "config_multi_format": {"message": "多格式支持：从20+文件类型中选择，包括编程语言、标记、数据格式和自定义扩展名"},
   "config_platform_optimization": {"message": "平台优化：针对每个AI平台独特的文件附件系统进行特殊处理"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "验证系统就绪"},
   "debug_warn": {"message": "[警告]"},
   "debug_warning": {"message": "[警告]"},
-  "debug_compression_invalid_input": {"message": "文本为null、undefined或不是字符串"},
-  "debug_compression_skipped": {"message": "内容太小：$1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API不可用"},
-  "debug_compression_encoding_mismatch": {"message": "检测到文本编码大小不匹配"},
-  "debug_compression_poor_ratio": {"message": "比率$1太高"},
+
   "debug_batch_content_too_short": {"message": "内容太短，无法进行批处理"},
   "debug_batch_split_insufficient": {"message": "内容无法有意义地拆分为多个部分"},
+  "debug_batch_part_too_small": {"message": "部分$1太小：$2个字符"},
+  "debug_batch_structured_content": {"message": "检测到结构化内容：$1"},
+  "debug_batch_too_few_lines": {"message": "内容行数太少，无法进行有意义的批量分割：$1行"},
   "debug_file_content_empty": {"message": "内容为空或无效"},
   "debug_json_content_valid": {"message": "内容已经是有效的JSON"},
   "debug_json_wrap_applied": {"message": "内容包装在JSON结构中"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "开发者网站"},
   "development_team": {"message": "开发团队和支持"},
-  "disabled_compression_tooltip": {"message": "此格式已禁用压缩"},
+
   "disabled_title": {"message": "此页面上功能已禁用"},
   "enter_custom": {"message": "输入自定义格式"},
   "errors": {"message": "错误"},
   "errors_attachment_failed": {"message": "文件附件失败。请刷新页面并重试"},
   "errors_batch_processing_failed": {"message": "批处理失败：$1"},
   "errors_busy_processing": {"message": "另一个文件附件正在进行中。请等待"},
-  "errors_compression_not_supported": {"message": "不支持压缩"},
+
   "errors_connection_failed": {"message": "无法连接到页面。请刷新并重试"},
-  "errors_decompression_failed": {"message": "解压文件失败"},
-  "errors_decompression_not_supported": {"message": "此文件类型不支持解压"},
+
   "errors_export_failed": {"message": "导出失败。请重试"},
   "errors_extension_context": {"message": "扩展上下文问题。请刷新页面并重试"},
   "errors_extension_reloaded": {"message": "扩展已重新加载。请刷新页面并重试"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "不支持此AI平台。请尝试ChatGPT、Claude、Gemini、DeepSeek或Grok"},
   "errors_text_too_short": {"message": "文本太短（$1个字）。至少需要$2个字"},
   "errors_text_too_short_manual": {"message": "文本太短，无法手动保存。请添加更多文本或降低最少字数设置"},
-  "errors_compression_invalid_input": {"message": "压缩输入无效"},
+
   "errors_invalid_content_type": {"message": "内容无效：文本必须是非空字符串"},
   "errors_invalid_content_empty": {"message": "内容无效：文本不能为空"},
   "errors_file_creation_failed": {"message": "创建有效文件对象失败"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "反馈发送成功"},
   "feedback_support_description": {"message": "您遇到了什么问题？"},
   "file_blob_created": {"message": "文件blob已创建"},
-  "file_compression": {"message": "文件压缩"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>压缩</span> 使用GZIP压缩自动压缩大文件（1KB+）。为文本内容减少60-80%的文件大小。仅在节省良好空间时压缩。"},
+
   "file_creation_insights": {"message": "您的文件创建见解"},
   "file_creation_started": {"message": "文件创建已开始"},
   "file_format": {"message": "文件格式"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "正在处理$1个文件"},
   "file_operations_batch_success": {"message": "从批次处理了$1个文件"},
   "file_operations_batch_uploading": {"message": "正在上传$1"},
-  "file_operations_compression_optimized": {"message": "文件从$1优化到$2（小$3%）"},
+
   "file_operations_manual_save_success": {"message": "文件已附加"},
   "files_per_day": {"message": "每日文件"},
   "flash_called": {"message": "闪存消息已调用"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "更多格式已加载"},
   "network_error": {"message": "网络错误发生"},
   "new_version": {"message": "v1.1.0新功能："},
-  "new_version_text": {"message": "批量模式将大内容拆分为多个文件，GZIP压缩将文件大小减少60-80%，改进的分析仪表板跟踪您的使用模式。"},
+  "new_version_text": {"message": "批量模式将大内容拆分为多个文件，智能语言检测自动选择文件扩展名，改进的分析仪表板跟踪您的使用模式。"},
   "next_page": {"message": "下一页"},
   "no_data_yet": {"message": "暂无数据"},
   "no_file_input": {"message": "页面上未找到文件输入"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "设置已保存到存储"},
   "settings_auto_attach_disabled": {"message": "自动附加已禁用。使用手动保存按钮附加文件"},
   "settings_auto_attach_enabled": {"message": "自动附加已启用。粘贴时文件将自动附加"},
-  "settings_batch_compression_disabled": {"message": "批量压缩已禁用"},
-  "settings_batch_compression_enabled": {"message": "批量压缩已启用"},
+
   "settings_batch_delay_updated": {"message": "批处理延迟设置为$1ms"},
   "settings_batch_mode_disabled": {"message": "批量模式已禁用。自动附加已恢复"},
   "settings_batch_mode_enabled": {"message": "批量模式已启用。批量模式激活时自动附加已禁用"},
   "settings_claude_override_disabled": {"message": "Claude覆盖已禁用。Claude将使用内置功能"},
   "settings_claude_override_enabled": {"message": "Claude覆盖已启用。扩展将在Claude上工作"},
-  "settings_compression_disabled": {"message": "文件压缩已禁用"},
-  "settings_compression_enabled": {"message": "文件压缩已启用，适用于超过$1字节的文件"},
-  "settings_compression_threshold_updated": {"message": "压缩阈值设置为$1字节"},
+
   "settings_debug_disabled": {"message": "调试模式已禁用"},
   "settings_debug_enabled": {"message": "调试模式已启用"},
   "settings_delay_disabled": {"message": "附件延迟已禁用"},
@@ -832,14 +806,18 @@
   "total_files": {"message": "总文件数"},
   "translating_wait": {"message": "正在翻译，请稍候..."},
   "try_attachment_button": {"message": "尝试使用附件按钮"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 启用批量模式时文件压缩被禁用。一次只能激活一种压缩方法。"},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 启用批量模式时自动附加被禁用。批量模式自动处理拆分内容的文件附件。关闭批量模式以对常规单个文件使用自动附加。"},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 启用批量模式时此设置被禁用。批量模式使用自己的延迟设置进行文件上传。关闭批量模式以使用此延迟设置。"},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 当批量模式启用时，手动操作被禁用。批量模式自动将内容处理为多个文件。关闭批量模式以对单个文件使用手动操作。"},
+  "ui_components_config_error": {"message": "配置错误：未找到DEFAULTS"},
+  "ui_components_reset_failed": {"message": "重置失败"},
+
   "ui_components_custom_format_label": {"message": "自定义"},
   "ui_components_custom_format_placeholder": {"message": "例如log、cfg、data"},
   "ui_components_data_cleared_success": {"message": "数据清除成功"},
   "ui_components_delay_countdown": {"message": "$1秒后附加"},
-  "ui_components_disabled_compression_tooltip": {"message": "启用文件压缩时禁用"},
+
   "ui_components_disabled_title": {"message": "打开AI聊天并输入文本以作为文件附加"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +868,8 @@
   "claude_file_attached": {"message": "文件成功附加到Claude"},
   "claude_invalid_text": {"message": "Claude处理的文本内容无效"},
   "claude_removing_pasted_element": {"message": "从Claude中删除粘贴的文本元素"},
-  "compression_encoding_mismatch": {"message": "检测到文本编码大小不匹配"},
-  "compression_exception": {"message": "压缩失败，出现异常"},
-  "compression_failed": {"message": "压缩操作失败"},
-  "compression_invalid_input": {"message": "为压缩提供了无效输入"},
-  "compression_not_supported": {"message": "此浏览器不支持压缩"},
-  "compression_skipped": {"message": "压缩已跳过 - 内容太小"},
-  "compression_success": {"message": "压缩成功完成"},
+  "debug_using_popup_flash": {"message": "使用弹出闪烁而不是内容文本"},
+
   "empty_file_created": {"message": "警告：创建了空文件"},
   "fileAttachComponent_error": {"message": "文件附件组件遇到错误"},
   "file_creation_complete": {"message": "文件创建过程完成"},

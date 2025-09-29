@@ -31,7 +31,7 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: Claude AI platform integration and automation
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader API
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
  * • FEATURES: Claude-specific DOM handling, file attachment, state management
  * • TESTING: Automated unit tests, integration tests, cross-browser validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)

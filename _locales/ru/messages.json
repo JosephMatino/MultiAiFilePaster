@@ -50,7 +50,7 @@
   "analytics_today": {"message": "Сегодня"},
   "analytics_yesterday": {"message": "Вчера"},
   "anonymous_analytics": {"message": "Анонимная аналитика использования (опционально)"},
-  "aria_batch_compression": {"message": "Пакетное сжатие"},
+
   "aria_batch_delay": {"message": "Пакетная задержка"},
   "aria_batch_processing": {"message": "Пакетная обработка"},
   "aria_chart_type": {"message": "Тип графика"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "Выбрать формат файла"},
   "aria_choose_theme": {"message": "Выбрать тему"},
   "aria_claude_override": {"message": "Переопределение Claude"},
-  "aria_compression_threshold": {"message": "Порог сжатия в байтах"},
+
   "aria_custom_format_help": {"message": "Помощь по пользовательскому формату"},
   "aria_debug_level": {"message": "Помощь по уровню отладки"},
   "aria_delay_seconds": {"message": "Секунды задержки (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "ПАКЕТ АКТИВЕН"},
   "batch_active_tip": {"message": "Пакетный режим активен - несколько файлов будут обработаны"},
   "batch_auto_attach_tip": {"message": "Авто-прикрепление обработает все файлы в пакетном режиме"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>СЖАТИЕ</span> Применить сжатие к каждому отдельному пакетному файлу для уменьшения размеров файлов. Это отдельно от основной настройки 'Сжатие файлов' выше. Когда основное сжатие включено, эта опция автоматически отключается во избежание конфликтов. Используйте это когда хотите сжатие только для пакетных файлов, но не для обычных одиночных файлов."},
+
   "batch_delay_tip": {"message": "Задержка применяется к каждому файлу в пакетной обработке"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>ВРЕМЯ</span> Задержка между загрузкой каждого пакетного файла (100мс до 2000мс). Более высокие задержки снижают шансы быть отмеченным как спам ИИ платформами. Эта настройка автоматически отключается когда основная кнопка 'Пользовательская задержка' активна выше - в этом случае основная настройка задержки имеет приоритет для всех загрузок файлов."},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "Пакетный режим"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>БЕТА</span> Разделяет большой контент на несколько файлов на основе вашей настройки макс. файлов. Разделяет контент по строкам и использует умное определение языка для расширений файлов. Создает файлы с именами part1, part2, part3, part4. Идеально для разделения больших документов, файлов кода или любого контента, превышающего лимиты платформ. Каждая часть получает соответствующее расширение файла на основе анализа контента."},
   "beta": {"message": "БЕТА"},
-  "bytes": {"message": "байт"},
   "cancel": {"message": "Отмена"},
   "claude_override": {"message": "Переопределить авто Claude"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>ФУНКЦИЯ</span> Claude включает свою собственную функцию вставки-в-файл. Включите это чтобы всегда использовать Multi-AI File Paster для более последовательного форматирования и именования."},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "Это навсегда удалит всю вашу статистику использования и не может быть отменено."},
   "close": {"message": "Закрыть"},
   "company": {"message": "Компания:"},
-  "compression": {"message": "Сжатие"},
-  "compression_optimized": {
-    "message": "Сжатие оптимизировано: $ORIGINAL$ → $COMPRESSED$ (сэкономлено $SAVINGS$%)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "Коэффициент сжатия слишком низкий, сохранение оригинального файла"},
-  "compression_below_threshold": {"message": "Ниже порога"},
+
   "config_analytics_dashboard": {"message": "Панель аналитики: отслеживание паттернов использования и статистики создания файлов"},
   "config_auto_attach": {"message": "Авто-прикрепление: автоматически определяет и конвертирует длинные вставки (настраиваемый порог слов: 50-15 000 слов)"},
   "config_batch_processing": {"message": "Пакетная обработка: разделение большого контента на 2-4 файла с умным разделением по строкам"},
   "config_claude_integration": {"message": "Интеграция Claude: работает с или заменяет встроенную функцию вставки-в-файл Claude"},
   "config_delay": {"message": "Задержка: опциональный обратный отсчет 1-15 секунд предотвращает случайные прикрепления"},
-  "config_file_compression": {"message": "Сжатие файлов: сжатие GZIP уменьшает размеры файлов для лучшей производительности"},
+
   "config_manual_override": {"message": "Ручное переопределение: конвертация по требованию набранного текста в вложения"},
   "config_multi_format": {"message": "Поддержка мульти-формата: выбор из более чем 20 типов файлов, включая языки программирования, разметку, форматы данных и пользовательские расширения"},
   "config_platform_optimization": {"message": "Оптимизация платформы: специальная обработка для уникальной системы прикрепления файлов каждой ИИ платформы"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "Система валидации готова"},
   "debug_warn": {"message": "[ПРЕДУПРЕЖДЕНИЕ]"},
   "debug_warning": {"message": "[ПРЕДУПРЕЖДЕНИЕ]"},
-  "debug_compression_invalid_input": {"message": "Текст равен null, undefined или не является строкой"},
-  "debug_compression_skipped": {"message": "Содержимое слишком мало: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API недоступен"},
-  "debug_compression_encoding_mismatch": {"message": "Обнаружено несоответствие размера кодировки текста"},
-  "debug_compression_poor_ratio": {"message": "Коэффициент $1 слишком высокий"},
+
   "debug_batch_content_too_short": {"message": "Содержимое слишком короткое для пакетной обработки"},
   "debug_batch_split_insufficient": {"message": "Содержимое не может быть осмысленно разделено на несколько частей"},
+  "debug_batch_part_too_small": {"message": "Часть $1 слишком мала: $2 символов"},
+  "debug_batch_structured_content": {"message": "Обнаружено структурированное содержимое: $1"},
+  "debug_batch_too_few_lines": {"message": "Содержимое имеет слишком мало строк для значимого пакетного разделения: $1 строк"},
   "debug_file_content_empty": {"message": "Содержимое пустое или недействительное"},
   "debug_json_content_valid": {"message": "Содержимое уже является действительным JSON"},
   "debug_json_wrap_applied": {"message": "Содержимое обернуто в структуру JSON"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "Сайт разработчика"},
   "development_team": {"message": "Команда разработки и поддержки"},
-  "disabled_compression_tooltip": {"message": "Сжатие отключено для этого формата"},
+
   "disabled_title": {"message": "Функция отключена на этой странице"},
   "enter_custom": {"message": "Ввести пользовательский формат"},
   "errors": {"message": "Ошибки"},
   "errors_attachment_failed": {"message": "Прикрепление файла не удалось. Пожалуйста, обновите страницу и попробуйте снова"},
   "errors_batch_processing_failed": {"message": "Пакетная обработка не удалась: $1"},
   "errors_busy_processing": {"message": "Выполняется другое прикрепление файла. Пожалуйста, подождите"},
-  "errors_compression_not_supported": {"message": "Сжатие не поддерживается"},
+
   "errors_connection_failed": {"message": "Не удается подключиться к странице. Пожалуйста, обновите и попробуйте снова"},
-  "errors_decompression_failed": {"message": "Не удалось распаковать файл"},
-  "errors_decompression_not_supported": {"message": "Распаковка не поддерживается для этого типа файла"},
+
   "errors_export_failed": {"message": "Экспорт не удался. Пожалуйста, попробуйте снова"},
   "errors_extension_context": {"message": "Проблема контекста расширения. Пожалуйста, обновите страницу и попробуйте снова"},
   "errors_extension_reloaded": {"message": "Расширение было перезагружено. Пожалуйста, обновите страницу и попробуйте снова"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "Эта ИИ платформа не поддерживается. Попробуйте ChatGPT, Claude, Gemini, DeepSeek или Grok"},
   "errors_text_too_short": {"message": "Текст слишком короткий ($1 слов). Требуется минимум $2 слов"},
   "errors_text_too_short_manual": {"message": "Текст слишком короткий для ручного сохранения. Либо добавьте больше текста, либо уменьшите настройку Мин. слов"},
-  "errors_compression_invalid_input": {"message": "Недействительный ввод для сжатия"},
+
   "errors_invalid_content_type": {"message": "Недействительное содержимое: текст должен быть непустой строкой"},
   "errors_invalid_content_empty": {"message": "Недействительное содержимое: текст не может быть пустым"},
   "errors_file_creation_failed": {"message": "Не удалось создать действительный объект файла"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "Отзыв успешно отправлен"},
   "feedback_support_description": {"message": "С какой проблемой вы сталкиваетесь?"},
   "file_blob_created": {"message": "Blob файла создан"},
-  "file_compression": {"message": "Сжатие файлов"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>СЖАТИЕ</span> Автоматически сжимает большие файлы (1КБ+) используя сжатие GZIP. Уменьшает размер файла на 60-80% для текстового содержимого. Сжимает только когда это экономит хорошее место."},
+
   "file_creation_insights": {"message": "Ваша аналитика создания файлов"},
   "file_creation_started": {"message": "Создание файла начато"},
   "file_format": {"message": "Формат файла"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "Обработка $1 файлов"},
   "file_operations_batch_success": {"message": "Обработано $1 файлов из пакета"},
   "file_operations_batch_uploading": {"message": "Загрузка $1"},
-  "file_operations_compression_optimized": {"message": "Файл оптимизирован с $1 до $2 (на $3% меньше)"},
+
   "file_operations_manual_save_success": {"message": "Файл прикреплен"},
   "files_per_day": {"message": "Файлов в день"},
   "flash_called": {"message": "Вызвано flash сообщение"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "Больше форматов загружено"},
   "network_error": {"message": "Произошла ошибка сети"},
   "new_version": {"message": "Новое в v1.1.0:"},
-  "new_version_text": {"message": "Пакетный режим разделяет большое содержимое на несколько файлов, сжатие GZIP уменьшает размеры файлов на 60-80%, и улучшенная панель аналитики отслеживает ваши паттерны использования."},
+  "new_version_text": {"message": "Пакетный режим разделяет большое содержимое на несколько файлов, умное определение языка автоматически выбирает расширения файлов, и улучшенная панель аналитики отслеживает ваши паттерны использования."},
   "next_page": {"message": "Следующая страница"},
   "no_data_yet": {"message": "Пока нет данных"},
   "no_file_input": {"message": "Поле ввода файла не найдено на странице"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "Настройка сохранена в хранилище"},
   "settings_auto_attach_disabled": {"message": "Автоприкрепление отключено. Используйте кнопку ручного сохранения для прикрепления файлов"},
   "settings_auto_attach_enabled": {"message": "Автоприкрепление включено. Файлы будут прикрепляться автоматически при вставке"},
-  "settings_batch_compression_disabled": {"message": "Пакетное сжатие отключено"},
-  "settings_batch_compression_enabled": {"message": "Пакетное сжатие включено"},
+
   "settings_batch_delay_updated": {"message": "Задержка пакетной обработки установлена на $1мс"},
   "settings_batch_mode_disabled": {"message": "Пакетный режим отключен. Автоприкрепление восстановлено"},
   "settings_batch_mode_enabled": {"message": "Пакетный режим включен. Автоприкрепление отключено пока активен пакетный режим"},
   "settings_claude_override_disabled": {"message": "Переопределение Claude отключено. Claude будет использовать встроенные функции"},
   "settings_claude_override_enabled": {"message": "Переопределение Claude включено. Расширение будет работать на Claude"},
-  "settings_compression_disabled": {"message": "Сжатие файлов отключено"},
-  "settings_compression_enabled": {"message": "Сжатие файлов включено для файлов свыше $1 байт"},
-  "settings_compression_threshold_updated": {"message": "Порог сжатия установлен на $1 байт"},
+
   "settings_debug_disabled": {"message": "Режим отладки отключен"},
   "settings_debug_enabled": {"message": "Режим отладки включен"},
   "settings_delay_disabled": {"message": "Задержка прикрепления отключена"},
@@ -832,14 +806,18 @@
   "total_files": {"message": "Всего файлов"},
   "translating_wait": {"message": "Переводим, пожалуйста подождите..."},
   "try_attachment_button": {"message": "Попробуйте использовать кнопку прикрепления вместо этого"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Сжатие файлов отключено когда включен пакетный режим. Только один метод сжатия может быть активен одновременно."},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Автоприкрепление отключено когда включен пакетный режим. Пакетный режим автоматически обрабатывает прикрепление файлов для разделенного контента. Отключите пакетный режим чтобы использовать автоприкрепление для обычных одиночных файлов."},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Эта настройка отключена когда включен пакетный режим. Пакетный режим использует свою собственную настройку задержки для загрузки файлов. Отключите пакетный режим чтобы использовать эту настройку задержки."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Ручное действие отключено когда включен Пакетный режим. Пакетный режим обрабатывает содержимое автоматически в несколько файлов. Отключите Пакетный режим чтобы использовать Ручное действие для одиночных файлов."},
+  "ui_components_config_error": {"message": "Ошибка конфигурации: DEFAULTS не найден"},
+  "ui_components_reset_failed": {"message": "Сброс не удался"},
+
   "ui_components_custom_format_label": {"message": "Пользовательский"},
   "ui_components_custom_format_placeholder": {"message": "напр. log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "Данные успешно очищены"},
   "ui_components_delay_countdown": {"message": "Прикрепление через $1 секунд"},
-  "ui_components_disabled_compression_tooltip": {"message": "Отключено когда включено сжатие файлов"},
+
   "ui_components_disabled_title": {"message": "Откройте ИИ чат и введите текст для прикрепления как файл"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +868,8 @@
   "claude_file_attached": {"message": "Файл успешно прикреплен к Claude"},
   "claude_invalid_text": {"message": "Недействительное текстовое содержимое для обработки Claude"},
   "claude_removing_pasted_element": {"message": "Удаление вставленного текстового элемента из Claude"},
-  "compression_encoding_mismatch": {"message": "Обнаружено несоответствие размера кодировки текста"},
-  "compression_exception": {"message": "Сжатие не удалось с исключением"},
-  "compression_failed": {"message": "Операция сжатия не удалась"},
-  "compression_invalid_input": {"message": "Недействительный ввод предоставлен для сжатия"},
-  "compression_not_supported": {"message": "Сжатие не поддерживается в этом браузере"},
-  "compression_skipped": {"message": "Сжатие пропущено - содержимое слишком мало"},
-  "compression_success": {"message": "Сжатие успешно завершено"},
+  "debug_using_popup_flash": {"message": "Использование всплывающей вспышки вместо текста содержимого"},
+
   "empty_file_created": {"message": "Предупреждение: Создан пустой файл"},
   "fileAttachComponent_error": {"message": "Компонент прикрепления файла столкнулся с ошибкой"},
   "file_creation_complete": {"message": "Процесс создания файла завершен"},

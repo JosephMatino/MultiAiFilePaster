@@ -158,33 +158,6 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="label">
-            <span data-i18n="compression">Compression</span>
-            <button class="help" type="button" data-i18n-aria-label="aria_batch_compression" aria-expanded="false" data-tip-i18n="batch_compression_tooltip">?</button>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="batchCompressionToggle" />
-            <span class="slider" aria-hidden="true"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="label">
-          <span data-i18n="file_compression">File Compression</span>
-          <button class="help" type="button" data-i18n-aria-label="file_compression" aria-expanded="false" data-tip-i18n="file_compression_tooltip">?</button>
-        </div>
-        <div class="controls-inline">
-          <label class="switch">
-            <input type="checkbox" id="compressionToggle" />
-            <span class="slider" aria-hidden="true"></span>
-          </label>
-          <div class="inline-delay hidden" id="compressionThresholdWrap">
-            <input type="number" id="compressionThreshold" min="512" max="10240" step="256" inputmode="numeric" class="input sm" data-i18n-aria-label="aria_compression_threshold" />
-            <span class="unit" data-i18n="bytes">bytes</span>
-          </div>
-        </div>
       </div>
 
       <div class="divider" role="separator" aria-hidden="true"></div>
@@ -506,7 +479,7 @@
             <h3 data-i18n="smart_file_attachment">Smart File Attachment for AI Chats</h3>
             <p data-i18n="about_description">Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits.</p>
             <p><strong data-i18n="key_features">Key Features:</strong> <span data-i18n="key_features_text">Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions.</span></p>
-            <p><strong data-i18n="new_version">New in v1.1.0:</strong> <span data-i18n="new_version_text">Batch Mode splits large content into multiple files, GZIP compression reduces file sizes by 60-80%, and improved analytics dashboard tracks your usage patterns.</span></p>
+            <p><strong data-i18n="new_version">New in v1.1.0:</strong> <span data-i18n="new_version_text">Batch Mode splits large content into multiple files and improved analytics dashboard tracks your usage patterns.</span></p>
           </div>
 
           <div class="modal-section">
@@ -517,7 +490,6 @@
               <li data-i18n="config_multi_format">Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions</li>
               <li data-i18n="config_platform_optimization">Platform Optimization: Special handling for each AI platform's unique file attachment system</li>
               <li data-i18n="config_batch_processing">Batch Processing: Split large content into 2-4 files with smart line division</li>
-              <li data-i18n="config_file_compression">File Compression: GZIP compression reduces file sizes for better performance</li>
               <li data-i18n="config_manual_override">Manual Override: On-demand conversion of typed text to file attachments</li>
               <li data-i18n="config_claude_integration">Claude Integration: Works alongside or replaces Claude's built-in paste-to-file feature</li>
               <li data-i18n="config_analytics_dashboard">Analytics Dashboard: Track usage patterns and file creation statistics</li>

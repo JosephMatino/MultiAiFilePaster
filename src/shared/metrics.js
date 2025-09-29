@@ -104,4 +104,4 @@
     }
   }
   root.GPTPF_METRICS = Object.freeze({ __v: (root.GPTPF_CONFIG?.__v ? root.GPTPF_CONFIG.__v : "unknown"), record });
-})();
+})();

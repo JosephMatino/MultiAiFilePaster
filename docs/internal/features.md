@@ -33,7 +33,7 @@ The Multi-AI File Paster extension implements a comprehensive set of features de
 | **AI Platform Integration** | ✅ Working | `content/platforms/` | 6 platforms active |
 | **File Creation & Upload** | ✅ Working | `content/components/fileattach.js` | Auto-attachment system |
 | **Settings & Configuration** | ✅ Working | `shared/config.js` | Chrome sync enabled |
-| **File Compression** | ✅ Working | `shared/compression.js` | GZIP compression |
+| **Smart Language Detection** | ✅ Working | `shared/languagedetector.js` | Auto file extension detection |
 | **Privacy Controls** | ✅ Working | `shared/metrics.js` | Optional analytics |
 | **User Interface** | ✅ Working | `popup/` folder | Settings popup |
 | **Components** | ✅ Working | `content/components/` | Toast, modal, loader |
@@ -94,8 +94,8 @@ The extension provides a sophisticated UI component system for seamless user int
 
 | Feature | Status | Implementation Details |
 |---------|--------|----------------------|
-| **GZIP Compression** | ✅ Complete | CompressionStream API with ratio evaluation |
-| **Memory Management** | ⚠️ Optimization Needed | Stores both original + compressed (duplication) |
+| **Smart Language Detection** | ✅ Complete | Pattern analysis with confidence scoring |
+| **Memory Management** | ✅ Optimized | Efficient content processing without duplication |
 | **Error Handling** | ⚠️ Partial | Silent catches need debug logging |
 | **Global Namespacing** | ✅ Complete | `GPTPF_*` frozen globals prevent conflicts |
 | **Platform Factory** | ✅ Complete | URL-based conditional platform selection |
@@ -110,17 +110,17 @@ Multi-language support with Chrome i18n API integration for global accessibility
 
 | Locale | Coverage | Status | Key Count | Implementation Notes |
 |--------|----------|--------|-----------|-------------------|
-| **English (en)** | 100% | ✅ Complete | 677 keys | Baseline reference implementation |
-| **Arabic (ar)** | 100% | ✅ Complete | 677 keys | Full RTL support with proper translations |
-| **Swahili (sw)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **Spanish (es)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Japanese (ja)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **French (fr)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Russian (ru)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **Chinese (zh)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Portuguese (pt)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
-| **German (de)** | 100% | ✅ Complete | 677 keys | Layout-conscious translations following Swahili patterns |
-| **Hindi (hi)** | 100% | ✅ Complete | 677 keys | SHORT UI text patterns for layout optimization |
+| **English (en)** | 100% | ✅ Complete | 648 keys | Baseline reference implementation |
+| **Arabic (ar)** | 100% | ✅ Complete | 648 keys | Full RTL support with proper translations |
+| **Swahili (sw)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **Spanish (es)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Japanese (ja)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **French (fr)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Russian (ru)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **Chinese (zh)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Portuguese (pt)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
+| **German (de)** | 100% | ✅ Complete | 648 keys | Layout-conscious translations following Swahili patterns |
+| **Hindi (hi)** | 100% | ✅ Complete | 648 keys | SHORT UI text patterns for layout optimization |
 
 ### 🔧 Localization Architecture
 
@@ -141,7 +141,7 @@ Systematic identification of optimization opportunities and architectural improv
 | ID | Issue | Current Impact | Proposed Solution | Implementation Estimate |
 |----|-------|----------------|-------------------|------------------------|
 | **TD1** | ChatGPT Polling Detection | Unnecessary CPU cycles every 500ms | MutationObserver implementation | 2-3 hours |
-| **TD3** | Compression Memory Duplication | 2x memory usage for compressed content | Single representation strategy | 1-2 hours |
+| **TD3** | Language Detection Optimization | Enhanced pattern recognition accuracy | Improved confidence scoring | 1-2 hours |
 | **TD5** | Modal HTML Localization | English-only modal content | Extract to i18n message keys | 3-4 hours |
 | **TD8** | Silent Error Handling | Hidden debugging information | Conditional logging with debug flag | 1 hour |
 
@@ -201,7 +201,7 @@ Current testing relies on manual verification with planned automation infrastruc
 **Phase 1: Foundation** (Planned v1.2.0)
 - Unit tests for validation utilities
 - Batch filename generation testing
-- Compression ratio verification
+- Language detection accuracy verification
 
 **Phase 2: Integration** (Planned v1.3.0)  
 - Platform factory testing
@@ -244,7 +244,7 @@ Strategic improvement plan aligned with technical debt priorities.
 
 ### 📅 Version 1.1.1 (Critical Fixes)
 - **ChatGPT MutationObserver**: Replace polling with efficient DOM observation
-- **Memory Optimization**: Single representation for compression pipeline
+- **Memory Optimization**: Efficient content processing without duplication
 - **Debug Logging**: Conditional error reporting system
 
 ### 📅 Version 1.2.0 (Architecture Improvements)
@@ -291,7 +291,7 @@ All feature modifications require synchronized documentation updates to maintain
 | Batch Processing | ✅ Complete | Line-based splitting + filenames | `shared/batchprocessor.js` |
 | File Validation | ✅ Complete | Extension + filename sanitization | `shared/validation.js` |
 | Configuration System | ✅ Complete | Central frozen defaults + setter | `shared/config.js` |
-| Optional Compression | ✅ Complete | GZIP with ratio gate (>10% savings) | `shared/compression.js` |
+| Smart Language Detection | ✅ Complete | Pattern analysis with confidence scoring | `shared/languagedetector.js` |
 | Privacy Gate (Telemetry) | ✅ Complete | Events skipped unless enabled | `shared/metrics.js` |
 | Popup UI | ✅ Complete | Settings + dashboards | `popup/*` |
 | Toast / Modal / Loader | ✅ Complete | Reusable components | `content/components/*` |
@@ -326,8 +326,8 @@ All feature modifications require synchronized documentation updates to maintain
 ## Technical Features
 | Feature | Status | Notes |
 |---------|--------|-------|
-| GZIP Compression | ✅ | Returns both original + compressed (optimize) |
-| Memory Efficiency | ⚠️ Partial | Duplicate payload retained when compressed |
+| Smart Language Detection | ✅ | Pattern analysis with confidence scoring |
+| Memory Efficiency | ✅ Complete | Optimized content processing without duplication |
 | Error Handling | ⚠️ Partial | Many silent catches swallow diagnostics |
 | Messaging Namespacing | ✅ | `GPTPF_*` globals frozen |
 | Platform Factory | ✅ | Imperative conditional selection |
@@ -351,7 +351,7 @@ Planned: extract ABOUT / HELP / FEEDBACK modal sections into keys, then backfill
 |----|-----|--------|----------|
 | TD1 | ChatGPT polling detection | Unnecessary CPU wakeups | P1 |
 | TD2 | Gemini traversal each attach | Performance overhead | P2 |
-| TD3 | Compression memory duplication | Higher memory footprint | P1 |
+| TD3 | Language detection optimization | Enhanced accuracy needed | P2 |
 | TD4 | Uncentralized platform metadata | Drift risk | P2 |
 | TD5 | Modal HTML fully localized | ✅ Complete i18n | ✅ Fixed |
 | TD6 | Duplicate validation block history | Potential key loss (fixed by awareness) | P2 |
@@ -364,7 +364,7 @@ Planned: extract ABOUT / HELP / FEEDBACK modal sections into keys, then backfill
 | Priority | Item | Target Version |
 |----------|------|----------------|
 | P1 | MutationObserver (ChatGPT) | ≥1.1.1 |
-| P1 | Compression return optimization | ≥1.1.1 |
+| P1 | Language detection enhancement | ≥1.1.1 |
 | P1 | Externalize modal HTML | ≥1.1.1 |
 | P2 | Platform metadata module | 1.2.0 |
 | P2 | Gemini cache | 1.2.0 |
@@ -389,7 +389,7 @@ Planned: extract ABOUT / HELP / FEEDBACK modal sections into keys, then backfill
 | Performance Benchmarks | ❌ None | Not instrumented |
 | Manifest / Syntax / Security Patterns | ✅ CI | GitHub Actions `ci.yml` script |
 
-First test additions should target: validation utilities, batch filename generation, compression ratio gating.
+First test additions should target: validation utilities, batch filename generation, language detection accuracy.
 
 ---
 ## Metrics & Analytics Reality

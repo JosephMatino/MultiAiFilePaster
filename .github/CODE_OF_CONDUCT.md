@@ -14,7 +14,7 @@
 
 ## Project Mission
 
-Multi-AI File Paster is a Chrome extension that transforms how developers, writers, and AI users work with large content across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supporting 11 languages with 677 translation keys each, our community exists to advance AI workflow optimization through collaborative development, user feedback, and technical excellence.
+Multi-AI File Paster is a Chrome extension that transforms how developers, writers, and AI users work with large content across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supporting 11 languages with 648 translation keys each, our community exists to advance AI workflow optimization through collaborative development, user feedback, and technical excellence.
 
 ## Community Values
 

@@ -80,11 +80,11 @@ Multi-AI File Paster offers native integration with five major AI platforms incl
 
 **Batch File Processing:** Automatically detects multiple code blocks in pasted text and creates separate files for each block. Perfect for multi-file projects where you paste content containing ```javascript, ```python, and ```css blocks - each becomes its own properly formatted file.
 
-**File Compression:** GZIP compression reduces large file attachments by 60-80% using browser-native compression. Configurable threshold (512-10240 bytes) with automatic compression ratio validation and user feedback.
+**Smart Language Detection:** Automatically detects programming languages and content types to select the most appropriate file extension. Supports 20+ languages including JavaScript, Python, SQL, CSS, HTML, and more.
 
 **Analytics Dashboard:** View usage stats: total files, platform breakdowns, file type trends, time ranges (7/30/90 days, all‑time), and export data if you opt in.
 
-Privacy and security are built into the core architecture. All processing happens locally on your device with zero external data transmission, meeting Chrome Manifest V3 compliance standards with minimal permissions. Multi-AI File Paster works immediately after installation with no configuration required, while offering customizable settings for word thresholds, delays, batch processing, compression, and format overrides to match your workflow preferences.
+Privacy and security are built into the core architecture. All processing happens locally on your device with zero external data transmission, meeting Chrome Manifest V3 compliance standards with minimal permissions. Multi-AI File Paster works immediately after installation with no configuration required, while offering customizable settings for word thresholds, delays, batch processing, smart language detection, and format overrides to match your workflow preferences.
 
 ---
 
@@ -282,17 +282,17 @@ Multi-AI File Paster supports 11 languages with complete native translations:
 
 | Language | Native | Status | Coverage |
 |:--------:|:------:|:------:|:--------:|
-| **English** | English | ✅ Complete | 677/677 keys |
-| **العربية** | Arabic | ✅ Complete | 677/677 keys |
-| **Kiswahili** | Swahili | ✅ Complete | 677/677 keys |
-| **Español** | Spanish | ✅ Complete | 677/677 keys |
-| **日本語** | Japanese | ✅ Complete | 677/677 keys |
-| **Français** | French | ✅ Complete | 677/677 keys |
-| **Русский** | Russian | ✅ Complete | 677/677 keys |
-| **中文** | Chinese | ✅ Complete | 677/677 keys |
-| **Português** | Portuguese | ✅ Complete | 677/677 keys |
-| **Deutsch** | German | ✅ Complete | 677/677 keys |
-| **हिंदी** | Hindi | ✅ Complete | 677/677 keys |
+| **English** | English | ✅ Complete | 648/648 keys |
+| **العربية** | Arabic | ✅ Complete | 648/648 keys |
+| **Kiswahili** | Swahili | ✅ Complete | 648/648 keys |
+| **Español** | Spanish | ✅ Complete | 648/648 keys |
+| **日本語** | Japanese | ✅ Complete | 648/648 keys |
+| **Français** | French | ✅ Complete | 648/648 keys |
+| **Русский** | Russian | ✅ Complete | 648/648 keys |
+| **中文** | Chinese | ✅ Complete | 648/648 keys |
+| **Português** | Portuguese | ✅ Complete | 648/648 keys |
+| **Deutsch** | German | ✅ Complete | 648/648 keys |
+| **हिंदी** | Hindi | ✅ Complete | 648/648 keys |
 
 </div>
 
@@ -494,10 +494,10 @@ This project uses the Hostwek Custom License. Personal, non‑commercial use is 
 
 ### **v1.1.0 (Current) - Latest Release**
 - ✅ **Batch File Processing** - Automatically detects multiple code blocks and creates separate files
-- ✅ **File Compression** - GZIP compression reduces large files by 60-80%
+- ✅ **Smart Language Detection** - Automatic file extension selection based on content analysis
 - ✅ **Smart Code Detection** - Recognizes both fenced (```language) and indented code blocks
-- ✅ **Progress Indicators** - Real-time feedback during batch processing and compression
-- ✅ **Compression Controls** - User-configurable threshold (512-10240 bytes)
+- ✅ **Progress Indicators** - Real-time feedback during batch processing and file operations
+- ✅ **Complete Internationalization** - 11 languages with 648 translation keys each
 
 ### **v1.1.0 - Manual Save & Error Handling**
 - ✅ Fixed manual save error handling with specific, helpful error messages

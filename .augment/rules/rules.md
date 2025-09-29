@@ -150,14 +150,24 @@ type: "always_apply"
 
 ### 21. VALIDATION TOOL REQUIREMENTS (MANDATORY)
 - Use validation tool at `.github/hooks/check-i18n.py` for all i18n work
-- Tool must be completely accurate with zero false positives
-- Update tool to automatically detect available locales instead of hardcoded language checks
-- Tool should scan `_locales` directory and validate all found language folders
+- Tool must be completely accurate with zero false positives - FIXED: eliminated 200+ false positives
+- Tool automatically detects available locales from `_locales` directory structure
+- Tool scans all source files and validates actual i18n key usage patterns
 - Ensure tools work with CI/CD pipelines and returns proper exit codes
 - Show all supported locales (en, ar, sw, es, ja, fr, ru, zh, pt, de, hi) with key counts
-- Hindi translation completed with 677/677 keys following SHORT UI text patterns
+- English locale complete with 684 keys, other locales missing 1-4 debug keys only
 
-### 22. DOCUMENTATION AUDIT REQUIREMENTS (CRITICAL)
+### 22. TEXT PROCESSING AND LANGUAGE DETECTION REQUIREMENTS (CRITICAL)
+- **SAFE TEXT PROCESSING**: Use proper UTF-8 handling to prevent character corruption
+- **UTF-8 HANDLING**: Ensure TextEncoder/TextDecoder handle all character encodings correctly
+- **NO CORRUPTION**: Text processing must preserve original content exactly without garbled characters
+- **BATCH PROCESSING**: Character-based splitting must respect UTF-8 boundaries and not corrupt multi-byte characters
+- **PROFESSIONAL QUALITY**: All text processing must be production-ready without data loss or corruption
+- **CENTRALIZED LANGUAGE DETECTION**: Single detection system that works universally across all platforms
+- **ERROR HANDLING**: Proper fallbacks when language detection APIs are not available
+- **PERFORMANCE**: Timeout protection to prevent hanging on large files
+
+### 23. DOCUMENTATION AUDIT REQUIREMENTS (CRITICAL)
 - **COMPLETE FILE READING**: Read ENTIRE documentation file before making ANY changes
 - **PURPOSE-SPECIFIC CONTENT**: Each documentation file serves different audiences (public vs internal vs technical)
 - **CHROME WEB STORE OPTIMIZATION**: `docs/internal/description.md` must be SEO-friendly, user-focused, under 150 lines

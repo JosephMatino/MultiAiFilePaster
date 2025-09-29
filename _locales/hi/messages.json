@@ -50,7 +50,7 @@
   "analytics_today": {"message": "आज"},
   "analytics_yesterday": {"message": "कल"},
   "anonymous_analytics": {"message": "गुमनाम उपयोग एनालिटिक्स (वैकल्पिक)"},
-  "aria_batch_compression": {"message": "बैच कंप्रेशन"},
+
   "aria_batch_delay": {"message": "बैच देरी"},
   "aria_batch_processing": {"message": "बैच प्रोसेसिंग"},
   "aria_chart_type": {"message": "चार्ट प्रकार"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "फ़ाइल फॉर्मेट चुनें"},
   "aria_choose_theme": {"message": "थीम चुनें"},
   "aria_claude_override": {"message": "Claude ओवरराइड"},
-  "aria_compression_threshold": {"message": "बाइट्स में कंप्रेशन थ्रेशहोल्ड"},
+
   "aria_custom_format_help": {"message": "कस्टम फॉर्मेट सहायता"},
   "aria_debug_level": {"message": "डिबग स्तर सहायता"},
   "aria_delay_seconds": {"message": "देरी सेकंड (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "बैच सक्रिय"},
   "batch_active_tip": {"message": "बैच मोड सक्रिय है - कई फ़ाइलें प्रोसेस होंगी"},
   "batch_auto_attach_tip": {"message": "ऑटो-अटैच बैच मोड में सभी फ़ाइलों को प्रोसेस करेगा"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>कंप्रेशन</span> फ़ाइल साइज़ कम करने के लिए प्रत्येक व्यक्तिगत बैच फ़ाइल पर कंप्रेशन लागू करें। यह ऊपर मुख्य 'फ़ाइल कंप्रेशन' सेटिंग से अलग है। जब मुख्य कंप्रेशन सक्षम है, तो संघर्ष को रोकने के लिए यह विकल्प स्वचालित रूप से अक्षम हो जाता है। इसका उपयोग तब करें जब आप केवल बैच फ़ाइलों के लिए कंप्रेशन चाहते हैं लेकिन नियमित एकल फ़ाइलों के लिए नहीं।"},
+
   "batch_delay_tip": {"message": "देरी बैच प्रोसेसिंग में प्रत्येक फ़ाइल पर लागू होती है"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>समय</span> प्रत्येक बैच फ़ाइल अपलोड करने के बीच समय देरी (100ms से 2000ms)। अधिक देरी AI प्लेटफॉर्म द्वारा स्पैम के लिए फ्लैग किए जाने की संभावना को कम करती है। यह सेटिंग स्वचालित रूप से अक्षम हो जाती है जब ऊपर मुख्य 'उपयोगकर्ता देरी' टॉगल सक्रिय है - उस स्थिति में, मुख्य देरी सेटिंग सभी फ़ाइल अपलोड के लिए प्राथमिकता लेती है।"},
   "batch_detected": {
@@ -111,7 +111,6 @@
   "batch_mode": {"message": "बैच मोड"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>परीक्षण</span> आपकी अधिकतम फ़ाइल सेटिंग के आधार पर बड़े कंटेंट को कई फ़ाइलों में विभाजित करता है। कंटेंट को लाइनों द्वारा विभाजित करता है और फ़ाइल एक्सटेंशन के लिए स्मार्ट भाषा पहचान का उपयोग करता है। part1, part2, part3, part4 नाम की फ़ाइलें बनाता है। बड़े दस्तावेज़, कोड फ़ाइलें, या प्लेटफॉर्म सीमा से अधिक कोई भी कंटेंट विभाजित करने के लिए बिल्कुल सही। प्रत्येक भाग को कंटेंट विश्लेषण के आधार पर उचित फ़ाइल एक्सटेंशन मिलता है।"},
   "beta": {"message": "परीक्षण"},
-  "bytes": {"message": "बाइट्स"},
   "cancel": {"message": "रद्द करें"},
   "claude_override": {"message": "Claude ऑटो-अटैच ओवरराइड"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>सुविधा</span> Claude में अपना पेस्ट-टू-फ़ाइल फीचर शामिल है। अधिक सुसंगत फॉर्मेटिंग और नामकरण के लिए हमेशा Multi-AI File Paster का उपयोग करने के लिए इसे सक्षम करें।"},
@@ -121,32 +120,13 @@
   "clear_data_warning": {"message": "यह आपके सभी उपयोग आंकड़ों को स्थायी रूप से हटा देगा और इसे पूर्ववत नहीं किया जा सकता।"},
   "close": {"message": "बंद करें"},
   "company": {"message": "कंपनी:"},
-  "compression": {"message": "कंप्रेशन"},
-  "compression_optimized": {
-    "message": "कंप्रेशन अनुकूलित: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$% बचत)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "कंप्रेशन अनुपात बहुत कम, मूल फ़ाइल रख रहे हैं"},
-  "compression_below_threshold": {"message": "थ्रेशहोल्ड से नीचे"},
+
   "config_analytics_dashboard": {"message": "एनालिटिक्स डैशबोर्ड: उपयोग पैटर्न और फ़ाइल निर्माण आंकड़े ट्रैक करें"},
   "config_auto_attach": {"message": "ऑटो अटैच: स्वचालित रूप से लंबे पेस्ट का पता लगाता है और बदलता है (अनुकूलन योग्य शब्द थ्रेशहोल्ड: 50-15,000 शब्द)"},
   "config_batch_processing": {"message": "बैच प्रोसेसिंग: स्मार्ट लाइन विभाजन के साथ बड़े कंटेंट को 2-4 फ़ाइलों में विभाजित करें"},
   "config_claude_integration": {"message": "Claude एकीकरण: Claude के अंतर्निहित पेस्ट-टू-फ़ाइल फीचर के साथ या उसके स्थान पर काम करता है"},
   "config_delay": {"message": "देरी: वैकल्पिक 1-15 सेकंड काउंटडाउन आकस्मिक अटैचमेंट को रोकता है"},
-  "config_file_compression": {"message": "फ़ाइल कंप्रेशन: GZIP कंप्रेशन बेहतर प्रदर्शन के लिए फ़ाइल साइज़ कम करता है"},
+
   "config_manual_override": {"message": "मैन्युअल ओवरराइड: टाइप किए गए टेक्स्ट को फ़ाइल अटैचमेंट में ऑन-डिमांड रूपांतरण"},
   "config_multi_format": {"message": "मल्टी-फॉर्मेट समर्थन: प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट और कस्टम एक्सटेंशन सहित 20+ फ़ाइल प्रकारों में से चुनें"},
   "config_platform_optimization": {"message": "प्लेटफॉर्म अनुकूलन: प्रत्येक AI प्लेटफॉर्म के अनूठे फ़ाइल अटैचमेंट सिस्टम के लिए विशेष हैंडलिंग"},
@@ -523,13 +503,12 @@
   "debug_validation_system_ready": {"message": "वैलिडेशन सिस्टम तैयार"},
   "debug_warn": {"message": "[चेतावनी]"},
   "debug_warning": {"message": "[चेतावनी]"},
-  "debug_compression_invalid_input": {"message": "टेक्स्ट null, undefined, या स्ट्रिंग नहीं है"},
-  "debug_compression_skipped": {"message": "कंटेंट बहुत छोटा: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API उपलब्ध नहीं"},
-  "debug_compression_encoding_mismatch": {"message": "टेक्स्ट एन्कोडिंग साइज़ मिसमैच पहचाना गया"},
-  "debug_compression_poor_ratio": {"message": "अनुपात $1 बहुत अधिक"},
+
   "debug_batch_content_too_short": {"message": "बैच प्रोसेसिंग के लिए कंटेंट बहुत छोटा"},
   "debug_batch_split_insufficient": {"message": "कंटेंट को कई भागों में सार्थक रूप से विभाजित नहीं किया जा सका"},
+  "debug_batch_part_too_small": {"message": "भाग $1 बहुत छोटा है: $2 वर्ण"},
+  "debug_batch_structured_content": {"message": "संरचित कंटेंट का पता चला: $1"},
+  "debug_batch_too_few_lines": {"message": "सार्थक बैच विभाजन के लिए बहुत कम लाइनें: $1 लाइनें"},
   "debug_file_content_empty": {"message": "कंटेंट खाली या अमान्य है"},
   "debug_json_content_valid": {"message": "कंटेंट पहले से ही मान्य JSON है"},
   "debug_json_wrap_applied": {"message": "कंटेंट को JSON संरचना में लपेटा गया"},
@@ -548,17 +527,16 @@
   },
   "developer_website": {"message": "डेवलपर वेबसाइट"},
   "development_team": {"message": "डेवलपमेंट टीम और सपोर्ट"},
-  "disabled_compression_tooltip": {"message": "इस फॉर्मेट के लिए कंप्रेशन अक्षम"},
+
   "disabled_title": {"message": "इस पेज पर सुविधा अक्षम"},
   "enter_custom": {"message": "कस्टम फॉर्मेट दर्ज करें"},
   "errors": {"message": "त्रुटियां"},
   "errors_attachment_failed": {"message": "फ़ाइल अटैचमेंट असफल। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
   "errors_batch_processing_failed": {"message": "बैच प्रोसेसिंग असफल: $1"},
   "errors_busy_processing": {"message": "दूसरी फ़ाइल अटैचमेंट प्रगति में है। कृपया प्रतीक्षा करें"},
-  "errors_compression_not_supported": {"message": "कंप्रेशन समर्थित नहीं"},
+
   "errors_connection_failed": {"message": "पेज से कनेक्ट नहीं हो सकता। कृपया रिफ्रेश करें और फिर कोशिश करें"},
-  "errors_decompression_failed": {"message": "फ़ाइल डीकंप्रेस करने में असफल"},
-  "errors_decompression_not_supported": {"message": "इस फ़ाइल प्रकार के लिए डीकंप्रेशन समर्थित नहीं"},
+
   "errors_export_failed": {"message": "एक्सपोर्ट असफल। कृपया फिर कोशिश करें"},
   "errors_extension_context": {"message": "एक्सटेंशन कॉन्टेक्स्ट समस्या। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
   "errors_extension_reloaded": {"message": "एक्सटेंशन रीलोड हो गया। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
@@ -572,7 +550,7 @@
   "errors_platform_not_supported": {"message": "यह AI प्लेटफॉर्म समर्थित नहीं है। ChatGPT, Claude, Gemini, DeepSeek, या Grok आज़माएं"},
   "errors_text_too_short": {"message": "टेक्स्ट बहुत छोटा ($1 शब्द)। न्यूनतम $2 शब्द आवश्यक"},
   "errors_text_too_short_manual": {"message": "मैन्युअल सेव के लिए टेक्स्ट बहुत छोटा। या तो अधिक टेक्स्ट जोड़ें या न्यूनतम शब्द सेटिंग कम करें"},
-  "errors_compression_invalid_input": {"message": "कंप्रेशन के लिए अमान्य इनपुट"},
+
   "errors_invalid_content_type": {"message": "अमान्य कंटेंट: टेक्स्ट एक गैर-खाली स्ट्रिंग होना चाहिए"},
   "errors_invalid_content_empty": {"message": "अमान्य कंटेंट: टेक्स्ट खाली नहीं हो सकता"},
   "errors_file_creation_failed": {"message": "मान्य फ़ाइल ऑब्जेक्ट बनाने में असफल"},
@@ -592,8 +570,7 @@
   "feedback_sent": {"message": "फीडबैक सफलतापूर्वक भेजा गया"},
   "feedback_support_description": {"message": "आप किस समस्या का सामना कर रहे हैं?"},
   "file_blob_created": {"message": "फ़ाइल ब्लॉब बनाया गया"},
-  "file_compression": {"message": "कंप्रेशन"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>कंप्रेशन</span> GZIP कंप्रेशन का उपयोग करके बड़ी फ़ाइलों (1KB+) को स्वचालित रूप से कंप्रेस करता है। टेक्स्ट कंटेंट के लिए फ़ाइल साइज़ 60-80% कम करता है। केवल तभी कंप्रेस करता है जब यह अच्छी जगह बचाता है।"},
+
   "file_creation_insights": {"message": "आपकी फ़ाइल निर्माण अंतर्दृष्टि"},
   "file_creation_started": {"message": "फ़ाइल निर्माण शुरू"},
   "file_format": {"message": "फ़ाइल फॉर्मेट"},
@@ -619,7 +596,7 @@
   "file_operations_batch_processing_start": {"message": "$1 फ़ाइलें प्रोसेस कर रहे हैं"},
   "file_operations_batch_success": {"message": "बैच से $1 फ़ाइलें प्रोसेस की गईं"},
   "file_operations_batch_uploading": {"message": "अपलोड कर रहे हैं $1"},
-  "file_operations_compression_optimized": {"message": "फ़ाइल $1 से $2 तक अनुकूलित ($3% छोटी)"},
+
   "file_operations_manual_save_success": {"message": "फ़ाइल अटैच"},
   "files_per_day": {"message": "प्रति दिन फ़ाइलें"},
   "flash_called": {"message": "फ्लैश संदेश कॉल"},
@@ -703,7 +680,7 @@
   "more_formats_loaded": {"message": "लोड"},
   "network_error": {"message": "नेट त्रुटि"},
   "new_version": {"message": "v1.1.0 में नया:"},
-  "new_version_text": {"message": "बैच मोड बड़ी सामग्री को कई फ़ाइलों में विभाजित करता है, GZIP कंप्रेशन फ़ाइल साइज़ 60-80% कम करता है, और बेहतर एनालिटिक्स डैशबोर्ड आपके उपयोग पैटर्न को ट्रैक करता है।"},
+  "new_version_text": {"message": "बैच मोड बड़ी सामग्री को कई फ़ाइलों में विभाजित करता है, स्मार्ट भाषा पहचान स्वचालित रूप से फ़ाइल एक्सटेंशन चुनती है, और बेहतर एनालिटिक्स डैशबोर्ड आपके उपयोग पैटर्न को ट्रैक करता है।"},
   "next_page": {"message": "आगे"},
   "no_data_yet": {"message": "कोई डेटा नहीं"},
   "no_file_input": {"message": "फ़ाइल इनपुट नहीं मिला"},
@@ -754,16 +731,13 @@
   "setting_saved_to_storage": {"message": "सेटिंग स्टोरेज में सेव"},
   "settings_auto_attach_disabled": {"message": "ऑटो अटैच अक्षम। फ़ाइलें अटैच करने के लिए मैन्युअल सेव बटन का उपयोग करें"},
   "settings_auto_attach_enabled": {"message": "ऑटो अटैच सक्षम। जब आप पेस्ट करेंगे तो फ़ाइलें स्वचालित रूप से अटैच होंगी"},
-  "settings_batch_compression_disabled": {"message": "बैच कंप्रेशन अक्षम"},
-  "settings_batch_compression_enabled": {"message": "बैच कंप्रेशन सक्षम"},
+
   "settings_batch_delay_updated": {"message": "बैच प्रोसेसिंग देरी $1ms सेट"},
   "settings_batch_mode_disabled": {"message": "बैच मोड अक्षम। ऑटो अटैच बहाल"},
   "settings_batch_mode_enabled": {"message": "बैच मोड सक्षम। बैच मोड सक्रिय होने पर ऑटो अटैच अक्षम"},
   "settings_claude_override_disabled": {"message": "Claude ओवरराइड अक्षम। Claude बिल्ट-इन फीचर्स का उपयोग करेगा"},
   "settings_claude_override_enabled": {"message": "Claude ओवरराइड सक्षम। एक्सटेंशन Claude पर काम करेगा"},
-  "settings_compression_disabled": {"message": "फ़ाइल कंप्रेशन अक्षम"},
-  "settings_compression_enabled": {"message": "$1 बाइट्स से अधिक फ़ाइलों के लिए फ़ाइल कंप्रेशन सक्षम"},
-  "settings_compression_threshold_updated": {"message": "कंप्रेशन थ्रेशोल्ड $1 बाइट्स सेट"},
+
   "settings_debug_disabled": {"message": "डिबग मोड अक्षम"},
   "settings_debug_enabled": {"message": "डिबग मोड सक्षम"},
   "settings_delay_disabled": {"message": "अटैचमेंट देरी अक्षम"},
@@ -832,14 +806,15 @@
   "total_files": {"message": "कुल फ़ाइलें"},
   "translating_wait": {"message": "अनुवाद कर रहे हैं, कृपया प्रतीक्षा करें..."},
   "try_attachment_button": {"message": "इसके बजाय अटैचमेंट बटन का उपयोग करने की कोशिश करें"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर फ़ाइल कंप्रेशन अक्षम है। एक समय में केवल एक कंप्रेशन विधि सक्रिय हो सकती है।"},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर ऑटो अटैच अक्षम है। बैच मोड विभाजित सामग्री के लिए स्वचालित रूप से फ़ाइल अटैचमेंट को संभालता है। नियमित एकल फ़ाइलों के लिए ऑटो अटैच का उपयोग करने के लिए बैच मोड बंद करें।"},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर यह सेटिंग अक्षम है। बैच मोड फ़ाइल अपलोड के लिए अपनी देरी सेटिंग का उपयोग करता है। इस देरी सेटिंग का उपयोग करने के लिए बैच मोड बंद करें।"},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर मैन्युअल एक्शन बैच प्रोसेसिंग नियमों का उपयोग करता है। नियमित एकल फ़ाइल प्रोसेसिंग के लिए बैच मोड बंद करें।"},
   "ui_components_custom_format_label": {"message": "कस्टम"},
   "ui_components_custom_format_placeholder": {"message": "जैसे log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "डेटा सफलतापूर्वक साफ"},
   "ui_components_delay_countdown": {"message": "$1 सेकंड में अटैच कर रहे हैं"},
-  "ui_components_disabled_compression_tooltip": {"message": "फ़ाइल कंप्रेशन सक्षम होने पर अक्षम"},
+
   "ui_components_disabled_title": {"message": "AI चैट खोलें और फ़ाइल के रूप में अटैच करने के लिए टेक्स्ट टाइप करें"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +865,8 @@
   "claude_file_attached": {"message": "फ़ाइल सफलतापूर्वक Claude से अटैच"},
   "claude_invalid_text": {"message": "Claude प्रोसेसिंग के लिए अमान्य टेक्स्ट सामग्री"},
   "claude_removing_pasted_element": {"message": "Claude से पेस्ट किए गए टेक्स्ट एलिमेंट को हटा रहे हैं"},
-  "compression_encoding_mismatch": {"message": "टेक्स्ट एन्कोडिंग साइज़ मिसमैच पहचाना गया"},
-  "compression_exception": {"message": "कंप्रेशन एक्सेप्शन के साथ असफल"},
-  "compression_failed": {"message": "कंप्रेशन ऑपरेशन असफल"},
-  "compression_invalid_input": {"message": "कंप्रेशन के लिए अमान्य इनपुट प्रदान किया गया"},
-  "compression_not_supported": {"message": "इस ब्राउज़र में कंप्रेशन समर्थित नहीं"},
-  "compression_skipped": {"message": "कंप्रेशन छोड़ा गया - सामग्री बहुत छोटी"},
-  "compression_success": {"message": "कंप्रेशन सफलतापूर्वक पूर्ण"},
+  "debug_using_popup_flash": {"message": "कंटेंट टेक्स्ट के बजाय पॉपअप फ्लैश का उपयोग"},
+
   "empty_file_created": {"message": "चेतावनी: खाली फ़ाइल बनाई गई"},
   "fileAttachComponent_error": {"message": "फ़ाइल अटैचमेंट कंपोनेंट में त्रुटि आई"},
   "file_creation_complete": {"message": "फ़ाइल निर्माण प्रक्रिया पूर्ण"},
@@ -907,5 +877,7 @@
   "language_detection_fallback": {"message": "फॉलबैक विधि का उपयोग करके भाषा पहचान"},
   "language_detection_success": {"message": "भाषा पहचान सफलतापूर्वक पूर्ण"},
   "makeFile_invalid_content": {"message": "makeFile फ़ंक्शन को अमान्य सामग्री प्रदान की गई"},
-  "makeFile_invalid_format": {"message": "makeFile फ़ंक्शन को अमान्य फॉर्मेट प्रदान किया गया"}
+  "makeFile_invalid_format": {"message": "makeFile फ़ंक्शन को अमान्य फॉर्मेट प्रदान किया गया"},
+  "ui_components_config_error": {"message": "कॉन्फ़िगरेशन त्रुटि"},
+  "ui_components_reset_failed": {"message": "रीसेट असफल"}
 }

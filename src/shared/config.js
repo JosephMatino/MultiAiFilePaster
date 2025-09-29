@@ -31,7 +31,7 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: ChatGPT, Claude, Gemini, DeepSeek, Grok
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
  * • FEATURES: Centralized configuration, platform detection, settings management
  * • TESTING: Automated unit tests, integration tests, configuration validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
@@ -163,9 +163,6 @@
       batchMode: false,
       maxBatchFiles: 3,
       batchProcessingDelay: 500,
-      batchCompression: false,
-      enableCompression: false,
-      compressionThreshold: 1024,
       telemetryEnabled: true,
       claudeOverride: true,
       defaultTheme: 'dark',
@@ -231,8 +228,7 @@
       maxWordLimit: 15000,
       eventNameMaxLength: 32,
       maxBatchFiles: 4,
-      maxFileSize: 10485760,
-      compressionMinSize: 1024
+      maxFileSize: 10485760
     }),
     LANGUAGE_DETECTION: Object.freeze({
       confidenceThreshold: 0.35,
@@ -281,4 +277,4 @@
     setConfig
   });
   root.GPTPF_DEBUG?.log('debug_config_system_ready');
-})();
+})();

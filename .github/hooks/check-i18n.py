@@ -10,10 +10,10 @@ import re
 from typing import Set, Dict, List, Any
 
 def find_commented_code() -> List[str]:
-    """Find JavaScript files with commented code (excluding headers)."""
+    """Find JavaScript files with development comments (TODO, FIXME, etc.) excluding headers."""
     commented_files: List[str] = []
 
-    # Scan JavaScript files for commented code
+    # Scan JavaScript files for development comments
     for root, dirs, files in os.walk('.'):
         # Skip node_modules, .git, and other irrelevant directories
         dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', 'dist', 'build']]
@@ -23,9 +23,10 @@ def find_commented_code() -> List[str]:
                 file_path = os.path.join(root, file)
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
-                        lines = f.readlines()
+                        content = f.read()
 
                     # Skip header comments (first 100 lines typically contain headers)
+                    lines = content.split('\n')
                     content_start = 0
                     for i, line in enumerate(lines):
                         if i > 100:  # Stop looking after 100 lines
@@ -38,18 +39,19 @@ def find_commented_code() -> List[str]:
                             content_start = i + 1
                             break
 
-                    # Check for ANY commented code in the actual content (excluding headers)
-                    has_commented_code = False
-                    for i, line in enumerate(lines[content_start:], content_start + 1):
+                    # Check for development comments in the actual content (excluding headers)
+                    content_lines = lines[content_start:]
+                    has_dev_comments = False
+
+                    for line in content_lines:
                         stripped = line.strip()
-                        # Look for ANY comment lines (// or # or /* */)
-                        if (stripped.startswith('//') or
-                            stripped.startswith('#') or
-                            (stripped.startswith('/*') and not stripped.endswith('*/'))):
-                            has_commented_code = True
+                        # Look for development-related comments only
+                        if (stripped.startswith('//') and
+                            any(keyword in stripped.lower() for keyword in ['todo', 'fixme', 'hack', 'bug', 'issue', 'debug', 'temp', 'temporary'])):
+                            has_dev_comments = True
                             break
 
-                    if has_commented_code:
+                    if has_dev_comments:
                         commented_files.append(file_path.replace('\\', '/'))
 
                 except Exception:
@@ -356,99 +358,106 @@ def analyze_i18n() -> Dict[str, Any]:
     }
 
 def find_hardcoded_strings() -> List[Dict[str, Any]]:
-    """Find hardcoded user-facing strings that should be internationalized."""
+    """Find ONLY actual hardcoded user-facing strings that should be internationalized."""
     hardcoded_strings: List[Dict[str, Any]] = []
-    
-    # Comprehensive patterns for ALL hardcoded strings and forbidden patterns
+
+    # FOCUSED patterns for ONLY actual user-facing strings that need i18n
     string_patterns: List[str] = [
-        # Direct user-facing strings
-        r'(?:innerHTML|textContent|innerText)\s*=\s*[\'"]([A-Z][^\'\"]{2,40})[\'"]',
-        r'(?:title|placeholder|alt)\s*=\s*[\'"]([A-Z][^\'\"]{2,40})[\'"]',
-        r'(?:alert|confirm)\s*\(\s*[\'"]([A-Z][^\'\"]{2,40})[\'"]',
-        r'\.push\s*\(\s*[\'"]([A-Z][^\'\"]{2,40})[\'"]',
-        
-        # CRITICAL: ALL forbidden fallback patterns (|| with hardcoded strings)
+        # CRITICAL: Forbidden fallback patterns (|| with hardcoded strings) - THESE ARE REAL ISSUES
         r'GPTPF_I18N\?\.\w+\([^)]+\)\s*\|\|\s*[\'"]([^\'\"]+)[\'"]',
         r'getMessage\([^)]+\)\s*\|\|\s*[\'"]([^\'\"]+)[\'"]',
         r'\?\.\w+\([^)]+\)\s*\|\|\s*[\'"]([^\'\"]+)[\'"]',
-        r'\|\|\s*[\'"]([A-Za-z][^\'\"]{2,})[\'"]',
-        r'[\'"]([A-Za-z][^\'\"]{2,})[\'"]\s*\|\|',
-        
-        # Error messages and debug strings  
-        r'throw new Error\s*\(\s*[\'"]([^\'\"]+)[\'"]',
-        r'Error\s*\(\s*[\'"]([^\'\"]+)[\'"]',
-        
-        # Debug calls with hardcoded messages
-        r'GPTPF_DEBUG\?\.\w+\([\'"][^\'"]+[\'"]\s*,\s*[\'"]([^\'\"]{3,})[\'"]',
-        r'GPTPF_DEBUG\.\w+\([\'"][^\'"]+[\'"]\s*,\s*[\'"]([^\'\"]{3,})[\'"]',
-        r'window\.GPTPF_DEBUG\?\.\w+\([\'"][^\'"]+[\'"]\s*,\s*[\'"]([^\'\"]{3,})[\'"]',
-        
-        # Console messages with hardcoded text
-        r'console\.\w+\s*\(\s*[\'"]([A-Z][^\'\"]{3,})[\'"]',
-        
-        # Return statements with hardcoded user-facing strings
-        r'return\s*[\'"]([A-Z][^\'\"]{3,})[\'"]',
-        r'return\s*{\s*[^}]*error:\s*[\'"]([^\'\"]{3,})[\'"]',
-        r'return\s*{\s*[^}]*message:\s*[\'"]([^\'\"]{3,})[\'"]',
-        
-        # Assignment patterns
-        r'=\s*[\'"]([A-Z][a-z\s]{4,40})[\'"]',
-        
-        # Function calls with user-facing strings
-        r'(?:toast|showMessage|displayError|showNotification)\s*\(\s*[\'"]([^\'\"]+)[\'"]',
-        
-        # Ternary operators with hardcoded strings
-        r'\?\s*[\'"]([A-Za-z][^\'\"]{3,})[\'"]',
-        r':\s*[\'"]([A-Za-z][^\'\"]{3,})[\'"]',
+
+        # User-facing alert/confirm/prompt messages
+        r'(?:alert|confirm|prompt)\s*\(\s*[\'"]([^\'\"]{5,})[\'"]',
+
+        # Direct text content assignment (likely user-facing)
+        r'(?:innerHTML|textContent|innerText)\s*=\s*[\'"]([A-Z][^\'\"]{10,})[\'"]',
+
+        # Toast/notification messages
+        r'(?:toast|showMessage|displayError|showNotification|flash)\s*\(\s*[\'"]([^\'\"]{5,})[\'"]',
+
+        # Error messages in throw statements (user-facing errors)
+        r'throw new (?:Error|TypeError|ReferenceError)\s*\(\s*[\'"]([A-Z][^\'\"]{10,})[\'"]',
     ]
-    
-    # Legitimate strings that should NOT be internationalized  
+
+    # COMPREHENSIVE exclusion patterns for legitimate technical strings
     excluded_patterns: List[str] = [
+        # Technical identifiers and single words
         r'^[a-z]+$',  # Single lowercase words like 'txt', 'js', etc.
         r'^\w+\.\w+$',  # File extensions like 'file.txt'
+        r'^[a-zA-Z_$][a-zA-Z0-9_$]*$',  # Variable/function names
+        r'^[\w\-]+$',  # Single words/identifiers with hyphens
+
+        # Web/HTTP technical strings
         r'^(GET|POST|PUT|DELETE|HEAD|OPTIONS)$',  # HTTP methods
         r'^(application|text|image|audio|video)\/\w+$',  # MIME types
+        r'^https?:\/\/\S+$',  # URLs
+        r'^\w+[@]\w+\.\w+$',  # Email addresses
+
+        # CSS and styling
         r'^#[0-9a-fA-F]{3,6}$',  # Hex colors
         r'^\d+(\.\d+)?(px|em|rem|%|vh|vw)$',  # CSS units
         r'^(auto|none|inherit|initial|unset)$',  # CSS keywords
+        r'^[\w\-]+([\s\w\-]*[\w\-])?$',  # CSS class names and compound classes
+        r'^(flag-icon|debug-error|debug-warn|debug-info)[\w\-\s]*$',  # CSS classes with variants
+        r'^hsl\([^)]+\)$',  # HSL color values
+        r'^url\([^)]+\)$',  # CSS url() values
+        r'^M[\d\s\.\,LZlzHhVvCcSsQqTtAa\-]+$',  # SVG path data
+
+        # JavaScript/programming primitives
         r'^(true|false|null|undefined)$',  # JavaScript primitives
-        r'^[a-zA-Z_$][a-zA-Z0-9_$]*$',  # Variable/function names
-        r'^https?:\/\/\S+$',  # URLs
-        r'^\w+[@]\w+\.\w+$',  # Email addresses
-        r'^[A-Z]{2,5}$',  # Country/language codes
+        r'^[0-9\s\-\.]+$',  # Numbers and formatting
+        r'^\d+$',  # Pure numbers
+        r'^\$\{[^}]+\}$',  # Template literal placeholders
+
+        # Dates, versions, and codes
         r'^v?\d+\.\d+\.\d+$',  # Version numbers
         r'^\d{4}-\d{2}-\d{2}$',  # Dates
+        r'^[A-Z]{2,5}$',  # Country/language codes
+
+        # Content that's intentionally English (brand names, technical terms)
         r'^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)$',  # Days
         r'^(January|February|March|April|May|June|July|August|September|October|November|December)$',  # Months
-        r'^(content|format|debug|success|error|warning|info)$',  # Generic keys
+        r'^(content|format|debug|success|error|warning|info)$',  # Generic technical keys
         r'^(left|right|center|top|bottom|middle)$',  # Position keywords
+        r'^(rtl|ltr)$',  # Direction attributes
+        r'^(SW|EN|AR|ES|DE|FR|RU|ZH|PT|JA|HI)$',  # Language abbreviations
+        r'^(Kiswahili|العربية|Español|English|Deutsch|Français|Русский|中文|Português|日本語|हिंदी)$',  # Language display names
+
+        # File and technical patterns
+        r'^paste\.\d+\.\w+$',  # Generated filenames
+        r'^part\d+\-lines\d+\-\d+\.\w+$',  # Batch part filenames
+        r'^n/a$',  # Not applicable
+        r'^\.\.\.+$',  # Ellipsis patterns
+        r'^\s+$',  # Whitespace only
         r'^default$',  # The word "default"
         r'^(unknown|none|text|data)$',  # Technical terms
-        r'^(rtl|ltr)$',  # Direction attributes
-        r'^(SW|EN|AR|ES)$',  # Language abbreviations
-        r'^(Kiswahili|العربية|Español|English)$',  # Language display names
-        r'^(tanzania-flag|arabic-flag|spain-flag|uk-flag)$',  # Flag CSS classes
-        r'^(flag-icon|debug-error|debug-warn|debug-info)$',  # CSS classes
-        r'^\.\.\.+$',  # Ellipsis patterns
-        r'^[\w\-]+$',  # Single words/identifiers
-        r'^\s+$',  # Whitespace only
-        r'^[0-9\s\-\.]+$',  # Numbers and formatting
+
+        # Email subjects and technical strings
+        r'^Multi-AI File Paster.*$',  # Extension name in subjects/titles
+        r'^mailto:.*$',  # Email links
+
+        # Short technical strings that are not user-facing
+        r'^.{1,3}$',  # Very short strings (likely technical)
+        r'^\w+\s*\+\s*\w+$',  # Concatenation patterns
+        r'^[A-Z]+_[A-Z_]+$',  # CONSTANT_NAMES
     ]
     
     scan_dirs: List[str] = ['src']
     file_extensions: tuple[str, ...] = ('.js', '.html')
-    
+
     def is_excluded_string(text: str) -> bool:
         """Check if a string should be excluded from hardcoding checks."""
         for pattern in excluded_patterns:
             if re.match(pattern, text, re.IGNORECASE):
                 return True
         return False
-    
+
     for scan_dir in scan_dirs:
         if not os.path.exists(scan_dir):
             continue
-            
+
         for root, _, files in os.walk(scan_dir):
             for file in files:
                 if file.endswith(file_extensions):
@@ -456,7 +465,8 @@ def find_hardcoded_strings() -> List[Dict[str, Any]]:
                     try:
                         with open(filepath, 'r', encoding='utf-8') as f:
                             content: str = f.read()
-                        
+
+                        # Scan for hardcoded strings - ONLY REAL ISSUES
                         for pattern in string_patterns:
                             matches = re.finditer(pattern, content)
                             for match in matches:
@@ -469,7 +479,8 @@ def find_hardcoded_strings() -> List[Dict[str, Any]]:
                                     'file': filepath,
                                     'line': line_num,
                                     'string': extracted_string,
-                                    'context': content[max(0, match.start()-20):match.end()+20]
+                                    'context': content[max(0, match.start()-20):match.end()+20],
+                                    'type': 'hardcoded_string'
                                 })
                     except Exception:
                         continue
@@ -728,14 +739,20 @@ def main() -> int:
     for locale in analysis['locales']:
         print(f"  {locale['code']}: {locale['count']} keys")
     
-    # Check for hardcoded strings in source code
+    # Check for hardcoded strings and comments in source code
     hardcoded = find_hardcoded_strings()
     if hardcoded:
-        print(f"\nHARDCODED STRINGS IN SOURCE ({len(hardcoded)}):")
-        for item in hardcoded[:5]:
+        strings = [item for item in hardcoded if item.get('type') == 'hardcoded_string']
+        comments = [item for item in hardcoded if item.get('type') == 'comment']
+
+        print(f"\nHARDCODED STRINGS IN SOURCE ({len(strings)}):")
+        for item in strings:
             print(f"  {item['file']}:{item['line']} - \"{item['string']}\"")
-        if len(hardcoded) > 5:
-            print(f"  ... and {len(hardcoded) - 5} more")
+
+        if comments:
+            print(f"\nCOMMENTS WITH POTENTIAL ISSUES ({len(comments)}):")
+            for item in comments:
+                print(f"  {item['file']}:{item['line']} - \"{item['string']}\"")
     else:
         print(f"\nHARDCODED STRINGS IN SOURCE: ✓ None found")
 

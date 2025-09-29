@@ -1,6 +1,6 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "Automatically create file attachments from pasted text content on ChatGPT, Claude, Gemini, DeepSeek & Grok AI platforms. Features batch processing and file compression."},
+  "extension_description": {"message": "Automatically create file attachments from pasted text content on ChatGPT, Claude, Gemini, DeepSeek & Grok AI platforms. Features batch processing and smart language detection."},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "Extension context lost - please refresh page"},
   "extension_reloaded": {"message": "Extension was reloaded - please refresh page"},
@@ -50,7 +50,7 @@
   "analytics_today": {"message": "Today"},
   "analytics_yesterday": {"message": "Yesterday"},
   "anonymous_analytics": {"message": "Anonymous Usage Analytics (Optional)"},
-  "aria_batch_compression": {"message": "Batch Compression"},
+
   "aria_batch_delay": {"message": "Batch Delay"},
   "aria_batch_processing": {"message": "Batch Processing"},
   "aria_chart_type": {"message": "Chart type"},
@@ -58,7 +58,7 @@
   "aria_choose_file_format": {"message": "Choose file format"},
   "aria_choose_theme": {"message": "Choose theme"},
   "aria_claude_override": {"message": "Claude Override"},
-  "aria_compression_threshold": {"message": "Compression threshold in bytes"},
+
   "aria_custom_format_help": {"message": "Custom format help"},
   "aria_debug_level": {"message": "Debug level help"},
   "aria_delay_seconds": {"message": "Delay seconds (1-15)"},
@@ -96,7 +96,7 @@
   "batch_active_short": {"message": "BATCH ACTIVE"},
   "batch_active_tip": {"message": "Batch mode is active - multiple files will be processed"},
   "batch_auto_attach_tip": {"message": "Auto-attach will process all files in batch mode"},
-  "batch_compression_tooltip": {"message": "<span class='tip-badge compression'>COMPRESSION</span> Apply compression to each individual batch file to reduce file sizes. This is separate from the main 'File Compression' setting above. When main compression is enabled, this option is automatically disabled to prevent conflicts. Use this when you want compression only for batch files but not regular single files."},
+
   "batch_delay_tip": {"message": "Delay applies to each file in batch processing"},
   "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>TIMING</span> Time delay between uploading each batch file (100ms to 2000ms). Higher delays reduce the chance of being flagged for spam by AI platforms. This setting is automatically disabled when the main 'User Delay' toggle is active above - in that case, the main delay setting takes priority for all file uploads."},
   "batch_detected": {
@@ -111,7 +111,7 @@
   "batch_mode": {"message": "Batch Mode"},
   "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>BETA</span> Splits large content into multiple files based on your Max Files setting. Divides content by lines and uses smart language detection for file extensions. Creates files named part1, part2, part3, part4. Perfect for splitting large documents, code files, or any content that exceeds platform limits. Each part gets proper file extension based on content analysis."},
   "beta": {"message": "BETA"},
-  "bytes": {"message": "bytes"},
+
   "cancel": {"message": "Cancel"},
   "claude_override": {"message": "Override Claude's Auto-Attach"},
   "claude_override_tooltip": {"message": "<span class='tip-badge feature'>FEATURE</span> Claude includes its own paste-to-file feature. Enable this to always use Multi-AI File Paster for more consistent formatting and naming."},
@@ -121,32 +121,13 @@
   "clear_data_warning": {"message": "This will permanently delete all your usage statistics and cannot be undone."},
   "close": {"message": "Close"},
   "company": {"message": "Company:"},
-  "compression": {"message": "Compression"},
-  "compression_optimized": {
-    "message": "Compression optimized: $ORIGINAL$ → $COMPRESSED$ ($SAVINGS$% saved)",
-    "placeholders": {
-      "original": {
-        "content": "$1",
-        "example": "100KB"
-      },
-      "compressed": {
-        "content": "$2",
-        "example": "75KB"
-      },
-      "savings": {
-        "content": "$3",
-        "example": "25"
-      }
-    }
-  },
-  "compression_poor_ratio": {"message": "Compression ratio too low, keeping original file"},
-  "compression_below_threshold": {"message": "Below threshold"},
+
   "config_analytics_dashboard": {"message": "Analytics Dashboard: Track usage patterns and file creation statistics"},
   "config_auto_attach": {"message": "Auto Attach: Automatically detects and converts long pastes (customizable word threshold: 50-15,000 words)"},
   "config_batch_processing": {"message": "Batch Processing: Split large content into 2-4 files with smart line division"},
   "config_claude_integration": {"message": "Claude Integration: Works alongside or replaces Claude's built-in paste-to-file feature"},
   "config_delay": {"message": "Delay: Optional 1-15 second countdown prevents accidental attachments"},
-  "config_file_compression": {"message": "File Compression: GZIP compression reduces file sizes for better performance"},
+
   "config_manual_override": {"message": "Manual Override: On-demand conversion of typed text to file attachments"},
   "config_multi_format": {"message": "Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions"},
   "config_platform_optimization": {"message": "Platform Optimization: Special handling for each AI platform's unique file attachment system"},
@@ -523,13 +504,12 @@
   "debug_validation_system_ready": {"message": "Validation system ready"},
   "debug_warn": {"message": "[WARN]"},
   "debug_warning": {"message": "[WARNING]"},
-  "debug_compression_invalid_input": {"message": "Text is null, undefined, or not a string"},
-  "debug_compression_skipped": {"message": "Content too small: $1 < $2"},
-  "debug_compression_not_supported": {"message": "CompressionStream API not available"},
-  "debug_compression_encoding_mismatch": {"message": "Text encoding size mismatch detected"},
-  "debug_compression_poor_ratio": {"message": "Ratio $1 too high"},
+
   "debug_batch_content_too_short": {"message": "Content too short for batch processing"},
   "debug_batch_split_insufficient": {"message": "Content could not be meaningfully split into multiple parts"},
+  "debug_batch_part_too_small": {"message": "Part $1 too small: $2 chars"},
+  "debug_batch_structured_content": {"message": "Structured content detected: $1"},
+  "debug_batch_too_few_lines": {"message": "Content has too few lines for meaningful batch split: $1 lines"},
   "debug_file_content_empty": {"message": "Content is empty or invalid"},
   "debug_json_content_valid": {"message": "Content is already valid JSON"},
   "debug_json_wrap_applied": {"message": "Content wrapped in JSON structure"},
@@ -548,17 +528,14 @@
   },
   "developer_website": {"message": "Developer Website"},
   "development_team": {"message": "Development Team & Support"},
-  "disabled_compression_tooltip": {"message": "Compression disabled for this format"},
+
   "disabled_title": {"message": "Feature disabled on this page"},
   "enter_custom": {"message": "Enter Custom Format"},
   "errors": {"message": "Errors"},
   "errors_attachment_failed": {"message": "File attachment failed. Please refresh the page and try again"},
   "errors_batch_processing_failed": {"message": "Batch processing failed: $1"},
   "errors_busy_processing": {"message": "Another file attachment is in progress. Please wait"},
-  "errors_compression_not_supported": {"message": "Compression not supported"},
   "errors_connection_failed": {"message": "Cannot connect to the page. Please refresh and try again"},
-  "errors_decompression_failed": {"message": "Failed to decompress file"},
-  "errors_decompression_not_supported": {"message": "Decompression not supported for this file type"},
   "errors_export_failed": {"message": "Export failed. Please try again"},
   "errors_extension_context": {"message": "Extension context issue. Please refresh the page and try again"},
   "errors_extension_reloaded": {"message": "Extension was reloaded. Please refresh the page and try again"},
@@ -572,7 +549,7 @@
   "errors_platform_not_supported": {"message": "This AI platform is not supported. Try ChatGPT, Claude, Gemini, DeepSeek, or Grok"},
   "errors_text_too_short": {"message": "Text too short ($1 words). Minimum $2 words required"},
   "errors_text_too_short_manual": {"message": "Text too short for manual save. Either add more text or lower the Min Words setting"},
-  "errors_compression_invalid_input": {"message": "Invalid input for compression"},
+
   "errors_invalid_content_type": {"message": "Invalid content: text must be a non-empty string"},
   "errors_invalid_content_empty": {"message": "Invalid content: text cannot be empty"},
   "errors_file_creation_failed": {"message": "Failed to create valid file object"},
@@ -592,8 +569,7 @@
   "feedback_sent": {"message": "Feedback sent successfully"},
   "feedback_support_description": {"message": "What issue are you experiencing?"},
   "file_blob_created": {"message": "File blob created"},
-  "file_compression": {"message": "File Compression"},
-  "file_compression_tooltip": {"message": "<span class='tip-badge compression'>COMPRESSION</span> Automatically compresses large files (1KB+) using GZIP compression. Reduces file size by 60-80% for text content. Only compresses when it saves good space."},
+
   "file_creation_insights": {"message": "Your file creation insights"},
   "file_creation_started": {"message": "File creation started"},
   "file_format": {"message": "File Format"},
@@ -619,7 +595,7 @@
   "file_operations_batch_processing_start": {"message": "Processing $1 files"},
   "file_operations_batch_success": {"message": "Processed $1 files from batch"},
   "file_operations_batch_uploading": {"message": "Uploading $1"},
-  "file_operations_compression_optimized": {"message": "File optimized from $1 to $2 ($3% smaller)"},
+
   "file_operations_manual_save_success": {"message": "File attached"},
   "files_per_day": {"message": "Files per day"},
   "flash_called": {"message": "Flash message called"},
@@ -703,7 +679,7 @@
   "more_formats_loaded": {"message": "More formats loaded"},
   "network_error": {"message": "Network error occurred"},
   "new_version": {"message": "New in v1.1.0:"},
-  "new_version_text": {"message": "Batch Mode splits large content into multiple files, GZIP compression reduces file sizes by 60-80%, and improved analytics dashboard tracks your usage patterns."},
+  "new_version_text": {"message": "Batch Mode splits large content into multiple files, smart language detection automatically selects file extensions, and improved analytics dashboard tracks your usage patterns."},
   "next_page": {"message": "Next Page"},
   "no_data_yet": {"message": "No data yet"},
   "no_file_input": {"message": "No file input found on page"},
@@ -754,16 +730,13 @@
   "setting_saved_to_storage": {"message": "Setting saved to storage"},
   "settings_auto_attach_disabled": {"message": "Auto attach disabled. Use the manual save button to attach files"},
   "settings_auto_attach_enabled": {"message": "Auto attach enabled. Files will attach automatically when you paste"},
-  "settings_batch_compression_disabled": {"message": "Batch compression disabled"},
-  "settings_batch_compression_enabled": {"message": "Batch compression enabled"},
+
   "settings_batch_delay_updated": {"message": "Batch processing delay set to $1ms"},
   "settings_batch_mode_disabled": {"message": "Batch mode disabled. Auto attach restored"},
   "settings_batch_mode_enabled": {"message": "Batch mode enabled. Auto attach disabled while batch mode is active"},
   "settings_claude_override_disabled": {"message": "Claude override disabled. Claude will use built-in features"},
   "settings_claude_override_enabled": {"message": "Claude override enabled. Extension will work on Claude"},
-  "settings_compression_disabled": {"message": "File compression disabled"},
-  "settings_compression_enabled": {"message": "File compression enabled for files over $1 bytes"},
-  "settings_compression_threshold_updated": {"message": "Compression threshold set to $1 bytes"},
+
   "settings_debug_disabled": {"message": "Debug mode disabled"},
   "settings_debug_enabled": {"message": "Debug mode enabled"},
   "settings_delay_disabled": {"message": "Attachment delay disabled"},
@@ -832,14 +805,19 @@
   "total_files": {"message": "Total Files"},
   "translating_wait": {"message": "Translating, please wait..."},
   "try_attachment_button": {"message": "Try using the attachment button instead"},
-  "ui_components_batch_active_tip": {"message": "<span class='tip-badge batch'>BATCH ACTIVE</span> File Compression is disabled when Batch Mode is enabled. Only one compression method can be active at a time."},
+
   "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>BATCH ACTIVE</span> Auto Attach is disabled when Batch Mode is enabled. Batch Mode handles file attachment automatically for split content. Turn off Batch Mode to use Auto Attach for regular single files."},
   "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>BATCH ACTIVE</span> This setting is disabled when Batch Mode is enabled. Batch Mode uses its own delay setting for file uploads. Turn off Batch Mode to use this delay setting."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>BATCH ACTIVE</span> Manual Action is disabled when Batch Mode is enabled. Batch Mode automatically processes content into multiple files. Turn off Batch Mode to use Manual Action for single files."},
+  "ui_components_config_error": {"message": "Configuration error: DEFAULTS not found"},
+  "ui_components_reset_failed": {"message": "Reset failed"},
+  "debug_using_popup_flash": {"message": "Using popup flash instead of content script"},
+
   "ui_components_custom_format_label": {"message": "Custom"},
   "ui_components_custom_format_placeholder": {"message": "e.g. log, cfg, data"},
   "ui_components_data_cleared_success": {"message": "Data cleared successfully"},
   "ui_components_delay_countdown": {"message": "Attaching in $1 seconds"},
-  "ui_components_disabled_compression_tooltip": {"message": "Disabled when file compression is enabled"},
+
   "ui_components_disabled_title": {"message": "Open AI chat and type text to attach as file"},
   "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
   "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
@@ -890,13 +868,7 @@
   "claude_file_attached": {"message": "File successfully attached to Claude"},
   "claude_invalid_text": {"message": "Invalid text content for Claude processing"},
   "claude_removing_pasted_element": {"message": "Removing pasted text element from Claude"},
-  "compression_encoding_mismatch": {"message": "Text encoding size mismatch detected"},
-  "compression_exception": {"message": "Compression failed with exception"},
-  "compression_failed": {"message": "Compression operation failed"},
-  "compression_invalid_input": {"message": "Invalid input provided for compression"},
-  "compression_not_supported": {"message": "Compression not supported in this browser"},
-  "compression_skipped": {"message": "Compression skipped - content too small"},
-  "compression_success": {"message": "Compression completed successfully"},
+
   "empty_file_created": {"message": "Warning: Empty file created"},
   "fileAttachComponent_error": {"message": "File attachment component encountered an error"},
   "file_creation_complete": {"message": "File creation process completed"},
