@@ -97,10 +97,8 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Resource, Tool, TextContent
 
-# Initialize the MCP server
 server = Server("multi-ai-assistant")
 
-# Project root directory
 PROJECT_ROOT = Path(__file__).parent.parent
 
 
@@ -120,7 +118,6 @@ def get_files_by_glob(patterns: List[str], recursive: bool = True) -> List[str]:
             matched_files = glob.glob(pattern_path, recursive=recursive)
             files.extend(matched_files)
         except (OSError, ValueError) as e:
-            # Log error to stderr for debugging but continue processing other patterns
             sys.stderr.write(f"Warning: Failed to process glob pattern '{pattern}': {e}\n")
             sys.stderr.flush()
             continue
@@ -155,7 +152,6 @@ def scan_directory_files(dir_path: Path, extensions: Optional[List[str]] = None)
                     if extensions is None or file_path.suffix in extensions:
                         files.append(file_path)
             except (OSError, PermissionError):
-                # Skip files that can't be accessed (permissions, etc.)
                 continue
     except (OSError, PermissionError) as e:
         sys.stderr.write(f"Warning: Cannot scan directory '{dir_path}': {e}\n")
@@ -198,7 +194,6 @@ async def handle_list_resources() -> List[Resource]:
 
     project_files = get_files_by_glob(core_patterns)
 
-    # Convert to resources with better mime types
     for file_path in project_files:
         rel_path: str = os.path.relpath(file_path, PROJECT_ROOT)
         file_type: str = "Unknown"
@@ -265,14 +260,11 @@ async def handle_read_resource(uri: Any):  # AnyUrl type enforced by decorator w
         try:
             return file_path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
-            # Try with different encoding for binary-like files
             return file_path.read_text(encoding="utf-8", errors="replace")
 
     except (ValueError, FileNotFoundError) as e:
-        # Re-raise expected errors with clear messages
         raise e
     except Exception as e:
-        # Convert unexpected errors to RuntimeError with context
         raise RuntimeError(f"Failed to read resource '{uri}': {type(e).__name__}: {e}")
 
 
@@ -432,13 +424,11 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     result = f"🧠 INTELLIGENT PROJECT ANALYSIS [{timestamp}]\n" + ("=" * 80) + "\n\n"
 
-    # Dynamic file discovery with intelligent classification
     all_files: Dict[str, Dict[str, Any]] = {}
     file_categories: Dict[str, List[Dict[str, Any]]] = {
         'Core': [], 'Infrastructure': [], 'UI': [], 'Config': [], 'Assets': [], 'Docs': []
     }
 
-    # Discover all relevant files dynamically
     all_project_files = scan_directory_files(PROJECT_ROOT, None)
     for file_path in all_project_files:
         if not any(part.startswith('.') for part in file_path.parts):
@@ -454,7 +444,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
                     'importance': 0
                 }
 
-                # Intelligent categorization based on path and content
                 if 'src' in rel_path and file_path.suffix == '.js':
                     if 'background' in rel_path:
                         file_info['category'] = 'Infrastructure'
@@ -494,17 +483,14 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
                     file_info['category'] = 'Assets'
                     file_info['importance'] = 30
 
-                # Calculate complexity for code files
                 if file_path.suffix in ['.js', '.css', '.html', '.json', '.md']:
                     try:
                         content = file_path.read_text(encoding='utf-8')
                         file_info['lines'] = len(content.splitlines())
 
                         if file_path.suffix == '.js':
-                            # JavaScript complexity analysis
                             file_info['complexity'] = _calculate_js_complexity(content)
                         elif file_path.suffix == '.css':
-                            # CSS complexity analysis
                             file_info['complexity'] = len(re.findall(r'\{[^}]*\}', content))
 
                     except Exception:
@@ -518,7 +504,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
             except Exception:
                 continue
 
-    # Smart project overview with intelligent insights
     total_files = len(all_files)
     total_lines = sum(f['lines'] for f in all_files.values())
     critical_files = [f for f in all_files.values() if f['importance'] >= 90]
@@ -527,11 +512,9 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
     result += f"Total Files: {total_files} | Total Lines: {total_lines:,}\n"
     result += f"Critical Files: {len(critical_files)} | High Complexity: {len([f for f in all_files.values() if f['complexity'] > 50])}\n\n"
 
-    # Dynamic architecture detection
     frameworks_detected = []
     patterns_detected = []
 
-    # Analyze manifest.json for framework detection
     manifest_path = PROJECT_ROOT / 'manifest.json'
     if manifest_path.exists():
         try:
@@ -542,7 +525,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
             if version == 3:
                 frameworks_detected.append(f"Chrome Extension Manifest V{version}")
 
-            # Detect extension type
             if 'content_scripts' in manifest:
                 patterns_detected.append("Content Script Architecture")
             if 'background' in manifest:
@@ -553,13 +535,11 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
         except Exception:
             pass
 
-    # Analyze JavaScript files for patterns
     js_files = [f for f in all_files.values() if f['type'] == '.js']
     for js_file in js_files[:10]:  # Analyze top files to avoid performance issues
         try:
             content = (PROJECT_ROOT / js_file['path']).read_text(encoding='utf-8')
 
-            # Detect design patterns
             if re.search(r'class\s+\w+Factory', content):
                 patterns_detected.append("Factory Pattern")
             if re.search(r'addEventListener|attachEvent', content):
@@ -577,7 +557,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
         result += f"Detected Frameworks: {', '.join(frameworks_detected) if frameworks_detected else 'None detected'}\n"
         result += f"Design Patterns: {', '.join(set(patterns_detected)) if patterns_detected else 'None detected'}\n\n"
 
-        # File category breakdown
         result += f"📁 SMART FILE CATEGORIZATION\n"
         for category, files in file_categories.items():
             if files:
@@ -588,7 +567,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
     if include_metrics:
         result += f"📈 INTELLIGENT METRICS\n"
 
-        # High-impact files analysis
         high_impact = sorted([f for f in all_files.values() if f['importance'] >= 80],
                            key=lambda x: x['importance'], reverse=True)
         if high_impact:
@@ -596,7 +574,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
             for f in high_impact[:5]:
                 result += f"  • {f['path']} (importance: {f['importance']}%, complexity: {f['complexity']})\n"
 
-        # Complexity analysis
         complex_files = sorted([f for f in all_files.values() if f['complexity'] > 20],
                              key=lambda x: x['complexity'], reverse=True)
         if complex_files:
@@ -606,7 +583,6 @@ async def analyze_project(include_metrics: bool = True, check_architecture: bool
 
         result += "\n"
 
-    # Intelligent recommendations based on analysis
     result += f"💡 INTELLIGENT RECOMMENDATIONS\n"
     recommendations = _generate_smart_recommendations(all_files, file_categories, patterns_detected)
 
@@ -623,16 +599,12 @@ def _calculate_js_complexity(content: str) -> int:
     """Calculate JavaScript complexity based on various factors."""
     complexity = 0
 
-    # Function count
     complexity += len(re.findall(r'function\s+\w+|=>\s*{|async\s+function', content))
 
-    # Control structures
     complexity += len(re.findall(r'\b(if|else|for|while|switch|try|catch)\b', content))
 
-    # Event listeners
     complexity += len(re.findall(r'addEventListener|on\w+\s*=', content))
 
-    # DOM manipulations
     complexity += len(re.findall(r'document\.|getElementById|querySelector', content))
 
     return complexity
@@ -644,38 +616,28 @@ def _generate_smart_recommendations(all_files: Dict[str, Dict[str, Any]],
     """Generate intelligent, actionable recommendations based on project analysis."""
     recommendations = []
 
-    # Analyze file size distribution
-    # Project-aware: avoid pushing refactors for intentional larger modules unless extreme
     very_large_files = [f for f in all_files.values() if f['lines'] > 1200]
     if very_large_files:
         recommendations.append(
             f"A few files are very large (>1200 lines). Consider targeted extraction only if maintainability suffers."
         )
 
-    # Analyze complexity distribution
-    # Complexity: only suggest when multiple strong signals exist across many files
     complex_files = [f for f in all_files.values() if f['complexity'] > 80]
     if len(complex_files) >= 3:
         recommendations.append(
             f"High complexity detected in several files. Consider focused simplification where it improves clarity."
         )
 
-    # Architecture recommendations
-    # Avoid generic module system recommendations; project may not require ES module imports
 
-    # UI recommendations
     ui_files = file_categories.get('UI', [])
     css_files = [f for f in ui_files if f['path'].endswith('.css')]
-    # CSS: prefer minification/design tokens over consolidation; avoid generic segmentation advice
     if len(css_files) > 6:
         recommendations.append("Review CSS for consistent design tokens and enable minification; consolidation optional")
 
-    # Documentation recommendations
     docs = file_categories.get('Docs', [])
     if len(docs) < 3:
         recommendations.append("Add comprehensive documentation (API docs, deployment guide)")
 
-    # Security recommendations
     config_files = file_categories.get('Config', [])
     manifest_files = [f for f in config_files if 'manifest.json' in f['path']]
     if manifest_files:
@@ -697,18 +659,15 @@ async def validate_manifest() -> List[TextContent]:
 
         issues = []
 
-        # Required fields validation
         required_fields = ["manifest_version", "name", "version"]
         for field in required_fields:
             if field not in manifest:
                 issues.append(f"❌ Missing required field: {field}")
 
-        # Manifest V3 specific checks
         if manifest.get("manifest_version") == 3:
             if "background" in manifest and "scripts" in manifest["background"]:
                 issues.append("⚠️  Manifest V3 should use 'service_worker' instead of 'scripts' in background")
 
-        # Permission analysis
         permissions = manifest.get("permissions", [])
         host_permissions = manifest.get("host_permissions", [])
 
@@ -749,7 +708,6 @@ async def brand_assets() -> List[TextContent]:
     if not entries:
         return [TextContent(type="text", text="⚠️ No logo files found in logo/")]
 
-    # Prefer extension icons for branding: mfp_128.png (light), mfp_128_light.png (light), mfp_512chrome.png (store)
     result = "🏷️ Brand Assets (logo/)\n\n" + "\n".join(entries)
     return [TextContent(type="text", text=result)]
 
@@ -778,7 +736,6 @@ async def license_audit(paths: Optional[List[str]] = None, header_window: int = 
     non_compliant: List[str] = []
     checked = 0
     for fp in candidates:
-        # Skip binary assets and files that shouldn't have headers per rules
         if fp.endswith(('.png', '.jpg', '.jpeg', '.svg', '.ico', '.md', '.html', '.json', '.css')):
             continue
         try:
@@ -830,31 +787,26 @@ async def i18n_coverage() -> List[TextContent]:
 
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # Check if base locale exists
     en_messages = PROJECT_ROOT / "_locales" / "en" / "messages.json"
     if not en_messages.exists():
         return [TextContent(type="text", text="❌ Base locale (_locales/en/messages.json) not found")]
 
     try:
-        # Load base locale (English)
         with open(en_messages, 'r', encoding='utf-8') as f:
             en_locale = json.load(f)
         en_keys = set(en_locale.keys())
 
-        # Smart usage pattern detection
         usage_context = defaultdict(list)  # key -> [contexts where it's used]
         critical_keys = set()  # Keys used in critical UI elements
         optional_keys = set()  # Keys used in less critical contexts
         debug_keys = set()     # Keys used only in debug/development
         ui_keys = set()        # Keys used in main UI
 
-        # Analyze all source files for intelligent context detection
         for file_path in get_js_files():
             try:
                 content = Path(file_path).read_text(encoding='utf-8')
                 rel_path = str(file_path.relative_to(PROJECT_ROOT))
 
-                # Find all i18n key usage with context
                 i18n_patterns = [
                     (r'GPTPF_I18N\.getMessage\(\s*["\']([^"\']+)["\']', 'javascript_call'),
                     (r'window\.GPTPF_I18N\.getMessage\(\s*["\']([^"\']+)["\']', 'javascript_call'),
@@ -877,7 +829,6 @@ async def i18n_coverage() -> List[TextContent]:
                         context_info = f"{rel_path}:{context_type}"
                         usage_context[key].append(context_info)
 
-                        # Categorize keys by importance
                         if context_type == 'debug_message':
                             debug_keys.add(key)
                         elif context_type in ['accessibility', 'placeholder']:
@@ -892,7 +843,6 @@ async def i18n_coverage() -> List[TextContent]:
             except Exception:
                 continue
 
-        # Analyze other locales with intelligent insights
         locales_dir = PROJECT_ROOT / "_locales"
         locale_analysis = {}
         translation_priorities = {}
@@ -919,13 +869,11 @@ async def i18n_coverage() -> List[TextContent]:
                     missing_keys = en_keys - locale_keys
                     coverage_percent = round(((len(locale_keys) / len(en_keys)) * 100), 1) if en_keys else 0
 
-                    # Categorize missing keys by priority
                     missing_critical = missing_keys & critical_keys
                     missing_ui = missing_keys & ui_keys
                     missing_debug = missing_keys & debug_keys
                     missing_optional = missing_keys & optional_keys
 
-                    # Detect translation patterns and quality
                     translation_quality = _analyze_translation_quality(en_locale, locale_messages, locale)
 
                     locale_analysis[locale] = {
@@ -940,7 +888,6 @@ async def i18n_coverage() -> List[TextContent]:
                         'translation_quality': translation_quality
                     }
 
-                    # Generate priority recommendations
                     priority_order = []
                     if missing_critical:
                         priority_order.extend([(key, 'CRITICAL') for key in missing_critical])
@@ -960,23 +907,19 @@ async def i18n_coverage() -> List[TextContent]:
                         'coverage_percent': 0
                     }
 
-        # Generate intelligent report
         result = f"🧠 INTELLIGENT i18n ANALYSIS [{timestamp}]\n" + ("=" * 80) + "\n\n"
 
-        # Smart overview
         total_used_keys = len(usage_context)
         result += f"🧠 SMART OVERVIEW\n"
         result += f"Base Locale Keys: {len(en_keys)} | Used in Code: {total_used_keys}\n"
         result += f"Critical Keys: {len(critical_keys)} | UI Keys: {len(ui_keys)} | Debug Keys: {len(debug_keys)}\n\n"
 
-        # Key categorization insights
         result += f"🎯 KEY CATEGORIZATION\n"
         result += f"  • Critical (accessibility, placeholders): {len(critical_keys)}\n"
         result += f"  • UI (main interface): {len(ui_keys)}\n"
         result += f"  • Optional (background, secondary): {len(optional_keys)}\n"
         result += f"  • Debug (development only): {len(debug_keys)}\n\n"
 
-        # Locale analysis with intelligent insights
         result += f"🌍 INTELLIGENT LOCALE ANALYSIS\n"
         for locale, analysis in sorted(locale_analysis.items()):
             if analysis['status'] == 'missing_file':
@@ -990,7 +933,6 @@ async def i18n_coverage() -> List[TextContent]:
             total_missing = len(analysis['missing_keys'])
             critical_missing = len(analysis['missing_critical'])
 
-            # Smart status indicator
             if coverage >= 95:
                 status = "🟢 EXCELLENT"
             elif coverage >= 80:
@@ -1003,7 +945,6 @@ async def i18n_coverage() -> List[TextContent]:
             result += f"  • {locale.upper()}: {status} ({coverage}% coverage)\n"
             result += f"    Missing: {total_missing} total, {critical_missing} critical\n"
 
-            # Translation quality insights
             quality = analysis.get('translation_quality', {})
             if quality:
                 result += f"    Quality: {quality.get('score', 'N/A')}/10"
@@ -1013,7 +954,6 @@ async def i18n_coverage() -> List[TextContent]:
 
         result += "\n"
 
-        # Priority translation recommendations
         result += f"💡 INTELLIGENT TRANSLATION PRIORITIES\n"
         for locale, priorities in translation_priorities.items():
             if not priorities:
@@ -1021,7 +961,6 @@ async def i18n_coverage() -> List[TextContent]:
 
             result += f"\n📋 {locale.upper()} Translation Priority:\n"
 
-            # Group by priority
             by_priority = defaultdict(list)
             for key, priority in priorities:
                 by_priority[priority].append(key)
@@ -1030,7 +969,6 @@ async def i18n_coverage() -> List[TextContent]:
                 keys = by_priority[priority]
                 if keys:
                     result += f"  {priority}: {len(keys)} keys\n"
-                    # Show context for critical keys
                     if priority == 'CRITICAL':
                         for key in keys[:3]:
                             contexts = usage_context.get(key, [])
@@ -1039,7 +977,6 @@ async def i18n_coverage() -> List[TextContent]:
                         if len(keys) > 3:
                             result += f"    • ... and {len(keys) - 3} more\n"
 
-        # Smart recommendations
         result += f"\n🎯 INTELLIGENT RECOMMENDATIONS\n"
         recommendations = _generate_i18n_recommendations(locale_analysis, critical_keys, ui_keys, debug_keys)
         for i, rec in enumerate(recommendations, 1):
@@ -1056,7 +993,6 @@ def _analyze_translation_quality(en_locale: Dict[str, Any], target_locale: Dict[
     issues = []
     score = 10
 
-    # Check for untranslated strings (still in English)
     common_english_words = {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}
 
     untranslated_count = 0
@@ -1064,7 +1000,6 @@ def _analyze_translation_quality(en_locale: Dict[str, Any], target_locale: Dict[
         if key in en_locale:
             target_text = data.get('message', '') if isinstance(data, dict) else str(data)
 
-            # Simple heuristic: if many English words remain, likely untranslated
             target_words = set(target_text.lower().split())
             english_words_found = target_words & common_english_words
 
@@ -1075,7 +1010,6 @@ def _analyze_translation_quality(en_locale: Dict[str, Any], target_locale: Dict[
         score -= min(3, untranslated_count)
         issues.append(f"Potential untranslated content: {untranslated_count} keys")
 
-    # Check for missing placeholders
     placeholder_mismatches = 0
     for key in set(en_locale.keys()) & set(target_locale.keys()):
         en_msg = en_locale[key].get('message', '') if isinstance(en_locale[key], dict) else str(en_locale[key])
@@ -1103,7 +1037,6 @@ def _generate_i18n_recommendations(locale_analysis: Dict[str, Any], critical_key
     """Generate intelligent, actionable i18n recommendations."""
     recommendations = []
 
-    # Analyze overall translation state
     total_locales = len(locale_analysis)
     complete_locales = sum(1 for analysis in locale_analysis.values()
                           if analysis.get('coverage_percent', 0) >= 95)
@@ -1114,7 +1047,6 @@ def _generate_i18n_recommendations(locale_analysis: Dict[str, Any], critical_key
         incomplete = total_locales - complete_locales
         recommendations.append(f"Complete translations for {incomplete} remaining locale(s)")
 
-    # Specific locale recommendations
     critical_missing_locales = []
     for locale, analysis in locale_analysis.items():
         if analysis.get('missing_critical', []):
@@ -1125,7 +1057,6 @@ def _generate_i18n_recommendations(locale_analysis: Dict[str, Any], critical_key
             f"CRITICAL: Translate accessibility/placeholder keys for {', '.join(critical_missing_locales)}"
         )
 
-    # Quality recommendations
     quality_issues = []
     for locale, analysis in locale_analysis.items():
         quality = analysis.get('translation_quality', {})
@@ -1135,11 +1066,9 @@ def _generate_i18n_recommendations(locale_analysis: Dict[str, Any], critical_key
     if quality_issues:
         recommendations.append(f"Review translation quality for {', '.join(quality_issues)} (check for untranslated content)")
 
-    # Debug key recommendations
     if debug_keys:
         recommendations.append(f"Consider if {len(debug_keys)} debug keys need translation or can remain English-only")
 
-    # Automation recommendations
     if len(critical_keys) > 20:
         recommendations.append("Consider using translation automation tools for large key sets")
 
@@ -1155,7 +1084,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
 
     locales = {}
 
-    # Load all locale files
     for locale_dir in locales_dir.iterdir():
         if locale_dir.is_dir():
             messages_file = locale_dir / "messages.json"
@@ -1172,13 +1100,11 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
     result = f"🌍 i18n Analysis Results\n\n"
     result += f"📊 Found {len(locales)} locales: {', '.join(locales.keys())}\n\n"
 
-    # Use English as reference if available, otherwise use all keys
     reference_locale = 'en' if 'en' in locales else None
     if reference_locale:
         reference_keys = set(locales[reference_locale].keys())
         result += f"📋 Using '{reference_locale}' as reference ({len(reference_keys)} keys)\n\n"
     else:
-        # Use all keys from all locales as reference
         reference_keys = set()
         for locale_messages in locales.values():
             reference_keys.update(locale_messages.keys())
@@ -1195,10 +1121,8 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
         locale_keys = set(messages.keys())
         missing = reference_keys - locale_keys
 
-        # Check for case sensitivity issues
         uppercase_keys = [key for key in locale_keys if key != key.lower()]
 
-        # Check for critical missing keys that cause English fallbacks
         critical = []
         for key in missing:
             if any(keyword in key.lower() for keyword in ['connected', 'status', 'ui_components']):
@@ -1211,14 +1135,12 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
         if critical:
             critical_missing[locale] = critical
 
-    # Report critical missing keys first
     if critical_missing:
         result += f"🚨 CRITICAL Missing Keys (cause English fallbacks):\n"
         for locale, keys in critical_missing.items():
             result += f"  • {locale}: {', '.join(sorted(keys))}\n"
         result += "\n"
 
-    # Report case sensitivity issues
     if case_issues:
         result += f"🔤 Case Sensitivity Issues (should be lowercase):\n"
         for locale, keys in case_issues.items():
@@ -1227,7 +1149,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                 result += f"    - {key}\n"
         result += "\n"
 
-    # Report all missing keys
     if missing_keys:
         result += f"⚠️  All Missing Keys:\n"
         for locale, keys in missing_keys.items():
@@ -1236,26 +1157,21 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                 result += f"    - {key}\n"
         result += "\n"
 
-    # Prepare duplicates mapping to track per-locale duplicates
     all_duplicates = {}
     organization_issues = {}
 
-    # Check aria key organization across all locales
     for locale, messages in locales.items():
         aria_keys = [key for key in messages.keys() if key.startswith('aria_')]
 
         if aria_keys:
-            # Check if aria keys are grouped together
             sorted_keys = list(messages.keys())
             aria_positions = [sorted_keys.index(key) for key in aria_keys]
 
-            # Check if aria keys are consecutive (grouped together)
             if len(aria_positions) > 1:
                 consecutive = all(aria_positions[i] + 1 == aria_positions[i + 1]
                                 for i in range(len(aria_positions) - 1))
 
                 if not consecutive:
-                    # Find scattered aria keys
                     scattered_keys = []
                     expected_section_start = min(aria_positions)
                     expected_section_end = max(aria_positions)
@@ -1273,7 +1189,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                             'total_aria': len(aria_keys)
                         })
 
-    # Report organization issues
     if organization_issues:
         result += f"📋 Translation Organization Issues:\n"
         for locale, issues in organization_issues.items():
@@ -1284,54 +1199,41 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                         result += f"    - {key}\n"
         result += "\n"
 
-    # INTELLIGENT DUPLICATE DETECTION - Only flag true duplicates, not semantic variations
     if check_duplicates:
         def _is_legitimate_semantic_variation(value: str, keys: List[str]) -> bool:
             """Check if duplicate values represent legitimate semantic variations."""
 
-            # Chrome Extension i18n legitimate patterns - COMPREHENSIVE LIST
             legitimate_patterns = [
-                # Analytics context separation - different UI contexts
                 ('all_time', 'analytics_all_time'),  # HTML dropdown vs JS labels
                 ('no_data_yet', 'analytics_no_data'),  # Breakdowns vs charts
 
-                # Debug context separation - different debug levels/contexts
                 ('debug_warning', 'debug_warn'),  # Different debug contexts
                 ('debug_error', 'debug_err'),     # Different error contexts
 
-                # Compression context separation - different compression types
                 ('compression', 'file_compression'),      # Batch vs file compression
                 ('compression', 'batch_compression'),     # Different compression contexts
 
-                # Platform-specific context separation
                 ('platform_specific_generic_no_input', 'platform_specific_try_attachment_button'),
                 ('platform_specific_chatgpt_no_input', 'platform_specific_generic_no_input'),
                 ('platform_specific_claude_no_input', 'platform_specific_generic_no_input'),
                 ('platform_specific_gemini_no_input', 'platform_specific_generic_no_input'),
 
-                # UI component context separation - different UI contexts
                 ('banner_not_supported', 'ui_components_banner_not_supported'),
                 ('data_cleared_success', 'ui_components_data_cleared_success'),
 
-                # Format context separation - different format contexts
                 ('more_formats_loaded', 'file_format_more_formats_loaded'),
                 ('format_selected', 'file_format_selected'),
                 ('format_changed', 'file_format_changed'),
 
-                # Modal context separation - different modal contexts
                 ('modal_title', 'ui_components_modal_title'),
                 ('modal_description', 'ui_components_modal_description'),
                 ('save', 'ui_components_modal_save'),  # Modal save vs general save
 
-                # Status context separation - different status contexts
                 ('connected', 'status_connected'),
                 ('not_on_platform', 'success_not_on_platform'),
 
-                # NEVER FLAG THESE AS DUPLICATES - They are legitimate architectural patterns
-                # These represent proper Chrome Extension i18n architecture with semantic separation
             ]
 
-            # Check if this is a known legitimate semantic variation
             key_set = set(keys)
             for pattern in legitimate_patterns:
                 if len(pattern) == 2 and set(pattern).issubset(key_set):
@@ -1339,8 +1241,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                 elif len(pattern) > 2 and any(set(combo).issubset(key_set) for combo in [pattern[i:i+2] for i in range(len(pattern)-1)]):
                     return True
 
-            # Check for semantic prefixes that indicate different contexts
-            # NEVER flag these as duplicates - they represent proper architectural separation
             semantic_prefixes = [
                 ('analytics_', ''),           # Analytics vs general context
                 ('ui_components_', ''),       # UI component vs general context
@@ -1360,22 +1260,18 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
             ]
 
             for prefix1, prefix2 in semantic_prefixes:
-                # Check if we have keys with and without the semantic prefix
                 prefixed_keys = [k for k in keys if k.startswith(prefix1)]
                 unprefixed_keys = [k for k in keys if not k.startswith(prefix1) and (not prefix2 or k.startswith(prefix2))]
 
                 if prefixed_keys and unprefixed_keys:
-                    # Check if removing prefix creates a match (semantic variation)
                     for pk in prefixed_keys:
                         base_key = pk[len(prefix1):]
                         if base_key in unprefixed_keys or any(uk.endswith(base_key) for uk in unprefixed_keys):
                             return True
 
-            # Check for common Chrome extension i18n patterns
             if len(keys) == 2:
                 key1, key2 = sorted(keys)
 
-                # Different contexts for same concept
                 context_patterns = [
                     ('_tooltip', ''),         # Tooltip vs main text
                     ('_description', ''),     # Description vs main text
@@ -1402,7 +1298,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                     else:
                         value_counts[value] = [key]
 
-            # Filter out legitimate semantic variations
             true_duplicates = {}
             for value, keys in value_counts.items():
                 if len(keys) > 1:
@@ -1413,7 +1308,6 @@ async def analyze_i18n(check_duplicates: bool = True) -> List[TextContent]:
                 all_duplicates[locale] = true_duplicates
                 result += f"🔄 True duplicate values in {locale} (excluding legitimate semantic variations):\n"
                 for value, keys in true_duplicates.items():
-                    # Truncate only very long values for readability
                     display_value = value if len(value) <= 50 else value[:47] + "..."
                     result += f"  • \"{display_value}\" used in: {', '.join(keys)}\n"
                 result += "\n"
@@ -1441,7 +1335,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             'patterns': set()
         }
 
-        # Color analysis
         color_patterns = {
             'hex': r'#[0-9a-fA-F]{3,8}',
             'rgb': r'rgb\([^)]+\)',
@@ -1456,7 +1349,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             if matches:
                 tokens['colors'][pattern_type] = list(set(matches))
 
-        # Spacing analysis (px, em, rem, %)
         spacing_pattern = r'\b(\d+(?:\.\d+)?)(px|em|rem|%|vh|vw|vmin|vmax)\b'
         spacing_matches = re.findall(spacing_pattern, content)
         spacing_dict: Dict[str, Set[float]] = tokens['spacing']
@@ -1465,7 +1357,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
                 spacing_dict[unit] = set()
             spacing_dict[unit].add(float(value))
 
-        # Typography analysis
         font_families = re.findall(r'font-family:\s*([^;]+)', content)
         font_sizes = re.findall(r'font-size:\s*([^;]+)', content)
         font_weights = re.findall(r'font-weight:\s*([^;]+)', content)
@@ -1476,7 +1367,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             'weights': list(set(font_weights))
         }
 
-        # Shadow analysis
         shadow_patterns = [
             r'box-shadow:\s*([^;]+)',
             r'text-shadow:\s*([^;]+)',
@@ -1501,19 +1391,15 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             'patterns': set()
         }
 
-        # BEM methodology detection
         bem_pattern = r'\.[\w]+-[\w]+__[\w]+(?:--[\w]+)?'
         bem_matches = len(re.findall(bem_pattern, content))
 
-        # Atomic/Utility class detection
         utility_pattern = r'\.(m|p)[trblxy]?-\d+|\.text-(center|left|right)|\.d-(none|block|flex)'
         utility_matches = len(re.findall(utility_pattern, content))
 
-        # Component class detection
         component_pattern = r'\.[\w]+-[\w]+(?![_-])'
         component_matches = len(re.findall(component_pattern, content))
 
-        # Determine methodology
         if bem_matches > 10:
             architecture['methodology'] = 'BEM'
             score: int = architecture['organization_score']
@@ -1527,7 +1413,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             score: int = architecture['organization_score']
             architecture['organization_score'] = score + 20
 
-        # Check for CSS custom properties
         custom_props = len(re.findall(r'--[\w-]+:', content))
         if custom_props > 5:
             score: int = architecture['organization_score']
@@ -1535,7 +1420,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             patterns_set: Set[str] = architecture['patterns']
             patterns_set.add('CSS Custom Properties')
 
-        # Check for media queries organization
         media_queries = re.findall(r'@media[^{]+', content)
         if len(media_queries) > 3:
             patterns_set2: Set[str] = architecture['patterns']
@@ -1543,14 +1427,12 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             score: int = architecture['organization_score']
             architecture['organization_score'] = score + 15
 
-        # Detect maintainability issues
         if content.count('!important') > 5:
             issues_list: List[str] = architecture['maintainability_issues']
             issues_list.append(
                 f"Overuse of !important ({content.count('!important')} instances)"
             )
 
-        # Long selectors (specificity issues)
         long_selectors = re.findall(r'[^{]+{', content)
         complex_selectors = [s for s in long_selectors if s.count(' ') > 4 or s.count('>') > 2]
         if len(complex_selectors) > 3:
@@ -1559,7 +1441,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
                 f"Complex selectors detected ({len(complex_selectors)} instances)"
             )
 
-        # Repeated code detection
         rules = re.findall(r'{[^}]+}', content)
         rule_counts = {}
         for rule in rules:
@@ -1580,7 +1461,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
         """Identify performance optimization opportunities."""
         opportunities = []
 
-        # Check for unused prefixes
         vendor_prefixes = ['-webkit-', '-moz-', '-ms-', '-o-']
         prefix_usage = {prefix: content.count(prefix) for prefix in vendor_prefixes}
         outdated_prefixes = [prefix for prefix, count in prefix_usage.items()
@@ -1589,17 +1469,13 @@ async def analyze_css(file_path: str) -> List[TextContent]:
         if outdated_prefixes:
             opportunities.append(f"Outdated vendor prefixes detected: {', '.join(outdated_prefixes)}")
 
-        # Check for inefficient selectors
         universal_selectors = content.count('*')
         if universal_selectors > 2:
             opportunities.append(f"Universal selector (*) used {universal_selectors} times - can impact performance")
 
-        # Check for very large files (project-aware: avoid generic split advice)
-        # Only flag when CSS is exceptionally large, and suggest minification/pruning
         if len(content) > 204800:  # ~200KB
             opportunities.append("Large CSS file - prioritize minification and pruning unused selectors")
 
-        # Check for inline styles in HTML-like content
         inline_styles = content.count('style=')
         if inline_styles > 0:
             opportunities.append(f"Inline styles detected ({inline_styles}) - move to external CSS")
@@ -1609,25 +1485,21 @@ async def analyze_css(file_path: str) -> List[TextContent]:
     try:
         content = css_file.read_text(encoding='utf-8')
 
-        # Core metrics
         lines = content.split('\n')
         total_lines = len(lines)
         non_empty_lines = len([line for line in lines if line.strip()])
         file_size_kb = len(content) / 1024
 
-        # Intelligent analysis
         design_tokens = _analyze_design_tokens(content)
         architecture = _detect_css_architecture(content)
         performance_ops = _analyze_performance_opportunities(content)
 
-        # Build comprehensive report
         result = ["🎨 INTELLIGENT CSS ANALYSIS"]
         result.append("=" * 50)
         result.append(f"📁 File: {file_path}")
         result.append(f"📏 Size: {file_size_kb:.1f}KB ({total_lines:,} lines, {non_empty_lines:,} non-empty)")
         result.append("")
 
-        # Architecture Analysis
         result.append("🏗️ ARCHITECTURE ANALYSIS:")
         result.append(f"   Methodology: {architecture['methodology']}")
         result.append(f"   Organization Score: {architecture['organization_score']}/100")
@@ -1636,10 +1508,8 @@ async def analyze_css(file_path: str) -> List[TextContent]:
             result.append(f"   Patterns: {', '.join(architecture['patterns'])}")
         result.append("")
 
-        # Design Token Analysis
         result.append("🎨 DESIGN TOKEN ANALYSIS:")
 
-        # Color analysis
         total_colors = sum(len(colors) for colors in design_tokens['colors'].values())
         if total_colors > 0:
             result.append(f"   Colors: {total_colors} unique values")
@@ -1649,7 +1519,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
                 elif colors:
                     result.append(f"     {color_type}: {len(colors)} values")
 
-        # Spacing analysis
         if design_tokens['spacing']:
             result.append("   Spacing:")
             for unit, values in design_tokens['spacing'].items():
@@ -1659,7 +1528,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
                 else:
                     result.append(f"     {unit}: {len(values)} values (range: {min(values)}-{max(values)})")
 
-        # Typography analysis
         if any(design_tokens['typography'].values()):
             result.append("   Typography:")
             for font_type, fonts in design_tokens['typography'].items():
@@ -1670,7 +1538,6 @@ async def analyze_css(file_path: str) -> List[TextContent]:
 
         result.append("")
 
-        # Issues and Recommendations
         if architecture['maintainability_issues']:
             result.append("⚠️ MAINTAINABILITY ISSUES:")
             for issue in architecture['maintainability_issues']:
@@ -1689,31 +1556,25 @@ async def analyze_css(file_path: str) -> List[TextContent]:
                 result.append(f"   • {opportunity}")
             result.append("")
 
-        # Intelligent Recommendations
         result.append("💡 INTELLIGENT RECOMMENDATIONS:")
 
-        # Architecture recommendations
         if architecture['organization_score'] < 50:
             result.append("   🏗️ Architecture: Consider adopting BEM or component-based methodology")
 
-        # Design system recommendations
         color_count = sum(len(colors) for colors in design_tokens['colors'].values())
         if color_count > 15 and not design_tokens['colors'].get('css_vars'):
             result.append("   🎨 Design System: Implement CSS custom properties for color management")
 
-        # Spacing recommendations
         spacing_values = sum(len(values) for values in design_tokens['spacing'].values())
         if spacing_values > 20:
             result.append("   📏 Spacing: Consider a spacing scale (8px/4px grid system)")
 
-        # Performance recommendations
         if file_size_kb > 30:
             result.append("   ⚡ Performance: Consider CSS minification and critical CSS extraction")
 
         if not performance_ops and not architecture['maintainability_issues']:
             result.append("   ✅ Code Quality: CSS follows good practices!")
 
-        # Summary score
         final_score = min(100, architecture['organization_score'] +
                          (20 if design_tokens['colors'].get('css_vars') else 0) +
                          (10 if len(performance_ops) == 0 else 0) +
@@ -1742,7 +1603,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
     violations = []
     suggestions = {}  # Store suggested i18n keys
 
-    # Load existing i18n keys for intelligent suggestions
     existing_keys = set()
     try:
         with open(PROJECT_ROOT / "_locales" / "en" / "messages.json", 'r', encoding='utf-8') as f:
@@ -1753,11 +1613,9 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
 
     def _suggest_i18n_key(text: str, context: str = "") -> str:
         """Generate intelligent i18n key suggestions based on content and context."""
-        # Clean text for key generation
         clean_text = re.sub(r'[^a-zA-Z0-9\s]', '', text).strip().lower()
         words = clean_text.split()[:3]  # Use first 3 words max
 
-        # Context-based prefixes
         if 'error' in context.lower() or 'alert' in context.lower():
             prefix = "error_"
         elif 'button' in context.lower() or 'click' in context.lower():
@@ -1771,10 +1629,8 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
         else:
             prefix = "text_"
 
-        # Generate base key
         base_key = prefix + "_".join(words[:3])
 
-        # Ensure uniqueness
         counter = 1
         suggested_key = base_key
         while suggested_key in existing_keys:
@@ -1786,26 +1642,18 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
     def _is_legitimate_hardcoded(text: str, line: str, file_path: str) -> bool:
         """INTELLIGENT detection of legitimate hardcoded strings in Multi-AI File Paster that should NOT be i18n."""
 
-        # Multi-AI File Paster specific legitimate patterns
         multiaifilePaster_patterns = [
-            # Theme system patterns
             'data-theme', 'data-platform', 'light', 'dark', 'auto',
             'chatgpt', 'claude', 'gemini', 'grok', 'deepseek',
-            # Debug system patterns
             'debug_', 'GPTPF_DEBUG', 'GPTPF_I18N', 'GPTPF_CONFIG', 'GPTPF_FLASH',
-            # UI element IDs and classes
             'hidden', 'visible', 'enabled', 'disabled', 'active', 'inactive',
-            # Configuration keys
             'batchMode', 'debugLevel', 'themePreference', 'selectedPlatform',
-            # Platform names
             'ChatGPT', 'Claude', 'Gemini', 'Grok', 'DeepSeek'
         ]
 
-        # Multi-AI File Paster specific legitimate content
         if any(pattern in text for pattern in multiaifilePaster_patterns):
             return True
 
-        # Standard technical constants (legitimate)
         if any(indicator in text.lower() for indicator in [
             'utf-8', 'application/json', 'text/html', 'image/', 'video/', 'audio/',
             'localhost', '127.0.0.1', 'http://', 'https://', 'ftp://',
@@ -1817,31 +1665,24 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
         ]):
             return True
 
-        # File paths and technical IDs
         if re.match(r'^[a-z_]+\.(js|css|html|json|png|svg|ico)$', text.lower()):
             return True
 
-        # CSS classes, IDs, and selectors
         if re.match(r'^[a-z-_\.#\[\]]+$', text) and len(text) < 50:
             return True
 
-        # Configuration values and constants
         if text in ['true', 'false', 'null', 'undefined', '0', '1', '-1']:
             return True
 
-        # Version numbers, UUIDs, hashes, and technical strings
         if re.match(r'^[\d\.]+$', text) or (len(text) > 20 and not ' ' in text):
             return True
 
-        # JSON keys and API fields
         if 'json' in file_path.lower() or ('"' + text + '"' in line and ':' in line):
             return True
 
-        # Very short strings (likely technical)
         if len(text.strip()) < 4:
             return True
 
-        # Chrome Extension API patterns
         if any(api in text for api in ['chrome.', 'browser.', 'activeTab', 'scripting']):
             return True
 
@@ -1857,7 +1698,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
 
         line_lower = line.lower()
 
-        # Analyze assignment context
         if 'textcontent' in line_lower or 'innerhtml' in line_lower:
             context['type'] = 'dom_content'
             context['severity'] = 'high'
@@ -1892,11 +1732,9 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
 
                 rel_path = os.path.relpath(file_path, PROJECT_ROOT)
 
-                # Skip certain file types
                 if any(skip in rel_path for skip in ['.min.', 'node_modules', '.git', 'test']):
                     continue
 
-                # 1. INTELLIGENT STRING DETECTION
                 string_patterns = [
                     r'textContent\s*[=:]\s*["\']([^"\']{10,})["\']',
                     r'innerHTML\s*[=:]\s*["\']([^"\']{10,})["\']',
@@ -1911,7 +1749,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                 ]
 
                 for i, line in enumerate(lines, 1):
-                    # Skip user-facing string checks on lines that already route through GPTPF_DEBUG
                     if 'GPTPF_DEBUG' in line:
                         continue
                     for pattern in string_patterns:
@@ -1919,21 +1756,16 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                         for match in matches:
                             text = match.group(1)
 
-                            # Skip if already using i18n
                             if 'getMessage(' in line or 'GPTPF_I18N' in line:
                                 continue
-                            # Skip if this is an i18n-style debug key, not prose
                             if re.match(r'^debug_[a-z0-9_]+$', text):
                                 continue
 
-                            # Skip legitimate hardcoded content
                             if _is_legitimate_hardcoded(text, line, rel_path):
                                 continue
 
-                            # Analyze context
                             context = _analyze_string_context(line, i, lines)
 
-                            # Generate suggestion
                             suggested_key = _suggest_i18n_key(text, line)
                             existing_keys.add(suggested_key)  # Track for uniqueness
 
@@ -1952,17 +1784,14 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
 
                             violations.append(violation)
 
-                            # Store suggestion for summary
                             if suggested_key not in suggestions:
                                 suggestions[suggested_key] = {
                                     'message': text,
                                     'description': f"Text for {context['type']}"
                                 }
 
-                # 2. DEBUG VARIABLE DETECTION (Raw debug showing)
                 debug_pattern = r'(?<!GPTPF_I18N\.getMessage\()["\']?(debug_[a-z_]+)["\']?'
                 for i, line in enumerate(lines, 1):
-                    # Skip lines that already use centralized debug system
                     if 'GPTPF_DEBUG' in line:
                         continue
                     if 'debug_' in line and 'getMessage(' not in line and '=' not in line:
@@ -1979,7 +1808,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                                 'code_line': line.strip()
                             })
 
-                # 3. HARDCODED URL DETECTION
                 url_patterns = [
                     r'["\']https?://[^\s"\']+["\']',
                     r'["\']www\.[^\s"\']+["\']'
@@ -1990,7 +1818,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                         matches = re.finditer(pattern, line)
                         for match in matches:
                             url = match.group(0)
-                            # Skip if in config or constants
                             if any(safe in line for safe in ['CONFIG', 'OFFICIAL_LINKS', 'const ', 'let ', 'var ']):
                                 continue
 
@@ -2004,17 +1831,12 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                                 'code_line': line.strip()
                             })
 
-                # 4. FALLBACK PATTERN DETECTION (no-fallback rule for user-facing text)
-                # Detect '||' or '??' with string literals; allowed fallbacks like {} or [] are ignored.
                 for i, line in enumerate(lines, 1):
                     if '||' in line or '??' in line:
-                        # Only flag when the fallback is a string literal
                         m = re.search(r'(?:\|\||\?\?)\s*["\']([^"\']{3,})["\']', line)
                         if m:
-                            # Skip debug-only lines
                             if 'GPTPF_DEBUG' in line:
                                 continue
-                            # Determine severity
                             severity = 'HIGH'
                             if 'getMessage(' in line:
                                 severity = 'HIGH'
@@ -2029,7 +1851,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                                 'suggested_fix': 'Remove fallback and route text via GPTPF_I18N.getMessage() or centralized config',
                                 'code_line': line.strip()
                             })
-                # 5. CONSOLE/ALERT FALLBACK DETECTION around GPTPF systems
                 for i, line in enumerate(lines, 1):
                     low = line.lower()
                     if ('gptpf_flash' in low or 'gptpf_debug' in low) and '||' in line and 'console.' in low:
@@ -2057,7 +1878,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
             except Exception:
                 continue
 
-    # Build intelligent results
     if not violations:
         return [TextContent(
             type="text",
@@ -2068,7 +1888,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
                  "🔍 Analysis complete - codebase follows i18n best practices."
         )]
 
-    # Group and prioritize violations
     critical = [v for v in violations if v['severity'] == 'CRITICAL']
     high = [v for v in violations if v['severity'] == 'HIGH']
     medium = [v for v in violations if v['severity'] == 'MEDIUM']
@@ -2077,7 +1896,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
     result.append("=" * 50)
     result.append(f"📊 Found {len(violations)} violations across {len(set(v['file'] for v in violations))} files\n")
 
-    # Critical issues first
     if critical:
         result.append(f"🚨 CRITICAL VIOLATIONS ({len(critical)}) - Fix immediately:")
         for v in critical:
@@ -2086,7 +1904,6 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
             result.append(f"  💡 Fix: {v['suggested_fix']}")
             result.append("")
 
-    # High priority issues
     if high:
         result.append(f"⚠️ HIGH PRIORITY ({len(high)}) - User-facing content:")
         for v in high[:8]:  # Limit display
@@ -2101,13 +1918,11 @@ async def check_hardcoded_strings(file_patterns: List[str]) -> List[TextContent]
             result.append(f"  ... and {len(high) - 8} more high priority items")
             result.append("")
 
-    # Medium priority summary
     if medium:
         result.append(f"🔸 MEDIUM PRIORITY ({len(medium)}) - Less critical UI text")
         result.append(f"   Files affected: {', '.join(set(v['file'] for v in medium[:5]))}")
         result.append("")
 
-    # Generate i18n suggestions
     if suggestions:
         result.append("🗝️ SUGGESTED I18N ADDITIONS:")
         result.append("Add these to _locales/en/messages.json:")
@@ -2212,7 +2027,6 @@ async def _detect_supported_platforms() -> Dict[str, Any]:
             content = platform_file.read_text(encoding='utf-8')
             lines = content.split('\n')
 
-            # Multi-AI File Paster specific feature detection
             multiaifilePaster_features = {
                 'Theme Integration': 'data-theme' in content or 'data-platform' in content,
                 'Debug Integration': 'GPTPF_DEBUG' in content or 'debug(' in content,
@@ -2226,22 +2040,18 @@ async def _detect_supported_platforms() -> Dict[str, Any]:
                 'Dynamic Injection': 'MutationObserver' in content or 'appendChild' in content
             }
 
-            # Standard technical metrics
             selectors = len([line for line in lines if 'querySelector' in line or 'querySelectorAll' in line])
             events = len([line for line in lines if 'addEventListener' in line])
             api_calls = len([line for line in lines if 'fetch(' in line or 'XMLHttpRequest' in line])
 
-            # Intelligent optimization suggestions (only for actual issues)
             optimizations = []
 
-            # Only suggest optimizations for genuine performance issues
             if selectors > 20:  # Increased threshold - 20+ selectors indicates real issue
                 optimizations.append("Consider caching frequently used selectors - high selector usage detected")
 
             if events > 10:  # Increased threshold - 10+ events may need delegation
                 optimizations.append("Consider event delegation pattern for performance")
 
-            # Missing critical Multi-AI File Paster integrations
             if not multiaifilePaster_features['Debug Integration']:
                 optimizations.append("Add GPTPF_DEBUG integration for consistent logging")
 
@@ -2251,7 +2061,6 @@ async def _detect_supported_platforms() -> Dict[str, Any]:
             if not multiaifilePaster_features['Theme Integration']:
                 optimizations.append("Add theme coordination with data-theme/data-platform attributes")
 
-            # Calculate quality score based on Multi-AI File Paster architecture compliance
             architecture_compliance = sum(multiaifilePaster_features.values()) * 8  # 80 points for full compliance
             standard_features = sum([
                 'querySelector' in content or 'getElementById' in content,
@@ -2262,7 +2071,6 @@ async def _detect_supported_platforms() -> Dict[str, Any]:
 
             quality_score = architecture_compliance + standard_features
 
-            # Bonus for clean implementation (few optimizations needed)
             if len(optimizations) <= 1:
                 quality_score += 10
 
@@ -2296,15 +2104,12 @@ async def _detect_supported_platforms() -> Dict[str, Any]:
                 'architecture_compliance': 0
             }
 
-    # Intelligent coverage scoring based on actual platform diversity
     coverage_score = len(platforms) * 12  # Base score per platform
 
-    # Bonus for good architecture compliance across platforms
     if platforms:
         avg_compliance = sum(p.get('architecture_compliance', 0) for p in platforms.values()) / len(platforms)
         coverage_score += int(avg_compliance * 0.4)  # Up to 40 bonus points
 
-    # Bonus for comprehensive platform support
     if len(platforms) >= 5:
         coverage_score += 20
 
@@ -2321,13 +2126,11 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
     patterns = {}
     architecture_score = 30  # Start lower, earn points for good patterns
 
-    # Multi-AI File Paster Factory Pattern Analysis
     factory_file = platforms_dir / "factory.js"
     if factory_file.exists():
         try:
             factory_content = factory_file.read_text(encoding='utf-8')
 
-            # Check for intelligent factory implementation
             has_platform_detection = 'createPlatform' in factory_content or 'getPlatform' in factory_content
             has_error_handling = 'try {' in factory_content and 'catch' in factory_content
             has_validation = 'isSupported' in factory_content or 'validate' in factory_content
@@ -2359,7 +2162,6 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
             'benefits': 'Would improve code organization and platform management'
         }
 
-    # Multi-AI File Paster Centralized Systems Analysis
     shared_dir = PROJECT_ROOT / "src" / "shared"
     if shared_dir.exists():
         centralized_systems = {
@@ -2384,7 +2186,6 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
         }
         architecture_score += implemented_systems * 3  # Up to 15 points
 
-    # Theme System Architecture Analysis
     platform_files = [Path(f) for f in get_files_by_glob(["src/content/platforms/*.js"])]
     theme_coordination_count = 0
 
@@ -2407,7 +2208,6 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
         }
         architecture_score += min(15, theme_coordination_count * 3)
 
-    # Component System Analysis
     components_dir = PROJECT_ROOT / "src" / "content" / "components"
     if components_dir.exists():
         component_files = [Path(f) for f in get_files_by_glob(["src/content/components/*.js"])]
@@ -2420,7 +2220,6 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
         }
         architecture_score += min(10, len(component_files) * 2)
 
-    # Common Interface Analysis (Multi-AI File Paster specific)
     multiaifilePaster_interface_methods = ['attach', 'detach', 'isSupported', 'getPlatformName']
     multiaifilePaster_integration_methods = ['setupTheme', 'setupDebug', 'setupI18n']
 
@@ -2433,12 +2232,10 @@ async def _analyze_platform_patterns() -> Dict[str, Any]:
         try:
             content = platform_file.read_text(encoding='utf-8')
 
-            # Check interface compliance
             interface_methods_found = sum(1 for method in multiaifilePaster_interface_methods if method in content)
             if interface_methods_found >= 3:
                 interface_compliance += 1
 
-            # Check integration compliance
             integration_methods_found = sum(1 for method in multiaifilePaster_integration_methods if method in content or method.replace('setup', '').upper() in content)
             if integration_methods_found >= 1:
                 integration_compliance += 1
@@ -2585,7 +2382,6 @@ async def run_analysis_suite(analysis_type: str) -> List[TextContent]:
     outputs: List[str] = []
     analysis_type = analysis_type.lower()
 
-    # Use built-in MCP analysis tools instead of external scripts
     if analysis_type in ("project", "all"):
         try:
             project_result = await analyze_project(include_metrics=True, check_architecture=True)
@@ -2635,7 +2431,6 @@ async def check_debug_system_health() -> Dict[str, bool]:
     }
 
     try:
-        # Check manifest script loading order
         manifest_path = PROJECT_ROOT / 'manifest.json'
         if manifest_path.exists():
             with open(manifest_path, 'r', encoding='utf-8') as f:
@@ -2649,19 +2444,16 @@ async def check_debug_system_health() -> Dict[str, bool]:
                     config_index = next((i for i, f in enumerate(js_files) if 'config.js' in f), -1)
                     debug_index = next((i for i, f in enumerate(js_files) if 'debug.js' in f), -1)
 
-                    # Script order is OK if i18n loads before config and debug
                     if i18n_index != -1:
                         if config_index != -1 and i18n_index > config_index:
                             health['script_order_ok'] = False
                         if debug_index != -1 and i18n_index > debug_index:
                             health['script_order_ok'] = False
 
-        # Check if debug.js has proper translation implementation
         debug_js_path = PROJECT_ROOT / 'src' / 'shared' / 'debug.js'
         if debug_js_path.exists():
             debug_content = debug_js_path.read_text(encoding='utf-8')
 
-            # Check for modern translation implementation
             has_translation_logic = (
                 'translatedMessage' in debug_content and
                 'getMessage(message)' in debug_content and
@@ -2674,7 +2466,6 @@ async def check_debug_system_health() -> Dict[str, bool]:
                 health['translation_functional'] = False
                 health['healthy'] = False
 
-        # Check if locale files exist and have debug keys
         locales_dir = PROJECT_ROOT / "_locales"
         if locales_dir.exists():
             en_messages = locales_dir / "en" / "messages.json"
@@ -2688,7 +2479,6 @@ async def check_debug_system_health() -> Dict[str, bool]:
                     health['i18n_working'] = False
                     health['healthy'] = False
 
-        # Overall health check
         if not health['script_order_ok'] or not health['translation_functional']:
             health['healthy'] = False
 
@@ -2701,7 +2491,6 @@ async def check_debug_system_health() -> Dict[str, bool]:
 async def provide_debug_insights(result: List[str], check_unused_keys: bool, identify_missing: bool) -> List[TextContent]:
     """Provide helpful insights for healthy debug systems without false warnings."""
 
-    # Find all JS files
     js_files = []
     files_with_debug = {}
 
@@ -2711,13 +2500,11 @@ async def provide_debug_insights(result: List[str], check_unused_keys: bool, ide
                 file_path = Path(root) / file
                 js_files.append(file_path)
 
-    # Analyze debug usage patterns
     for js_file in js_files:
         try:
             content = js_file.read_text(encoding='utf-8')
             rel_path = str(js_file.relative_to(PROJECT_ROOT)).replace('\\', '/')
 
-            # Count debug patterns
             debug_patterns = [
                 r'window\.GPTPF_DEBUG\?\.log\(',
                 r'window\.GPTPF_DEBUG\?\.warn\(',
@@ -2744,7 +2531,6 @@ async def provide_debug_insights(result: List[str], check_unused_keys: bool, ide
         except Exception:
             continue
 
-    # Provide positive insights
     result.append(f"\n📊 DEBUG INTEGRATION INSIGHTS:")
     result.append(f"  • Total JavaScript files: {len(js_files)}")
     result.append(f"  • Files with debug integration: {len(files_with_debug)}")
@@ -2753,13 +2539,11 @@ async def provide_debug_insights(result: List[str], check_unused_keys: bool, ide
         coverage_pct = (len(files_with_debug) / len(js_files)) * 100
         result.append(f"  • Debug coverage: {coverage_pct:.1f}%")
 
-        # Show top debug-integrated files
         top_files = sorted(files_with_debug.items(), key=lambda x: x[1], reverse=True)[:5]
         result.append(f"\n🔧 TOP DEBUG-INTEGRATED FILES:")
         for file_path, count in top_files:
             result.append(f"  • {count} calls: {file_path}")
 
-    # Optional: Quick locale key check (only if requested)
     if check_unused_keys:
         await analyze_debug_locale_insights(result)
 
@@ -2778,7 +2562,6 @@ async def analyze_debug_locale_insights(result: List[str]):
         if not locales_dir.exists():
             return
 
-        # Load English locale
         en_messages = locales_dir / "en" / "messages.json"
         if en_messages.exists():
             with open(en_messages, 'r', encoding='utf-8') as f:
@@ -2792,7 +2575,6 @@ async def analyze_debug_locale_insights(result: List[str]):
             result.append(f"  • Debug keys defined: {len(debug_keys)}")
             result.append(f"  • Debug key percentage: {debug_percentage:.1f}% of total keys")
 
-            # Count other locales
             locale_count = len([d for d in locales_dir.iterdir() if d.is_dir() and (d / "messages.json").exists()])
             result.append(f"  • Supported locales: {locale_count}")
 
@@ -2846,7 +2628,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                 rel_path = os.path.relpath(file_path, PROJECT_ROOT)
                 file_lines = len(content.split('\n'))
 
-                # Skip shared/debug.js itself
                 if 'debug.js' in rel_path:
                     continue
 
@@ -2856,7 +2637,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                     files_count: int = coverage_data['files_with_debug']
                     coverage_data['files_with_debug'] = files_count + 1
 
-                    # Analyze quality of debug integration
                     debug_calls = sum(content.count(pattern) for pattern in debug_patterns)
 
                     quality_dict: Dict[str, Any] = coverage_data['debug_integration_quality']
@@ -2866,7 +2646,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                         'debug_density': debug_calls / max(file_lines, 1) * 100
                     }
                 else:
-                    # Check if file should have debug integration
                     should_have_debug = any(indicator in content.lower() for indicator in [
                         'error', 'catch', 'try', 'throw', 'fail', 'invalid',
                         'load', 'init', 'process', 'handle', 'validate'
@@ -2894,13 +2673,11 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
             'locale_completion': {}
         }
 
-        # Find all debug keys actually used in codebase
         debug_keys_in_code = set()
         js_files = get_js_files()
         for js_file in js_files:
             try:
                 content = js_file.read_text(encoding='utf-8')
-                # Find debug keys that start with debug_ and end with word boundary
                 debug_key_matches = re.findall(r'\bdebug_[a-z_]+\b', content)
                 for match in debug_key_matches:
                     debug_keys_in_code.add(match)
@@ -2909,7 +2686,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
 
         locale_data['debug_keys_in_code'] = debug_keys_in_code
 
-        # Check locale files for debug key definitions
         locale_files = get_locale_files()
         for locale_name, messages_file in locale_files.items():
             try:
@@ -2918,7 +2694,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                     debug_keys_in_locale = {k for k in messages.keys() if k.startswith('debug_')}
                     locale_data['debug_keys_found'].update(debug_keys_in_locale)
 
-                    # Calculate accurate completion percentage
                     missing_in_locale = debug_keys_in_code - debug_keys_in_locale
                     found_in_locale = debug_keys_in_code & debug_keys_in_locale
 
@@ -2954,11 +2729,9 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
 
                 rel_path = os.path.relpath(file_path, PROJECT_ROOT)
 
-                # Skip debug.js file as it legitimately uses console calls for interception
                 if 'debug.js' in rel_path:
                     continue
 
-                # Anti-pattern: Raw console calls instead of GPTPF_DEBUG
                 raw_console_calls = []
                 for line_num, line in enumerate(content.split('\n'), 1):
                     if any(pattern in line for pattern in ['console.log', 'console.warn', 'console.error']) and 'originalConsole' not in line:
@@ -2973,11 +2746,9 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                         'fix': 'Replace console.* calls with GPTPF_DEBUG.* for consistency'
                     })
 
-                # Anti-pattern: Hardcoded debug messages (check for actual hardcoded strings, not i18n keys)
                 hardcoded_debug_patterns = re.findall(r'GPTPF_DEBUG\.\w+\([\'"]([^\'\"]+)[\'\"](?!,)', content)
                 actual_hardcoded = []
                 for pattern in hardcoded_debug_patterns:
-                    # Check if this is a hardcoded message (contains spaces/sentences) vs an i18n key
                     if ' ' in pattern and not pattern.startswith('debug_') and len(pattern) > 10:
                         actual_hardcoded.append(pattern)
 
@@ -2990,22 +2761,14 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                         'fix': 'Replace hardcoded messages with i18n keys using GPTPF_I18N.getMessage()'
                     })
 
-                # Anti-pattern: Debug code in production paths
-                # GPTPF_DEBUG is always available after initialization, so direct calls are fine
-                # Optional chaining is defensive programming but not required
-                # Only flag truly problematic patterns
 
-                # Check for actual problematic debug patterns
                 problematic_patterns = []
 
-                # Pattern 1: Direct console.log instead of GPTPF_DEBUG (already handled above)
-                # Pattern 2: Debug calls in tight loops without performance considerations
                 lines = content.split('\n')
                 in_loop = False
                 loop_debug_count = 0
 
                 for i, line in enumerate(lines):
-                    # Detect loops
                     if any(keyword in line for keyword in ['for (', 'while (', 'forEach(', '.map(', '.filter(']):
                         in_loop = True
                         loop_debug_count = 0
@@ -3016,7 +2779,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                     elif in_loop and 'GPTPF_DEBUG' in line:
                         loop_debug_count += 1
 
-                # Only report if there are actual problematic patterns
                 if problematic_patterns:
                     anti_patterns.append({
                         'type': 'Debug Performance Issues',
@@ -3035,7 +2797,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
         """Generate intelligent optimization recommendations."""
         recommendations = []
 
-        # Coverage recommendations
         coverage_percent = (coverage_data['files_with_debug'] / max(coverage_data['total_files'], 1)) * 100
 
         if coverage_percent < 50:
@@ -3053,7 +2814,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                 'action': 'Add debug logging to remaining complex functions and error cases'
             })
 
-        # Locale recommendations
         if locale_data['missing_debug_keys']:
             recommendations.append({
                 'priority': 'HIGH',
@@ -3062,7 +2822,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                 'action': f"Add keys: {', '.join(locale_data['missing_debug_keys'][:3])}"
             })
 
-        # Anti-pattern recommendations
         if anti_patterns:
             for pattern in anti_patterns[:3]:  # Top 3 patterns
                 recommendations.append({
@@ -3072,7 +2831,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                     'action': pattern['fix']
                 })
 
-        # Performance recommendations
         high_density_files = [
             file for file, data in coverage_data['debug_integration_quality'].items()
             if data['debug_density'] > 5  # More than 5% of lines are debug calls
@@ -3088,18 +2846,15 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
 
         return recommendations
 
-    # Main analysis
     coverage_data = _analyze_debug_coverage()
     locale_data = _check_debug_locale_integration()
     anti_patterns = _detect_debug_anti_patterns()
     recommendations = _generate_optimization_recommendations(coverage_data, locale_data, anti_patterns)
 
-    # Build comprehensive report
     result = ["🔧 INTELLIGENT DEBUG INTEGRATION ANALYSIS"]
     result.append("=" * 50)
     result.append("")
 
-    # Coverage analysis
     coverage_percent = (coverage_data['files_with_debug'] / max(coverage_data['total_files'], 1)) * 100
     result.append("📊 DEBUG COVERAGE ANALYSIS:")
     result.append(f"   Total JavaScript files: {coverage_data['total_files']}")
@@ -3114,7 +2869,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
         result.append("   🔴 Low debug coverage - needs attention")
     result.append("")
 
-    # Missing debug integration
     if coverage_data['missing_debug_files'] and identify_missing:
         result.append("🎯 MISSING DEBUG INTEGRATION:")
         for missing in coverage_data['missing_debug_files'][:5]:
@@ -3125,7 +2879,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
             result.append(f"   ... and {len(coverage_data['missing_debug_files']) - 5} more files")
         result.append("")
 
-    # Locale integration analysis
     if check_unused_keys:
         result.append("🌍 LOCALE INTEGRATION ANALYSIS:")
         result.append(f"   Debug keys in code: {len(locale_data['debug_keys_in_code'])}")
@@ -3142,14 +2895,12 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
                 result.append(f"   {locale}: {data['percentage']:.1f}% complete ({data['found']}/{data['total_needed']} keys)")
                 if data['all_missing_keys']:
                     result.append(f"      🔍 ALL MISSING KEYS ({len(data['all_missing_keys'])}):")
-                    # Group missing keys for better readability
                     missing_keys = data['all_missing_keys']
                     for i in range(0, len(missing_keys), 3):
                         batch = missing_keys[i:i+3]
                         result.append(f"         {', '.join(batch)}")
         result.append("")
 
-    # Anti-patterns detection
     if anti_patterns:
         result.append("⚠️ DEBUG ANTI-PATTERNS DETECTED:")
         for pattern in anti_patterns[:5]:
@@ -3158,7 +2909,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
             result.append(f"      Fix: {pattern['fix']}")
         result.append("")
 
-    # Recommendations
     if recommendations:
         result.append("💡 OPTIMIZATION RECOMMENDATIONS:")
 
@@ -3185,7 +2935,6 @@ async def analyze_debug_integration(check_unused_keys: bool = True, identify_mis
 
         result.append("")
 
-    # Quality score
     quality_score = min(100,
                        coverage_percent +
                        (20 if not locale_data['missing_debug_keys'] else 0) +
@@ -3228,32 +2977,26 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         lines = content.split('\n')
         code_blocks = content.count('```')
 
-        # Readability analysis
         if len(content) > 100:
-            # Check for proper headings
             heading_count = len([line for line in lines if line.startswith('#')])
             if heading_count > 0:
                 readability_score: int = quality_metrics['readability_score']
                 quality_metrics['readability_score'] = readability_score + 30
 
-            # Check for code examples
             if code_blocks >= 2:  # At least one complete code block
                 readability_score: int = quality_metrics['readability_score']
                 quality_metrics['readability_score'] = readability_score + 20
 
-            # Check for links and references
             links = content.count('[') + content.count('http')
             if links > 2:
                 readability_score: int = quality_metrics['readability_score']
                 quality_metrics['readability_score'] = readability_score + 15
 
-            # Check for lists and structure
             list_items = content.count('- ') + content.count('* ') + content.count('1. ')
             if list_items > 3:
                 readability_score: int = quality_metrics['readability_score']
                 quality_metrics['readability_score'] = readability_score + 15
 
-        # Completeness analysis
         essential_sections = {
             'readme.md': ['installation', 'usage', 'features', 'getting started'],
             'contributing.md': ['setup', 'development', 'pull request', 'guidelines'],
@@ -3273,7 +3016,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                 quality_metrics['completeness_score'] = int((found_sections / len(required_sections)) * 100)
                 break
         else:
-            # Generic completeness check
             if len(content) > 500:
                 quality_metrics['completeness_score'] = 60
             elif len(content) > 200:
@@ -3281,22 +3023,18 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             else:
                 quality_metrics['completeness_score'] = 20
 
-        # Structure quality
         if content.startswith('#'):
             structure_score: int = quality_metrics['structure_quality']
             quality_metrics['structure_quality'] = structure_score + 25
 
-        # Check for table of contents
         if 'table of contents' in content_lower or '- [' in content:
             structure_score: int = quality_metrics['structure_quality']
             quality_metrics['structure_quality'] = structure_score + 25
 
-        # Check for proper formatting
         if '```' in content and code_blocks % 2 == 0:  # Matched code blocks
             structure_score: int = quality_metrics['structure_quality']
             quality_metrics['structure_quality'] = structure_score + 25
 
-        # Check for images/diagrams
         if '![' in content or 'image' in content_lower:
             structure_score: int = quality_metrics['structure_quality']
             quality_metrics['structure_quality'] = structure_score + 25
@@ -3308,11 +3046,9 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         outdated_indicators = []
 
         try:
-            # Get last modification time of the doc file
             doc_modified = Path(file_path).stat().st_mtime
             doc_date = datetime.datetime.fromtimestamp(doc_modified)
 
-            # Get last modification time of related source files
             file_stem = Path(file_path).stem.lower()
             related_patterns = []
 
@@ -3327,7 +3063,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             else:
                 related_patterns = ['src/**/*', 'manifest.json']
 
-            # Check if related files are newer than documentation
             newer_files = []
             for pattern in related_patterns:
                 for related_file in get_files_by_glob([pattern]):
@@ -3347,15 +3082,12 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                 for file, days in sorted(newer_files, key=lambda x: x[1], reverse=True)[:5]:
                     outdated_indicators.append(f"  • {file} ({days} days newer)")
 
-            # Content-based outdated detection
             content_lower = content.lower()
 
-            # Check for old version references
             version_patterns = [r'v?\d+\.\d+\.\d+', r'version \d+', r'chrome \d+']
             for pattern in version_patterns:
                 matches = re.findall(pattern, content_lower)
                 if matches:
-                    # Simple heuristic: if version numbers seem old
                     for match in matches:
                         numbers = re.findall(r'\d+', match)
                         if numbers and len(numbers) >= 2:
@@ -3364,7 +3096,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                                 outdated_indicators.append(f"Potentially outdated version reference: {match}")
                                 break
 
-            # Check for deprecated technology references
             deprecated_terms = [
                 'manifest v2', 'jquery', 'bower', 'grunt', 'gulp',
                 'internet explorer', 'ie6', 'ie7', 'ie8', 'ie9', 'ie10', 'ie11'
@@ -3374,11 +3105,9 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                 if term in content_lower:
                     outdated_indicators.append(f"References deprecated technology: {term}")
 
-            # Check for broken internal links
             internal_links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', content)
             for _, link_url in internal_links:
                 if not link_url.startswith(('http', 'mailto', '#')):
-                    # Check if internal file exists
                     link_path = PROJECT_ROOT / link_url.lstrip('./')
                     if not link_path.exists():
                         outdated_indicators.append(f"Broken internal link: {link_url}")
@@ -3394,7 +3123,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
 
         file_name = Path(file_path).name.lower()
 
-        # Readability improvements
         if quality_metrics['readability_score'] < 50:
             if not content.startswith('#'):
                 suggestions.append("Add a clear title/heading at the beginning")
@@ -3405,7 +3133,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             if content.count('\n\n') < 3:
                 suggestions.append("Add more spacing/paragraphs for better readability")
 
-        # Completeness improvements
         if quality_metrics['completeness_score'] < 70:
             if 'readme' in file_name:
                 suggestions.append("Consider adding: installation instructions, usage examples, features overview")
@@ -3416,13 +3143,11 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             else:
                 suggestions.append("Expand content with more detailed explanations and examples")
 
-        # Structure improvements
         if quality_metrics['structure_quality'] < 60:
             suggestions.append("Improve document structure with consistent heading hierarchy")
             if len(content) > 1000 and 'table of contents' not in content.lower():
                 suggestions.append("Add table of contents for better navigation")
 
-        # File-specific suggestions
         if 'readme' in file_name and 'badge' not in content.lower():
             suggestions.append("Consider adding status badges (build, version, license)")
 
@@ -3431,14 +3156,12 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
 
         return suggestions
 
-    # Main analysis
     doc_patterns = ["*.md", "docs/**/*.md", ".github/**/*.md", "*.rst", "*.txt"]
     doc_files = get_files_by_glob(doc_patterns)
 
     if not doc_files:
         return [TextContent(type="text", text="❌ No documentation files found")]
 
-    # Categorize documentation intelligently
     public_docs = []
     internal_docs = []
     mixed_docs = []
@@ -3451,7 +3174,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             with open(doc_file, 'r', encoding='utf-8') as f:
                 content = f.read()
 
-            # Intelligent categorization
             is_internal = any(indicator in rel_path.lower() for indicator in [
                 'internal/', '/internal/', '\\internal\\',
                 'private', 'technical_docs', 'pipeline_protection', 'env_mcp'
@@ -3461,7 +3183,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                 'readme', 'changelog', 'contributing', 'license', 'notice'
             ]) or rel_path.startswith('docs/') and 'internal' not in rel_path.lower()
 
-            # Analyze document quality
             quality_metrics = _analyze_doc_quality(content, rel_path)
             outdated_content = _detect_outdated_content(doc_file, content)
             suggestions = _suggest_improvements(doc_file, content, quality_metrics)
@@ -3485,12 +3206,10 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         except Exception:
             public_docs.append(rel_path)
 
-    # Build comprehensive analysis report
     result = ["📚 INTELLIGENT DOCUMENTATION ANALYSIS"]
     result.append("=" * 50)
     result.append("")
 
-    # Overview statistics
     total_words = sum(analysis['word_count'] for analysis in doc_analysis.values())
     avg_quality = sum(
         analysis['quality_metrics']['readability_score'] +
@@ -3509,7 +3228,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         result.append(f"   Uncategorized: {len(mixed_docs)}")
     result.append("")
 
-    # Quality analysis by file
     result.append("📋 QUALITY ANALYSIS BY FILE:")
     quality_sorted = sorted(doc_analysis.items(),
                           key=lambda x: (x[1]['quality_metrics']['readability_score'] +
@@ -3526,7 +3244,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         result.append(f"   {status} {file_path} ({total_quality:.0f}/100, {analysis['word_count']} words)")
     result.append("")
 
-    # Outdated content detection
     outdated_files = [(path, analysis) for path, analysis in doc_analysis.items()
                      if analysis['outdated_indicators']]
 
@@ -3543,7 +3260,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
         result.append("✅ CONTENT FRESHNESS: All documentation appears up-to-date")
         result.append("")
 
-    # Improvement suggestions
     files_needing_improvement = [(path, analysis) for path, analysis in doc_analysis.items()
                                if analysis['suggestions']]
 
@@ -3556,7 +3272,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
                     result.append(f"     • {suggestion}")
         result.append("")
 
-    # Organization analysis
     if check_separation:
         if mixed_docs:
             result.append("🏗️ ORGANIZATION ISSUES:")
@@ -3569,7 +3284,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             result.append("✅ ORGANIZATION: Documentation properly categorized")
             result.append("")
 
-    # Git activity analysis
     if update_needed:
         try:
             git_result = subprocess.run(
@@ -3609,7 +3323,6 @@ async def analyze_documentation(check_separation: bool = True, update_needed: bo
             result.append("⚠️ Could not analyze git activity for update recommendations")
             result.append("")
 
-    # Final recommendations
     result.append("🎯 PRIORITY ACTIONS:")
 
     low_quality_docs = [path for path, analysis in doc_analysis.items()
@@ -3645,10 +3358,8 @@ def log_startup_info():
         sys.stderr.write(f"🐍 Python: {sys.version}\n")
         sys.stderr.write(f"🖥️  Platform: {platform.system()} {platform.release()}\n")
 
-        # Environment detection with comprehensive checks
         env_details = []
 
-        # WSL detection
         if platform.system() == "Linux":
             try:
                 with open("/proc/version", "r") as f:
@@ -3658,11 +3369,9 @@ def log_startup_info():
             except Exception:
                 pass
 
-        # Virtual environment detection
         if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
             env_details.append("Virtual environment active")
 
-        # MCP version with error handling
         try:
             try:
                 from importlib.metadata import version as pkg_version  # Python 3.8+
@@ -3673,11 +3382,9 @@ def log_startup_info():
         except Exception as e:
             sys.stderr.write(f"⚠️ Could not determine MCP version: {e}\n")
 
-        # Environment details
         if env_details:
             sys.stderr.write(f"🔍 Environment: {', '.join(env_details)}\n")
 
-        # Project validation
         if PROJECT_ROOT.exists():
             sys.stderr.write(f"✅ Project directory validated\n")
         else:
@@ -3696,11 +3403,9 @@ def validate_environment() -> bool:
     validation_errors = []
 
     try:
-        # Check Python version
         if sys.version_info < (3, 8):
             validation_errors.append(f"Python 3.8+ required, found {sys.version}")
 
-        # Check required modules
         required_modules = ['asyncio', 'json', 'pathlib', 're']
         for module in required_modules:
             try:
@@ -3708,14 +3413,11 @@ def validate_environment() -> bool:
             except ImportError:
                 validation_errors.append(f"Required module missing: {module}")
 
-        # Check MCP modules are available (already imported at module level)
         try:
-            # Verify MCP imports work by accessing them
             _ = server  # Reference the already-initialized server
         except NameError as e:
             validation_errors.append(f"MCP modules not available: {e}")
 
-        # Check project structure
         critical_paths = [
             PROJECT_ROOT / "manifest.json",
             PROJECT_ROOT / "src",
@@ -3726,7 +3428,6 @@ def validate_environment() -> bool:
             if not path.exists():
                 validation_errors.append(f"Critical path missing: {path}")
 
-        # Report validation results
         if validation_errors:
             sys.stderr.write("❌ Environment validation failed:\n")
             for error in validation_errors:
@@ -3752,10 +3453,8 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     result = f"🧠 ENHANCED CODE QUALITY ANALYSIS [{timestamp}]\n" + ("=" * 80) + "\n\n"
 
-    # Enhanced code analysis with performance and security focus
     code_analysis = await _perform_deep_code_analysis()
 
-    # Advanced quality score calculation
     quality_score = _calculate_quality_score(code_analysis)
 
     result += f"📊 QUALITY OVERVIEW\n"
@@ -3765,7 +3464,6 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
     result += f"  • Performance: {quality_score['performance']}/25\n"
     result += f"  • Security: {quality_score['security']}/25\n\n"
 
-    # Enhanced metrics with performance indicators
     result += f"📈 CODEBASE METRICS\n"
     result += f"JavaScript Files: {code_analysis['file_count']} | Total Lines: {code_analysis['total_lines']:,}\n"
     result += f"Functions: {code_analysis['function_count']} | Classes: {code_analysis['class_count']}\n"
@@ -3775,7 +3473,6 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
 
     result += "\n"
 
-    # Design pattern detection with architectural insights
     patterns = code_analysis['design_patterns']
     if patterns:
         result += f"🎯 DESIGN PATTERNS DETECTED\n"
@@ -3783,7 +3480,6 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
             result += f"  • {pattern}: {count} instances\n"
         result += "\n"
 
-    # Code smells with enhanced categorization
     smells = code_analysis['code_smells']
     if smells:
         result += f"⚠️  CODE SMELLS DETECTED\n"
@@ -3800,14 +3496,12 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
                 result += f"    ... and {len(smell_list) - 8} more {category.lower()} issues\n"
         result += "\n"
 
-    # Performance analysis
     if check_performance:
         perf_issues = code_analysis['performance_issues']
         result += f"⚡ PERFORMANCE ANALYSIS\n"
         if perf_issues:
             result += f"Issues Found: {len(perf_issues)}\n"
 
-            # Group by severity
             critical_perf = [i for i in perf_issues if i['severity'] == 'CRITICAL']
             high_perf = [i for i in perf_issues if i['severity'] == 'HIGH']
             medium_perf = [i for i in perf_issues if i['severity'] == 'MEDIUM']
@@ -3834,14 +3528,12 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
         else:
             result += f"✅ No significant performance issues detected\n\n"
 
-    # Security analysis
     if check_security:
         security_issues = code_analysis['security_issues']
         result += f"🔒 SECURITY ANALYSIS\n"
         if security_issues:
             result += f"Security Issues: {len(security_issues)}\n"
 
-            # Group by severity
             critical_sec = [i for i in security_issues if i['severity'] == 'CRITICAL']
             high_sec = [i for i in security_issues if i['severity'] == 'HIGH']
 
@@ -3860,7 +3552,6 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
         else:
             result += f"✅ No critical security issues detected\n\n"
 
-    # Refactoring opportunities
     refactoring_opps = code_analysis['refactoring_opportunities']
     if refactoring_opps:
         result += f"🔧 REFACTORING OPPORTUNITIES\n"
@@ -3870,12 +3561,10 @@ async def analyze_code_quality(include_suggestions: bool = True, check_performan
             result += f"    Benefit: {opp['benefit']}\n"
             result += f"    Effort: {opp['effort']}\n\n"
 
-    # Intelligent recommendations
     if include_suggestions:
         recommendations = _generate_intelligent_recommendations(code_analysis, quality_score)
         result += f"💡 INTELLIGENT RECOMMENDATIONS\n"
 
-        # Prioritize recommendations
         critical_recs = [r for r in recommendations if r['priority'] == 'CRITICAL']
         high_recs = [r for r in recommendations if r['priority'] == 'HIGH']
         medium_recs = [r for r in recommendations if r['priority'] == 'MEDIUM']
@@ -3935,48 +3624,39 @@ async def _perform_deep_code_analysis() -> Dict[str, Any]:
             analysis['total_lines'] += len(lines)
             analysis['files_analyzed'].append(rel_path)  # Track analyzed files
 
-            # Function and class analysis
             functions = re.findall(r'(?:function\s+\w+|const\s+\w+\s*=\s*(?:async\s+)?(?:function|\([^)]*\)\s*=>))', content)
             classes = re.findall(r'class\s+\w+', content)
 
             analysis['function_count'] += len(functions)
             analysis['class_count'] += len(classes)
 
-            # Complexity analysis
             complexity = _calculate_file_complexity(content)
             complexity_scores.append(complexity)
 
-            # Tech debt indicators
             if re.search(r'TODO|FIXME|HACK|XXX', content, re.IGNORECASE):
                 tech_debt_indicators += 1
 
-            # Design pattern detection
             patterns = _detect_design_patterns(content, rel_path)
             for pattern, count in patterns.items():
                 analysis['design_patterns'][pattern] = analysis['design_patterns'].get(pattern, 0) + count
 
-            # Code smell detection
             smells = _detect_code_smells(content, rel_path)
             analysis['code_smells'].extend(smells)
 
-            # Performance issue detection
             perf_issues = _detect_performance_issues(content, rel_path)
             analysis['performance_issues'].extend(perf_issues)
 
-            # Security issue detection
             sec_issues = _detect_security_issues(content, rel_path)
             analysis['security_issues'].extend(sec_issues)
 
         except Exception:
             continue
 
-    # Calculate averages and scores
     if complexity_scores:
         analysis['avg_complexity'] = sum(complexity_scores) / len(complexity_scores)
 
     analysis['tech_debt_score'] = min(10, (tech_debt_indicators / max(1, analysis['file_count'])) * 10)
 
-    # Identify refactoring opportunities
     analysis['refactoring_opportunities'] = _identify_refactoring_opportunities(analysis)
 
     return analysis
@@ -3986,29 +3666,22 @@ def _calculate_file_complexity(content: str) -> float:
     """Calculate ACTUAL complexity score for a JavaScript file - not just line count."""
     complexity = 0
 
-    # Cyclomatic complexity indicators (actual branching logic)
     complexity += len(re.findall(r'\b(if|else|for|while|switch|case|catch)\b', content))
     complexity += len(re.findall(r'\?\s*.*\s*:', content))  # Ternary operators
     complexity += len(re.findall(r'&&|\|\|', content))  # Logical operators
 
-    # Function complexity (but don't over-penalize modular code)
     complexity += len(re.findall(r'function\s*\(|=>\s*{|=>\s*\(', content)) * 0.5
 
-    # DOM complexity (but this is normal for UI code)
     complexity += len(re.findall(r'document\.|window\.|addEventListener', content)) * 0.3
 
-    # Async complexity (but this is good architecture for Chrome extensions)
     complexity += len(re.findall(r'async|await|\.then\(|\.catch\(', content)) * 0.2
 
-    # Reduce complexity score for well-structured patterns
     lines = len(content.splitlines())
 
-    # Check for good architectural patterns that should REDUCE complexity score
     has_centralized_systems = bool(re.search(r'GPTPF_[A-Z]+', content))
     has_error_handling = bool(re.search(r'try\s*{.*catch\s*\(', content, re.DOTALL))
     has_i18n_integration = bool(re.search(r'getMessage\(|data-i18n', content))
 
-    # Reward good architecture
     if has_centralized_systems:
         complexity *= 0.8
     if has_error_handling:
@@ -4016,10 +3689,8 @@ def _calculate_file_complexity(content: str) -> float:
     if has_i18n_integration:
         complexity *= 0.9
 
-    # Normalize to 0-10 scale based on ACTUAL complexity, not just line count
     normalized = min(10, complexity / max(1, lines / 50))  # More reasonable normalization
 
-    # Cap complexity for well-architected files
     if normalized < 3 and lines > 200:
         return max(2, normalized)  # Don't penalize comprehensive but well-structured files
 
@@ -4030,23 +3701,18 @@ def _detect_design_patterns(content: str, file_path: str) -> Dict[str, Any]:
     """Detect design patterns in JavaScript code."""
     patterns = {}
 
-    # Factory Pattern
     if re.search(r'function\s+\w*Factory|class\s+\w*Factory|\w+Factory\s*=', content):
         patterns['Factory Pattern'] = patterns.get('Factory Pattern', 0) + 1
 
-    # Observer Pattern
     if re.search(r'addEventListener|on\w+\s*=|subscribe|unsubscribe', content):
         patterns['Observer Pattern'] = patterns.get('Observer Pattern', 0) + 1
 
-    # Singleton Pattern
     if re.search(r'getInstance|let\s+instance\s*=|const\s+instance\s*=', content):
         patterns['Singleton Pattern'] = patterns.get('Singleton Pattern', 0) + 1
 
-    # Module Pattern
     if re.search(r'export\s+|import\s+.*from|module\.exports', content):
         patterns['Module Pattern'] = patterns.get('Module Pattern', 0) + 1
 
-    # Strategy Pattern
     if re.search(r'switch\s*\([^)]*\)\s*{.*case.*:.*case.*:', content, re.DOTALL):
         patterns['Strategy Pattern'] = patterns.get('Strategy Pattern', 0) + 1
 
@@ -4057,13 +3723,8 @@ def _detect_code_smells(content: str, file_path: str) -> List[Dict[str, Any]]:
     """Detect genuine code quality issues while understanding Multi-AI File Paster architecture."""
     smells: List[Dict[str, Any]] = []
 
-    # Only analyze legitimate code issues - understand Multi-AI File Paster patterns
-    # Skip legitimate architectural choices and working systems
 
-    # INTELLIGENT CODE SMELL DETECTION - Only detect genuine problems
-    # Understand Multi-AI File Paster architecture before flagging issues
 
-    # Only detect truly critical security vulnerabilities
     if 'eval(' in content:
         smells.append({
             'category': 'Security',
@@ -4073,7 +3734,6 @@ def _detect_code_smells(content: str, file_path: str) -> List[Dict[str, Any]]:
             'fix': 'Remove eval() and use safer alternatives'
         })
 
-    # INTELLIGENT function complexity analysis - focus on ACTUAL problems, not line count
     function_matches = list(re.finditer(r'function\s+(\w+)[^{]*{', content))
     for match in function_matches:
         func_name = match.group(1)
@@ -4090,36 +3750,27 @@ def _detect_code_smells(content: str, file_path: str) -> List[Dict[str, Any]]:
             function_content = content[start_pos:pos-1]
             lines = function_content.count('\n')
 
-            # Only flag functions with ACTUAL complexity problems (not just length)
             if lines > 300:  # Much higher threshold - only truly massive functions
-                # Calculate actual complexity metrics
                 cyclomatic_complexity = (
                     len(re.findall(r'\b(if|else|for|while|switch|case|catch|try)\b', function_content)) +
                     len(re.findall(r'\?\s*.*\s*:', function_content)) +  # Ternary operators
                     len(re.findall(r'&&|\|\|', function_content))  # Logical operators
                 )
 
-                # Check for legitimate architectural patterns that should NEVER be flagged
                 is_legitimate_architecture = any(pattern in func_name.lower() for pattern in [
-                    # Core workflow functions - these SHOULD be comprehensive
                     'processtext', 'initializesettings', 'initializeeventlisteners', 'rendertrend',
-                    # Initialization patterns - these need to be complete
                     'initialize', 'setup', 'render', 'process', 'handle', 'attach', 'load', 'update',
-                    # UI coordination functions - these coordinate multiple elements
                     'eventlisteners', 'settings', 'workflow', 'trend', 'chart', 'analytics',
-                    # Platform handlers - these handle complex integrations
                     'applythemecolors', 'setupfileformatlisteners', 'initializeanalytics',
                     'handlefileformat', 'updateui', 'processfiles'
                 ])
 
-                # Check for sequential workflow patterns (good architecture)
                 is_sequential_workflow = (
                     'async' in function_content and
                     ('await' in function_content or '.then(' in function_content) and
                     ('try' in function_content and 'catch' in function_content)
                 )
 
-                # Only flag if it has BOTH excessive length AND high complexity AND is not legitimate
                 if (cyclomatic_complexity > 80 and
                     not is_legitimate_architecture and
                     not is_sequential_workflow):
@@ -4131,50 +3782,35 @@ def _detect_code_smells(content: str, file_path: str) -> List[Dict[str, Any]]:
                         'fix': 'Consider extracting complex decision logic into separate functions'
                     })
 
-    # INTELLIGENT duplication detection - distinguish legitimate patterns from copy-paste problems
     lines = content.splitlines()
     identical_blocks = {}
 
     def _is_legitimate_repeated_pattern(block_text: str, file_path: str) -> bool:
         """Check if repeated code is legitimate Multi-AI File Paster architecture pattern."""
 
-        # Multi-AI File Paster legitimate repeated patterns
         legitimate_patterns = [
-            # Theme coordination patterns - repeated across platforms
             'data-theme', 'data-platform', 'setAttribute', 'theme',
-            # Debug integration patterns - consistent across files
             'GPTPF_DEBUG', 'debug(', 'console.log', 'debugLevel',
-            # I18n patterns - repeated across components
             'GPTPF_I18N', 'getMessage(', 'i18n', 'locale',
-            # Error handling patterns - consistent structure needed
             'try {', 'catch (', 'error', 'throw new Error',
-            # Platform detection patterns - similar logic needed
             'isSupported', 'getPlatformName', 'window.location', 'document.URL',
-            # Event handling patterns - similar setup needed
             'addEventListener', 'removeEventListener', 'event',
-            # Component creation patterns - consistent API needed
             'createElement', 'appendChild', 'className', 'textContent',
-            # Configuration access patterns - consistent usage
             'GPTPF_CONFIG', 'getConfig', 'config.',
-            # Validation patterns - consistent checks needed
             'validate', 'isValid', 'check', 'verify'
         ]
 
-        # If the block contains legitimate patterns, it's probably valid architecture
         if any(pattern in block_text for pattern in legitimate_patterns):
             return True
 
-        # Chrome Extension API patterns - naturally repeated
         if any(api in block_text for api in ['chrome.', 'browser.', 'manifest', 'permissions']):
             return True
 
-        # Standard JavaScript patterns that are naturally repeated
         if any(js_pattern in block_text for js_pattern in ['function(', '=>', 'return', 'if (', 'for (']):
             return True
 
         return False
 
-    # Look for substantial identical blocks using non-overlapping windows to reduce noise
     window = 14
     step = 7  # 50% overlap only
     for i in range(0, max(0, len(lines) - window), step):
@@ -4187,18 +3823,15 @@ def _detect_code_smells(content: str, file_path: str) -> List[Dict[str, Any]]:
         if len(block_lines) >= 12:  # Require more substantial content
             block_text = '|'.join(block_lines)
 
-            # Skip if this is a legitimate repeated pattern
             if _is_legitimate_repeated_pattern(block_text, file_path):
                 continue
 
-            # Normalize for structural comparison (but preserve enough detail)
             normalized = re.sub(r'\b[a-zA-Z_][a-zA-Z0-9_]{8,}\b', 'LONG_VAR', block_text)  # Only normalize long vars
             normalized = re.sub(r'[0-9]+', 'NUM', normalized)  # Normalize numbers
 
             if len(normalized) > 360:  # Stronger signal threshold
                 identical_blocks[normalized] = identical_blocks.get(normalized, 0) + 1
 
-    # Only report genuine copy-paste duplication (5+ windows detected)
     for count in identical_blocks.values():
         if count >= 5:
             smells.append({
@@ -4219,7 +3852,6 @@ def _detect_performance_issues(content: str, file_path: str) -> List[Dict[str, A
     """Detect performance issues in JavaScript code."""
     issues = []
 
-    # Inefficient DOM queries
     if re.search(r'document\.getElementById\([^)]+\).*document\.getElementById\([^)]+\)', content):
         issues.append({
             'severity': 'HIGH',
@@ -4229,7 +3861,6 @@ def _detect_performance_issues(content: str, file_path: str) -> List[Dict[str, A
             'fix': 'Cache DOM elements in variables'
         })
 
-    # Synchronous XMLHttpRequest
     if re.search(r'XMLHttpRequest.*open\([^,]*,\s*[^,]*,\s*false', content):
         issues.append({
             'severity': 'CRITICAL',
@@ -4239,7 +3870,6 @@ def _detect_performance_issues(content: str, file_path: str) -> List[Dict[str, A
             'fix': 'Use async requests with fetch() or XMLHttpRequest async'
         })
 
-    # Memory leaks - event listeners not removed
     add_listeners = len(re.findall(r'addEventListener', content))
     remove_listeners = len(re.findall(r'removeEventListener', content))
     beforeunload_cleanup = bool(re.search(r'beforeunload.*addEventListener|addEventListener.*beforeunload', content))
@@ -4253,7 +3883,6 @@ def _detect_performance_issues(content: str, file_path: str) -> List[Dict[str, A
             'fix': 'Add corresponding removeEventListener calls or beforeunload cleanup'
         })
 
-    # Inefficient loops
     if re.search(r'for\s*\([^)]*document\.[^)]*\)', content):
         issues.append({
             'severity': 'HIGH',
@@ -4270,7 +3899,6 @@ def _detect_security_issues(content: str, file_path: str) -> List[Dict[str, Any]
     """Detect security issues in JavaScript code."""
     issues = []
 
-    # Dangerous innerHTML usage
     if re.search(r'innerHTML\s*=\s*[^;]*\+', content):
         issues.append({
             'severity': 'HIGH',
@@ -4280,7 +3908,6 @@ def _detect_security_issues(content: str, file_path: str) -> List[Dict[str, Any]
             'fix': 'Use textContent or create elements safely with createElement'
         })
 
-    # eval() usage
     if 'eval(' in content:
         issues.append({
             'severity': 'CRITICAL',
@@ -4290,7 +3917,6 @@ def _detect_security_issues(content: str, file_path: str) -> List[Dict[str, Any]
             'fix': 'Remove eval() and use safer alternatives like JSON.parse'
         })
 
-    # Unsafe external API calls
     if re.search(r'fetch\([\'"][^\'\"]*http://[^\'\"]*[\'\"]', content):
         issues.append({
             'severity': 'MEDIUM',
@@ -4300,7 +3926,6 @@ def _detect_security_issues(content: str, file_path: str) -> List[Dict[str, Any]
             'fix': 'Use HTTPS URLs for all external API calls'
         })
 
-    # localStorage/sessionStorage without validation
     if re.search(r'localStorage\.setItem\([^)]*\+|sessionStorage\.setItem\([^)]*\+', content):
         issues.append({
             'severity': 'MEDIUM',
@@ -4317,7 +3942,6 @@ def _identify_refactoring_opportunities(analysis: Dict[str, Any]) -> List[Dict[s
     """Identify intelligent refactoring opportunities."""
     opportunities = []
 
-    # Extract common functionality
     if analysis['function_count'] > 20:
         opportunities.append({
             'title': 'Extract Common Utility Functions',
@@ -4327,7 +3951,6 @@ def _identify_refactoring_opportunities(analysis: Dict[str, Any]) -> List[Dict[s
             'description': 'Many functions detected - consider extracting common patterns'
         })
 
-    # Introduce design patterns
     if analysis['design_patterns'].get('Module Pattern', 0) == 0 and analysis['file_count'] > 5:
         opportunities.append({
             'title': 'Implement Module Pattern',
@@ -4337,7 +3960,6 @@ def _identify_refactoring_opportunities(analysis: Dict[str, Any]) -> List[Dict[s
             'description': 'No module pattern detected - consider implementing for better structure'
         })
 
-    # Performance optimization
     if len(analysis['performance_issues']) > 5:
         opportunities.append({
             'title': 'Performance Optimization Sprint',
@@ -4360,35 +3982,29 @@ def _calculate_quality_score(analysis: Dict[str, Any]) -> Dict[str, Any]:
         'total': 100
     }
 
-    # Architecture score
     if analysis['design_patterns']:
         scores['architecture'] -= 0  # Good patterns detected
     else:
         scores['architecture'] -= 10  # No patterns detected
 
-    # More realistic complexity scoring - don't penalize well-architected code
     if analysis['avg_complexity'] > 8:  # Only penalize truly high complexity
         scores['architecture'] -= 5  # Reduced penalty
     elif analysis['avg_complexity'] > 6:
         scores['architecture'] -= 2  # Minor penalty
 
-    # Maintainability score
     scores['maintainability'] -= min(15, len(analysis['code_smells']) * 2)
     scores['maintainability'] -= min(10, analysis['tech_debt_score'])
 
-    # Performance score
     critical_perf = [i for i in analysis['performance_issues'] if i['severity'] == 'CRITICAL']
     high_perf = [i for i in analysis['performance_issues'] if i['severity'] == 'HIGH']
     scores['performance'] -= len(critical_perf) * 10
     scores['performance'] -= len(high_perf) * 5
 
-    # Security score
     critical_sec = [i for i in analysis['security_issues'] if i['severity'] == 'CRITICAL']
     high_sec = [i for i in analysis['security_issues'] if i['severity'] == 'HIGH']
     scores['security'] -= len(critical_sec) * 15
     scores['security'] -= len(high_sec) * 8
 
-    # Ensure no negative scores
     for key in scores:
         scores[key] = max(0, scores[key])
 
@@ -4401,7 +4017,6 @@ def _generate_intelligent_recommendations(analysis: Dict[str, Any], quality_scor
     """Generate intelligent, actionable recommendations."""
     recommendations = []
 
-    # Critical recommendations based on security
     critical_sec = [i for i in analysis['security_issues'] if i['severity'] == 'CRITICAL']
     if critical_sec:
         recommendations.append({
@@ -4412,7 +4027,6 @@ def _generate_intelligent_recommendations(analysis: Dict[str, Any], quality_scor
             'code_example': 'Replace eval() with JSON.parse(), use textContent instead of innerHTML'
         })
 
-    # Performance recommendations
     if quality_score['performance'] < 15:
         recommendations.append({
             'priority': 'HIGH',
@@ -4421,7 +4035,6 @@ def _generate_intelligent_recommendations(analysis: Dict[str, Any], quality_scor
             'impact': 'Improved user experience and application responsiveness'
         })
 
-    # Architecture recommendations
     if not analysis['design_patterns']:
         recommendations.append({
             'priority': 'HIGH',
@@ -4430,12 +4043,10 @@ def _generate_intelligent_recommendations(analysis: Dict[str, Any], quality_scor
             'impact': 'Better code organization and maintainability'
         })
 
-    # INTELLIGENT code quality recommendations - only suggest when actually needed
     if len(analysis['code_smells']) > 20:  # Higher threshold
         complexity_issues = [s for s in analysis['code_smells'] if s.get('category') == 'Complexity']
         duplication_issues = [s for s in analysis['code_smells'] if 'Duplication' in s.get('category', '')]
 
-        # Only recommend if there are ACTUAL complexity problems (not just long functions)
         actual_complexity_issues = [s for s in complexity_issues if 'cyclomatic complexity' in s.get('description', '')]
 
         if len(actual_complexity_issues) >= 2 or len(duplication_issues) >= 3:
@@ -4774,7 +4385,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     result.append("=" * 80)
     result.append("")
 
-    # Analyze GPTPF System Usage
     js_files = [Path(f) for f in get_files_by_glob(["src/**/*.js"])]
 
     gptpf_config_usage = 0
@@ -4821,7 +4431,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     result.append(f"  ✅ GPTPF_I18N: {gptpf_i18n_usage} uses across {len(i18n_files)} files")
     result.append(f"  ✅ GPTPF_FLASH: {gptpf_flash_usage} uses across {len(flash_files)} files")
 
-    # Architecture Insights
     insights = []
     if gptpf_config_usage > 50:
         insights.append("✅ GPTPF_CONFIG is heavily used - excellent centralization")
@@ -4830,18 +4439,15 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     if gptpf_i18n_usage > 200:
         insights.append("✅ GPTPF_I18N is extensively used - excellent i18n coverage")
 
-    # Platform Architecture Analysis
     platform_files = [Path(f) for f in get_files_by_glob(["src/content/platforms/*.js"])]
     result.append(f"\n🌐 PLATFORM ARCHITECTURE:")
     result.append(f"  • Platform modules: {len(platform_files)}")
 
-    # Analyze platform consistency
     platform_scores = []
     for platform_file in platform_files:
         try:
             content = platform_file.read_text(encoding='utf-8')
 
-            # Check architectural patterns
             has_selectors = 'selectors' in content.lower()
             has_error_handling = 'GPTPF_DEBUG' in content
             has_async = 'async ' in content or 'await ' in content
@@ -4862,7 +4468,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     else:
         insights.append("🔧 Platform modules need architectural standardization")
 
-    # Security Analysis
     manifest_path = PROJECT_ROOT / "manifest.json"
     security_score = 100
 
@@ -4886,7 +4491,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     result.append(f"\n🛡️ SECURITY ANALYSIS:")
     result.append(f"  • Security score: {security_score}/100")
 
-    # Code Quality Metrics
     total_lines = 0
     total_functions = 0
 
@@ -4904,7 +4508,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     result.append(f"  • Total functions: {total_functions}")
     result.append(f"  • Average lines per file: {total_lines // len(js_files) if js_files else 0}")
 
-    # Overall Score
     architecture_score = min(100, (gptpf_config_usage + gptpf_debug_usage + gptpf_i18n_usage) / 10)
     final_score = (architecture_score + security_score + (avg_consistency * 33.33)) / 3
 
@@ -4914,7 +4517,6 @@ async def advanced_architecture_analysis() -> List[TextContent]:
     for insight in insights:
         result.append(f"  {insight}")
 
-    # Advanced Recommendations
     result.append(f"\n🚀 ADVANCED RECOMMENDATIONS:")
 
     if gptpf_flash_usage < 10:
@@ -4936,7 +4538,6 @@ async def main():
     """Run the MCP server with comprehensive error handling and startup validation."""
     log_startup_info()
 
-    # Environment validation with detailed reporting
     if not validate_environment():
         sys.stderr.write("❌ Environment validation failed - exiting\n")
         sys.stderr.flush()
@@ -4950,7 +4551,6 @@ async def main():
             sys.stderr.write("✅ MCP server initialized successfully\n")
             sys.stderr.flush()
 
-            # Create initialization options with error handling
             try:
                 init_options = server.create_initialization_options()
                 await server.run(read_stream, write_stream, init_options)
@@ -5003,7 +4603,6 @@ def validate_imports():
 if __name__ == "__main__":
     import sys
 
-    # Validate imports first
     if not validate_imports():
         sys.stderr.write("❌ Import validation failed - exiting\n")
         sys.stderr.flush()

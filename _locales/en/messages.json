@@ -512,7 +512,8 @@
   "debug_batch_too_few_lines": {"message": "Content has too few lines for meaningful batch split: $1 lines"},
   "debug_file_content_empty": {"message": "Content is empty or invalid"},
   "debug_json_content_valid": {"message": "Content is already valid JSON"},
-  "debug_json_wrap_applied": {"message": "Content wrapped in JSON structure"},
+  "debug_json_parse_failed": {"message": "Content is not valid JSON, treating as plain text"},
+  "json_parse_failed_fallback": {"message": "JSON parsing failed, falling back to plain text"},
   "debug_claude_replacing_pasted": {"message": "Replacing pasted text with file"},
   "debug_file_no_content": {"message": "File has no content"},
   "default_auto_generated": {"message": "auto-generated"},
@@ -624,7 +625,7 @@
   "html_sections_header_section": {"message": "Header section"},
   "i18n_cleanup": {"message": "[DEBUG] i18n cleanup complete"},
   "i18n_cleanup_complete": {"message": "i18n cleanup completed"},
-  "json_wrap_applied": {"message": "JSON wrapper applied"},
+
   "key_features": {"message": "Key Features:"},
   "key_features_text": {"message": "Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions."},
   "keyboard_shortcut": {"message": "Keyboard Shortcut:"},

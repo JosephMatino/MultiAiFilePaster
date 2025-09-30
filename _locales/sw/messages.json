@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "Maudhui yana mistari michache sana kwa mgawanyo wa maana wa kundi: mistari $1"},
   "debug_file_content_empty": {"message": "Maudhui ni tupu au batili"},
   "debug_json_content_valid": {"message": "Maudhui ni JSON halali tayari"},
-  "debug_json_wrap_applied": {"message": "Maudhui yamefungwa katika muundo wa JSON"},
+  "debug_json_parse_failed": {"message": "Maudhui si JSON halali, yatachukuliwa kama maandishi ya kawaida"},
+  "json_parse_failed_fallback": {"message": "Uchambuzi wa JSON umeshindwa, kurudi kwa maandishi ya kawaida"},
   "debug_claude_replacing_pasted": {"message": "Kubadilisha maandishi yaliyobandikwa na faili"},
   "debug_file_no_content": {"message": "Faili haina maudhui"},
   "default_auto_generated": {"message": "iliyo-undwa-otomatiki"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "Sehemu ya kichwa"},
   "i18n_cleanup": {"message": "[DEBUG] Usafishaji wa i18n umekamilika"},
   "i18n_cleanup_complete": {"message": "Usafishaji wa i18n umekamilika"},
-  "json_wrap_applied": {"message": "Mfunga wa JSON umetumika"},
+
   "key_features": {"message": "Vipengele Muhimu:"},
   "key_features_text": {"message": "Kutambua-Kiotomatiki huchagua aina sahihi ya faili kutoka kwa maudhui yako na kurudi kwa uhakika kwa .txt. Inafanya kazi katika ChatGPT, Claude, Gemini, DeepSeek, na Grok. Inasaidia miundo 20+ ya faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi binafsi."},
   "keyboard_shortcut": {"message": "Njia ya Mkato ya Kibodi:"},

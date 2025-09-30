@@ -102,7 +102,6 @@ _ansi_escape = None
 def safe_print(text: str) -> None:
     target = sys.stderr if log_to_stderr else sys.stdout
     if plain_mode:
-        # Lazy compile
         global _ansi_escape
         if _ansi_escape is None:
             import re as _re
@@ -127,7 +126,6 @@ def detect_python_executable() -> str:
     3. python
     4. py (Windows launcher)
     """
-    # Use existing venv interpreter first if present to avoid recreating deps
     root_dir = Path(__file__).parent.parent
     venv_python, _ = get_venv_paths(root_dir)
     if venv_python.exists():
@@ -235,10 +233,7 @@ def install_requirements(root_dir: Path, force: bool, quick: bool, verbose: bool
         return True
     safe_print("📦 Installing dependencies (quiet mode)..." if not verbose else "📦 Installing dependencies (verbose)...")
     env = os.environ.copy()
-    # Disable pip version check noise
     env["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
-    # Prefer no python version warning (pip currently only respects disable version check)
-    # Upgrade pip (non-fatal) - suppress output unless verbose
     try:
         upgrade_proc = subprocess.run(
             [str(pip_exe), "install", "--upgrade", "pip"],
@@ -266,7 +261,6 @@ def install_requirements(root_dir: Path, force: bool, quick: bool, verbose: bool
         )
         if install_proc.returncode != 0:
             if verbose:
-                # Show full captured output already printed if verbose (since not captured)
                 pass
             else:
                 combined = (install_proc.stdout or "") + (install_proc.stderr or "")
@@ -309,7 +303,6 @@ def test_mcp_server(root_dir: Path) -> bool:
     safe_print(f"🐍 Using Python: {python_exe}")
 
     try:
-        # Test basic import first
         result = subprocess.run([str(python_exe), "-c", "import mcp; print('MCP import: OK')"],
                                capture_output=True, text=True, timeout=10)
         if result.returncode != 0:
@@ -317,7 +310,6 @@ def test_mcp_server(root_dir: Path) -> bool:
             return False
         safe_print(f"✅ {result.stdout.strip()}")
 
-        # Test server script syntax
         server_script = root_dir / "mcp-servers" / "multi_ai_assistant.py"
         result = subprocess.run([str(python_exe), "-m", "py_compile", str(server_script)],
                                capture_output=True, text=True, timeout=10)
@@ -326,12 +318,10 @@ def test_mcp_server(root_dir: Path) -> bool:
             return False
         safe_print("✅ Server script syntax: OK")
 
-        # Test server startup (with timeout - server should run indefinitely)
         safe_print("🔄 Testing server startup (will timeout after 3 seconds - this is expected)...")
         try:
             result = subprocess.run([str(python_exe), str(server_script)],
                                    capture_output=True, text=True, timeout=3)
-            # If we get here, the server exited unexpectedly
             safe_print(f"❌ Server exited unexpectedly with code {result.returncode}")
             if result.stderr:
                 safe_print(f"Error output: {result.stderr}")
@@ -353,13 +343,11 @@ def validate_environment(root_dir: Path) -> bool:
 
     python_exe, _ = get_venv_paths(root_dir)
 
-    # Check virtual environment
     if not python_exe.exists():
         safe_print("❌ Virtual environment Python not found")
         return False
     safe_print(f"✅ Virtual environment: {python_exe}")
 
-    # Check Python version
     try:
         result = subprocess.run([str(python_exe), "--version"], capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
@@ -371,7 +359,6 @@ def validate_environment(root_dir: Path) -> bool:
         safe_print(f"❌ Python version check failed: {e}")
         return False
 
-    # Check MCP installation
     try:
         result = subprocess.run([str(python_exe), "-c", "import mcp; print('MCP import: OK')"],
                                capture_output=True, text=True, timeout=5)
@@ -384,17 +371,14 @@ def validate_environment(root_dir: Path) -> bool:
         safe_print(f"❌ MCP check failed: {e}")
         return False
 
-    # Check server script
     server_script = root_dir / "mcp-servers" / "multi_ai_assistant.py"
     if not server_script.exists():
         safe_print(f"❌ Server script not found: {server_script}")
         return False
     safe_print(f"✅ Server script: {server_script}")
 
-    # Check platform compatibility
     safe_print(f"✅ Platform: {platform.system()} {platform.release()}")
 
-    # Check WSL detection
     if platform.system() == "Linux":
         try:
             with open("/proc/version", "r") as f:
@@ -434,7 +418,6 @@ def main() -> None:
         global log_to_stderr
         if args.print_python or args.status or args.no_launch:
             log_to_stderr = False
-        # Auto-detect if console encoding rejects check mark; if so enable ASCII mode dynamically
         global ascii_mode
         try:
             (sys.stderr if log_to_stderr else sys.stdout).write("✅\n")

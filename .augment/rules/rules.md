@@ -116,7 +116,7 @@ type: "always_apply"
 - Update memories AND rules together - never update one without the other
 
 ### 18. NEW LANGUAGE ADDITION WORKFLOW (CRITICAL)
-- Create complete locale file (_locales/{lang}/messages.json) with ALL 672 keys
+- Create complete locale file (_locales/{lang}/messages.json) with ALL 648 keys
 - Update i18n system (src/shared/i18n.js) to include new language in ALL validation functions
 - Add language option to popup UI (src/popup/index.html) with proper flag CSS class
 - Add CSS flag styling (src/popup/styles.css) with color variables and flag design
@@ -130,7 +130,7 @@ type: "always_apply"
 - **DUAL FILE READING**: Read BOTH English AND Swahili files for EACH chunk to understand SHORT UI patterns
 - **BRAND NAME PRESERVATION**: NEVER translate brand names (Multi-AI File Paster, ChatGPT, Claude, etc.) BUT BETA must be translated in all locales as it's a status indicator, not a brand name
 - **JSON STRUCTURE INTEGRITY**: PRESERVE all placeholders and complex JSON structures exactly
-- **COMPLETION REQUIREMENT**: Must achieve 672/672 keys (100% completion) with valid JSON structure
+- **COMPLETION REQUIREMENT**: Must achieve 648/648 keys (100% completion) with valid JSON structure
 - **VALIDATION REQUIREMENT**: Validate JSON syntax and key count after completion
 
 ### 20. TRANSLATION APPROACH REQUIREMENTS (CRITICAL)
@@ -155,7 +155,7 @@ type: "always_apply"
 - Tool scans all source files and validates actual i18n key usage patterns
 - Ensure tools work with CI/CD pipelines and returns proper exit codes
 - Show all supported locales (en, ar, sw, es, ja, fr, ru, zh, pt, de, hi) with key counts
-- English locale complete with 684 keys, other locales missing 1-4 debug keys only
+- All locales complete with 648 keys each
 
 ### 22. TEXT PROCESSING AND LANGUAGE DETECTION REQUIREMENTS (CRITICAL)
 - **SAFE TEXT PROCESSING**: Use proper UTF-8 handling to prevent character corruption

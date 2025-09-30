@@ -165,6 +165,7 @@ class ToastComponent {
       el.appendChild(btn);
       timeout = t.toastWithActionMs ?? (t.toastMs ?? 3000);
     }
+    //How to Login
     el.classList.add('show');
     clearTimeout(el._h);
     el._h = setTimeout(()=>{
@@ -202,4 +203,5 @@ window.addEventListener('beforeunload', () => {
   if (window.GPTPF_DEBUG) {
     window.GPTPF_DEBUG.info('toast_cleanup', window.GPTPF_I18N.getMessage('toast_cleanup_complete'));
   }
-});
+  // adding to do
+});

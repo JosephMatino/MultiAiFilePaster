@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "सार्थक बैच विभाजन के लिए बहुत कम लाइनें: $1 लाइनें"},
   "debug_file_content_empty": {"message": "कंटेंट खाली या अमान्य है"},
   "debug_json_content_valid": {"message": "कंटेंट पहले से ही मान्य JSON है"},
-  "debug_json_wrap_applied": {"message": "कंटेंट को JSON संरचना में लपेटा गया"},
+  "debug_json_parse_failed": {"message": "कंटेंट मान्य JSON नहीं है, सादे टेक्स्ट के रूप में माना जाएगा"},
+  "json_parse_failed_fallback": {"message": "JSON पार्सिंग विफल, सादे टेक्स्ट पर वापस जा रहे हैं"},
   "debug_claude_replacing_pasted": {"message": "पेस्ट किए गए टेक्स्ट को फ़ाइल से बदल रहे हैं"},
   "debug_file_no_content": {"message": "फ़ाइल में कोई कंटेंट नहीं"},
   "default_auto_generated": {"message": "ऑटो-जेनरेट"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "हेडर अनुभाग"},
   "i18n_cleanup": {"message": "[DEBUG] i18n सफाई पूर्ण"},
   "i18n_cleanup_complete": {"message": "i18n सफाई पूर्ण"},
-  "json_wrap_applied": {"message": "JSON रैपर लागू"},
+
   "key_features": {"message": "मुख्य विशेषताएं:"},
   "key_features_text": {"message": "ऑटो-डिटेक्ट आपकी सामग्री से सही फ़ाइल प्रकार चुनता है और .txt के गारंटीशुदा फॉलबैक के साथ। ChatGPT, Claude, Gemini, DeepSeek, और Grok में काम करता है। प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट, और कस्टम एक्सटेंशन सहित 20+ फ़ाइल फॉर्मेट का समर्थन करता है।"},
   "keyboard_shortcut": {"message": "कीबोर्ड शॉर्टकट:"},

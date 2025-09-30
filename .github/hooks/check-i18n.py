@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Multi-AI File Paster - i18n Analysis Tool
 # Comprehensive codebase-aware internationalization checker
@@ -7,19 +8,30 @@
 import os
 import json
 import re
+import sys
 from typing import Set, Dict, List, Any
 
-def find_commented_code() -> List[str]:
-    """Find JavaScript files with development comments (TODO, FIXME, etc.) excluding headers."""
-    commented_files: List[str] = []
+# Force UTF-8 encoding for Windows console
+if sys.platform == 'win32':
+    import codecs
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
-    # Scan JavaScript files for development comments
+def find_commented_code() -> List[Dict[str, Any]]:
+    """Find ALL inline comments in JavaScript and Python files excluding header signatures."""
+    commented_files: List[Dict[str, Any]] = []
+
+    # Scan JavaScript and Python files for ALL inline comments
     for root, dirs, files in os.walk('.'):
         # Skip node_modules, .git, and other irrelevant directories
         dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', 'dist', 'build']]
 
         for file in files:
-            if file.endswith(('.js', '.jsx', '.ts', '.tsx')):
+            # Skip the check-i18n.py tool itself
+            if file == 'check-i18n.py':
+                continue
+
+            if file.endswith(('.js', '.jsx', '.ts', '.tsx', '.py', '.html', '.htm')):
                 file_path = os.path.join(root, file)
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
@@ -28,6 +40,9 @@ def find_commented_code() -> List[str]:
                     # Skip header comments (first 100 lines typically contain headers)
                     lines = content.split('\n')
                     content_start = 0
+                    is_python = file_path.endswith('.py')
+                    is_html = file_path.endswith(('.html', '.htm'))
+
                     for i, line in enumerate(lines):
                         if i > 100:  # Stop looking after 100 lines
                             break
@@ -38,26 +53,119 @@ def find_commented_code() -> List[str]:
                         elif line.strip().startswith('*/') and i > 50:
                             content_start = i + 1
                             break
-
-                    # Check for development comments in the actual content (excluding headers)
-                    content_lines = lines[content_start:]
-                    has_dev_comments = False
-
-                    for line in content_lines:
-                        stripped = line.strip()
-                        # Look for development-related comments only
-                        if (stripped.startswith('//') and
-                            any(keyword in stripped.lower() for keyword in ['todo', 'fixme', 'hack', 'bug', 'issue', 'debug', 'temp', 'temporary'])):
-                            has_dev_comments = True
+                        # For Python, look for end of docstring
+                        elif is_python and '"""' in line and i > 10:
+                            content_start = i + 1
                             break
 
-                    if has_dev_comments:
-                        commented_files.append(file_path.replace('\\', '/'))
+                    # Find ALL inline comments in the actual content (excluding headers)
+                    content_lines = lines[content_start:]
+                    inline_comments: List[Dict[str, Any]] = []
+
+                    for line_idx, line in enumerate(content_lines):
+                        stripped = line.strip()
+                        actual_line_num = content_start + line_idx + 1
+
+                        # Skip shebang lines
+                        if stripped.startswith('#!'):
+                            continue
+
+                        # Skip pyright/type checker comments
+                        if is_python and (stripped.startswith('# pyright:') or stripped.startswith('# type:')):
+                            continue
+
+                        # Find ALL inline comments (// for JS, # for Python, <!-- --> for HTML)
+                        if (not is_python and not is_html and stripped.startswith('//')):
+                            inline_comments.append({
+                                'line': actual_line_num,
+                                'content': stripped,
+                                'type': 'inline_comment'
+                            })
+                        elif (is_python and stripped.startswith('#')):
+                            inline_comments.append({
+                                'line': actual_line_num,
+                                'content': stripped,
+                                'type': 'inline_comment'
+                            })
+                        elif (is_html and '<!--' in stripped and '-->' in stripped):
+                            inline_comments.append({
+                                'line': actual_line_num,
+                                'content': stripped,
+                                'type': 'inline_comment'
+                            })
+
+                    if inline_comments:
+                        commented_files.append({
+                            'file': file_path.replace('\\', '/'),
+                            'comments': inline_comments,
+                            'count': len(inline_comments)
+                        })
 
                 except Exception:
                     continue
 
-    return sorted(commented_files)
+    return sorted(commented_files, key=lambda x: x['file'])
+
+def remove_inline_comments(file_path: str, comments: List[Dict[str, Any]]) -> bool:
+    """Remove inline comments from a file while preserving header signatures."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+
+        # Sort comments by line number in reverse order to avoid index shifting
+        sorted_comments = sorted(comments, key=lambda x: x['line'], reverse=True)
+
+        # Remove comment lines
+        for comment in sorted_comments:
+            line_idx = comment['line'] - 1  # Convert to 0-based index
+            if 0 <= line_idx < len(lines):
+                del lines[line_idx]
+
+        # Write back to file
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.writelines(lines)
+
+        return True
+    except Exception as e:
+        print(f"Error removing comments from {file_path}: {e}")
+        return False
+
+def auto_fix_comments() -> int:
+    """Automatically remove all inline comments from source files."""
+    commented_files = find_commented_code()
+
+    if not commented_files:
+        print("No inline comments found. Nothing to fix.")
+        return 0
+
+    total_comments = sum(f['count'] for f in commented_files)
+    print(f"\nAUTO-FIX MODE: Removing {total_comments} inline comments from {len(commented_files)} files...")
+
+    fixed_count = 0
+    failed_count = 0
+
+    for file_info in commented_files:
+        file_path = file_info['file']
+        comments = file_info['comments']
+
+        print(f"\nProcessing {file_path}...")
+        print(f"  Removing {len(comments)} comments...")
+
+        if remove_inline_comments(file_path, comments):
+            fixed_count += 1
+            print(f"  ✓ Successfully removed {len(comments)} comments")
+        else:
+            failed_count += 1
+            print(f"  ✗ Failed to remove comments")
+
+    print(f"\n{'='*50}")
+    print(f"AUTO-FIX COMPLETE:")
+    print(f"  Files fixed: {fixed_count}")
+    print(f"  Files failed: {failed_count}")
+    print(f"  Total comments removed: {total_comments}")
+    print(f"{'='*50}")
+
+    return 0 if failed_count == 0 else 1
 
 def analyze_locale_configuration() -> Dict[str, Any]:
     """Analyze how locales are configured across all integration points."""
@@ -630,6 +738,10 @@ def check_translation_completeness() -> Dict[str, Any]:
 
 def main() -> int:
     """Main analysis function - comprehensive reporting with locale configuration overview."""
+    # Check for --fix flag
+    if '--fix' in sys.argv or '--auto-fix' in sys.argv:
+        return auto_fix_comments()
+
     print("I18N COMPREHENSIVE ANALYSIS REPORT")
     print("=" * 50)
 
@@ -767,13 +879,19 @@ def main() -> int:
         len(config['missing_integrations']) > 0  # Missing locale integrations are critical issues
     )
     
-    # Check for commented code
+    # Check for ALL inline comments
     commented_files = find_commented_code()
     if commented_files:
-        print(f"\nCOMMENTED CODE DETECTED ({len(commented_files)} files):")
-        for file_path in commented_files:
-            print(f"  {file_path}")
-        print("\nNote: These files contain TODO, FIXME, or other development comments that may need attention.")
+        total_comments = sum(f['count'] for f in commented_files)
+        print(f"\nINLINE COMMENTS DETECTED ({len(commented_files)} files, {total_comments} comments):")
+        for file_info in commented_files:
+            print(f"  {file_info['file']}: {file_info['count']} comments")
+            for comment in file_info['comments'][:3]:  # Show first 3 comments
+                print(f"    Line {comment['line']}: {comment['content'][:80]}")
+            if file_info['count'] > 3:
+                print(f"    ... and {file_info['count'] - 3} more comments")
+        print("\nNote: All inline comments (// and #) found excluding header signatures.")
+        print("Run with --fix flag to automatically remove these comments.")
 
     print(f"\nOVERALL STATUS: {'ISSUES FOUND' if has_issues else 'PASSED'}")
 

@@ -127,6 +127,7 @@ class RenameModal {
         desc.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_description');
         const input = document.createElement('input');
         input.type = 'text';
+        //TEST TO DO
         input.placeholder = window.GPTPF_I18N.getMessage('ui_components_modal_placeholder');
         input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); if(!confirm.disabled){ ok(); } } });
         const hint = document.createElement('div');
@@ -137,7 +138,7 @@ class RenameModal {
         hint2.innerHTML = window.GPTPF_I18N.getMessage('ui_components_modal_keys_hint');
         const err = document.createElement('div');
         err.className = 'error';
-        const row = document.createElement('div');
+        const row = document.createElement('div');s
         row.className = 'buttons';
         const cancel = document.createElement('button');
         cancel.className = 'cancel-btn';
@@ -171,7 +172,8 @@ class RenameModal {
         let lastFocus = document.activeElement;
         function close(){ wrap.remove(); try{ lastFocus && lastFocus.focus && lastFocus.focus(); }catch{} }
         function validate(){
-          const original = (input.value || '').trim();
+          const inputValue = input && input.value !== null && input.value !== undefined ? String(input.value) : '';
+          const original = inputValue.trim();
           if (window.GPTPF_VALIDATION) {
             const result = window.GPTPF_VALIDATION.sanitizeFileName(original);
             if (result.hadDots) {

@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "المحتوى يحتوي على أسطر قليلة جداً لتقسيم دفعة مفيد: $1 أسطر"},
   "debug_file_content_empty": {"message": "المحتوى فارغ أو غير صالح"},
   "debug_json_content_valid": {"message": "المحتوى هو JSON صالح بالفعل"},
-  "debug_json_wrap_applied": {"message": "تم تغليف المحتوى في هيكل JSON"},
+  "debug_json_parse_failed": {"message": "المحتوى ليس JSON صالح، سيتم التعامل معه كنص عادي"},
+  "json_parse_failed_fallback": {"message": "فشل تحليل JSON، العودة إلى نص عادي"},
   "debug_claude_replacing_pasted": {"message": "استبدال النص المُلصق بملف"},
   "debug_file_no_content": {"message": "الملف لا يحتوي على محتوى"},
   "default_auto_generated": {"message": "تم إنشاؤه تلقائياً"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "قسم الرأس"},
   "i18n_cleanup": {"message": "[DEBUG] اكتمل تنظيف i18n"},
   "i18n_cleanup_complete": {"message": "اكتمل تنظيف i18n"},
-  "json_wrap_applied": {"message": "تم تطبيق غلاف JSON"},
+
   "key_features": {"message": "الميزات الرئيسية:"},
   "key_features_text": {"message": "الكشف التلقائي يختار نوع الملف الصحيح من محتواك مع ضمان الرجوع لـ .txt. يعمل عبر ChatGPT وClaude وGemini وDeepSeek وGrok. يدعم أكثر من 20 تنسيق ملف بما في ذلك لغات البرمجة والترميز وتنسيقات البيانات والامتدادات المخصصة."},
   "keyboard_shortcut": {"message": "اختصار لوحة المفاتيح:"},

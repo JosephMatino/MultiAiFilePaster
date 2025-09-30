@@ -93,12 +93,10 @@ def main():
     print("🔧 MCP Server Diagnostic Tool")
     print("=" * 50)
     
-    # Get project root
     project_root = Path(__file__).parent.parent
     print(f"📁 Project root: {project_root}")
     print(f"🖥️  Platform: {platform.system()} {platform.release()}")
     
-    # Check if we're in WSL
     if platform.system() == "Linux":
         try:
             with open("/proc/version", "r") as f:
@@ -110,7 +108,6 @@ def main():
     
     print("\n🧪 Running diagnostic tests...")
     
-    # Test 1: Environment status
     print("\n1️⃣ Environment Status:")
     result = subprocess.run([sys.executable, "mcp-servers/env.py", "--status"], 
                            cwd=str(project_root), capture_output=True, text=True)
@@ -119,7 +116,6 @@ def main():
     else:
         print(f"❌ Status check failed: {result.stderr}")
     
-    # Test 2: Environment validation
     print("\n2️⃣ Environment Validation:")
     result = subprocess.run([sys.executable, "mcp-servers/env.py", "--validate-env"], 
                            cwd=str(project_root), capture_output=True, text=True)
@@ -128,7 +124,6 @@ def main():
     else:
         print(f"❌ Validation failed: {result.stderr}")
     
-    # Test 3: Server startup test
     print("\n3️⃣ Server Startup Test:")
     result = subprocess.run([sys.executable, "mcp-servers/env.py", "--test-server"], 
                            cwd=str(project_root), capture_output=True, text=True)

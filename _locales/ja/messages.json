@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "意味のあるバッチ分割には行数が少なすぎます: $1行"},
   "debug_file_content_empty": {"message": "コンテンツが空または無効"},
   "debug_json_content_valid": {"message": "コンテンツは既に有効なJSON"},
-  "debug_json_wrap_applied": {"message": "コンテンツをJSON構造でラップ"},
+  "debug_json_parse_failed": {"message": "コンテンツは有効なJSONではありません、プレーンテキストとして処理"},
+  "json_parse_failed_fallback": {"message": "JSON解析失敗、プレーンテキストにフォールバック"},
   "debug_claude_replacing_pasted": {"message": "貼り付けテキストをファイルで置換"},
   "debug_file_no_content": {"message": "ファイルにコンテンツなし"},
   "default_auto_generated": {"message": "自動生成"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "ヘッダーセクション"},
   "i18n_cleanup": {"message": "[DEBUG] i18nクリーンアップ完了"},
   "i18n_cleanup_complete": {"message": "i18nクリーンアップ完了"},
-  "json_wrap_applied": {"message": "JSONラッパー適用"},
+
   "key_features": {"message": "主要機能:"},
   "key_features_text": {"message": "自動検出は.txtへの保証されたフォールバックでコンテンツから適切なファイルタイプを選択。ChatGPT、Claude、Gemini、DeepSeek、Grokで動作。プログラミング言語、マークアップ、データ形式、カスタム拡張子を含む20以上のファイル形式をサポート。"},
   "keyboard_shortcut": {"message": "キーボードショートカット:"},

@@ -116,8 +116,11 @@
   }
   function sanitizeFileName(input) {
     root.GPTPF_DEBUG?.log('debug_validation_filename_start');
-    if (!input || typeof input !== 'string') {
+    if (input === null || input === undefined || typeof input !== 'string') {
       root.GPTPF_DEBUG?.warn('debug_validation_filename_invalid_input');
+      return { sanitized: '', hadDots: false, error: '' };
+    }
+    if (input === '') {
       return { sanitized: '', hadDots: false, error: '' };
     }
     const original = input.trim();

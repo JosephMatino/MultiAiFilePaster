@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "内容行数太少，无法进行有意义的批量分割：$1行"},
   "debug_file_content_empty": {"message": "内容为空或无效"},
   "debug_json_content_valid": {"message": "内容已经是有效的JSON"},
-  "debug_json_wrap_applied": {"message": "内容包装在JSON结构中"},
+  "debug_json_parse_failed": {"message": "内容不是有效的JSON，将作为纯文本处理"},
+  "json_parse_failed_fallback": {"message": "JSON解析失败，回退到纯文本"},
   "debug_claude_replacing_pasted": {"message": "用文件替换粘贴的文本"},
   "debug_file_no_content": {"message": "文件没有内容"},
   "default_auto_generated": {"message": "自动生成"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "页眉部分"},
   "i18n_cleanup": {"message": "[DEBUG] i18n清理完成"},
   "i18n_cleanup_complete": {"message": "i18n清理已完成"},
-  "json_wrap_applied": {"message": "JSON包装器已应用"},
+
   "key_features": {"message": "主要功能："},
   "key_features_text": {"message": "自动检测从您的内容中选择正确的文件类型，保证回退到.txt。适用于ChatGPT、Claude、Gemini、DeepSeek和Grok。支持20+文件格式，包括编程语言、标记、数据格式和自定义扩展名。"},
   "keyboard_shortcut": {"message": "键盘快捷键："},

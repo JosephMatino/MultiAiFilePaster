@@ -143,43 +143,76 @@ class FileAttachComponent {
     }
 
     let body = content;
-    let mime = "text/plain";
+    let mime = "text/plain;charset=utf-8";
 
     if (fmt === "md" || fmt === "markdown") {
-      mime = "text/markdown";
+      mime = "text/markdown;charset=utf-8";
     } else if (fmt === "json") {
-      mime = "application/json";
-      
       try {
         JSON.parse(content);
+        mime = "application/json;charset=utf-8";
         if (window.GPTPF_DEBUG) {
           window.GPTPF_DEBUG?.info('json_content_valid', window.GPTPF_I18N?.getMessage('debug_json_content_valid'));
         }
       } catch {
-        try {
-          body = JSON.stringify({ content }, null, 2);
-          if (window.GPTPF_DEBUG) {
-            window.GPTPF_DEBUG?.info('json_wrap_applied', window.GPTPF_I18N?.getMessage('debug_json_wrap_applied'));
-          }
-        } catch(err) {
-          if (window.GPTPF_DEBUG) {
-            window.GPTPF_DEBUG?.error('console_platform_handler_error', err);
-          }
-          mime = "text/plain";
+        mime = "text/plain;charset=utf-8";
+        fmt = "txt";
+        if (window.GPTPF_DEBUG) {
+          window.GPTPF_DEBUG?.warn('json_parse_failed_fallback', window.GPTPF_I18N?.getMessage('debug_json_parse_failed'));
         }
       }
     } else if (fmt === "js" || fmt === "javascript") {
-      mime = "text/javascript";
+      mime = "text/javascript;charset=utf-8";
     } else if (fmt === "ts" || fmt === "typescript") {
-      mime = "text/typescript";
-    } else if (fmt === "html") {
-      mime = "text/html";
-    } else if (fmt === "css") {
-      mime = "text/css";
-    } else if (fmt === "xml") {
-      mime = "application/xml";
+      mime = "text/typescript;charset=utf-8";
+    } else if (fmt === "html" || fmt === "htm") {
+      mime = "text/html;charset=utf-8";
+    } else if (fmt === "css" || fmt === "scss" || fmt === "sass" || fmt === "less") {
+      mime = "text/css;charset=utf-8";
+    } else if (fmt === "xml" || fmt === "xhtml" || fmt === "svg") {
+      mime = "application/xml;charset=utf-8";
     } else if (fmt === "py" || fmt === "python") {
-      mime = "text/x-python";
+      mime = "text/x-python;charset=utf-8";
+    } else if (fmt === "sh" || fmt === "bash" || fmt === "shell" || fmt === "zsh") {
+      mime = "application/x-sh;charset=utf-8";
+    } else if (fmt === "java") {
+      mime = "text/x-java-source;charset=utf-8";
+    } else if (fmt === "cs" || fmt === "csharp") {
+      mime = "text/x-csharp;charset=utf-8";
+    } else if (fmt === "cpp" || fmt === "cc" || fmt === "cxx") {
+      mime = "text/x-c++src;charset=utf-8";
+    } else if (fmt === "c") {
+      mime = "text/x-csrc;charset=utf-8";
+    } else if (fmt === "go") {
+      mime = "text/x-go;charset=utf-8";
+    } else if (fmt === "rs" || fmt === "rust") {
+      mime = "text/x-rustsrc;charset=utf-8";
+    } else if (fmt === "rb" || fmt === "ruby") {
+      mime = "text/x-ruby;charset=utf-8";
+    } else if (fmt === "php") {
+      mime = "application/x-httpd-php;charset=utf-8";
+    } else if (fmt === "sql" || fmt === "mysql" || fmt === "postgresql") {
+      mime = "application/sql;charset=utf-8";
+    } else if (fmt === "csv" || fmt === "tsv") {
+      mime = "text/csv;charset=utf-8";
+    } else if (fmt === "yml" || fmt === "yaml") {
+      mime = "text/yaml;charset=utf-8";
+    } else if (fmt === "swift") {
+      mime = "text/x-swift;charset=utf-8";
+    } else if (fmt === "kt" || fmt === "kotlin") {
+      mime = "text/x-kotlin;charset=utf-8";
+    } else if (fmt === "dart") {
+      mime = "application/dart;charset=utf-8";
+    } else if (fmt === "r") {
+      mime = "text/x-r;charset=utf-8";
+    } else if (fmt === "m" || fmt === "matlab") {
+      mime = "text/x-matlab;charset=utf-8";
+    } else if (fmt === "scala") {
+      mime = "text/x-scala;charset=utf-8";
+    } else if (fmt === "pl" || fmt === "perl") {
+      mime = "text/x-perl;charset=utf-8";
+    } else if (fmt === "lua") {
+      mime = "text/x-lua;charset=utf-8";
     }
     let filename;
     if (customName && customName.trim()) {

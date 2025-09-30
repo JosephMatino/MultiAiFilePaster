@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "Содержимое имеет слишком мало строк для значимого пакетного разделения: $1 строк"},
   "debug_file_content_empty": {"message": "Содержимое пустое или недействительное"},
   "debug_json_content_valid": {"message": "Содержимое уже является действительным JSON"},
-  "debug_json_wrap_applied": {"message": "Содержимое обернуто в структуру JSON"},
+  "debug_json_parse_failed": {"message": "Содержимое не является действительным JSON, обрабатывается как обычный текст"},
+  "json_parse_failed_fallback": {"message": "Ошибка разбора JSON, возврат к обычному тексту"},
   "debug_claude_replacing_pasted": {"message": "Замена вставленного текста файлом"},
   "debug_file_no_content": {"message": "Файл не имеет содержимого"},
   "default_auto_generated": {"message": "авто-сгенерировано"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "Секция заголовка"},
   "i18n_cleanup": {"message": "[DEBUG] Очистка i18n завершена"},
   "i18n_cleanup_complete": {"message": "Очистка i18n завершена"},
-  "json_wrap_applied": {"message": "Обертка JSON применена"},
+
   "key_features": {"message": "Ключевые функции:"},
   "key_features_text": {"message": "Автоопределение выбирает правильный тип файла из вашего содержимого с гарантированным возвратом к .txt. Работает в ChatGPT, Claude, Gemini, DeepSeek и Grok. Поддерживает 20+ форматов файлов включая языки программирования, разметку, форматы данных и пользовательские расширения."},
   "keyboard_shortcut": {"message": "Горячая клавиша:"},

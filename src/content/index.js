@@ -302,7 +302,16 @@ function getComposer(){
 function readComposerText(el){
   if (!el) return "";
   if (isTA(el)) return el.value;
-  if (isCE(el)) return el.innerText || el.textContent;
+  if (isCE(el)) {
+    try {
+      return el.textContent || el.innerText || "";
+    } catch(err) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG.error('console_platform_handler_error', err);
+      }
+      return "";
+    }
+  }
   return "";
 }
 function clearComposer(el){
@@ -418,9 +427,9 @@ function makeFile(content, fmt, customName=""){
   }
 
   try {
-    const blob = new Blob([content], { type: "text/plain" });
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
     const filename = `paste.${Date.now()}.${fmt}`;
-    return new File([blob], filename, { type: "text/plain" });
+    return new File([blob], filename, { type: "text/plain;charset=utf-8" });
   } catch (error) {
     if (window.GPTPF_DEBUG) {
       window.GPTPF_DEBUG.error('blob_creation_error', error);

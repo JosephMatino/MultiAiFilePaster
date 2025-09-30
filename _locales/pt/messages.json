@@ -511,7 +511,8 @@
   "debug_batch_too_few_lines": {"message": "O conteúdo tem muito poucas linhas para divisão em lote significativa: $1 linhas"},
   "debug_file_content_empty": {"message": "Conteúdo está vazio ou inválido"},
   "debug_json_content_valid": {"message": "Conteúdo já é JSON válido"},
-  "debug_json_wrap_applied": {"message": "Conteúdo envolvido em estrutura JSON"},
+  "debug_json_parse_failed": {"message": "Conteúdo não é JSON válido, tratado como texto simples"},
+  "json_parse_failed_fallback": {"message": "Falha na análise JSON, voltando para texto simples"},
   "debug_claude_replacing_pasted": {"message": "Substituindo texto colado por arquivo"},
   "debug_file_no_content": {"message": "Arquivo não tem conteúdo"},
   "default_auto_generated": {"message": "auto-gerado"},
@@ -625,7 +626,7 @@
   "html_sections_header_section": {"message": "Seção do cabeçalho"},
   "i18n_cleanup": {"message": "[DEBUG] Limpeza i18n completa"},
   "i18n_cleanup_complete": {"message": "Limpeza i18n concluída"},
-  "json_wrap_applied": {"message": "Wrapper JSON aplicado"},
+
   "key_features": {"message": "Recursos Principais:"},
   "key_features_text": {"message": "Auto-Detecção escolhe o tipo de arquivo certo do seu conteúdo com fallback garantido para .txt. Funciona no ChatGPT, Claude, Gemini, DeepSeek e Grok. Suporta mais de 20 formatos de arquivo incluindo linguagens de programação, marcação, formatos de dados e extensões personalizadas."},
   "keyboard_shortcut": {"message": "Atalho do Teclado:"},
