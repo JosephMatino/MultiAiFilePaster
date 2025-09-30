@@ -48,7 +48,7 @@ show_banner() {
     clear
     echo -e "${CYAN}╔════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${CYAN}║${NC}  ${BOLD}Multi-AI File Paster - Test Suite Manager${NC}             ${CYAN}║${NC}"
-    echo -e "${CYAN}║${NC}  ${MAGENTA}Jest 29.7.0 | 38 Tests | 80% Coverage Target${NC}          ${CYAN}║${NC}"
+    echo -e "${CYAN}║${NC}  ${MAGENTA}Jest 29.7.0 | 105 Tests | 65% Coverage Target${NC}         ${CYAN}║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
 }
@@ -78,9 +78,9 @@ run_all_tests() {
     echo -e "${BOLD}Running All Tests (No Coverage)${NC}"
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    
-    npm test -- --no-coverage
-    
+
+    node node_modules/jest/bin/jest.js --no-coverage
+
     echo ""
     echo -e "${GREEN}✅ Test execution complete${NC}"
     read -p "Press Enter to continue..."
@@ -92,9 +92,9 @@ run_coverage() {
     echo -e "${BOLD}Running Tests with Coverage Analysis${NC}"
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    
-    npm run test:coverage
-    
+
+    node node_modules/jest/bin/jest.js --coverage
+
     echo ""
     echo -e "${GREEN}✅ Coverage report generated at coverage/lcov-report/index.html${NC}"
     
@@ -122,8 +122,8 @@ run_watch() {
     echo ""
     echo -e "${YELLOW}Press 'q' to quit watch mode${NC}"
     echo ""
-    
-    npm run test:watch
+
+    node node_modules/jest/bin/jest.js --watch
 }
 
 # Run specific test file
@@ -134,24 +134,42 @@ run_specific() {
     echo ""
     echo "Available test files:"
     echo ""
+    echo "Unit Tests:"
     echo "  1) validation.test.js       (12 tests - GPTPF_VALIDATION)"
     echo "  2) batchprocessor.test.js   (11 tests - GPTPF_BATCH)"
     echo "  3) languagedetector.test.js (15 tests - LanguageDetector)"
     echo ""
-    read -p "Select test file (1-3): " file_choice
+    echo "Integration Tests:"
+    echo "  4) platform-factory.test.js (12 tests - PlatformFactory)"
+    echo "  5) config.test.js           (20 tests - Configuration)"
+    echo "  6) file-attachment.test.js  (35 tests - File Operations)"
+    echo ""
+    read -p "Select test file (1-6): " file_choice
     
     case $file_choice in
         1)
             echo ""
-            npm test -- unit/validation.test.js
+            node node_modules/jest/bin/jest.js unit/validation.test.js
             ;;
         2)
             echo ""
-            npm test -- unit/batchprocessor.test.js
+            node node_modules/jest/bin/jest.js unit/batchprocessor.test.js
             ;;
         3)
             echo ""
-            npm test -- unit/languagedetector.test.js
+            node node_modules/jest/bin/jest.js unit/languagedetector.test.js
+            ;;
+        4)
+            echo ""
+            node node_modules/jest/bin/jest.js integration/platform-factory.test.js
+            ;;
+        5)
+            echo ""
+            node node_modules/jest/bin/jest.js integration/config.test.js
+            ;;
+        6)
+            echo ""
+            node node_modules/jest/bin/jest.js integration/file-attachment.test.js
             ;;
         *)
             echo -e "${RED}Invalid selection${NC}"
@@ -184,6 +202,7 @@ view_summary() {
     # Show test file breakdown
     echo -e "${BOLD}Test Suite Breakdown:${NC}"
     echo ""
+    echo -e "${BOLD}Unit Tests (38 tests):${NC}"
     echo -e "  ${GREEN}validation.test.js${NC}       - 12 tests"
     echo "    • sanitizeFileName (6 tests)"
     echo "    • validateCustomExtension (3 tests)"
@@ -200,7 +219,17 @@ view_summary() {
     echo "    • fenceHint (2 tests)"
     echo "    • isValidJSON (2 tests)"
     echo ""
-    echo -e "${BOLD}Total: 38 tests, Target: 100% pass rate${NC}"
+    echo -e "${BOLD}Integration Tests (67 tests):${NC}"
+    echo -e "  ${GREEN}platform-factory.test.js${NC} - 12 tests"
+    echo "    • Platform detection and configuration"
+    echo ""
+    echo -e "  ${GREEN}config.test.js${NC}           - 20 tests"
+    echo "    • Configuration management and persistence"
+    echo ""
+    echo -e "  ${GREEN}file-attachment.test.js${NC}  - 35 tests"
+    echo "    • File creation, naming, and MIME types"
+    echo ""
+    echo -e "${BOLD}Total: 105 tests, Target: 100% pass rate${NC}"
     
     echo ""
     read -p "Press Enter to continue..."
