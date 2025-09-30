@@ -137,7 +137,7 @@ class RenameModal {
         hint2.innerHTML = window.GPTPF_I18N.getMessage('ui_components_modal_keys_hint');
         const err = document.createElement('div');
         err.className = 'error';
-        const row = document.createElement('div');s
+        const row = document.createElement('div');
         row.className = 'buttons';
         const cancel = document.createElement('button');
         cancel.className = 'cancel-btn';
