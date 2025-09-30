@@ -1,106 +1,3 @@
-/*
- * ================================================================================
- * MULTI-AI FILE PASTER CHROME EXTENSION | PRODUCTION RELEASE v1.1.0
- * CHROME EXTENSION SOFTWARE - HOSTWEK CUSTOM LICENSE
- * ================================================================================
- *
- * MODULE: src/popup/styles.css
- * FUNCTION: Popup interface styling with per-platform theming
- * ARCHITECTURE: Chrome Extension Manifest V3, CSS Grid with Design Tokens
- * SECURITY: Client-side processing, zero data transmission, privacy-first
- * PERFORMANCE: Optimized for Chrome V3 Manifest, efficient CSS, minimal reflows
- * COMPATIBILITY: Chrome 88+, Edge 88+, Opera 74+, modern browser APIs
- * RELIABILITY: Production error handling, graceful degradation, stable operation
- *
- * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
- * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
- * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
- * • CODE REVIEW: Peer review process, automated quality gates, security audits
- * • DOCUMENTATION: Technical writers, API documentation, user experience guides
- *
- * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
- * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
- * • DOCUMENTATION: Complete API docs, user guides, developer documentation
- * • COMMUNITY: Development community, issue tracking, feature requests
- * • ROADMAP: Public development roadmap, community feedback integration
- *
- * TECHNICAL ARCHITECTURE & INTEGRATIONS:
- * • PLATFORM INTEGRATIONS: Popup UI styling consumed by all components
- * • CORE DEPENDENCIES: CSS Grid, CSS Custom Properties, Design Tokens
- * • FEATURES: Per-platform theming, dark/light mode, responsive design, accessibility
- * • TESTING: Automated unit tests, integration tests, cross-browser validation
- * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
- * • SCALABILITY: Modular design, theme variables, extensible tokens
- *
- * BUILD & DEPLOYMENT PIPELINE:
- * • BUILD SYSTEM: Node.js build pipeline, ESLint validation, automated testing
- * • DEPLOYMENT: Chrome Web Store distribution, automated release pipeline
- * • VERSION CONTROL: Git workflow with develop/main branches, semantic versioning
- * • CODE QUALITY: High standards, error handling
- * • SECURITY: Static analysis, dependency scanning, vulnerability assessment
- * • PERFORMANCE: Bundle optimization, lazy loading, efficient resource management
- *
- * LEGAL & LICENSING INFORMATION:
- * COPYRIGHT © 2025 HOSTWEK LTD. ALL RIGHTS RESERVED.
- * DEVELOPED BY JOSEPH MATINO UNDER WEKTURBO DESIGNS - HOSTWEK LTD
- * LICENSED UNDER HOSTWEK CUSTOM LICENSE
- *
- * 📋 HOSTWEK CUSTOM LICENSE:
- * This software and associated documentation files are proprietary technology
- * of Hostwek LTD and its subsidiary WekTurbo Designs. The software contains trade
- * secrets, confidential algorithms, and proprietary methodologies developed by
- * Joseph Matino for browser extension solutions.
- *
- * PERMITTED USAGE RIGHTS:
- * Personal use by individuals for non-commercial purposes is permitted.
- * Educational institutions may use this software for instructional and research
- * activities. End users are authorized to install and operate the extension as
- * distributed through official channels. Security researchers may conduct legitimate
- * analysis for vulnerability disclosure purposes.
- *
- * RESTRICTED COMMERCIAL ACTIVITIES:
- * Commercial use, including integration into commercial products, resale,
- * sublicensing, or distribution as part of commercial offerings, requires
- * written authorization from Hostwek LTD. Creation of derivative works,
- * competing products, or services based on this technology is prohibited
- * without prior licensing agreements. Reverse engineering for competitive
- * intelligence or commercial advantage is forbidden.
- *
- * INTELLECTUAL PROPERTY ENFORCEMENT:
- * Removal, modification, or obscuring of copyright notices, attribution statements,
- * or proprietary markings constitutes a breach of this license. Use of
- * Hostwek LTD trademarks, service marks, or brand elements without authorization
- * is prohibited and may result in trademark infringement proceedings.
- *
- * COMMERCIAL LICENSING & PARTNERSHIPS:
- * Organizations seeking commercial licensing, integration solutions,
- * white-label implementations, or custom development services should contact
- * Hostwek LTD through designated channels: wekturbo@hostwek.com for technical
- * licensing inquiries, scrum@majokdeng.com for business partnership discussions.
- *
- * 🛡️  INTELLECTUAL PROPERTY PROTECTION:
- * This software is protected under international copyright treaties and domestic
- * intellectual property laws. "Multi-AI File Paster", "Hostwek", and "WekTurbo
- * Designs" are trademarks of Hostwek LTD. Unauthorized copying,
- * modification, distribution, or reverse engineering may result in
- * civil penalties and criminal prosecution under applicable intellectual property
- * statutes.
- *
- * 🔒 CONFIDENTIALITY & TRADE SECRET PROTECTION:
- * This software contains confidential and proprietary information constituting
- * trade secrets of Hostwek LTD. Unauthorized disclosure, use, or distribution
- * of this technology or its underlying source code is prohibited and
- * may result in legal action, including injunctive relief and monetary damages.
- * ================================================================================
- */
-
-
-
 :root {
   color-scheme: light dark;
   --bg: 210 45% 94%;
@@ -152,6 +49,9 @@
   --yellow-500: 38 92% 50%;
   --purple-500: 258 90% 66%;
   --purple-600: 271 81% 56%;
+  --debug-primary: 258 90% 66%;
+  --debug-secondary: 271 81% 56%;
+  --debug-accent: 217 91% 60%;
   --amber-400: 45 96% 64%;
   --amber-500: 45 93% 47%;
   --emerald-500: 160 84% 39%;
@@ -174,8 +74,30 @@
   --flag-tanzania-yellow: 51 100% 50%;
   --flag-tanzania-black: 0 0% 0%;
   --flag-tanzania-blue: 210 100% 56%;
+  
+  --flag-spain-red: 0 100% 50%;
+  --flag-spain-yellow: 51 100% 50%;
   --flag-arabic-green: 147 100% 21%;
   --flag-arabic-red: 357 83% 44%;
+  --flag-japan-red: 0 85% 57%;
+  --flag-japan-white: 0 0% 100%;
+  --flag-france-blue: 224 76% 48%;
+  --flag-france-white: 0 0% 100%;
+  --flag-france-red: 0 85% 57%;
+  --flag-russia-white: 0 0% 100%;
+  --flag-russia-blue: 220 100% 50%;
+  --flag-russia-red: 0 85% 57%;
+  --flag-china-red: 0 85% 57%;
+  --flag-china-yellow: 48 100% 50%;
+  --flag-portugal-green: 147 100% 21%;
+  --flag-portugal-red: 0 85% 57%;
+  --flag-portugal-yellow: 48 100% 50%;
+  --flag-germany-black: 0 0% 0%;
+  --flag-germany-red: 0 85% 57%;
+  --flag-germany-yellow: 48 100% 50%;
+  --flag-india-saffron: 25 100% 50%;
+  --flag-india-white: 0 0% 100%;
+  --flag-india-green: 120 100% 25%;
   --effect-white: 0 0% 100%;
   --effect-purple: 248 53% 71%;
   --banner-warning-bg: 48 96% 89%;
@@ -310,6 +232,7 @@ body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background var(--speed) ease, color var(--speed) ease;
 }
 
 .container {
@@ -329,6 +252,7 @@ body {
   backdrop-filter: blur(var(--blur));
   word-wrap: break-word;
   overflow-wrap: break-word;
+  transition: background var(--speed) ease, border-color var(--speed) ease, box-shadow var(--speed) ease;
 }
 
 html[data-platform="grok"] .container::before,
@@ -835,21 +759,21 @@ header {
 }
 
 [data-theme="light"] .tip-badge.beta {
-  color: hsl(45 92% 25%);
+  color: hsl(45 92% 15%);
   background: hsl(45 95% 85%);
-  border: 1px solid hsl(45 85% 65%);
+  border: 1px solid hsl(45 85% 55%);
 }
 
 [data-theme="light"] .tip-badge.batch {
-  color: hsl(45 92% 25%);
+  color: hsl(45 92% 15%);
   background: hsl(45 95% 85%);
-  border: 1px solid hsl(45 85% 65%);
+  border: 1px solid hsl(45 85% 55%);
 }
 
 [data-theme="light"] .batch-disabled-badge {
-  color: hsl(45 92% 25%);
+  color: hsl(45 92% 15%);
   background: hsl(45 95% 85%);
-  border: 1px solid hsl(45 85% 65%);
+  border: 1px solid hsl(45 85% 55%);
 }
 
 [data-theme="light"] .footer .logo {
@@ -863,6 +787,19 @@ header {
 [data-theme="light"] .footer a:hover {
   color: hsl(var(--brand-weak));
   text-shadow: 0 0 4px hsl(var(--brand) / .2);
+}
+
+[data-theme="light"] .professional-tooltip {
+  background: linear-gradient(180deg, hsl(0 0% 98% / .98), hsl(0 0% 96% / .95));
+  color: hsl(222 84% 15%);
+  border: 1px solid hsl(215 30% 70%);
+  box-shadow: 0 10px 15px -3px hsla(220, 43%, 11%, .15), 0 4px 6px -2px hsla(220, 43%, 11%, .08);
+}
+
+[data-theme="light"] .professional-tooltip-arrow {
+  background: linear-gradient(180deg, hsl(0 0% 98% / .98), hsl(0 0% 96% / .95));
+  border-left: 1px solid hsl(215 30% 70%);
+  border-top: 1px solid hsl(215 30% 70%);
 }
 
 h1 {
@@ -915,6 +852,7 @@ h1 {
   overflow-x: hidden;
   max-height: 100%;
   min-height: 0;
+  transition: background var(--speed) ease, border-color var(--speed) ease, box-shadow var(--speed) ease;
 }
 
 .row {
@@ -948,7 +886,8 @@ h1 {
   outline: none;
   box-shadow: var(--shadow-1);
   transition: border-color var(--speed) ease, box-shadow var(--speed) ease,
-              transform var(--speed-fast) ease, filter var(--speed-fast) ease;
+              transform var(--speed-fast) ease, filter var(--speed-fast) ease,
+              background var(--speed) ease, color var(--speed) ease;
 }
 
 .input:hover, .select:hover {
@@ -1286,7 +1225,7 @@ h1 {
 @keyframes cardIn { from { transform: translateY(2px); opacity: 0.98; } to { transform: translateY(0); opacity: 1; } }
 .card { animation: cardIn var(--speed-slow) ease both; }
 
-/* Booting: kill transitions/animations to avoid first-paint jank */
+
 html[data-booting="1"] * {
   transition: none !important;
   animation: none !important;
@@ -1441,12 +1380,69 @@ html[data-booting="1"] .container > .fx { display: none !important; }
     hsl(var(--flag-tanzania-blue)) 75%, hsl(var(--flag-tanzania-blue)) 100%);
 }
 
-/* Arabic language badge */
+
 .arabic-flag {
   background: linear-gradient(135deg, hsl(var(--flag-arabic-green)) 50%, hsl(var(--flag-arabic-red)) 50%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.spain-flag {
+  background: linear-gradient(0deg,
+    hsl(var(--flag-spain-red)) 0%, hsl(var(--flag-spain-red)) 25%,
+    hsl(var(--flag-spain-yellow)) 25%, hsl(var(--flag-spain-yellow)) 75%,
+    hsl(var(--flag-spain-red)) 75%, hsl(var(--flag-spain-red)) 100%);
+}
+
+.japan-flag {
+  background: hsl(var(--flag-japan-white));
+  background-image: radial-gradient(circle at center, hsl(var(--flag-japan-red)) 30%, transparent 30%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.france-flag {
+  background: linear-gradient(90deg,
+    hsl(var(--flag-france-blue)) 0%, hsl(var(--flag-france-blue)) 33.33%,
+    hsl(var(--flag-france-white)) 33.33%, hsl(var(--flag-france-white)) 66.66%,
+    hsl(var(--flag-france-red)) 66.66%, hsl(var(--flag-france-red)) 100%);
+}
+
+.russia-flag {
+  background: linear-gradient(180deg,
+    hsl(var(--flag-russia-white)) 0%, hsl(var(--flag-russia-white)) 33.33%,
+    hsl(var(--flag-russia-blue)) 33.33%, hsl(var(--flag-russia-blue)) 66.66%,
+    hsl(var(--flag-russia-red)) 66.66%, hsl(var(--flag-russia-red)) 100%);
+}
+
+.china-flag {
+  background: hsl(var(--flag-china-red));
+  position: relative;
+}
+
+.portugal-flag {
+  background: linear-gradient(90deg,
+    hsl(var(--flag-portugal-green)) 0%, hsl(var(--flag-portugal-green)) 40%,
+    hsl(var(--flag-portugal-red)) 40%, hsl(var(--flag-portugal-red)) 100%);
+  position: relative;
+}
+
+.germany-flag {
+  background: linear-gradient(180deg,
+    hsl(var(--flag-germany-black)) 0%, hsl(var(--flag-germany-black)) 33.33%,
+    hsl(var(--flag-germany-red)) 33.33%, hsl(var(--flag-germany-red)) 66.66%,
+    hsl(var(--flag-germany-yellow)) 66.66%, hsl(var(--flag-germany-yellow)) 100%);
+  position: relative;
+}
+
+.india-flag {
+  background: linear-gradient(180deg,
+    hsl(var(--flag-india-saffron)) 0%, hsl(var(--flag-india-saffron)) 33.33%,
+    hsl(var(--flag-india-white)) 33.33%, hsl(var(--flag-india-white)) 66.66%,
+    hsl(var(--flag-india-green)) 66.66%, hsl(var(--flag-india-green)) 100%);
+  position: relative;
 }
 
 .dropdown-arrow {
@@ -2950,6 +2946,346 @@ html[dir="rtl"] .professional-tooltip .tip-badge.batch {
   flex-shrink: 0;
 }
 
+.misc-section {
+  margin-top: var(--row-gap);
+  padding-top: var(--row-gap);
+  border-top: 1px solid hsl(var(--border));
+}
+
+.misc-section .section-header {
+  color: hsl(var(--warning));
+  font-weight: 600;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.misc-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.misc-section {
+  background: linear-gradient(135deg,
+    hsl(var(--warning) / 0.08) 0%,
+    hsl(var(--warning) / 0.04) 50%,
+    hsl(var(--warning) / 0.02) 100%);
+  border: 1px solid hsl(var(--warning) / 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--input-padding);
+  margin-top: 16px;
+  transition: all var(--speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.misc-section:not(.misc-expanded) {
+  background: linear-gradient(135deg,
+    hsl(var(--warning) / 0.12) 0%,
+    hsl(var(--warning) / 0.08) 100%);
+  border: 1px solid hsl(var(--warning) / 0.25);
+  border-radius: var(--radius-lg);
+  padding: 8px 12px;
+  margin: 12px auto 8px auto;
+  max-width: 160px;
+  text-align: center;
+}
+
+.misc-section:not(.misc-expanded) .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.misc-section:not(.misc-expanded) .label {
+  font-size: 11px;
+  font-weight: 500;
+  color: hsl(var(--warning));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.misc-section:not(.misc-expanded) .misc-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.misc-section:not(.misc-expanded) .switch {
+  transform: scale(0.8);
+}
+
+.misc-options {
+  margin-top: 8px;
+  background: linear-gradient(135deg,
+    hsl(var(--warning) / 0.06) 0%,
+    hsl(var(--warning) / 0.03) 50%,
+    hsl(var(--warning) / 0.01) 100%);
+  border: 1px solid hsl(var(--warning) / 0.15);
+  border-radius: var(--radius-md);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 var(--input-padding);
+  transform: translateY(-8px);
+  transition: all var(--speed) ease;
+}
+
+.misc-options.show {
+  max-height: 400px;
+  opacity: 1;
+  padding: var(--input-padding);
+  transform: translateY(0);
+}
+
+.misc-section .row {
+  margin-bottom: 0;
+}
+
+.misc-options .row {
+  min-height: 28px;
+  padding: 1px 0;
+  gap: var(--radius-sm);
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+}
+
+.misc-options .row:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.misc-options .label {
+  font-size: 12px;
+  gap: 4px;
+  min-width: 0;
+  flex: 0 0 auto;
+  max-width: 110px;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  color: hsl(var(--text));
+}
+
+.misc-options .label.theme-label {
+  color: hsl(var(--brand));
+}
+
+.misc-options .label.debug-label {
+  color: hsl(var(--warning));
+}
+
+[data-theme="light"] .misc-options .label.debug-label {
+  color: hsl(45 70% 35%);
+}
+
+[data-theme="light"] .misc-options .select.debug-select:focus {
+  border-color: hsl(45 70% 35%);
+  box-shadow: 0 0 0 2px hsl(45 70% 35% / 0.2);
+}
+
+.misc-options .help {
+  width: 14px;
+  height: 14px;
+  font-size: 9px;
+  margin-left: 3px;
+  flex-shrink: 0;
+}
+
+.misc-options .select {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.misc-options .select.debug-select:focus {
+  border-color: hsl(var(--warning));
+  box-shadow: 0 0 0 2px hsl(var(--warning) / 0.2);
+}
+
+.divider {
+  height: 1px;
+  background: hsl(var(--border));
+  margin: 8px 0;
+  grid-column: 1 / -1;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, hsl(var(--error)), hsl(var(--error) / 0.9));
+  color: hsl(var(--white));
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--speed) ease;
+  width: 100%;
+  margin-top: 8px;
+  grid-column: 1 / -1;
+}
+
+.reset-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(var(--error) / 0.3);
+}
+
+.reset-icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+
+.reset-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: hsl(var(--black) / 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 200ms ease;
+}
+
+.reset-modal-overlay.show {
+  opacity: 1;
+}
+
+.reset-modal {
+  background: hsl(var(--surface));
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 40px hsl(var(--black) / 0.3);
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(20px) scale(0.95);
+  transition: all 200ms ease;
+  border: 1px solid hsl(var(--border));
+}
+
+.reset-modal-overlay.show .reset-modal {
+  transform: translateY(0) scale(1);
+}
+
+.reset-modal-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reset-modal-icon {
+  width: 24px;
+  height: 24px;
+  fill: hsl(var(--error));
+}
+
+.reset-modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: hsl(var(--text));
+}
+
+.reset-modal-body {
+  padding: 20px;
+}
+
+.reset-modal-body p {
+  margin: 0 0 16px 0;
+  color: hsl(var(--text));
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reset-changes {
+  background: hsl(var(--panel));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.reset-changes h4 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--text));
+}
+
+.reset-changes ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 12px;
+  color: hsl(var(--text));
+}
+
+.reset-changes li {
+  margin-bottom: 4px;
+}
+
+.reset-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: hsl(var(--error) / 0.1);
+  border: 1px solid hsl(var(--error) / 0.3);
+  border-radius: var(--radius-sm);
+  color: hsl(var(--error));
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.reset-modal-actions {
+  padding: 16px 20px 20px;
+  border-top: 1px solid hsl(var(--border));
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.reset-modal-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--speed) ease;
+  border: 1px solid;
+}
+
+.reset-modal-btn.cancel {
+  background: hsl(var(--surface));
+  border-color: hsl(var(--border));
+  color: hsl(var(--text));
+}
+
+.reset-modal-btn.cancel:hover {
+  background: hsl(var(--panel));
+  border-color: hsl(var(--brand));
+}
+
+.reset-modal-btn.confirm {
+  background: linear-gradient(135deg, hsl(var(--error)), hsl(var(--error) / 0.9));
+  border-color: hsl(var(--error));
+  color: hsl(var(--white));
+}
+
+.reset-modal-btn.confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(var(--error) / 0.3);
+}
+
 .row:has(.beta-badge) {
   background: linear-gradient(135deg, hsl(var(--amber-50) / .3), hsl(var(--amber-100) / .2));
   border: 1px solid hsl(var(--amber-200) / .4);
@@ -3009,6 +3345,24 @@ html[dir="rtl"] .professional-tooltip .tip-badge.batch {
   color: hsl(var(--emerald-500));
   background: hsl(var(--emerald-500) / 0.15);
   border: 1px solid hsl(var(--emerald-500) / 0.3);
+}
+
+.tip-badge.debug-error {
+  color: hsl(var(--red-500));
+  background: hsl(var(--red-500) / 0.15);
+  border: 1px solid hsl(var(--red-500) / 0.3);
+}
+
+.tip-badge.debug-warn {
+  color: hsl(var(--orange-500));
+  background: hsl(var(--orange-500) / 0.15);
+  border: 1px solid hsl(var(--orange-500) / 0.3);
+}
+
+.tip-badge.debug-info {
+  color: hsl(var(--blue-500));
+  background: hsl(var(--blue-500) / 0.15);
+  border: 1px solid hsl(var(--blue-500) / 0.3);
 }
 
 .tip-badge.compression {
@@ -3098,7 +3452,7 @@ html[dir="rtl"] .professional-tooltip .tip-badge.batch {
 
 
 
-/* RTL support overrides */
+
 [dir="rtl"] body,
 [dir="rtl"] .container {
   direction: rtl;

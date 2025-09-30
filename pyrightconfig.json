@@ -1,0 +1,13 @@
+{
+  "typeCheckingMode": "strict",
+  "reportUnknownVariableType": "warning",
+  "reportUnknownMemberType": "warning",
+  "reportUnknownArgumentType": "warning",
+  "reportMissingTypeArgument": "warning",
+  "venvPath": ".",
+  "venv": ".venv",
+  "exclude": [
+    ".venv",
+    "**/node_modules"
+  ]
+}

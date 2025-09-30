@@ -1,0 +1,48 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Setup MCP Environment (First Time)",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd '/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster' && python3 mcp-servers/env.py"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		},
+		{
+			"label": "Run MCP Server",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd '/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster' && .venv/bin/python mcp-servers/multi_ai_assistant.py"
+			],
+			"problemMatcher": [],
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		}
+	]
+}

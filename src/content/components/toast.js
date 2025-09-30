@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,40 +98,40 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class ToastComponent {
   constructor() {
+    window.GPTPF_DEBUG?.log('debug_toast_constructor');
     this.currentToast = null;
   }
-
   ensureHost(id) {
+    window.GPTPF_DEBUG?.log('debug_toast_ensure_host');
     let el = document.getElementById(id);
     if (!el) {
       el = document.createElement("div");
       el.id = id;
       document.documentElement.appendChild(el);
+      window.GPTPF_DEBUG?.log('debug_toast_host_created');
     }
     return el;
   }
-
   show(text, ok = true, action = null, level = (ok ? 'success' : 'error')) {
+    window.GPTPF_DEBUG?.log('debug_toast_show');
     const el = this.ensureHost("gptpf-toast");
-
     const cls = level === 'error' ? 'error' : (level === 'success' ? 'success' : 'info');
     el.className = cls;
-
     try {
       el.setAttribute('role', cls === 'error' ? 'alert' : 'status');
       el.setAttribute('aria-live', cls === 'error' ? 'assertive' : 'polite');
       el.setAttribute('aria-atomic','true');
-    } catch(err) { void err; }
-
+    } catch(err) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', err);
+      }
+    }
     while (el.firstChild) el.removeChild(el.firstChild);
-
     const icon = document.createElement('span');
     icon.setAttribute('aria-hidden','true');
     icon.className = 'gptpf-toast-icon';
-
     if (cls === 'success') {
       icon.classList.add('gptpf-toast-icon-success');
       icon.innerHTML = '<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M9 1L3.5 6.5L1 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -145,11 +145,13 @@ class ToastComponent {
       icon.appendChild(dot);
     }
     el.appendChild(icon);
-
     const span = document.createElement("span");
-    span.textContent = text;
+    if (text.includes('<span class="tip-badge debug-')) {
+      span.innerHTML = text;
+    } else {
+      span.textContent = text;
+    }
     el.appendChild(span);
-
     const t = window.GPTPF_CONFIG?.UI_TIMINGS || {};
     let timeout = t.toastMs ?? (cls === 'info' ? (t.toastInfoMs ?? 3000) : (cls === 'error' ? (t.toastErrorMs ?? 3000) : (t.toastSuccessMs ?? 3000)));
     if (action && action.label && typeof action.onClick === "function"){
@@ -163,18 +165,17 @@ class ToastComponent {
       el.appendChild(btn);
       timeout = t.toastWithActionMs ?? (t.toastMs ?? 3000);
     }
-
     el.classList.add('show');
     clearTimeout(el._h);
     el._h = setTimeout(()=>{
       el.classList.remove('show');
       el.classList.add('hide');
     }, timeout);
-
+    window.GPTPF_DEBUG?.log('debug_toast_shown');
     this.currentToast = el;
   }
-
   hide() {
+    window.GPTPF_DEBUG?.log('debug_toast_hide');
     if (this.currentToast) {
       this.currentToast.classList.remove('show');
       this.currentToast.classList.add('hide');
@@ -184,16 +185,21 @@ class ToastComponent {
         }
       }, 200);
       this.currentToast = null;
+      window.GPTPF_DEBUG?.log('debug_toast_hidden');
     }
   }
-
   success(text, action = null) {
+    window.GPTPF_DEBUG?.log('debug_toast_success');
     this.show(text, true, action);
   }
-
   error(text, action = null) {
+    window.GPTPF_DEBUG?.log('debug_toast_error');
     this.show(text, false, action);
   }
 }
-
 window.ToastComponent = ToastComponent;
+window.addEventListener('beforeunload', () => {
+  if (window.GPTPF_DEBUG) {
+    window.GPTPF_DEBUG.info('toast_cleanup', window.GPTPF_I18N.getMessage('toast_cleanup_complete'));
+  }
+});

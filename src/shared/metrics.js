@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -82,21 +82,14 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
-
-
 (() => {
   const root = (typeof self !== 'undefined') ? self : window;
   if (root.GPTPF_METRICS && root.GPTPF_METRICS.__v === (root.GPTPF_CONFIG?.__v ? root.GPTPF_CONFIG.__v : "unknown")) return;
-
   function record(event, data) {
     try {
       if (!('chrome' in root) || !chrome.runtime || !chrome.runtime.sendMessage) return;
-
       if (!event || typeof event !== 'string' || event.length === 0) return;
-
       const cleanEvent = root.GPTPF_VALIDATION?.sanitizeEventName(event) ?? String(event).slice(0, 32).replace(/[^a-zA-Z0-9_]/g, '_');
-
       chrome.runtime.sendMessage({
         type: 'METRIC_EVENT',
         event: cleanEvent,
@@ -105,7 +98,9 @@
         void (chrome.runtime && chrome.runtime.lastError);
       });
     } catch(err) {
-      void err;
+      if (root.GPTPF_DEBUG) {
+        root.GPTPF_DEBUG.error('console_platform_handler_error', err);
+      }
     }
   }
   root.GPTPF_METRICS = Object.freeze({ __v: (root.GPTPF_CONFIG?.__v ? root.GPTPF_CONFIG.__v : "unknown"), record });

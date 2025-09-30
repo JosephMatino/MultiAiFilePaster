@@ -13,17 +13,17 @@
  * RELIABILITY: Quality error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,42 +98,41 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class PlatformFactory {
   static platforms = (() => {
     const map = { chatgpt: 'ChatGPTPlatform', claude: 'ClaudePlatform', gemini: 'GeminiPlatform', deepseek: 'DeepSeekPlatform', grok: 'GrokPlatform' };
     const doms = window.GPTPF_CONFIG?.PLATFORM_DOMAINS ?? {};
     return Object.keys(map).map(name => ({ name, class: map[name], urls: doms[name] ?? [] }));
   })();
-
   static getCurrentPlatform() {
+    window.GPTPF_DEBUG?.log('debug_factory_get_platform');
     const url = window.location.href;
-    
     for (const platform of this.platforms) {
       if (platform.urls.some(u => url.includes(u))) {
+        window.GPTPF_DEBUG?.log('debug_factory_platform_detected', platform.name);
         return platform.name;
       }
     }
-    
+    window.GPTPF_DEBUG?.warn('debug_factory_unknown_platform');
     return 'unknown';
   }
-
   static createPlatformHandler() {
+    window.GPTPF_DEBUG?.log('debug_factory_create_handler');
     const currentPlatform = this.getCurrentPlatform();
-    
     for (const platform of this.platforms) {
       if (platform.name === currentPlatform) {
         const PlatformClass = window[platform.class];
         if (PlatformClass) {
+          window.GPTPF_DEBUG?.log('debug_factory_handler_created', platform.name);
           return new PlatformClass();
         }
       }
     }
-    
+    window.GPTPF_DEBUG?.warn('debug_factory_no_handler');
     return null;
   }
-
   static getPlatformSettings(baseSettings) {
+    window.GPTPF_DEBUG?.log('debug_factory_get_settings');
     const platform = this.getCurrentPlatform();
     const timeouts = window.GPTPF_CONFIG?.PLATFORM_TIMEOUTS ?? {};
     const merged = {
@@ -141,26 +140,24 @@ class PlatformFactory {
       timeout: timeouts[platform] ?? timeouts.default ?? 3000,
       ...(platform === 'gemini' ? { useDelay: false, delaySeconds: 0 } : {})
     };
-
     const handler = this.createPlatformHandler();
     if (handler && typeof handler.getPlatformSettings === 'function') {
       const hs = handler.getPlatformSettings(merged) ?? merged;
+      window.GPTPF_DEBUG?.log('debug_factory_settings_configured');
       return {
         ...hs,
         timeout: merged.timeout,
         ...(platform === 'gemini' ? { useDelay: merged.useDelay, delaySeconds: merged.delaySeconds } : {})
       };
     }
+    window.GPTPF_DEBUG?.log('debug_factory_default_settings');
     return merged;
   }
-
   static isSupportedPlatform() {
     return this.getCurrentPlatform() !== 'unknown';
   }
-
   static getSupportedPlatforms() {
     return this.platforms.map(p => p.name);
   }
 }
-
-window.PlatformFactory = PlatformFactory;
+window.PlatformFactory = PlatformFactory;

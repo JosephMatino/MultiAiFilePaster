@@ -1,0 +1,21 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+  "terminal.integrated.shellIntegration.history": 100,
+  "terminal.integrated.automationProfile.linux": {
+    "path": "/bin/bash"
+  },
+  "files.eol": "\n",
+  "python.defaultInterpreterPath": "/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "chat.renderRelatedFiles": true,
+  "chat.mcp.assisted.nuget.enabled": true,
+  "chat.mcp.autostart": "newAndOutdated",
+  "chat.agent.maxRequests": 120
+}

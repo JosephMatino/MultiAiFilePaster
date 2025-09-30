@@ -16,7 +16,7 @@
 
 [![6 AI Platforms](https://img.shields.io/badge/🤖%20Works%20with-6%20AI%20Platforms-blue?style=for-the-badge)](#-supported-platforms)
 [![20+ File Formats](https://img.shields.io/badge/🧠%20Detects-20+%20File%20Formats-orange?style=for-the-badge)](#-file-format-support)
-[![3 Languages](https://img.shields.io/badge/🌍%20Multilingual-Arabic%20•%20English%20•%20Swahili-green?style=for-the-badge)](#-internationalization)
+[![11 Languages](https://img.shields.io/badge/🌍%20Multilingual-11%20Languages%20Supported-green?style=for-the-badge)](#-internationalization)
 [![Privacy First](https://img.shields.io/badge/🔒%20Privacy-First-green?style=for-the-badge)](#-privacy--security)
 [![Completely Free](https://img.shields.io/badge/💰%20Completely-FREE-brightgreen?style=for-the-badge)](#-installation)
 
@@ -80,11 +80,11 @@ Multi-AI File Paster offers native integration with five major AI platforms incl
 
 **Batch File Processing:** Automatically detects multiple code blocks in pasted text and creates separate files for each block. Perfect for multi-file projects where you paste content containing ```javascript, ```python, and ```css blocks - each becomes its own properly formatted file.
 
-**File Compression:** GZIP compression reduces large file attachments by 60-80% using browser-native compression. Configurable threshold (512-10240 bytes) with automatic compression ratio validation and user feedback.
+**Smart Language Detection:** Automatically detects programming languages and content types to select the most appropriate file extension. Supports 20+ languages including JavaScript, Python, SQL, CSS, HTML, and more.
 
 **Analytics Dashboard:** View usage stats: total files, platform breakdowns, file type trends, time ranges (7/30/90 days, all‑time), and export data if you opt in.
 
-Privacy and security are built into the core architecture. All processing happens locally on your device with zero external data transmission, meeting Chrome Manifest V3 compliance standards with minimal permissions. Multi-AI File Paster works immediately after installation with no configuration required, while offering customizable settings for word thresholds, delays, batch processing, compression, and format overrides to match your workflow preferences.
+Privacy and security are built into the core architecture. All processing happens locally on your device with zero external data transmission, meeting Chrome Manifest V3 compliance standards with minimal permissions. Multi-AI File Paster works immediately after installation with no configuration required, while offering customizable settings for word thresholds, delays, batch processing, smart language detection, and format overrides to match your workflow preferences.
 
 ---
 
@@ -274,7 +274,7 @@ Multi-AI File Paster delivers exceptional performance with instant language dete
 
 ## 🌍 Internationalization
 
-Multi-AI File Paster supports multiple languages with native translations:
+Multi-AI File Paster supports 11 languages with complete native translations:
 
 ### **Supported Languages**
 
@@ -282,20 +282,30 @@ Multi-AI File Paster supports multiple languages with native translations:
 
 | Language | Native | Status | Coverage |
 |:--------:|:------:|:------:|:--------:|
-| **English** | English | ✅ Complete | 100% |
-| **العربية** | Arabic | ✅ Complete | 100% |
-| **Kiswahili** | Swahili | ✅ Complete | 100% |
+| **English** | English | ✅ Complete | 648/648 keys |
+| **العربية** | Arabic | ✅ Complete | 648/648 keys |
+| **Kiswahili** | Swahili | ✅ Complete | 648/648 keys |
+| **Español** | Spanish | ✅ Complete | 648/648 keys |
+| **日本語** | Japanese | ✅ Complete | 648/648 keys |
+| **Français** | French | ✅ Complete | 648/648 keys |
+| **Русский** | Russian | ✅ Complete | 648/648 keys |
+| **中文** | Chinese | ✅ Complete | 648/648 keys |
+| **Português** | Portuguese | ✅ Complete | 648/648 keys |
+| **Deutsch** | German | ✅ Complete | 648/648 keys |
+| **हिंदी** | Hindi | ✅ Complete | 648/648 keys |
 
 </div>
 
 ### **Language Features**
 - **RTL Support**: Full right-to-left text support for Arabic
-- **Context-Aware**: Different translations for different UI contexts  
+- **Context-Aware**: Different translations for different UI contexts
 - **Chrome Standards**: Following Chrome extension i18n best practices
 - **Auto-Detection**: Browser language automatically detected
 - **Manual Selection**: Override language in extension settings
+- **SHORT UI Text**: Layout-optimized translations prevent UI overflow
+- **Real-time Sync**: Language changes sync instantly across all components
 
-The extension automatically detects your browser language and displays the appropriate interface. All user-facing text, tooltips, error messages, and settings are fully translated.
+The extension automatically detects your browser language and displays the appropriate interface. All user-facing text, tooltips, error messages, and settings are fully translated with professional quality.
 
 ---
 
@@ -484,10 +494,10 @@ This project uses the Hostwek Custom License. Personal, non‑commercial use is 
 
 ### **v1.1.0 (Current) - Latest Release**
 - ✅ **Batch File Processing** - Automatically detects multiple code blocks and creates separate files
-- ✅ **File Compression** - GZIP compression reduces large files by 60-80%
+- ✅ **Smart Language Detection** - Automatic file extension selection based on content analysis
 - ✅ **Smart Code Detection** - Recognizes both fenced (```language) and indented code blocks
-- ✅ **Progress Indicators** - Real-time feedback during batch processing and compression
-- ✅ **Compression Controls** - User-configurable threshold (512-10240 bytes)
+- ✅ **Progress Indicators** - Real-time feedback during batch processing and file operations
+- ✅ **Complete Internationalization** - 11 languages with 648 translation keys each
 
 ### **v1.1.0 - Manual Save & Error Handling**
 - ✅ Fixed manual save error handling with specific, helpful error messages

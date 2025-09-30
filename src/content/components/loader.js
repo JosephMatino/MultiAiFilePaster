@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,13 +98,11 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class LoaderComponent {
   constructor() {
     this.currentLoader = null;
     this.currentDelay = null;
   }
-
   ensureHost(id) {
     let el = document.getElementById(id);
     if (!el) {
@@ -114,10 +112,9 @@ class LoaderComponent {
     }
     return el;
   }
-
   show(text) {
+    window.GPTPF_DEBUG?.log('debug_loader_show');
     const box = this.ensureHost("gptpf-loader");
-
     while (box.firstChild) box.removeChild(box.firstChild);
     const dot = document.createElement("span");
     dot.className = "spinner";
@@ -125,48 +122,63 @@ class LoaderComponent {
     txt.textContent = text;
     box.appendChild(dot);
     box.appendChild(txt);
-
     this.currentLoader = box;
+    window.GPTPF_DEBUG?.log('debug_loader_displayed');
   }
-
   hide() {
+    window.GPTPF_DEBUG?.log('debug_loader_hide');
     const el = document.getElementById("gptpf-loader"); 
     if (el) el.remove();
     this.currentLoader = null;
+    window.GPTPF_DEBUG?.log('debug_loader_hidden');
   }
-
   delayCountdown(ms) {
+    window.GPTPF_DEBUG?.log('debug_loader_countdown_start');
     return new Promise((resolve, reject) => {
       try {
         const old = document.getElementById('gptpf-delay');
         if (old) old.remove();
-
         const box = this.ensureHost('gptpf-delay');
-
         while (box.firstChild) box.removeChild(box.firstChild);
         const dot = document.createElement('span');
         dot.className = "spinner";
         const txt = document.createElement('span');
         const cancel = document.createElement('button');
-        cancel.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'LOADER_CANCEL');
+        cancel.textContent = window.GPTPF_I18N.getMessage('cancel');
         box.appendChild(dot);
         box.appendChild(txt);
         box.appendChild(cancel);
-
         let cancelled = false;
         let rem = Math.max(0, Math.ceil(ms/1000));
-        function render(){ txt.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'DELAY_COUNTDOWN', rem); }
+        function render(){ txt.textContent = window.GPTPF_I18N.getMessage('delay_countdown', [rem.toString()]); }
         render();
         const iv = setInterval(()=>{ if (rem>0){ rem -= 1; render(); } }, 1000);
-        const timer = setTimeout(()=>{ if (cancelled) return; clearInterval(iv); box.remove(); resolve(); }, ms);
-        cancel.addEventListener('click', ()=>{ cancelled = true; clearTimeout(timer); clearInterval(iv); box.remove(); reject(new Error('cancelled')); });
-
+        const timer = setTimeout(()=>{ 
+          if (cancelled) return; 
+          clearInterval(iv); 
+          box.remove(); 
+          window.GPTPF_DEBUG?.log('debug_loader_countdown_complete');
+          resolve(); 
+        }, ms);
+        cancel.addEventListener('click', ()=>{ 
+          cancelled = true; 
+          clearTimeout(timer); 
+          clearInterval(iv); 
+          box.remove(); 
+          window.GPTPF_DEBUG?.log('debug_loader_countdown_cancelled');
+          reject(new Error('cancelled')); 
+        });
         this.currentDelay = { box, timer, iv, cancelled: () => cancelled };
       } catch {
+        window.GPTPF_DEBUG?.error('debug_loader_countdown_error');
         resolve();
       }
     });
   }
 }
-
 window.LoaderComponent = LoaderComponent;
+window.addEventListener('beforeunload', () => {
+  if (window.GPTPF_DEBUG) {
+    window.GPTPF_DEBUG.info('loader_cleanup', window.GPTPF_I18N.getMessage('loader_cleanup_complete'));
+  }
+});

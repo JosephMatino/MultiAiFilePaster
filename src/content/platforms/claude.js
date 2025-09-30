@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -31,7 +31,7 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: Claude AI platform integration and automation
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader API
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
  * • FEATURES: Claude-specific DOM handling, file attachment, state management
  * • TESTING: Automated unit tests, integration tests, cross-browser validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
@@ -98,19 +98,16 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class ClaudePlatform {
   constructor() {
     this.name = 'claude';
     this.processing = false;
   }
-
   isCurrentPlatform() {
     const host = window.location.hostname;
     const list = window.GPTPF_CONFIG?.PLATFORM_DOMAINS?.claude;
     return list?.some(d => host.includes(d));
   }
-
   getPlatformSettings(baseSettings) {
     const timeouts = window.GPTPF_CONFIG?.PLATFORM_TIMEOUTS;
     return {
@@ -118,34 +115,27 @@ class ClaudePlatform {
       timeout: timeouts.claude
     };
   }
-
   getComposer() {
     const a = document.activeElement;
     if (a && (this.isContentEditable(a) || this.isTextarea(a))) return a;
-
     return document.querySelector('div[contenteditable="true"].ProseMirror')
         || document.querySelector('div[contenteditable="true"]');
   }
-
   getAttachButton() {
     return document.querySelector('input[type="file"]')?.closest('button')
         || document.querySelector('button[aria-label*="attach" i]')
         || document.querySelector('button[title*="attach" i]');
   }
-
   getFileInput() {
     const allInputs = Array.from(document.querySelectorAll('input[type="file"]'));
     return allInputs.find(el => !el.disabled && el.offsetParent !== null)
         || allInputs.find(el => !el.disabled);
   }
-
   async ensureFileInput(wait) {
     let inp = this.getFileInput();
     if (inp) return inp;
-
     const plus = this.getAttachButton();
     if (plus) plus.click();
-
     const t0 = performance.now();
     while(!inp && performance.now()-t0 < wait){
       await new Promise(r=>setTimeout(r,90));
@@ -153,75 +143,105 @@ class ClaudePlatform {
     }
     return inp;
   }
-
   async attachFile(file) {
     try {
       const input = await this.ensureFileInput();
       if (!input) return false;
-
       const dt = new DataTransfer();
       dt.items.add(file);
       input.files = dt.files;
       input.dispatchEvent(new Event("change", { bubbles: true }));
       input.dispatchEvent(new Event("input", { bubbles: true }));
-      
       return true;
     } catch (error) {
       return false;
     }
   }
-
   isTextarea(el) {
     return el && el.tagName === "TEXTAREA";
   }
-
   isContentEditable(el) {
     return el && el.getAttribute && el.getAttribute("contenteditable") === "true";
   }
-
   shouldHandlePaste(_e, _text, settings) {
     return settings.claudeOverride;
   }
-
   async handlePostPaste(text, dependencies) {
     const { makeFile, ensureFileInput, renameModal, toast, settings } = dependencies;
     if (this.processing) return;
+
+    if (!text || typeof text !== 'string' || text.trim().length === 0) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG.error('claude_invalid_text', { text, type: typeof text });
+      }
+      return;
+    }
+
     this.processing = true;
-    
     let attempts = 0;
     const maxAttempts = 15;
 
     const findAndReplacePasted = () => {
       const pastedElements = document.querySelectorAll('*');
-      
       for (const el of pastedElements) {
         if (el.textContent === 'pasted' || el.textContent === 'PASTED') {
           let container = el;
           for (let i = 0; i < 10; i++) {
             container = container.parentElement;
             if (!container) break;
-            
             const buttons = container.querySelectorAll('button');
             if (buttons.length >= 2) {
               const removeBtn = buttons[buttons.length - 1];
+              if (window.GPTPF_DEBUG) {
+                window.GPTPF_DEBUG.info('claude_removing_pasted_element', window.GPTPF_I18N?.getMessage('debug_claude_replacing_pasted'));
+              }
               removeBtn.click();
-              
               setTimeout(async () => {
                 try {
+                  if (!text || text.trim().length === 0) {
+                    throw new Error(window.GPTPF_I18N?.getMessage('errors_text_content_empty'));
+                  }
+
                   const customName = await renameModal();
-                  const file = makeFile(text, settings.fileFormat, customName);
-                  const input = await ensureFileInput();
                   
+                  if (window.GPTPF_DEBUG) {
+                    window.GPTPF_DEBUG.info('claude_creating_file', {
+                      contentLength: text.length,
+                      format: settings.fileFormat,
+                      customName: customName || window.GPTPF_I18N?.getMessage('default_auto_generated')
+                    });
+                  }
+
+                  const file = makeFile(text, settings.fileFormat, customName);
+                  
+                  if (!file || !(file instanceof File)) {
+                    throw new Error(window.GPTPF_I18N?.getMessage('errors_file_creation_failed'));
+                  }
+
+                  const input = await ensureFileInput();
                   if (input) {
                     const dt = new DataTransfer();
                     dt.items.add(file);
                     input.files = dt.files;
                     input.dispatchEvent(new Event("change", { bubbles: true }));
-                    const successMsg = window.GPTPF_MESSAGES.getMessage('FILE_OPERATIONS', 'ATTACHMENT_SUCCESS', file.name);
+                    
+                    if (window.GPTPF_DEBUG) {
+                      window.GPTPF_DEBUG.info('claude_file_attached', {
+                        name: file.name,
+                        size: file.size,
+                        type: file.type
+                      });
+                    }
+
+                    const successMsg = window.GPTPF_I18N.getMessage('attachment_success', [file.name]);
                     toast(successMsg, true);
+                  } else {
+                    throw new Error(window.GPTPF_I18N?.getMessage('errors_no_file_input'));
                   }
                 } catch (err) {
-                  void err;
+                  if (window.GPTPF_DEBUG) {
+                    window.GPTPF_DEBUG?.error('console_platform_handler_error', err);
+                  }
                 } finally {
                   this.processing = false;
                 }
@@ -233,10 +253,8 @@ class ClaudePlatform {
       }
       return false;
     };
-    
     const checkLoop = () => {
       if (findAndReplacePasted()) return;
-      
       attempts++;
       if (attempts < maxAttempts) {
         setTimeout(checkLoop, 100);
@@ -244,13 +262,10 @@ class ClaudePlatform {
         this.processing = false;
       }
     };
-    
     setTimeout(checkLoop, 300);
   }
-
   hash(s) {
     return s ? String(s.length)+":"+s.slice(0,32) : "";
   }
 }
-
 window.ClaudePlatform = ClaudePlatform;

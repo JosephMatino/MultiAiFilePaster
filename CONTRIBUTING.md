@@ -83,7 +83,7 @@ graph TD
 4. **Platform Integration** - Inject files using platform-specific methods
 5. **User Feedback** - Toast notifications and visual confirmation
 
-The extension includes advanced features like batch processing for multiple code blocks and file compression for large attachments.
+The extension includes advanced features like batch processing for multiple code blocks and smart language detection for automatic file extension selection.
 
 ## 🤝 How to Contribute
 
@@ -360,7 +360,7 @@ Multi-AI File Paster/
 │       ├── validation.js    # Centralized input validation and security
 │       ├── metrics.js       # Privacy-safe analytics system
 │       ├── languagedetector.js # Language detection engine
-│       ├── compression.js   # GZIP file compression utilities
+│       ├── languagedetector.js # Smart language detection utilities
 │       └── batchprocessor.js # Multi-file batch processing engine
 
 ├── logo/                    # Extension branding assets

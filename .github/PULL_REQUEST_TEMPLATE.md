@@ -1,6 +1,6 @@
 <!--
 ================================================================================
-Multi-AI File Paster Chrome Extension | Production Release v1.1.0
+Multi-AI File Paster Chrome Extension | Production Release v1.1.0 | 11 Languages
 ================================================================================
 
 TEMPLATE: Pull Request Template
@@ -94,7 +94,7 @@ Licensed under Hostwek Custom License | see LICENSE
   - [ ] Language detection accurate
   - [ ] Custom file naming works
   - [ ] Batch mode processes multiple files
-  - [ ] Compression works when enabled
+  - [ ] Smart language detection works accurately
   - [ ] File format selection applies
 - [ ] **Background Service**
   - [ ] Settings sync across tabs

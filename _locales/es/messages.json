@@ -1,0 +1,884 @@
+{
+  "extension_name": {"message": "Multi-AI File Paster"},
+  "extension_description": {"message": "Crea automáticamente archivos adjuntos desde texto pegado en plataformas de IA ChatGPT, Claude, Gemini, DeepSeek y Grok. Incluye procesamiento por lotes."},
+  "extension_short_name": {"message": "Multi-AI"},
+  "extension_context": {"message": "Contexto de extensión perdido - por favor actualiza la página"},
+  "extension_reloaded": {"message": "La extensión se recargó - por favor actualiza la página"},
+  "extension_support": {"message": "Soporte de Extensión:"},
+  "header_title": {"message": "Multi-AI File Paster"},
+  "header_subtitle": {"message": "Auto-convierte textos largos pegados y adjunta automáticamente archivos limpios en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta Auto-Detección y más de 20 formatos incluyendo archivos de código."},
+  "about_description": {"message": "Multi-AI File Paster detecta cuando pegas texto largo (código, documentación, datos) y lo convierte en archivos correctamente formateados. Esto mantiene los chats limpios y dentro de los límites de la plataforma."},
+  "about_help": {"message": "Acerca de y Ayuda"},
+  "ai_model_default": {"message": "Modelo de IA"},
+  "ai_platforms": {"message": "Plataformas de IA"},
+  "all_time": {"message": "Todo el tiempo"},
+  "analytics": {"message": "Análisis"},
+  "analytics_all_time": {"message": "Todo el Tiempo"},
+  "analytics_analytics_updated": {
+    "message": "Análisis actualizado: $PERIOD$",
+    "placeholders": {
+      "PERIOD": {
+        "content": "$1",
+        "example": "Últimos 7 Días"
+      }
+    }
+  },
+  "analytics_chart_error": {"message": "Error de gráfico"},
+  "analytics_chart_unavailable": {"message": "Gráfico no disponible"},
+  "analytics_cleanup": {"message": "[DEBUG] Limpieza de análisis completa"},
+  "analytics_cleanup_complete": {"message": "Limpieza de análisis completada"},
+  "analytics_clearing_data": {"message": "Limpiando datos..."},
+  "analytics_days_ago": {
+    "message": "Hace $DAYS$ días",
+    "placeholders": {
+      "DAYS": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "analytics_description": {"message": "Ayuda a mejorar la extensión compartiendo solo conteos de uso anónimos (archivos creados, errores encontrados). Nunca recopila contenido, URLs o datos personales. Completamente opcional y se puede deshabilitar en cualquier momento."},
+  "analytics_error_loading": {"message": "Error al cargar datos"},
+  "analytics_exported": {"message": "Datos exportados"},
+  "analytics_files_label": {"message": "archivos"},
+  "analytics_last_30_days": {"message": "Últimos 30 Días"},
+  "analytics_last_7_days": {"message": "Últimos 7 Días"},
+  "analytics_last_90_days": {"message": "Últimos 90 Días"},
+  "analytics_no_data": {"message": "Sin datos"},
+  "analytics_note": {"message": "Nota:"},
+  "analytics_note_text": {"message": "El panel de análisis solo es visible cuando esta opción está habilitada."},
+  "analytics_today": {"message": "Hoy"},
+  "analytics_yesterday": {"message": "Ayer"},
+  "anonymous_analytics": {"message": "Análisis Anónimo"},
+
+  "aria_batch_delay": {"message": "Retraso por Lotes"},
+  "aria_batch_processing": {"message": "Procesamiento"},
+  "aria_chart_type": {"message": "Tipo de gráfico"},
+  "aria_choose_debug_level": {"message": "Nivel debug"},
+  "aria_choose_file_format": {"message": "Formato"},
+  "aria_choose_theme": {"message": "Elegir tema"},
+  "aria_claude_override": {"message": "Anular Claude"},
+
+  "aria_custom_format_help": {"message": "Ayuda de formato personalizado"},
+  "aria_debug_level": {"message": "Ayuda de nivel de depuración"},
+  "aria_delay_seconds": {"message": "Segundos de retraso (1-15)"},
+  "aria_files_per_day_chart": {"message": "Gráfico de líneas de archivos por día"},
+  "aria_files_per_day_trend": {"message": "Tendencia de archivos por día"},
+  "aria_hostwek_website": {"message": "Sitio web de Hostwek"},
+  "aria_more_file_formats": {"message": "Más formatos de archivo"},
+  "aria_theme_help": {"message": "Ayuda de selección de tema"},
+  "aria_what_is_auto_attach": {"message": "¿Qué es Auto-Adjuntar?"},
+  "aria_what_is_delay": {"message": "¿Qué es Retraso?"},
+  "aria_what_is_min_words": {"message": "¿Qué son Palabras Mínimas?"},
+  "attach_typed_text": {"message": "Adjuntar como archivo"},
+  "attachment_attaching": {"message": "Adjuntando archivo..."},
+  "attachment_cancelled": {"message": "Adjunto cancelado"},
+  "attachment_failed": {"message": "Adjunto falló"},
+  "attachment_preparing": {"message": "Preparando archivo..."},
+  "attachment_success": {
+    "message": "Adjuntado exitosamente $FILE$",
+    "placeholders": {
+      "FILE": {
+        "content": "$1",
+        "example": "document.txt"
+      }
+    }
+  },
+  "attachment_uploading": {"message": "Subiendo archivo..."},
+  "auto_attach": {"message": "Auto-Adjuntar"},
+  "auto_attach_tooltip": {"message": "<span class='tip-badge feature'>FUNCIÓN</span> Convierte textos largos pegados en un archivo limpio y lo adjunta automáticamente a tu chat. Mantiene los mensajes ordenados y dentro de los límites en ChatGPT, Claude, Gemini, DeepSeek y Grok. Desactiva para pegar normalmente y usar Guardado Manual."},
+  "auto_detect": {"message": "Auto-Detección"},
+  "auto_filename_generated": {"message": "Nombre de archivo automático generado"},
+  "back_to_main": {"message": "Volver al Principal"},
+  "banner_not_supported": {"message": "Esta página no es compatible"},
+  "bar_chart": {"message": "Barras"},
+  "batch_active_badge": {"message": "LOTES"},
+  "batch_active_short": {"message": "LOTES ACTIVO"},
+  "batch_active_tip": {"message": "Modo por lotes está activo - se procesarán múltiples archivos"},
+  "batch_auto_attach_tip": {"message": "Auto-adjuntar procesará todos los archivos en modo por lotes"},
+
+  "batch_delay_tip": {"message": "El retraso aplica a cada archivo en el procesamiento por lotes"},
+  "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>TIEMPO</span> Retraso de tiempo entre subir cada archivo por lotes (100ms a 2000ms). Retrasos más altos reducen la posibilidad de ser marcado como spam por las plataformas de IA. Esta configuración se deshabilita automáticamente cuando el interruptor principal de 'Retraso del Usuario' está activo arriba - en ese caso, la configuración de retraso principal toma prioridad para todas las subidas de archivos."},
+  "batch_detected": {
+    "message": "Modo por lotes: $COUNT$ archivos detectados",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "batch_mode": {"message": "Modo por Lotes"},
+  "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>PRUEBA</span> Divide contenido grande en múltiples archivos basado en tu configuración de Archivos Máximos. Divide el contenido por líneas y usa detección inteligente de idioma para extensiones de archivo. Crea archivos llamados parte1, parte2, parte3, parte4. Perfecto para dividir documentos grandes, archivos de código o cualquier contenido que exceda los límites de la plataforma. Cada parte obtiene la extensión de archivo apropiada basada en el análisis de contenido."},
+  "beta": {"message": "PRUEBA"},
+  "cancel": {"message": "Cancelar"},
+  "claude_override": {"message": "Anular Claude"},
+  "claude_override_tooltip": {"message": "<span class='tip-badge feature'>FUNCIÓN</span> Claude incluye su propia función de pegar-a-archivo. Habilita esto para usar siempre Multi-AI File Paster para un formateo y nomenclatura más consistentes."},
+  "clear_all_data": {"message": "Borrar Datos"},
+  "clear_analytics_data": {"message": "Borrar Análisis"},
+  "clear_data": {"message": "Borrar Datos"},
+  "clear_data_warning": {"message": "Esto eliminará permanentemente todas tus estadísticas de uso y no se puede deshacer."},
+  "close": {"message": "Cerrar"},
+  "company": {"message": "Empresa:"},
+
+  "config_analytics_dashboard": {"message": "Panel de Análisis: Rastrea patrones de uso y estadísticas de creación de archivos"},
+  "config_auto_attach": {"message": "Auto-Adjuntar: Detecta automáticamente y convierte textos largos pegados (umbral de palabras personalizable: 50-15,000 palabras)"},
+  "config_batch_processing": {"message": "Procesamiento por Lotes: Divide contenido grande en 2-4 archivos con división inteligente de líneas"},
+  "config_claude_integration": {"message": "Integración con Claude: Trabaja junto o reemplaza la función integrada de pegar-a-archivo de Claude"},
+  "config_delay": {"message": "Retraso: Cuenta regresiva opcional de 1-15 segundos previene adjuntos accidentales"},
+
+  "config_manual_override": {"message": "Anulación Manual: Conversión bajo demanda de texto escrito a adjuntos de archivo"},
+  "config_multi_format": {"message": "Soporte Multi-Formato: Elige entre más de 20 tipos de archivo incluyendo lenguajes de programación, marcado, formatos de datos y extensiones personalizadas"},
+  "config_platform_optimization": {"message": "Optimización de Plataforma: Manejo especial para el sistema único de adjuntos de archivo de cada plataforma de IA"},
+  "configuration": {"message": "Configuración"},
+  "connected_to": {
+    "message": "Conectado a $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "console_component_init_error": {"message": "Error de inicialización de componente:"},
+  "console_config_load_failed": {"message": "GPTPF: Error al cargar config.js en worker de fondo:"},
+  "console_i18n_load_failed": {"message": "Error al cargar mensajes para"},
+  "console_manual_save_error": {"message": "Error de guardado manual:"},
+  "console_platform_handler_error": {"message": "Error de manejador de plataforma:"},
+  "content_cleanup": {"message": "[DEBUG] Limpieza de contenido completa"},
+  "content_cleanup_complete": {"message": "Limpieza de script de contenido completada"},
+  "custom_filename_processed": {"message": "Nombre de archivo personalizado procesado"},
+  "custom_format_label": {"message": "Personalizado:"},
+  "custom_format_placeholder": {"message": "Ingresa formato (ej. txt, md, json)"},
+  "custom_format_set": {
+    "message": "Formato personalizado establecido a .$EXT$",
+    "placeholders": {
+      "EXT": {
+        "content": "$1",
+        "example": "txt"
+      }
+    }
+  },
+  "custom_format_tooltip": {"message": "<span class='tip-badge security'>SEGURIDAD</span> Ingresa solo letras/números de la extensión sin puntos (ej., log, data, cfg). Los tipos ejecutables riesgosos están bloqueados."},
+  "data_cleared_success": {"message": "Todos los datos borrados exitosamente"},
+  "days_30": {"message": "30 días"},
+  "days_7": {"message": "7 días"},
+  "days_90": {"message": "90 días"},
+  "debug_analytics_clear_confirm": {"message": "Borrado de análisis confirmado"},
+  "debug_analytics_data_cleared": {"message": "Datos de análisis borrados del almacenamiento"},
+  "debug_background_command_received": {"message": "Comando de fondo recibido"},
+  "debug_background_config_resolve": {"message": "Resolviendo configuración de fondo"},
+  "debug_background_config_resolved": {"message": "Configuración de fondo resuelta"},
+  "debug_background_config_unavailable": {"message": "Configuración de fondo no disponible"},
+  "debug_background_extension_installed": {"message": "Evento de extensión instalada"},
+  "debug_background_extension_startup": {"message": "Evento de inicio de extensión"},
+  "debug_background_extension_updated": {"message": "Extensión actualizada"},
+  "debug_background_first_install": {"message": "Primera instalación"},
+  "debug_background_get_debug_request": {"message": "Solicitud de obtener depuración recibida"},
+  "debug_background_get_settings_request": {"message": "Solicitud de obtener configuración recibida"},
+  "debug_background_message_received": {"message": "Mensaje de fondo recibido"},
+  "debug_background_metric_event_request": {"message": "Solicitud de evento de métrica recibida"},
+  "debug_background_platform_check_request": {"message": "Solicitud de verificación de plataforma recibida"},
+  "debug_background_save_chat_complete": {"message": "Operación de guardar chat completada"},
+  "debug_background_save_chat_start": {"message": "Iniciando operación de guardar chat"},
+  "debug_background_save_connection_failed": {"message": "Conexión falló durante guardado"},
+  "debug_background_save_message_request": {"message": "Solicitud de guardar mensaje recibida"},
+  "debug_background_save_no_tab": {"message": "No se encontró pestaña activa para guardar"},
+  "debug_background_save_unsupported_platform": {"message": "Plataforma no soportada para guardar"},
+  "debug_background_script_init": {"message": "Inicializando script de fondo"},
+  "debug_background_scripts_loaded": {"message": "Scripts de fondo cargados exitosamente"},
+  "debug_background_set_settings_request": {"message": "Solicitud de establecer configuración recibida"},
+  "debug_background_settings_get": {"message": "Obteniendo configuración de fondo"},
+  "debug_background_settings_saved": {"message": "Configuración de fondo guardada"},
+  "debug_background_settings_set": {"message": "Estableciendo configuración de fondo"},
+  "debug_badge_refresh_error": {"message": "Ocurrió error de actualización de insignia"},
+  "debug_badges_refreshed": {"message": "Insignias de plataforma actualizadas exitosamente"},
+  "debug_config_defaults_missing": {"message": "Objeto DEFAULTS de configuración faltante"},
+  "debug_config_error": {"message": "[DEBUG] Error de configuración"},
+  "debug_config_get": {"message": "[DEBUG] Obtener configuración"},
+  "debug_config_get_complete": {"message": "Recuperación de configuración completa"},
+  "debug_config_get_start": {"message": "Iniciando recuperación de configuración"},
+  "debug_config_init": {"message": "[DEBUG] Inicialización de configuración"},
+  "debug_config_initialized": {"message": "[DEBUG] Configuración inicializada"},
+  "debug_config_load": {"message": "[DEBUG] Cargar configuración"},
+  "debug_config_save": {"message": "[DEBUG] Guardar configuración"},
+  "debug_config_set": {"message": "[DEBUG] Establecer configuración"},
+  "debug_config_set_complete": {"message": "Guardado de configuración completo"},
+  "debug_config_set_start": {"message": "Iniciando guardado de configuración"},
+  "debug_config_system_init": {"message": "Inicializando sistema de configuración"},
+  "debug_config_system_ready": {"message": "Sistema de configuración listo"},
+  "debug_config_url_check": {"message": "Verificando soporte de URL"},
+  "debug_config_url_supported": {"message": "[DEBUG] URL de configuración soportada"},
+  "debug_config_url_unsupported": {"message": "[DEBUG] URL de configuración no soportada"},
+  "debug_content_theme_applied": {"message": "Tema de script de contenido aplicado"},
+  "debug_content_theme_error": {"message": "Error de aplicación de tema de script de contenido"},
+  "debug_deepseek_attach_button_get": {"message": "Obteniendo botón de adjuntar de DeepSeek"},
+  "debug_deepseek_attach_file": {"message": "Adjuntando archivo a DeepSeek"},
+  "debug_deepseek_composer_get": {"message": "Obteniendo elemento compositor de DeepSeek"},
+  "debug_deepseek_constructor": {"message": "Constructor de plataforma DeepSeek"},
+  "debug_deepseek_ensure_file_input": {"message": "Asegurando entrada de archivo de DeepSeek"},
+  "debug_deepseek_file_attached": {"message": "Archivo adjuntado a DeepSeek exitosamente"},
+  "debug_deepseek_file_input_get": {"message": "Obteniendo entrada de archivo de DeepSeek"},
+  "debug_deepseek_platform_check": {"message": "Verificando plataforma DeepSeek"},
+  "debug_deepseek_post_paste_handle": {"message": "Manejando post-pegado de DeepSeek"},
+  "debug_deepseek_settings_get": {"message": "Obteniendo configuración de plataforma DeepSeek"},
+  "debug_deepseek_should_handle_paste": {"message": "Verificando si DeepSeek debe manejar pegado"},
+  "debug_disabled": {"message": "Modo de depuración deshabilitado - Solo se mostrarán errores"},
+  "debug_enabled": {"message": "Modo de depuración habilitado - Se mostrarán mensajes de depuración y notificaciones popup"},
+  "debug_error": {"message": "[ERROR]"},
+  "debug_factory_create_handler": {"message": "Creando manejador de plataforma"},
+  "debug_factory_default_settings": {"message": "Usando configuración de fábrica por defecto"},
+  "debug_factory_get_platform": {"message": "Obteniendo plataforma actual"},
+  "debug_factory_get_settings": {"message": "Obteniendo configuración de fábrica"},
+  "debug_factory_handler_created": {"message": "Manejador de plataforma creado"},
+  "debug_factory_no_handler": {"message": "No se encontró manejador para plataforma"},
+  "debug_factory_platform_detected": {"message": "Plataforma detectada exitosamente"},
+  "debug_factory_settings_configured": {"message": "Configuración de fábrica configurada"},
+  "debug_factory_unknown_platform": {"message": "Plataforma desconocida detectada"},
+  "debug_grok_attach_button_get": {"message": "Obteniendo botón de adjuntar de Grok"},
+  "debug_grok_attach_file": {"message": "Adjuntando archivo a Grok"},
+  "debug_grok_composer_get": {"message": "Obteniendo elemento compositor de Grok"},
+  "debug_grok_constructor": {"message": "Constructor de plataforma Grok"},
+  "debug_grok_ensure_file_input": {"message": "Asegurando entrada de archivo de Grok"},
+  "debug_grok_file_attached": {"message": "Archivo adjuntado a Grok exitosamente"},
+  "debug_grok_file_input_get": {"message": "Obteniendo entrada de archivo de Grok"},
+  "debug_grok_platform_check": {"message": "Verificando plataforma Grok"},
+  "debug_grok_post_paste_handle": {"message": "Manejando post-pegado de Grok"},
+  "debug_grok_settings_get": {"message": "Obteniendo configuración de plataforma Grok"},
+  "debug_grok_should_handle_paste": {"message": "Verificando si Grok debe manejar pegado"},
+  "debug_info": {"message": "[DEBUG]"},
+  "debug_level_all_messages": {"message": "Todos"},
+  "debug_level_errors_only": {"message": "Solo Errores"},
+  "debug_level_tooltip": {"message": "<span class='tip-badge debug-info'>DEBUG</span> Controla qué mensajes de depuración aparecen en notificaciones popup. Solo Errores muestra problemas críticos, Advertencias y Errores incluye advertencias, Todos los Mensajes muestra todo incluyendo logs de información."},
+  "debug_level_warnings_errors": {"message": "Avisos y Errores"},
+  "debug_loader_countdown_cancelled": {"message": "Cuenta regresiva de cargador cancelada"},
+  "debug_loader_countdown_complete": {"message": "Cuenta regresiva de cargador completa"},
+  "debug_loader_countdown_error": {"message": "Error de cuenta regresiva de cargador"},
+  "debug_loader_countdown_start": {"message": "Iniciando cuenta regresiva de cargador"},
+  "debug_loader_displayed": {"message": "Cargador mostrado"},
+  "debug_loader_hidden": {"message": "Cargador oculto"},
+  "debug_loader_hide": {"message": "Ocultando cargador"},
+  "debug_loader_show": {"message": "Mostrando cargador"},
+  "debug_log": {"message": "[LOG]"},
+  "debug_log_level": {"message": "Nivel Debug"},
+  "debug_log_level_changed": {
+    "message": "Nivel de log de depuración cambiado a: $LEVEL$",
+    "placeholders": {
+      "LEVEL": {
+        "content": "$1",
+        "example": "info"
+      }
+    }
+  },
+  "debug_modal_about_close": {"message": "Cerrando modal acerca de"},
+  "debug_modal_about_close_missing": {"message": "Cerrar modal acerca de - elemento faltante"},
+  "debug_modal_about_closed": {"message": "Modal acerca de cerrado exitosamente"},
+  "debug_modal_about_element_missing": {"message": "Elemento de modal acerca de faltante"},
+  "debug_modal_about_init": {"message": "[DEBUG] Inicialización de modal acerca de"},
+  "debug_modal_about_open": {"message": "Abriendo modal acerca de"},
+  "debug_modal_about_opened": {"message": "Modal acerca de abierto exitosamente"},
+  "debug_modal_cancel": {"message": "Botón cancelar de modal clickeado"},
+  "debug_modal_clear_close": {"message": "Cerrando modal de borrar datos"},
+  "debug_modal_clear_close_missing": {"message": "Cerrar modal de borrar - elemento faltante"},
+  "debug_modal_clear_closed": {"message": "Modal de borrar datos cerrado exitosamente"},
+  "debug_modal_clear_data": {"message": "[DEBUG] Datos de modal de borrar"},
+  "debug_modal_clear_element_missing": {"message": "Elemento de modal de borrar datos faltante"},
+  "debug_modal_clear_escape": {"message": "Escape presionado en modal de borrar"},
+  "debug_modal_clear_init": {"message": "[DEBUG] Inicialización de modal de borrar"},
+  "debug_modal_clear_open": {"message": "Abriendo modal de borrar datos"},
+  "debug_modal_clear_opened": {"message": "Modal de borrar datos abierto exitosamente"},
+  "debug_modal_closed": {"message": "[DEBUG] Modal cerrado"},
+  "debug_modal_constructor": {"message": "Constructor de modal"},
+  "debug_modal_content_load": {"message": "Cargando contenido de modal"},
+  "debug_modal_error": {"message": "[DEBUG] Error de modal"},
+  "debug_modal_escape_pressed": {"message": "Tecla Escape presionada en modal"},
+  "debug_modal_hidden": {"message": "Modal oculto"},
+  "debug_modal_hide": {"message": "Ocultando modal"},
+  "debug_modal_initialized": {"message": "[DEBUG] Modal inicializado"},
+  "debug_modal_initializing": {"message": "[DEBUG] Inicializando modal"},
+  "debug_modal_ok": {"message": "Botón OK de modal clickeado"},
+  "debug_modal_opened": {"message": "[DEBUG] Modal abierto"},
+  "debug_modal_setup_background": {"message": "[DEBUG] Configurar fondo de modal"},
+  "debug_modal_setup_close": {"message": "[DEBUG] Configurar cierre de modal"},
+  "debug_modal_setup_overlay": {"message": "[DEBUG] Configurar superposición de modal"},
+  "debug_modal_show": {"message": "Mostrando modal"},
+  "debug_modal_show_complete": {"message": "Mostrar modal completo"},
+  "debug_modal_show_error": {"message": "Error al mostrar modal"},
+  "debug_modal_show_promise_start": {"message": "Iniciando promesa de mostrar modal"},
+  "debug_modal_system_init": {"message": "Inicializando sistema de modal"},
+  "debug_modal_system_ready": {"message": "Sistema de modal listo"},
+  "debug_mode": {"message": "Modo de Depuración"},
+  "debug_platform_detection_error": {"message": "Ocurrió error de detección de plataforma"},
+  "debug_setting_reset": {
+    "message": "Reiniciar configuración $KEY$ a $VALUE$",
+    "placeholders": {
+      "KEY": {
+        "content": "$1",
+        "example": "theme"
+      },
+      "VALUE": {
+        "content": "$2",
+        "example": "default"
+      }
+    }
+  },
+  "debug_settings_reset_complete": {"message": "Reinicio de configuración completado exitosamente"},
+  "debug_settings_reset_count": {
+    "message": "Reiniciando $COUNT$ configuraciones",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "debug_settings_reset_error": {
+    "message": "Error de reinicio de configuración: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Storage error"
+      }
+    }
+  },
+  "debug_settings_reset_start": {"message": "Iniciando reinicio de configuración"},
+  "debug_system_ready": {"message": "Sistema de depuración inicializado y listo"},
+  "debug_theme_apply_complete": {
+    "message": "Aplicación de tema completada: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "deepseek"
+      }
+    }
+  },
+  "debug_theme_apply_start": {
+    "message": "Aplicando tema: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_change_complete": {
+    "message": "Cambio de tema completado: $THEME$ ($NAME$)",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      },
+      "NAME": {
+        "content": "$2",
+        "example": "Claude"
+      }
+    }
+  },
+  "debug_theme_change_start": {
+    "message": "Cambio de tema iniciado: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_colors_applied": {
+    "message": "Colores de tema aplicados para: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "grok"
+      }
+    }
+  },
+  "debug_theme_default_cleared": {"message": "Tema por defecto limpió estilo de plataforma"},
+  "debug_theme_default_detected": {
+    "message": "Tema por defecto detectó plataforma: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_default_using": {
+    "message": "Tema por defecto usando plataforma: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_dropdown_set": {
+    "message": "Menú desplegable de tema establecido a: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_grok_fx_added": {"message": "Efectos de estrella fugaz de Grok añadidos"},
+  "debug_theme_load": {
+    "message": "Carga de tema: almacenado=$STORED$, defecto=$DEFAULT$, final=$FINAL$",
+    "placeholders": {
+      "STORED": {
+        "content": "$1",
+        "example": "chatgpt"
+      },
+      "DEFAULT": {
+        "content": "$2",
+        "example": "default"
+      },
+      "FINAL": {
+        "content": "$3",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_sync_error": {"message": "Error de sincronización de tema"},
+  "debug_language_sync_error": {"message": "Error de sincronización de idioma"},
+  "debug_toast_constructor": {"message": "Constructor de componente toast"},
+  "debug_toast_ensure_host": {"message": "Asegurando elemento host de toast"},
+  "debug_toast_error": {"message": "Toast de error llamado"},
+  "debug_toast_hidden": {"message": "Notificación toast oculta"},
+  "debug_toast_hide": {"message": "Ocultando notificación toast"},
+  "debug_toast_host_created": {"message": "Elemento host de toast creado"},
+  "debug_toast_show": {"message": "Mostrando notificación toast"},
+  "debug_toast_shown": {"message": "Notificación toast mostrada"},
+  "debug_toast_success": {"message": "Toast de éxito llamado"},
+  "debug_tooltip_cleanup": {"message": "[DEBUG] Limpieza de tooltip"},
+  "debug_tooltip_created": {"message": "[DEBUG] Tooltip creado"},
+  "debug_tooltip_displayed": {"message": "Tooltip mostrado exitosamente"},
+  "debug_tooltip_error": {"message": "[DEBUG] Error de tooltip"},
+  "debug_tooltip_escape_pressed": {"message": "Escape presionado en tooltip"},
+  "debug_tooltip_help_clicked": {"message": "Botón de ayuda clickeado"},
+  "debug_tooltip_hidden": {"message": "Tooltip oculto exitosamente"},
+  "debug_tooltip_hide": {"message": "Ocultando tooltip"},
+  "debug_tooltip_init": {"message": "[DEBUG] Inicialización de tooltip"},
+  "debug_tooltip_initialized": {"message": "[DEBUG] Tooltip inicializado"},
+  "debug_tooltip_missing_text": {"message": "Tooltip sin atributo de texto"},
+  "debug_tooltip_position": {"message": "[DEBUG] Posición de tooltip"},
+  "debug_tooltip_setup": {"message": "[DEBUG] Configuración de tooltip"},
+  "debug_tooltip_show": {"message": "Mostrando tooltip"},
+  "debug_tooltip_system_init": {"message": "Inicializando sistema de tooltip"},
+  "debug_tooltip_system_ready": {"message": "Sistema de tooltip listo"},
+  "debug_ui_refresh_after_reset": {"message": "Actualizando UI después del reinicio de configuración"},
+  "debug_utils_message_send_error": {"message": "Envío de mensaje de runtime falló"},
+  "debug_utils_message_send_start": {"message": "Iniciando envío de mensaje de runtime"},
+  "debug_utils_message_send_success": {"message": "Envío de mensaje de runtime exitoso"},
+  "debug_utils_storage_get_error": {"message": "Operación de obtener almacenamiento falló"},
+  "debug_utils_storage_get_start": {"message": "Iniciando operación de obtener almacenamiento"},
+  "debug_utils_storage_get_success": {"message": "Operación de obtener almacenamiento exitosa"},
+  "debug_utils_storage_set_error": {"message": "Operación de establecer almacenamiento falló"},
+  "debug_utils_storage_set_start": {"message": "Iniciando operación de establecer almacenamiento"},
+  "debug_utils_storage_set_success": {"message": "Operación de establecer almacenamiento exitosa"},
+  "debug_validation_custom_invalid": {"message": "[DEBUG] Validación personalizada inválida"},
+  "debug_validation_custom_start": {"message": "[DEBUG] Inicio de validación personalizada"},
+  "debug_validation_custom_valid": {"message": "[DEBUG] Validación personalizada válida"},
+  "debug_validation_display_check": {"message": "[DEBUG] Verificación de validación de pantalla"},
+  "debug_validation_display_safe": {"message": "[DEBUG] Pantalla de validación segura"},
+  "debug_validation_display_safety": {"message": "Verificando seguridad de pantalla"},
+  "debug_validation_display_unsafe": {"message": "Contenido inseguro para mostrar"},
+  "debug_validation_error": {"message": "[DEBUG] Error de validación"},
+  "debug_validation_event_name": {"message": "Validando nombre de evento"},
+  "debug_validation_extension_empty": {"message": "Entrada de extensión está vacía"},
+  "debug_validation_extension_invalid_input": {"message": "Entrada de extensión inválida proporcionada"},
+  "debug_validation_extension_risky": {"message": "Extensión riesgosa detectada"},
+  "debug_validation_extension_start": {"message": "Iniciando validación de extensión"},
+  "debug_validation_extension_truncated": {"message": "Extensión truncada a 5 caracteres"},
+  "debug_validation_extension_valid": {"message": "Validación de extensión pasada"},
+  "debug_validation_filename_complete": {"message": "Validación de nombre de archivo completa"},
+  "debug_validation_filename_invalid_input": {"message": "Entrada de nombre de archivo inválida proporcionada"},
+  "debug_validation_filename_no_extension": {"message": "Nombre de archivo procesado sin extensión"},
+  "debug_validation_filename_start": {"message": "Iniciando validación de nombre de archivo"},
+  "debug_validation_filename_with_extension": {"message": "Nombre de archivo procesado con extensión"},
+  "debug_validation_html_escape": {"message": "Escapando contenido HTML"},
+  "debug_validation_result": {"message": "[DEBUG] Resultado de validación"},
+  "debug_validation_sanitize_event": {"message": "[DEBUG] Evento de sanitización de validación"},
+  "debug_validation_sanitize_filename": {"message": "[DEBUG] Nombre de archivo de sanitización de validación"},
+  "debug_validation_system_init": {"message": "Inicializando sistema de validación"},
+  "debug_validation_system_ready": {"message": "Sistema de validación listo"},
+  "debug_warn": {"message": "[ADVERTENCIA]"},
+  "debug_warning": {"message": "[ADVERTENCIA]"},
+
+  "debug_batch_content_too_short": {"message": "Contenido muy corto para procesamiento por lotes"},
+  "debug_batch_split_insufficient": {"message": "El contenido no se pudo dividir significativamente en varias partes"},
+  "debug_batch_part_too_small": {"message": "Parte $1 muy pequeña: $2 caracteres"},
+  "debug_batch_structured_content": {"message": "Contenido estructurado detectado: $1"},
+  "debug_batch_too_few_lines": {"message": "El contenido tiene muy pocas líneas para división por lotes significativa: $1 líneas"},
+  "debug_file_content_empty": {"message": "El contenido está vacío o es inválido"},
+  "debug_json_content_valid": {"message": "El contenido ya es JSON válido"},
+  "debug_json_parse_failed": {"message": "El contenido no es JSON válido, se tratará como texto plano"},
+  "json_parse_failed_fallback": {"message": "Análisis JSON falló, volviendo a texto plano"},
+  "debug_claude_replacing_pasted": {"message": "Reemplazando texto pegado con archivo"},
+  "debug_file_no_content": {"message": "El archivo no tiene contenido"},
+  "default_auto_generated": {"message": "auto-generado"},
+  "delay": {"message": "Retraso"},
+  "delay_countdown": {
+    "message": "Adjuntando en $SECONDS$ segundos...",
+    "placeholders": {
+      "SECONDS": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "developer_website": {"message": "Sitio Web del Desarrollador"},
+  "development_team": {"message": "Equipo de Desarrollo y Soporte"},
+
+  "disabled_title": {"message": "Función deshabilitada en esta página"},
+  "enter_custom": {"message": "Ingresar Formato Personalizado"},
+  "errors": {"message": "Errores"},
+  "errors_attachment_failed": {"message": "El adjunto de archivo falló. Por favor actualiza la página e intenta de nuevo"},
+  "errors_batch_processing_failed": {"message": "Procesamiento por lotes falló: $1"},
+  "errors_busy_processing": {"message": "Otro adjunto de archivo está en progreso. Por favor espera"},
+
+  "errors_connection_failed": {"message": "No se puede conectar a la página. Por favor actualiza e intenta de nuevo"},
+
+  "errors_export_failed": {"message": "Exportación falló. Por favor intenta de nuevo"},
+  "errors_extension_context": {"message": "Problema de contexto de extensión. Por favor actualiza la página e intenta de nuevo"},
+  "errors_extension_reloaded": {"message": "La extensión se recargó. Por favor actualiza la página e intenta de nuevo"},
+  "errors_network_error": {"message": "Error de red. Verifica tu conexión a internet e intenta de nuevo"},
+  "errors_no_file_input": {"message": "No se puede encontrar área de subida de archivos. Intenta hacer clic en el botón de adjunto en la plataforma primero"},
+  "errors_no_input_field": {"message": "No se puede encontrar campo de entrada de chat. Asegúrate de estar en una página de chat de IA soportada"},
+  "errors_no_response": {"message": "Sin respuesta de la página. Por favor actualiza e intenta de nuevo"},
+  "errors_no_tab_access": {"message": "No se puede acceder a la pestaña actual. Por favor intenta de nuevo"},
+  "errors_no_text_input": {"message": "No se encontró texto en la entrada de chat. Escribe tu mensaje primero"},
+  "errors_permission_denied": {"message": "Permiso denegado. Por favor actualiza la página e intenta de nuevo"},
+  "errors_platform_not_supported": {"message": "Esta plataforma de IA no está soportada. Intenta ChatGPT, Claude, Gemini, DeepSeek o Grok"},
+  "errors_text_too_short": {"message": "Texto muy corto ($1 palabras). Se requieren mínimo $2 palabras"},
+  "errors_text_too_short_manual": {"message": "Texto muy corto para guardado manual. O añade más texto o baja la configuración de Palabras Mínimas"},
+
+  "errors_invalid_content_type": {"message": "Contenido inválido: el texto debe ser una cadena no vacía"},
+  "errors_invalid_content_empty": {"message": "Contenido inválido: el texto no puede estar vacío"},
+  "errors_file_creation_failed": {"message": "Error al crear objeto de archivo válido"},
+  "errors_text_content_empty": {"message": "El contenido del texto está vacío o es inválido"},
+  "errors_makefile_invalid_content": {"message": "makeFile requiere contenido de texto válido"},
+  "errors_fileattach_invalid_result": {"message": "fileAttachComponent devolvió resultado inválido"},
+  "errors_platform_attach_failed": {"message": "El manejador de plataforma falló al adjuntar archivo"},
+  "errors_modal_not_available": {"message": "Componente modal no disponible"},
+  "export": {"message": "Exportar"},
+  "export_by_prefix": {"message": "Exportar"},
+  "export_filename_prefix": {"message": "Prefijo del Archivo"},
+  "feature_request": {"message": "Solicitud de Función"},
+  "feature_request_desc": {"message": "Sugerir nuevas funciones o mejoras para hacerlo mejor"},
+  "feedback_default_description": {"message": "Describe tus comentarios o problema"},
+  "feedback_improvement_description": {"message": "¿Qué mejoras te gustaría ver?"},
+  "feedback_question": {"message": "¿Qué tipo de comentarios te gustaría enviar?"},
+  "feedback_sent": {"message": "Comentarios enviados con éxito"},
+  "feedback_support_description": {"message": "¿Qué problema estás experimentando?"},
+  "file_blob_created": {"message": "Blob de archivo creado"},
+
+  "file_creation_insights": {"message": "Tus estadísticas de creación de archivos"},
+  "file_creation_started": {"message": "Creación de archivo iniciada"},
+  "file_format": {"message": "Formato de Archivo"},
+  "file_format_auto_selected": {"message": "Auto-detección de formato habilitada"},
+  "file_format_back_to_main": {"message": "Volver a formatos principales"},
+  "file_format_changed": {"message": "Formato de archivo actualizado"},
+  "file_format_custom_format_set": {"message": "Formato personalizado establecido a $1"},
+  "file_format_enter_custom": {"message": "Ingresa extensión personalizada"},
+  "file_format_format_selected": {"message": "Formato de archivo establecido a .$1"},
+  "file_format_next_page": {"message": "Siguiente página cargada"},
+  "file_format_previous_page": {"message": "Página anterior cargada"},
+  "file_format_tooltip": {"message": "<span class='tip-badge settings'>CONFIGURACIÓN</span> Elige un tipo de archivo, o selecciona Auto-Detectar. Auto-Detectar usa detección conservadora de lenguaje con respaldo seguro a .txt para evitar etiquetar incorrectamente el código. Personalizado permite cualquier extensión pero usar con precaución."},
+  "file_formats": {"message": "Formatos de Archivo"},
+  "file_operations": {"message": "Operaciones de Archivo"},
+  "file_operations_attachment_attaching": {"message": "Adjuntando archivo"},
+  "file_operations_attachment_cancelled": {"message": "Adjuntar archivo cancelado"},
+  "file_operations_attachment_preparing": {"message": "Preparando tu archivo"},
+  "file_operations_attachment_success": {"message": "Adjuntado $1"},
+  "file_operations_attachment_uploading": {"message": "Subiendo archivo"},
+  "file_operations_batch_attaching": {"message": "Adjuntando $1"},
+  "file_operations_batch_detected": {"message": "Contenido grande detectado. Dividiendo en $1 archivos"},
+  "file_operations_batch_processing": {"message": "Procesando archivo $1 de $2: $3"},
+  "file_operations_batch_processing_start": {"message": "Procesando $1 archivos"},
+  "file_operations_batch_success": {"message": "Procesados $1 archivos del lote"},
+  "file_operations_batch_uploading": {"message": "Subiendo $1"},
+
+  "file_operations_manual_save_success": {"message": "Archivo adjuntado"},
+  "files_per_day": {"message": "Archivos por día"},
+  "flash_called": {"message": "Mensaje flash llamado"},
+  "flash_timeout_set": {"message": "Tiempo de espera flash configurado"},
+  "footer_copyright": {"message": "© 2025 · Multi-AI File Paster · Desarrollado por"},
+  "format_auto_detected": {"message": "Formato de archivo auto-detectado"},
+  "format_changed": {"message": "Formato de archivo cambiado"},
+  "format_selected": {
+    "message": "Formato $FORMAT$ seleccionado",
+    "placeholders": {
+      "FORMAT": {
+        "content": "$1",
+        "example": ".txt"
+      }
+    }
+  },
+  "general_feedback": {"message": "Comentarios Generales"},
+  "general_feedback_desc": {"message": "Comparte tus pensamientos, sugerencias o experiencia de usuario"},
+  "github_repository": {"message": "Repositorio GitHub"},
+  "github_star": {"message": "Estrella en GitHub"},
+  "hostwek_logo": {"message": "Logo Hostwek"},
+  "html_sections_about_modal_content": {"message": "Contenido modal acerca de"},
+  "html_sections_controls_section": {"message": "Sección de controles"},
+  "html_sections_feedback_modal_content": {"message": "Contenido modal de comentarios"},
+  "html_sections_footer_section": {"message": "Sección de pie de página"},
+  "html_sections_header_section": {"message": "Sección de encabezado"},
+  "i18n_cleanup": {"message": "[DEBUG] limpieza i18n completa"},
+  "i18n_cleanup_complete": {"message": "Limpieza i18n completada"},
+
+  "key_features": {"message": "Funciones Clave:"},
+  "key_features_text": {"message": "Auto-Detectar elige el tipo de archivo correcto de tu contenido con respaldo garantizado a .txt. Funciona en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta 20+ formatos de archivo incluyendo lenguajes de programación, marcado, formatos de datos y extensiones personalizadas."},
+  "keyboard_shortcut": {"message": "Atajo de Teclado:"},
+  "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Guardar Manual)"},
+  "language_abbreviation": {"message": "Idioma"},
+  "language_abbreviation_": {"message": "Id"},
+  "language_abbreviation_ar": {"message": "AR"},
+  "language_abbreviation_en": {"message": "EN"},
+  "language_abbreviation_sw": {"message": "SW"},
+  "language_abbreviation_es": {"message": "ES"},
+  "language_abbreviation_ja": {"message": "JA"},
+  "language_abbreviation_fr": {"message": "FR"},
+  "language_abbreviation_ru": {"message": "RU"},
+  "language_abbreviation_zh": {"message": "ZH"},
+  "language_abbreviation_pt": {"message": "PT"},
+  "language_abbreviation_de": {"message": "DE"},
+  "language_arabic": {"message": "Árabe"},
+  "language_changed": {"message": "Idioma cambiado con éxito"},
+  "language_chinese": {"message": "Chino"},
+  "language_english": {"message": "Inglés"},
+  "language_french": {"message": "Francés"},
+  "language_german": {"message": "Alemán"},
+  "language_hindi": {"message": "Hindi"},
+  "language_japanese": {"message": "Japonés"},
+  "language_portuguese": {"message": "Portugués"},
+  "language_russian": {"message": "Ruso"},
+  "language_selector": {"message": "Idioma"},
+  "language_spanish": {"message": "Español"},
+  "language_swahili": {"message": "Kiswahili"},
+  "lead_developer": {"message": "Desarrollador Principal:"},
+  "letters_numbers_only": {"message": "Solo letras y números"},
+  "line_chart": {"message": "Línea"},
+  "loader_cleanup": {"message": "[DEBUG] Limpieza del cargador completa"},
+  "loader_cleanup_complete": {"message": "Limpieza del cargador completada"},
+  "manual_action": {"message": "Manual"},
+  "manual_action_tooltip": {"message": "<span class='tip-badge feature'>FUNCIÓN</span> Convertir manualmente cualquier texto que hayas escrito en la entrada de chat en un archivo adjunto. Funciona en cualquier plataforma AI. Perfecto para cuando quieres crear un archivo de tu mensaje actual sin auto-detección."},
+  "manual_drag_drop": {"message": "Arrastrar y soltar manual puede ser necesario"},
+  "max_files": {"message": "Máx Archivos"},
+  "max_files_tooltip": {"message": "<span class='tip-badge settings'>CONFIGURACIÓN</span> Número de archivos para dividir el contenido. Rango: 2-4 archivos. El contenido se divide igualmente por líneas entre el número de archivos seleccionado. Números más altos crean archivos más pequeños pero pueden activar detección de spam de la plataforma. Solo se activa cuando el contenido excede tu configuración de límite de palabras."},
+  "min_words_tooltip": {"message": "<span class='tip-badge settings'>CONFIGURACIÓN</span> Auto-adjuntar solo funciona cuando tu pegado tiene al menos esta longitud. Recomendado: 100+ palabras para que mensajes cortos permanezcan en línea."},
+  "min_words_trigger": {"message": "Mín Palabras para Activar"},
+  "misc_section": {"message": "MISC"},
+  "modal_description": {"message": "Ingresa una extensión de formato de archivo personalizada"},
+  "modal_hint": {"message": "Dejar vacío para detección automática"},
+  "modal_keys_hint": {"message": "<kbd>Enter</kbd> para guardar, <kbd>Esc</kbd> para cancelar"},
+  "modal_placeholder": {"message": "ej. txt, md, json..."},
+  "modal_title": {"message": "Formato Personalizado"},
+  "modals_about_title": {"message": "Acerca de Multi-AI File Paster"},
+  "modals_help_content": {"message": "Contenido de ayuda"},
+  "modals_help_title": {"message": "Ayuda"},
+  "more_formats": {"message": "Más formatos…"},
+  "more_formats_loaded": {"message": "Más formatos cargados"},
+  "network_error": {"message": "Error de red ocurrido"},
+  "new_version": {"message": "Nuevo en v1.1.0:"},
+  "new_version_text": {"message": "Modo Lote divide contenido grande en múltiples archivos, detección inteligente de idioma selecciona automáticamente extensiones de archivo, y tablero de análisis mejorado rastrea tus patrones de uso."},
+  "next_page": {"message": "Siguiente Página"},
+  "no_data_yet": {"message": "Sin datos aún"},
+  "no_file_input": {"message": "No se encontró entrada de archivo en la página"},
+  "not_on_platform": {"message": "No en una plataforma soportada"},
+  "permission_denied": {"message": "Permiso denegado"},
+  "platform_chatgpt": {"message": "OpenAI ChatGPT: Soporte completo para chat.openai.com y chatgpt.com"},
+  "platform_claude": {"message": "Anthropic Claude: Integración avanzada con claude.ai incluyendo anulación para funciones integradas"},
+  "platform_deepseek": {"message": "DeepSeek AI: Compatibilidad completa con chat.deepseek.com"},
+  "platform_gemini": {"message": "Google Gemini: Manejo de archivos optimizado para gemini.google.com"},
+  "platform_grok": {"message": "Grok: Integración estándar con grok.com (botón adjuntar + arrastrar-soltar)"},
+  "platform_specific_chatgpt_no_input": {"message": "No se puede encontrar entrada de archivo ChatGPT. Intenta hacer clic en el botón de adjuntar primero, luego reintentar"},
+  "platform_specific_claude_no_input": {"message": "No se puede encontrar entrada de archivo Claude. Intenta hacer clic en el ícono de adjuntar primero, luego reintentar"},
+  "platform_specific_gemini_no_input": {"message": "No se puede encontrar entrada de archivo Gemini. Intenta hacer clic en el ícono de clip primero, luego reintentar"},
+  "platform_specific_generic_no_input": {"message": "Intenta hacer clic en el botón de adjuntar en la plataforma primero, luego reintentar"},
+  "platform_specific_manual_drag_drop": {"message": "Aún no se puede encontrar entrada de archivo. Adjunta el archivo manualmente arrastrándolo al chat"},
+  "platform_specific_try_attachment_button": {"message": "Intenta botón de adjuntar"},
+  "platforms_chatgpt": {"message": "ChatGPT: Integración completa con chat.openai.com"},
+  "platforms_claude": {"message": "Claude: Soporte nativo para conversaciones claude.ai"},
+  "platforms_deepseek": {"message": "DeepSeek: Soporte completo para chat.deepseek.com"},
+  "platforms_description": {"message": "Se integra con las plataformas de chat AI más populares:"},
+  "platforms_gemini": {"message": "Gemini: Integración perfecta con gemini.google.com"},
+  "platforms_grok": {"message": "Grok: Compatibilidad completa con plataforma x.ai"},
+  "platforms_why": {"message": "Por qué importa:"},
+  "platforms_why_text": {"message": "Cada plataforma tiene diferentes sistemas de adjuntar archivos. Nuestra extensión maneja estas diferencias automáticamente, asegurando que tus archivos se adjunten correctamente sin importar qué AI uses."},
+  "popup_cleanup": {"message": "[DEBUG] Limpieza popup completa"},
+  "popup_cleanup_complete": {"message": "Limpieza popup completada"},
+  "powered_by": {"message": "desarrollado por"},
+  "previous_page": {"message": "Página Anterior"},
+  "privacy": {"message": "Privacidad"},
+  "privacy_description": {"message": "Todo el procesamiento de texto ocurre completamente en tu dispositivo. Tu contenido nunca deja tu computadora - sin servidores, sin procesamiento en la nube, sin transmisión de datos."},
+  "privacy_do": {"message": "Procesamos tu texto localmente para crear archivos adjuntos, luego descartamos inmediatamente los datos procesados. Simple, seguro, transparente."},
+  "privacy_dont": {"message": "Nunca leemos, almacenamos o transmitimos tu contenido de texto, URLs, información personal o datos de navegación. Tus conversaciones con AI permanecen completamente privadas."},
+  "reset_modal_changes_title": {"message": "Esto restablecerá:"},
+  "reset_modal_debug_item": {"message": "Nivel Debug: Solo Errores"},
+  "reset_modal_question": {"message": "¿Estás seguro de que quieres restablecer todas las configuraciones de Multi-AI File Paster a sus valores predeterminados?"},
+  "reset_modal_theme_item": {"message": "Tema: Predeterminado"},
+  "reset_modal_title": {"message": "Restablecer Configuraciones"},
+  "reset_modal_warning": {"message": "Esta acción no se puede deshacer."},
+  "reset_to_default": {"message": "Restablecer"},
+  "resources": {"message": "Recursos:"},
+  "retry": {"message": "Reintentar"},
+  "saving": {"message": "Guardando..."},
+  "scrum_master": {"message": "Scrum Master:"},
+  "searching_for_file_input": {"message": "Buscando entrada de archivo..."},
+  "send_feedback": {"message": "Comentarios"},
+  "sending_message_to_content": {"message": "Enviando mensaje al script de contenido"},
+  "setting_save_initiated": {"message": "Guardado de configuración iniciado"},
+  "setting_saved_to_storage": {"message": "Configuración guardada en almacenamiento"},
+  "settings_auto_attach_disabled": {"message": "Auto adjuntar deshabilitado. Usa el botón de guardar manual para adjuntar archivos"},
+  "settings_auto_attach_enabled": {"message": "Auto adjuntar habilitado. Los archivos se adjuntarán automáticamente cuando pegues"},
+
+  "settings_batch_delay_updated": {"message": "Retraso de procesamiento de lote establecido a $1ms"},
+  "settings_batch_mode_disabled": {"message": "Modo lote deshabilitado. Auto adjuntar restaurado"},
+  "settings_batch_mode_enabled": {"message": "Modo lote habilitado. Auto adjuntar deshabilitado mientras el modo lote esté activo"},
+  "settings_claude_override_disabled": {"message": "Anulación Claude deshabilitada. Claude usará funciones integradas"},
+  "settings_claude_override_enabled": {"message": "Anulación Claude habilitada. La extensión funcionará en Claude"},
+
+  "settings_debug_disabled": {"message": "Modo debug deshabilitado"},
+  "settings_debug_enabled": {"message": "Modo debug habilitado"},
+  "settings_delay_disabled": {"message": "Retraso de adjuntar deshabilitado"},
+  "settings_delay_enabled": {"message": "Retraso de adjuntar habilitado por $1 segundos"},
+  "settings_max_batch_files_updated": {"message": "Archivos de lote máximo establecido a $1"},
+  "settings_reset": {"message": "Configuraciones restablecidas a valores predeterminados"},
+  "settings_saving": {"message": "Guardando configuraciones"},
+  "settings_telemetry_disabled": {"message": "Análisis deshabilitado. No se recopilarán datos de uso"},
+  "settings_telemetry_enabled": {"message": "Análisis habilitado. Esto ayuda a mejorar la extensión"},
+  "settings_word_limit_updated": {"message": "Límite de palabras actualizado a $1 palabras"},
+  "smart_file_attachment": {"message": "Adjuntar Archivo Inteligente para Chats AI"},
+  "star_github": {"message": "⭐ Estrella en GitHub"},
+  "status_connected": {
+    "message": "Conectado a $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "stopped_on": {
+    "message": "Detenido en $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "success_analytics_exported": {"message": "Datos exportados"},
+  "success_feedback_sent": {"message": "¡Email de comentarios abierto con éxito! Gracias por ayudarnos a mejorar."},
+  "success_github_star": {"message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> ¡Gracias! Abriendo GitHub para dar estrella al repositorio"},
+  "success_not_on_platform": {"message": "No en una plataforma AI soportada. Abre ChatGPT, Claude, Gemini, DeepSeek o Grok primero"},
+  "support_contacts": {"message": "Contactos de Soporte:"},
+  "support_request": {"message": "Solicitud de Soporte"},
+  "support_request_desc": {"message": "Obtener ayuda con problemas, bugs o problemas técnicos"},
+  "supported_platforms": {"message": "Plataformas AI Soportadas"},
+  "system_unavailable": {"message": "Sistema no disponible"},
+  "tab_detection": {"message": "Detección de plataforma de pestaña"},
+  "technical_issues": {"message": "Problemas Técnicos:"},
+  "theme_changed": {
+    "message": "Tema cambiado a $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "theme_chatgpt": {"message": "ChatGPT"},
+  "theme_claude": {"message": "Claude"},
+  "theme_deepseek": {"message": "DeepSeek"},
+  "theme_default": {"message": "Predeterminado"},
+  "theme_gemini": {"message": "Gemini"},
+  "theme_grok": {"message": "Grok"},
+  "theme_selection": {"message": "Tema"},
+  "theme_selection_tooltip": {"message": "<span class='tip-badge settings'>CONFIGURACIÓN</span> Elige tu tema preferido para resaltado y colores. Cada tema proporciona diferente estilo visual para la interfaz de la extensión."},
+  "this_week": {"message": "Esta Semana"},
+  "toast_cleanup": {"message": "[DEBUG] Limpieza toast completa"},
+  "toast_cleanup_complete": {"message": "Limpieza toast completada"},
+  "toggle_theme": {"message": "Alternar Tema"},
+  "tooltips_cleanup": {"message": "[DEBUG] Limpieza tooltips completa"},
+  "tooltips_cleanup_complete": {"message": "Limpieza tooltips completada"},
+  "top_models": {"message": "Modelos Principales"},
+  "total_files": {"message": "Archivos Totales"},
+  "translating_wait": {"message": "Traduciendo, por favor espera..."},
+  "try_attachment_button": {"message": "Intenta usar el botón de adjuntar en su lugar"},
+  "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Auto Adjuntar está deshabilitado cuando Modo Lote está habilitado. Modo Lote maneja el adjuntar archivos automáticamente para contenido dividido. Apaga Modo Lote para usar Auto Adjuntar para archivos únicos regulares."},
+  "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Esta configuración está deshabilitada cuando Modo Lote está habilitado. Modo Lote usa su propia configuración de retraso para subidas de archivos. Apaga Modo Lote para usar esta configuración de retraso."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>LOTE ACTIVO</span> Acción Manual está deshabilitada cuando Modo Lote está habilitado. Modo Lote procesa contenido automáticamente en múltiples archivos. Apaga Modo Lote para usar Acción Manual para archivos individuales."},
+  "ui_components_config_error": {"message": "Error de configuración: DEFAULTS no encontrado"},
+  "ui_components_reset_failed": {"message": "Falló el reinicio"},
+
+  "ui_components_custom_format_label": {"message": "Personalizado"},
+  "ui_components_custom_format_placeholder": {"message": "ej. log, cfg, data"},
+  "ui_components_data_cleared_success": {"message": "Datos borrados con éxito"},
+  "ui_components_delay_countdown": {"message": "Adjuntando en $1 segundos"},
+
+  "ui_components_disabled_title": {"message": "Abre chat AI y escribe texto para adjuntar como archivo"},
+  "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
+  "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
+  "ui_components_feedback_default_description": {"message": "comentarios o sugerencia"},
+  "ui_components_feedback_improvement_description": {"message": "solicitud de función o idea de mejora"},
+  "ui_components_feedback_support_description": {"message": "problema o pregunta"},
+  "ui_components_language_changed": {
+    "message": "Idioma cambiado a $LANGUAGE$",
+    "placeholders": {
+      "LANGUAGE": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_modal_description": {"message": "Ingresa un nombre de archivo (sin extensión). Dejar en blanco para usar el nombre predeterminado."},
+  "ui_components_modal_hint": {"message": "Permitido: letras, números, espacios, guiones, guiones bajos (máx 64). Sin extensión."},
+  "ui_components_modal_keys_hint": {"message": "Presiona <span class=\"key\">Enter</span> para guardar · <span class=\"key\">Esc</span> para cancelar"},
+  "ui_components_modal_placeholder": {"message": "ej. notas-conversacion"},
+  "ui_components_modal_save": {"message": "Guardar"},
+  "ui_components_modal_title": {"message": "Renombrar archivo"},
+  "ui_components_searching_for_file_input": {"message": "Buscando entrada de archivo"},
+  "ui_components_stopped_on": {"message": "Detenido en"},
+  "ui_components_toggle_theme": {"message": "Alternar tema"},
+  "usage_analytics": {"message": "Análisis de Uso"},
+  "use_delay": {"message": "Usar Retraso"},
+  "use_delay_tooltip": {"message": "<span class='tip-badge timing'>TIEMPO</span> Agrega cuenta regresiva corta antes de adjuntar. Útil si a veces pegas por error - puedes cancelar durante la cuenta regresiva."},
+  "using_popup_flash": {"message": "Usando pantalla flash popup"},
+  "validation_extension_required": {"message": "Extensión es requerida"},
+  "validation_invalid_characters": {"message": "Solo letras, números, espacios, guiones y guiones bajos están permitidos"},
+  "validation_letters_numbers_only": {"message": "Ingresa solo letras o números"},
+  "validation_no_dots_needed": {"message": "No se necesitan puntos o extensiones - formato de archivo se establece en el popup de extensión"},
+  "validation_security_risk": {"message": "Riesgo de seguridad: extensiones ejecutables no están permitidas"},
+  "validation_security_risk_executable": {"message": "Riesgo de seguridad: Extensiones de archivos ejecutables no están permitidas"},
+  "validation_system_unavailable": {"message": "Sistema de validación no disponible"},
+  "view_on_github": {"message": "Ver en GitHub"},
+  "wekturbo_page": {"message": "Página WekTurbo"},
+  "what_we_do": {"message": "Lo que SÍ hacemos:"},
+  "what_we_dont_do": {"message": "Lo que NO hacemos:"},
+  "zero_data_collection": {"message": "Cero Recolección de Datos:"},
+  "batch_part_created": {"message": "Parte del lote creada exitosamente"},
+  "batch_part_skipped": {"message": "Parte del lote omitida - contenido demasiado pequeño"},
+  "batch_split_avoided": {"message": "División de lote evitada para contenido estructurado"},
+  "batch_split_insufficient": {"message": "El contenido no pudo dividirse significativamente en partes"},
+  "batch_split_skipped": {"message": "Contenido demasiado corto para procesamiento por lotes"},
+  "blob_creation_error": {"message": "Error al crear blob del archivo"},
+  "claude_creating_file": {"message": "Creando archivo para la plataforma Claude"},
+  "claude_file_attached": {"message": "Archivo adjuntado exitosamente a Claude"},
+  "claude_invalid_text": {"message": "Contenido de texto inválido para procesamiento de Claude"},
+  "claude_removing_pasted_element": {"message": "Removiendo elemento de texto pegado de Claude"},
+  "debug_using_popup_flash": {"message": "Usando flash de popup en lugar de texto de contenido"},
+
+  "empty_file_created": {"message": "Advertencia: Archivo vacío creado"},
+  "fileAttachComponent_error": {"message": "El componente de adjuntar archivo encontró un error"},
+  "file_creation_complete": {"message": "Proceso de creación de archivo completado"},
+  "file_creation_empty_content": {"message": "Advertencia: Archivo creado sin contenido"},
+  "file_extension_decision": {"message": "Decisión de extensión de archivo completada"},
+  "file_extension_fallback": {"message": "Usando extensión de archivo de respaldo"},
+  "json_content_valid": {"message": "El contenido ya es JSON válido"},
+  "language_detection_fallback": {"message": "Detección de idioma usando método de respaldo"},
+  "language_detection_success": {"message": "Detección de idioma completada exitosamente"},
+  "makeFile_invalid_content": {"message": "Contenido inválido proporcionado a la función makeFile"},
+  "makeFile_invalid_format": {"message": "Formato inválido proporcionado a la función makeFile"}
+}

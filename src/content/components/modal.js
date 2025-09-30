@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,63 +98,53 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class RenameModal {
   constructor() {
+    window.GPTPF_DEBUG?.log('debug_modal_constructor');
     this.currentModal = null;
   }
-
   show() {
+    window.GPTPF_DEBUG?.log('debug_modal_show');
     return new Promise((resolve, reject) => {
       try {
+        window.GPTPF_DEBUG?.log('debug_modal_show_promise_start');
         const old = document.getElementById('gptpf-rename');
         if (old) old.remove();
-
         const wrap = document.createElement('div');
         wrap.id = 'gptpf-rename';
         wrap.setAttribute('role','dialog');
         wrap.setAttribute('aria-modal','true');
-
         const backdrop = document.createElement('div');
         backdrop.className = 'backdrop';
-
         const card = document.createElement('div');
         card.className = 'card';
         card.tabIndex = -1;
-
         const title = document.createElement('div');
         title.className = 'title';
-        title.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_TITLE');
-
+        title.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_title');
         const desc = document.createElement('div');
         desc.className = 'description';
-        desc.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_DESCRIPTION');
-
+        desc.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_description');
         const input = document.createElement('input');
         input.type = 'text';
-        input.placeholder = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_PLACEHOLDER');
+        input.placeholder = window.GPTPF_I18N.getMessage('ui_components_modal_placeholder');
         input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); if(!confirm.disabled){ ok(); } } });
-
         const hint = document.createElement('div');
         hint.className = 'hint';
-        hint.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_HINT');
-
+        hint.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_hint');
         const hint2 = document.createElement('div');
         hint2.className = 'hint-keys';
-        hint2.innerHTML = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_KEYS_HINT');
-
+        hint2.innerHTML = window.GPTPF_I18N.getMessage('ui_components_modal_keys_hint');
         const err = document.createElement('div');
         err.className = 'error';
-
-        const row = document.createElement('div');
+        const row = document.createElement('div');s
         row.className = 'buttons';
         const cancel = document.createElement('button');
         cancel.className = 'cancel-btn';
-        cancel.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_CANCEL');
+        cancel.textContent = window.GPTPF_I18N.getMessage('cancel');
         const confirm = document.createElement('button');
         confirm.className = 'confirm-btn';
-        confirm.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_SAVE');
-
+        confirm.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_save');
         row.appendChild(cancel); 
         row.appendChild(confirm);
         card.appendChild(title); 
@@ -164,60 +154,62 @@ class RenameModal {
         card.appendChild(hint2); 
         card.appendChild(err); 
         card.appendChild(row);
-        wrap.appendChild(backdrop); 
+        wrap.appendChild(backdrop);
         wrap.appendChild(card);
         document.documentElement.appendChild(wrap);
-
+        document.addEventListener('gptpf:translations-updated', () => {
+          if (window.GPTPF_I18N) {
+            title.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_title');
+            desc.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_description');
+            input.placeholder = window.GPTPF_I18N.getMessage('ui_components_modal_placeholder');
+            hint.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_hint');
+            hint2.innerHTML = window.GPTPF_I18N.getMessage('ui_components_modal_keys_hint');
+            cancel.textContent = window.GPTPF_I18N.getMessage('cancel');
+            confirm.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_save');
+          }
+        });
         let lastFocus = document.activeElement;
         function close(){ wrap.remove(); try{ lastFocus && lastFocus.focus && lastFocus.focus(); }catch{} }
         function validate(){
-          const original = (input.value || '').trim();
-
+          const inputValue = input && input.value !== null && input.value !== undefined ? String(input.value) : '';
+          const original = inputValue.trim();
           if (window.GPTPF_VALIDATION) {
             const result = window.GPTPF_VALIDATION.sanitizeFileName(original);
-
             if (result.hadDots) {
-              err.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_HINT');
+              err.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_hint');
               confirm.disabled = true;
               return '';
             }
-
             if (!result.sanitized && original) {
-              err.textContent = window.GPTPF_MESSAGES.getMessage('VALIDATION', 'LETTERS_NUMBERS_ONLY');
+              err.textContent = window.GPTPF_I18N.getMessage('letters_numbers_only');
               confirm.disabled = true;
               return;
             }
-
             err.textContent = '';
             confirm.disabled = false;
             return result.sanitized;
           }
-
           const fallbackResult = { sanitized: '', hadDots: false };
           fallbackResult.sanitized = original.replace(/\./g, '').replace(/[^A-Za-z0-9 _-]+/g,'-').replace(/\s+/g,'-');
           fallbackResult.sanitized = fallbackResult.sanitized.replace(/^[-_]+|[-_]+$/g,'').slice(0,64);
           fallbackResult.hadDots = original.includes('.');
-
           if (fallbackResult.hadDots) {
-            err.textContent = window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'MODAL_HINT');
+            err.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_hint');
             confirm.disabled = true;
             return '';
           }
-
           if (!fallbackResult.sanitized && original) {
-            err.textContent = window.GPTPF_MESSAGES.getMessage('VALIDATION', 'LETTERS_NUMBERS_ONLY');
+            err.textContent = window.GPTPF_I18N.getMessage('letters_numbers_only');
             confirm.disabled = true;
             return;
           }
-
           err.textContent = '';
           confirm.disabled = false;
           return fallbackResult.sanitized;
         }
         input.addEventListener('input', validate);
-        function ok(){ const v = validate(); const out = v || ''; close(); resolve(out); }
-        function no(){ close(); reject(new Error('cancelled')); }
-
+        function ok(){ const v = validate(); const out = v || ''; close(); window.GPTPF_DEBUG?.log('debug_modal_ok'); resolve(out); }
+        function no(){ close(); window.GPTPF_DEBUG?.log('debug_modal_cancel'); reject(new Error('cancelled')); }
         cancel.addEventListener('click', no);
         confirm.addEventListener('click', ok);
         backdrop.addEventListener('click', no);
@@ -226,22 +218,22 @@ class RenameModal {
         function onEsc(e){ if(e.key==='Escape'){ e.preventDefault(); cleanup(); no(); } }
         function trapFocus(e){ if (!wrap.contains(e.target)) { e.preventDefault(); card.focus(); } }
         function cleanup(){ document.removeEventListener('keydown', onEsc, true); document.removeEventListener('focus', trapFocus, true); }
-
         setTimeout(()=>{ card.focus(); input.focus(); input.select(); }, 0);
-        
+        window.GPTPF_DEBUG?.log('debug_modal_show_complete');
         this.currentModal = wrap;
       } catch { 
+        window.GPTPF_DEBUG?.error('debug_modal_show_error');
         reject(new Error('cancelled')); 
       }
     });
   }
-
   hide() {
+    window.GPTPF_DEBUG?.log('debug_modal_hide');
     if (this.currentModal) {
       this.currentModal.remove();
       this.currentModal = null;
+      window.GPTPF_DEBUG?.log('debug_modal_hidden');
     }
   }
 }
-
 window.RenameModal = RenameModal;

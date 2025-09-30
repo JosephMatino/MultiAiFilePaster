@@ -1,4 +1,3 @@
-
 /*
  * ================================================================================
  * MULTI-AI FILE PASTER CHROME EXTENSION | PRODUCTION RELEASE v1.1.0
@@ -14,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -32,7 +31,7 @@
  *
  * TECHNICAL ARCHITECTURE & INTEGRATIONS:
  * • PLATFORM INTEGRATIONS: ChatGPT, Claude, Gemini, DeepSeek, Grok
- * • CORE DEPENDENCIES: Chrome Extension APIs, CompressionStream, FileReader
+ * • CORE DEPENDENCIES: Chrome Extension APIs, FileReader API
  * • FEATURES: Centralized configuration, platform detection, settings management
  * • TESTING: Automated unit tests, integration tests, configuration validation
  * • MONITORING: Performance metrics, error tracking, user analytics (opt-in)
@@ -99,13 +98,11 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   const EXTENSION_VERSION = '1.1.0';
-
   const root = (typeof self !== 'undefined') ? self : window;
   if (root.GPTPF_CONFIG && root.GPTPF_CONFIG.__v === EXTENSION_VERSION) return;
-
+  root.GPTPF_DEBUG?.log('debug_config_system_init');
   const DEFAULT_CONFIG = Object.freeze({
     __v: EXTENSION_VERSION,
     __schema: 2,
@@ -127,7 +124,6 @@
       deepseek: ['chat.deepseek.com'],
       grok: ['grok.com']
     }),
-
     OFFICIAL_LINKS: Object.freeze({
       repo: 'https://github.com/JosephMatino/MultiAiFilePaster',
       website: 'https://hostwek.com/wekturbo',
@@ -136,7 +132,6 @@
       ceoSite: 'https://majokdeng.com',
       supportEmail: 'wekturbo@hostwek.com'
     }),
-
     PLATFORM_TIMEOUTS: Object.freeze({
       chatgpt: 2000,
       claude: 3000,
@@ -145,19 +140,20 @@
       grok: 4000,
       default: 3000
     }),
-
     DEBUG: Object.freeze({
-      enabled: false,
-      logLevel: 'error',
-      showConsoleMessages: false,
-      showToastMessages: false,
-      showDebugPanel: false,
-      logCategories: ['errors', 'warnings']
+      enabled: true,
+      logLevel: 'warnings',
+      showConsoleMessages: true,
+      showToastMessages: true,
+      showDebugPanel: true,
+      logCategories: ['errors', 'warnings', 'all'],
+      centralizedErrorHandling: true,
+      toastDebugMessages: true,
+      interceptConsole: true
     }),
-
     DEFAULTS: Object.freeze({
       __schema: 2,
-      debugMode: false,
+      debugMode: true,
       showDebug: false,
       wordLimit: 500,
       autoAttachEnabled: true,
@@ -167,14 +163,12 @@
       batchMode: false,
       maxBatchFiles: 3,
       batchProcessingDelay: 500,
-      batchCompression: false,
-      enableCompression: false,
-      compressionThreshold: 1024,
       telemetryEnabled: true,
       claudeOverride: true,
-      defaultTheme: 'dark'
+      defaultTheme: 'dark',
+      selectedTheme: 'default',
+      debugLevel: 'errors'
     }),
-
     PLATFORM_COLORS: Object.freeze({
       chatgpt: {
         primary: '142 71% 45%',
@@ -200,18 +194,19 @@
         primary: '270 60% 52%',
         secondary: '270 55% 44%',
         accent: '270 70% 62%'
+      },
+      debug: {
+        primary: '258 90% 66%',
+        secondary: '271 81% 56%',
+        accent: '217 91% 60%'
       }
     }),
-
-
-
     TELEMETRY_URL: null,
     TELEMETRY_METHOD: 'POST',
     TELEMETRY_HEADERS: { 'Content-Type': 'application/json' },
     TELEMETRY_BATCH_SIZE: 20,
     TELEMETRY_INTERVAL: 120000,
     TELEMETRY_KEEPALIVE: true,
-
     UI_TIMINGS: Object.freeze({
       flashTimeout: 3000,
       toastMs: 3000,
@@ -224,21 +219,17 @@
       analyticsLoadDelay: 200,
       batchProcessDelay: 500
     }),
-
     ANALYTICS_LIMITS: Object.freeze({
       maxHistoryItems: 500,
       trimToItems: 300
     }),
-
     VALIDATION_LIMITS: Object.freeze({
       minWordLimit: 50,
       maxWordLimit: 15000,
       eventNameMaxLength: 32,
       maxBatchFiles: 4,
-      maxFileSize: 10485760,
-      compressionMinSize: 1024
+      maxFileSize: 10485760
     }),
-
     LANGUAGE_DETECTION: Object.freeze({
       confidenceThreshold: 0.35,
       strongSignalWeight: 15,
@@ -249,31 +240,35 @@
       tagDensityDivisor: 120
     })
   });
-
   function isSupportedUrl(url) {
-    return DEFAULT_CONFIG.HOSTS.some(h => url && url.startsWith(h));
+    const isSupported = DEFAULT_CONFIG.HOSTS.some(h => url && url.startsWith(h));
+    root.GPTPF_DEBUG?.log('debug_config_url_check');
+    return isSupported;
   }
-
   function isChatGPTUrl(url) {
     return isSupportedUrl(url);
   }
-
   function getConfig(cb) {
+    root.GPTPF_DEBUG?.log('debug_config_get_start');
     chrome.storage.local.get(['__config'], (res) => {
       const ovr = res.__config || {};
       const hosts = Array.isArray(ovr.HOSTS) ? ovr.HOSTS : DEFAULT_CONFIG.HOSTS;
-      cb({ ...DEFAULT_CONFIG, ...ovr, HOSTS: hosts });
+      const finalConfig = { ...DEFAULT_CONFIG, ...ovr, HOSTS: hosts };
+      root.GPTPF_DEBUG?.log('debug_config_get_complete');
+      cb(finalConfig);
     });
   }
-
   function setConfig(patch, cb) {
+    root.GPTPF_DEBUG?.log('debug_config_set_start');
     chrome.storage.local.get(['__config'], (res) => {
       const prev = res.__config || {};
       const next = { ...prev, ...patch };
-      chrome.storage.local.set({ __config: next }, () => cb && cb(true));
+      chrome.storage.local.set({ __config: next }, () => {
+        root.GPTPF_DEBUG?.log('debug_config_set_complete');
+        cb && cb(true);
+      });
     });
   }
-
   root.GPTPF_CONFIG = Object.freeze({
     ...DEFAULT_CONFIG,
     isSupportedUrl,
@@ -281,4 +276,5 @@
     getConfig,
     setConfig
   });
+  root.GPTPF_DEBUG?.log('debug_config_system_ready');
 })();

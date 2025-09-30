@@ -13,17 +13,17 @@
  * RELIABILITY: Quality error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,57 +98,54 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 class DeepSeekPlatform {
   constructor() {
+    window.GPTPF_DEBUG?.log('debug_deepseek_constructor');
     this.name = 'deepseek';
   }
-
   isCurrentPlatform() {
+    window.GPTPF_DEBUG?.log('debug_deepseek_platform_check');
     const host = window.location.hostname;
     const list = window.GPTPF_CONFIG?.PLATFORM_DOMAINS?.deepseek;
     return list?.some(d => host.includes(d));
   }
-
   getPlatformSettings(baseSettings) {
+    window.GPTPF_DEBUG?.log('debug_deepseek_settings_get');
     const timeouts = window.GPTPF_CONFIG?.PLATFORM_TIMEOUTS;
     return {
       ...baseSettings,
       timeout: timeouts.deepseek
     };
   }
-
   getComposer() {
+    window.GPTPF_DEBUG?.log('debug_deepseek_composer_get');
     const a = document.activeElement;
     if (a && (this.isContentEditable(a) || this.isTextarea(a))) return a;
-
     return document.querySelector('textarea[placeholder*="message" i]')
         || document.querySelector('div[contenteditable="true"]')
         || document.querySelector('textarea')
         || null;
   }
-
   getAttachButton() {
+    window.GPTPF_DEBUG?.log('debug_deepseek_attach_button_get');
     return document.querySelector('button[aria-label*="attach" i]')
         || document.querySelector('button[aria-label*="upload" i]')
         || document.querySelector('input[type="file"]')?.closest('button')
         || document.querySelector('button[title*="file" i]');
   }
-
   getFileInput() {
+    window.GPTPF_DEBUG?.log('debug_deepseek_file_input_get');
     const allInputs = Array.from(document.querySelectorAll('input[type="file"]'));
     return allInputs.find(el => !el.disabled && el.offsetParent !== null) 
         || allInputs.find(el => !el.disabled) 
         || null;
   }
-
   async ensureFileInput(wait = 3000) {
+    window.GPTPF_DEBUG?.log('debug_deepseek_ensure_file_input');
     let inp = this.getFileInput();
     if (inp) return inp;
-
     const plus = this.getAttachButton();
     if (plus) plus.click();
-
     const t0 = performance.now();
     while(!inp && performance.now()-t0 < wait){
       await new Promise(r=>setTimeout(r,90));
@@ -156,39 +153,38 @@ class DeepSeekPlatform {
     }
     return inp;
   }
-
   async attachFile(file) {
+    window.GPTPF_DEBUG?.log('debug_deepseek_attach_file');
     try {
       const input = await this.ensureFileInput();
       if (!input) return false;
-
       const dt = new DataTransfer();
       dt.items.add(file);
       input.files = dt.files;
       input.dispatchEvent(new Event("change", { bubbles: true }));
       input.dispatchEvent(new Event("input", { bubbles: true }));
-      
+      window.GPTPF_DEBUG?.log('debug_deepseek_file_attached');
       return true;
     } catch (error) {
+      if (window.GPTPF_DEBUG) {
+        window.GPTPF_DEBUG?.error('console_platform_handler_error', error);
+      }
       return false;
     }
   }
-
   isTextarea(el) {
     return el && el.tagName === "TEXTAREA";
   }
-
   isContentEditable(el) {
     return el && el.getAttribute && el.getAttribute("contenteditable") === "true";
   }
-
   shouldHandlePaste(e, text, settings) {
+    window.GPTPF_DEBUG?.log('debug_deepseek_should_handle_paste');
     return true;
   }
-
   async handlePostPaste(text) {
+    window.GPTPF_DEBUG?.log('debug_deepseek_post_paste_handle');
     return true;
   }
 }
-
-window.DeepSeekPlatform = DeepSeekPlatform;
+window.DeepSeekPlatform = DeepSeekPlatform;

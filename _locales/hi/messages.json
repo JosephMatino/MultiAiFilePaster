@@ -1,0 +1,884 @@
+{
+  "extension_name": {"message": "Multi-AI File Paster"},
+  "extension_description": {"message": "ChatGPT, Claude, Gemini, DeepSeek और Grok प्लेटफॉर्म पर पेस्ट किए गए टेक्स्ट कंटेंट से स्वचालित रूप से फ़ाइल अटैचमेंट बनाएं। बैच प्रोसेसिंग और फ़ाइल कंप्रेशन की सुविधा।"},
+  "extension_short_name": {"message": "Multi-AI"},
+  "extension_context": {"message": "एक्सटेंशन कॉन्टेक्स्ट खो गया - कृपया पेज रिफ्रेश करें"},
+  "extension_reloaded": {"message": "एक्सटेंशन रीलोड हो गया - कृपया पेज रिफ्रेश करें"},
+  "extension_support": {"message": "एक्सटेंशन सपोर्ट:"},
+  "header_title": {"message": "Multi-AI File Paster"},
+  "header_subtitle": {"message": "ChatGPT, Claude, Gemini, DeepSeek और Grok में लंबे पेस्ट को ऑटो-कन्वर्ट करता है और साफ फ़ाइलें ऑटो-अटैच करता है। ऑटो-डिटेक्ट और कोड फ़ाइलों सहित 20+ फॉर्मेट का समर्थन।"},
+  "about_description": {"message": "Multi-AI File Paster पहचानता है जब आप लंबा टेक्स्ट (कोड, डॉक्यूमेंटेशन, डेटा) पेस्ट करते हैं और इसे सही तरीके से फॉर्मेट की गई फ़ाइलों में बदल देता है। यह चैट को साफ रखता है और प्लेटफॉर्म की सीमा के भीतर।"},
+  "about_help": {"message": "के बारे में और सहायता"},
+  "ai_model_default": {"message": "AI मॉडल"},
+  "ai_platforms": {"message": "AI प्लेटफॉर्म"},
+  "all_time": {"message": "सभी समय"},
+  "analytics": {"message": "एनालिटिक्स"},
+  "analytics_all_time": {"message": "सभी समय"},
+  "analytics_analytics_updated": {
+    "message": "एनालिटिक्स अपडेट: $PERIOD$",
+    "placeholders": {
+      "PERIOD": {
+        "content": "$1",
+        "example": "पिछले 7 दिन"
+      }
+    }
+  },
+  "analytics_chart_error": {"message": "चार्ट त्रुटि"},
+  "analytics_chart_unavailable": {"message": "चार्ट अनुपलब्ध"},
+  "analytics_cleanup": {"message": "[DEBUG] एनालिटिक्स सफाई पूर्ण"},
+  "analytics_cleanup_complete": {"message": "एनालिटिक्स सफाई पूर्ण"},
+  "analytics_clearing_data": {"message": "डेटा साफ कर रहे हैं..."},
+  "analytics_days_ago": {
+    "message": "$DAYS$ दिन पहले",
+    "placeholders": {
+      "DAYS": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "analytics_description": {"message": "केवल गुमनाम उपयोग गिनती साझा करके एक्सटेंशन को बेहतर बनाने में मदद करें (बनाई गई फ़ाइलें, आई त्रुटियां)। कभी भी कंटेंट, URL या व्यक्तिगत डेटा एकत्र नहीं करता। पूरी तरह वैकल्पिक और कभी भी अक्षम किया जा सकता है।"},
+  "analytics_error_loading": {"message": "डेटा लोड करने में त्रुटि"},
+  "analytics_exported": {"message": "एनालिटिक्स डेटा एक्सपोर्ट"},
+  "analytics_files_label": {"message": "फ़ाइलें"},
+  "analytics_last_30_days": {"message": "पिछले 30 दिन"},
+  "analytics_last_7_days": {"message": "पिछले 7 दिन"},
+  "analytics_last_90_days": {"message": "पिछले 90 दिन"},
+  "analytics_no_data": {"message": "कोई डेटा नहीं"},
+  "analytics_note": {"message": "नोट:"},
+  "analytics_note_text": {"message": "एनालिटिक्स डैशबोर्ड केवल तभी दिखाई देता है जब यह विकल्प सक्षम हो।"},
+  "analytics_today": {"message": "आज"},
+  "analytics_yesterday": {"message": "कल"},
+  "anonymous_analytics": {"message": "गुमनाम उपयोग एनालिटिक्स (वैकल्पिक)"},
+
+  "aria_batch_delay": {"message": "बैच देरी"},
+  "aria_batch_processing": {"message": "बैच प्रोसेसिंग"},
+  "aria_chart_type": {"message": "चार्ट प्रकार"},
+  "aria_choose_debug_level": {"message": "डिबग स्तर चुनें"},
+  "aria_choose_file_format": {"message": "फ़ाइल फॉर्मेट चुनें"},
+  "aria_choose_theme": {"message": "थीम चुनें"},
+  "aria_claude_override": {"message": "Claude ओवरराइड"},
+
+  "aria_custom_format_help": {"message": "कस्टम फॉर्मेट सहायता"},
+  "aria_debug_level": {"message": "डिबग स्तर सहायता"},
+  "aria_delay_seconds": {"message": "देरी सेकंड (1-15)"},
+  "aria_files_per_day_chart": {"message": "प्रति दिन फ़ाइलें लाइन चार्ट"},
+  "aria_files_per_day_trend": {"message": "प्रति दिन फ़ाइलें ट्रेंड"},
+  "aria_hostwek_website": {"message": "Hostwek वेबसाइट"},
+  "aria_more_file_formats": {"message": "अधिक फ़ाइल फॉर्मेट"},
+  "aria_theme_help": {"message": "थीम चयन सहायता"},
+  "aria_what_is_auto_attach": {"message": "ऑटो अटैच क्या है?"},
+  "aria_what_is_delay": {"message": "देरी क्या है?"},
+  "aria_what_is_min_words": {"message": "न्यूनतम शब्द क्या है?"},
+  "attach_typed_text": {"message": "फ़ाइल के रूप में अटैच करें"},
+  "attachment_attaching": {"message": "फ़ाइल अटैच कर रहे हैं..."},
+  "attachment_cancelled": {"message": "अटैचमेंट रद्द"},
+  "attachment_failed": {"message": "अटैचमेंट असफल"},
+  "attachment_preparing": {"message": "फ़ाइल तैयार कर रहे हैं..."},
+  "attachment_success": {
+    "message": "सफलतापूर्वक अटैच किया गया $FILE$",
+    "placeholders": {
+      "FILE": {
+        "content": "$1",
+        "example": "document.txt"
+      }
+    }
+  },
+  "attachment_uploading": {"message": "फ़ाइल अपलोड कर रहे हैं..."},
+  "auto_attach": {"message": "ऑटो"},
+  "auto_attach_tooltip": {"message": "<span class='tip-badge feature'>सुविधा</span> लंबे पेस्ट को साफ फ़ाइल में बदलता है और इसे आपकी चैट में ऑटो-अटैच करता है। ChatGPT, Claude, Gemini, DeepSeek और Grok पर संदेशों को साफ और सीमा के भीतर रखता है। सामान्य पेस्ट करने और मैन्युअल सेव का उपयोग करने के लिए बंद करें।"},
+  "auto_detect": {"message": "ऑटो-डिटेक्ट"},
+  "auto_filename_generated": {"message": "ऑटो फ़ाइलनेम जेनरेट"},
+  "back_to_main": {"message": "वापस"},
+  "banner_not_supported": {"message": "यह पेज समर्थित नहीं है"},
+  "bar_chart": {"message": "बार"},
+  "batch_active_badge": {"message": "बैच"},
+  "batch_active_short": {"message": "बैच सक्रिय"},
+  "batch_active_tip": {"message": "बैच मोड सक्रिय है - कई फ़ाइलें प्रोसेस होंगी"},
+  "batch_auto_attach_tip": {"message": "ऑटो-अटैच बैच मोड में सभी फ़ाइलों को प्रोसेस करेगा"},
+
+  "batch_delay_tip": {"message": "देरी बैच प्रोसेसिंग में प्रत्येक फ़ाइल पर लागू होती है"},
+  "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>समय</span> प्रत्येक बैच फ़ाइल अपलोड करने के बीच समय देरी (100ms से 2000ms)। अधिक देरी AI प्लेटफॉर्म द्वारा स्पैम के लिए फ्लैग किए जाने की संभावना को कम करती है। यह सेटिंग स्वचालित रूप से अक्षम हो जाती है जब ऊपर मुख्य 'उपयोगकर्ता देरी' टॉगल सक्रिय है - उस स्थिति में, मुख्य देरी सेटिंग सभी फ़ाइल अपलोड के लिए प्राथमिकता लेती है।"},
+  "batch_detected": {
+    "message": "बैच मोड: $COUNT$ फ़ाइलें पहचानी गईं",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "batch_mode": {"message": "बैच मोड"},
+  "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>परीक्षण</span> आपकी अधिकतम फ़ाइल सेटिंग के आधार पर बड़े कंटेंट को कई फ़ाइलों में विभाजित करता है। कंटेंट को लाइनों द्वारा विभाजित करता है और फ़ाइल एक्सटेंशन के लिए स्मार्ट भाषा पहचान का उपयोग करता है। part1, part2, part3, part4 नाम की फ़ाइलें बनाता है। बड़े दस्तावेज़, कोड फ़ाइलें, या प्लेटफॉर्म सीमा से अधिक कोई भी कंटेंट विभाजित करने के लिए बिल्कुल सही। प्रत्येक भाग को कंटेंट विश्लेषण के आधार पर उचित फ़ाइल एक्सटेंशन मिलता है।"},
+  "beta": {"message": "परीक्षण"},
+  "cancel": {"message": "रद्द करें"},
+  "claude_override": {"message": "Claude ऑटो-अटैच ओवरराइड"},
+  "claude_override_tooltip": {"message": "<span class='tip-badge feature'>सुविधा</span> Claude में अपना पेस्ट-टू-फ़ाइल फीचर शामिल है। अधिक सुसंगत फॉर्मेटिंग और नामकरण के लिए हमेशा Multi-AI File Paster का उपयोग करने के लिए इसे सक्षम करें।"},
+  "clear_all_data": {"message": "सभी डेटा साफ करें"},
+  "clear_analytics_data": {"message": "एनालिटिक्स डेटा साफ करें"},
+  "clear_data": {"message": "डेटा साफ करें"},
+  "clear_data_warning": {"message": "यह आपके सभी उपयोग आंकड़ों को स्थायी रूप से हटा देगा और इसे पूर्ववत नहीं किया जा सकता।"},
+  "close": {"message": "बंद करें"},
+  "company": {"message": "कंपनी:"},
+
+  "config_analytics_dashboard": {"message": "एनालिटिक्स डैशबोर्ड: उपयोग पैटर्न और फ़ाइल निर्माण आंकड़े ट्रैक करें"},
+  "config_auto_attach": {"message": "ऑटो अटैच: स्वचालित रूप से लंबे पेस्ट का पता लगाता है और बदलता है (अनुकूलन योग्य शब्द थ्रेशहोल्ड: 50-15,000 शब्द)"},
+  "config_batch_processing": {"message": "बैच प्रोसेसिंग: स्मार्ट लाइन विभाजन के साथ बड़े कंटेंट को 2-4 फ़ाइलों में विभाजित करें"},
+  "config_claude_integration": {"message": "Claude एकीकरण: Claude के अंतर्निहित पेस्ट-टू-फ़ाइल फीचर के साथ या उसके स्थान पर काम करता है"},
+  "config_delay": {"message": "देरी: वैकल्पिक 1-15 सेकंड काउंटडाउन आकस्मिक अटैचमेंट को रोकता है"},
+
+  "config_manual_override": {"message": "मैन्युअल ओवरराइड: टाइप किए गए टेक्स्ट को फ़ाइल अटैचमेंट में ऑन-डिमांड रूपांतरण"},
+  "config_multi_format": {"message": "मल्टी-फॉर्मेट समर्थन: प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट और कस्टम एक्सटेंशन सहित 20+ फ़ाइल प्रकारों में से चुनें"},
+  "config_platform_optimization": {"message": "प्लेटफॉर्म अनुकूलन: प्रत्येक AI प्लेटफॉर्म के अनूठे फ़ाइल अटैचमेंट सिस्टम के लिए विशेष हैंडलिंग"},
+  "configuration": {"message": "कॉन्फ़िग"},
+  "connected_to": {
+    "message": "$MODEL$ से जुड़ा",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "console_component_init_error": {"message": "कंपोनेंट इनिशियलाइज़ेशन त्रुटि:"},
+  "console_config_load_failed": {"message": "GPTPF: बैकग्राउंड वर्कर में config.js लोड करने में असफल:"},
+  "console_i18n_load_failed": {"message": "संदेश लोड करने में असफल"},
+  "console_manual_save_error": {"message": "मैन्युअल सेव त्रुटि:"},
+  "console_platform_handler_error": {"message": "प्लेटफॉर्म हैंडलर त्रुटि:"},
+  "content_cleanup": {"message": "[DEBUG] कंटेंट सफाई पूर्ण"},
+  "content_cleanup_complete": {"message": "कंटेंट स्क्रिप्ट सफाई पूर्ण"},
+  "custom_filename_processed": {"message": "कस्टम फ़ाइलनेम प्रोसेस"},
+  "custom_format_label": {"message": "कस्टम:"},
+  "custom_format_placeholder": {"message": "फॉर्मेट दर्ज करें (जैसे txt, md, json)"},
+  "custom_format_set": {
+    "message": "कस्टम फॉर्मेट .$EXT$ पर सेट",
+    "placeholders": {
+      "EXT": {
+        "content": "$1",
+        "example": "txt"
+      }
+    }
+  },
+  "custom_format_tooltip": {"message": "<span class='tip-badge security'>सुरक्षा</span> बिना डॉट्स के केवल एक्सटेंशन के अक्षर/संख्याएं दर्ज करें (जैसे log, data, cfg)। जोखिम भरे एक्जीक्यूटेबल प्रकार ब्लॉक किए गए हैं।"},
+  "data_cleared_success": {"message": "सभी डेटा सफलतापूर्वक साफ"},
+  "days_30": {"message": "30 दिन"},
+  "days_7": {"message": "7 दिन"},
+  "days_90": {"message": "90 दिन"},
+  "debug_analytics_clear_confirm": {"message": "एनालिटिक्स साफ करने की पुष्टि"},
+  "debug_analytics_data_cleared": {"message": "स्टोरेज से एनालिटिक्स डेटा साफ"},
+  "debug_background_command_received": {"message": "बैकग्राउंड कमांड प्राप्त"},
+  "debug_background_config_resolve": {"message": "बैकग्राउंड कॉन्फ़िग रिज़ॉल्व कर रहे हैं"},
+  "debug_background_config_resolved": {"message": "बैकग्राउंड कॉन्फ़िग रिज़ॉल्व"},
+  "debug_background_config_unavailable": {"message": "बैकग्राउंड कॉन्फ़िग अनुपलब्ध"},
+  "debug_background_extension_installed": {"message": "एक्सटेंशन इंस्टॉल इवेंट"},
+  "debug_background_extension_startup": {"message": "एक्सटेंशन स्टार्टअप इवेंट"},
+  "debug_background_extension_updated": {"message": "एक्सटेंशन अपडेट"},
+  "debug_background_first_install": {"message": "पहली बार इंस्टॉलेशन"},
+  "debug_background_get_debug_request": {"message": "डिबग अनुरोध प्राप्त"},
+  "debug_background_get_settings_request": {"message": "सेटिंग्स अनुरोध प्राप्त"},
+  "debug_background_message_received": {"message": "बैकग्राउंड संदेश प्राप्त"},
+  "debug_background_metric_event_request": {"message": "मेट्रिक इवेंट अनुरोध प्राप्त"},
+  "debug_background_platform_check_request": {"message": "प्लेटफॉर्म चेक अनुरोध प्राप्त"},
+  "debug_background_save_chat_complete": {"message": "चैट सेव ऑपरेशन पूर्ण"},
+  "debug_background_save_chat_start": {"message": "चैट सेव ऑपरेशन शुरू कर रहे हैं"},
+  "debug_background_save_connection_failed": {"message": "सेव के दौरान कनेक्शन असफल"},
+  "debug_background_save_message_request": {"message": "संदेश सेव अनुरोध प्राप्त"},
+  "debug_background_save_no_tab": {"message": "सेव के लिए कोई सक्रिय टैब नहीं मिला"},
+  "debug_background_save_unsupported_platform": {"message": "सेव के लिए असमर्थित प्लेटफॉर्म"},
+  "debug_background_script_init": {"message": "बैकग्राउंड स्क्रिप्ट इनिशियलाइज़ कर रहे हैं"},
+  "debug_background_scripts_loaded": {"message": "बैकग्राउंड स्क्रिप्ट सफलतापूर्वक लोड"},
+  "debug_background_set_settings_request": {"message": "सेटिंग्स सेट अनुरोध प्राप्त"},
+  "debug_background_settings_get": {"message": "बैकग्राउंड सेटिंग्स प्राप्त कर रहे हैं"},
+  "debug_background_settings_saved": {"message": "बैकग्राउंड सेटिंग्स सेव"},
+  "debug_background_settings_set": {"message": "बैकग्राउंड सेटिंग्स सेट कर रहे हैं"},
+  "debug_badge_refresh_error": {"message": "बैज रिफ्रेश त्रुटि हुई"},
+  "debug_badges_refreshed": {"message": "प्लेटफॉर्म बैज सफलतापूर्वक रिफ्रेश"},
+  "debug_config_defaults_missing": {"message": "कॉन्फ़िगरेशन DEFAULTS ऑब्जेक्ट गुम"},
+  "debug_config_error": {"message": "[DEBUG] कॉन्फ़िग त्रुटि"},
+  "debug_config_get": {"message": "[DEBUG] कॉन्फ़िग प्राप्त"},
+  "debug_config_get_complete": {"message": "कॉन्फ़िग पुनर्प्राप्ति पूर्ण"},
+  "debug_config_get_start": {"message": "कॉन्फ़िग पुनर्प्राप्ति शुरू कर रहे हैं"},
+  "debug_config_init": {"message": "[DEBUG] कॉन्फ़िग इनिट"},
+  "debug_config_initialized": {"message": "[DEBUG] कॉन्फ़िग इनिशियलाइज़"},
+  "debug_config_load": {"message": "[DEBUG] कॉन्फ़िग लोड"},
+  "debug_config_save": {"message": "[DEBUG] कॉन्फ़िग सेव"},
+  "debug_config_set": {"message": "[DEBUG] कॉन्फ़िग सेट"},
+  "debug_config_set_complete": {"message": "कॉन्फ़िग सेव पूर्ण"},
+  "debug_config_set_start": {"message": "कॉन्फ़िग सेव शुरू कर रहे हैं"},
+  "debug_config_system_init": {"message": "कॉन्फ़िग सिस्टम इनिशियलाइज़ कर रहे हैं"},
+  "debug_config_system_ready": {"message": "कॉन्फ़िग सिस्टम तैयार"},
+  "debug_config_url_check": {"message": "URL समर्थन चेक कर रहे हैं"},
+  "debug_config_url_supported": {"message": "[DEBUG] कॉन्फ़िग URL समर्थित"},
+  "debug_config_url_unsupported": {"message": "[DEBUG] कॉन्फ़िग URL असमर्थित"},
+  "debug_content_theme_applied": {"message": "कंटेंट स्क्रिप्ट थीम लागू"},
+  "debug_content_theme_error": {"message": "कंटेंट स्क्रिप्ट थीम एप्लिकेशन त्रुटि"},
+  "debug_deepseek_attach_button_get": {"message": "DeepSeek अटैच बटन प्राप्त कर रहे हैं"},
+  "debug_deepseek_attach_file": {"message": "DeepSeek में फ़ाइल अटैच कर रहे हैं"},
+  "debug_deepseek_composer_get": {"message": "DeepSeek कंपोज़र एलिमेंट प्राप्त कर रहे हैं"},
+  "debug_deepseek_constructor": {"message": "DeepSeek प्लेटफॉर्म कंस्ट्रक्टर"},
+  "debug_deepseek_ensure_file_input": {"message": "DeepSeek फ़ाइल इनपुट सुनिश्चित कर रहे हैं"},
+  "debug_deepseek_file_attached": {"message": "DeepSeek में फ़ाइल सफलतापूर्वक अटैच"},
+  "debug_deepseek_file_input_get": {"message": "DeepSeek फ़ाइल इनपुट प्राप्त कर रहे हैं"},
+  "debug_deepseek_platform_check": {"message": "DeepSeek प्लेटफॉर्म चेक कर रहे हैं"},
+  "debug_deepseek_post_paste_handle": {"message": "DeepSeek पोस्ट-पेस्ट हैंडल कर रहे हैं"},
+  "debug_deepseek_settings_get": {"message": "DeepSeek प्लेटफॉर्म सेटिंग्स प्राप्त कर रहे हैं"},
+  "debug_deepseek_should_handle_paste": {"message": "चेक कर रहे हैं कि DeepSeek को पेस्ट हैंडल करना चाहिए"},
+  "debug_disabled": {"message": "डिबग मोड अक्षम - केवल त्रुटियां दिखाई जाएंगी"},
+  "debug_enabled": {"message": "डिबग मोड सक्षम - डिबग संदेश और पॉपअप नोटिफिकेशन दिखाए जाएंगे"},
+  "debug_error": {"message": "[त्रुटि]"},
+  "debug_factory_create_handler": {"message": "प्लेटफॉर्म हैंडलर बना रहे हैं"},
+  "debug_factory_default_settings": {"message": "डिफ़ॉल्ट फैक्ट्री सेटिंग्स का उपयोग कर रहे हैं"},
+  "debug_factory_get_platform": {"message": "वर्तमान प्लेटफॉर्म प्राप्त कर रहे हैं"},
+  "debug_factory_get_settings": {"message": "फैक्ट्री सेटिंग्स प्राप्त कर रहे हैं"},
+  "debug_factory_handler_created": {"message": "प्लेटफॉर्म हैंडलर बनाया गया"},
+  "debug_factory_no_handler": {"message": "प्लेटफॉर्म के लिए कोई हैंडलर नहीं मिला"},
+  "debug_factory_platform_detected": {"message": "प्लेटफॉर्म सफलतापूर्वक पहचाना गया"},
+  "debug_factory_settings_configured": {"message": "फैक्ट्री सेटिंग्स कॉन्फ़िगर"},
+  "debug_factory_unknown_platform": {"message": "अज्ञात प्लेटफॉर्म पहचाना गया"},
+  "debug_grok_attach_button_get": {"message": "Grok अटैच बटन प्राप्त कर रहे हैं"},
+  "debug_grok_attach_file": {"message": "Grok में फ़ाइल अटैच कर रहे हैं"},
+  "debug_grok_composer_get": {"message": "Grok कंपोज़र एलिमेंट प्राप्त कर रहे हैं"},
+  "debug_grok_constructor": {"message": "Grok प्लेटफॉर्म कंस्ट्रक्टर"},
+  "debug_grok_ensure_file_input": {"message": "Grok फ़ाइल इनपुट सुनिश्चित कर रहे हैं"},
+  "debug_grok_file_attached": {"message": "Grok में फ़ाइल सफलतापूर्वक अटैच"},
+  "debug_grok_file_input_get": {"message": "Grok फ़ाइल इनपुट प्राप्त कर रहे हैं"},
+  "debug_grok_platform_check": {"message": "Grok प्लेटफॉर्म चेक कर रहे हैं"},
+  "debug_grok_post_paste_handle": {"message": "Grok पोस्ट-पेस्ट हैंडल कर रहे हैं"},
+  "debug_grok_settings_get": {"message": "Grok प्लेटफॉर्म सेटिंग्स प्राप्त कर रहे हैं"},
+  "debug_grok_should_handle_paste": {"message": "चेक कर रहे हैं कि Grok को पेस्ट हैंडल करना चाहिए"},
+  "debug_info": {"message": "[DEBUG]"},
+  "debug_level_all_messages": {"message": "सभी संदेश"},
+  "debug_level_errors_only": {"message": "केवल त्रुटियां"},
+  "debug_level_tooltip": {"message": "<span class='tip-badge debug-info'>DEBUG</span> नियंत्रित करें कि कौन से डिबग संदेश पॉपअप नोटिफिकेशन में दिखाई देते हैं। केवल त्रुटियां महत्वपूर्ण समस्याएं दिखाता है, चेतावनी और त्रुटियां चेतावनियां शामिल करता है, सभी संदेश जानकारी लॉग सहित सब कुछ दिखाता है।"},
+  "debug_level_warnings_errors": {"message": "चेतावनी और त्रुटियां"},
+  "debug_loader_countdown_cancelled": {"message": "लोडर काउंटडाउन रद्द"},
+  "debug_loader_countdown_complete": {"message": "लोडर काउंटडाउन पूर्ण"},
+  "debug_loader_countdown_error": {"message": "लोडर काउंटडाउन त्रुटि"},
+  "debug_loader_countdown_start": {"message": "लोडर काउंटडाउन शुरू कर रहे हैं"},
+  "debug_loader_displayed": {"message": "लोडर प्रदर्शित"},
+  "debug_loader_hidden": {"message": "लोडर छुपाया गया"},
+  "debug_loader_hide": {"message": "लोडर छुपा रहे हैं"},
+  "debug_loader_show": {"message": "लोडर दिखा रहे हैं"},
+  "debug_log": {"message": "[LOG]"},
+  "debug_log_level": {"message": "डिबग स्तर"},
+  "debug_log_level_changed": {
+    "message": "डिबग लॉग स्तर बदला गया: $LEVEL$",
+    "placeholders": {
+      "LEVEL": {
+        "content": "$1",
+        "example": "info"
+      }
+    }
+  },
+  "debug_modal_about_close": {"message": "के बारे में मोडल बंद कर रहे हैं"},
+  "debug_modal_about_close_missing": {"message": "के बारे में मोडल बंद - एलिमेंट गुम"},
+  "debug_modal_about_closed": {"message": "के बारे में मोडल सफलतापूर्वक बंद"},
+  "debug_modal_about_element_missing": {"message": "के बारे में मोडल एलिमेंट गुम"},
+  "debug_modal_about_init": {"message": "[DEBUG] के बारे में मोडल इनिट"},
+  "debug_modal_about_open": {"message": "के बारे में मोडल खोल रहे हैं"},
+  "debug_modal_about_opened": {"message": "के बारे में मोडल सफलतापूर्वक खोला गया"},
+  "debug_modal_cancel": {"message": "मोडल रद्द बटन क्लिक"},
+  "debug_modal_clear_close": {"message": "डेटा साफ मोडल बंद कर रहे हैं"},
+  "debug_modal_clear_close_missing": {"message": "साफ मोडल बंद - एलिमेंट गुम"},
+  "debug_modal_clear_closed": {"message": "डेटा साफ मोडल सफलतापूर्वक बंद"},
+  "debug_modal_clear_data": {"message": "[DEBUG] साफ मोडल डेटा"},
+  "debug_modal_clear_element_missing": {"message": "डेटा साफ मोडल एलिमेंट गुम"},
+  "debug_modal_clear_escape": {"message": "साफ मोडल में Escape दबाया गया"},
+  "debug_modal_clear_init": {"message": "[DEBUG] साफ मोडल इनिट"},
+  "debug_modal_clear_open": {"message": "डेटा साफ मोडल खोल रहे हैं"},
+  "debug_modal_clear_opened": {"message": "डेटा साफ मोडल सफलतापूर्वक खोला गया"},
+  "debug_modal_closed": {"message": "[DEBUG] मोडल बंद"},
+  "debug_modal_constructor": {"message": "मोडल कंस्ट्रक्टर"},
+  "debug_modal_content_load": {"message": "मोडल कंटेंट लोड कर रहे हैं"},
+  "debug_modal_error": {"message": "[DEBUG] मोडल त्रुटि"},
+  "debug_modal_escape_pressed": {"message": "मोडल में Escape की दबाई गई"},
+  "debug_modal_hidden": {"message": "मोडल छुपाया गया"},
+  "debug_modal_hide": {"message": "मोडल छुपा रहे हैं"},
+  "debug_modal_initialized": {"message": "[DEBUG] मोडल इनिशियलाइज़"},
+  "debug_modal_initializing": {"message": "[DEBUG] मोडल इनिशियलाइज़ कर रहे हैं"},
+  "debug_modal_ok": {"message": "मोडल OK बटन क्लिक"},
+  "debug_modal_opened": {"message": "[DEBUG] मोडल खोला गया"},
+  "debug_modal_setup_background": {"message": "[DEBUG] मोडल सेटअप बैकग्राउंड"},
+  "debug_modal_setup_close": {"message": "[DEBUG] मोडल सेटअप बंद"},
+  "debug_modal_setup_overlay": {"message": "[DEBUG] मोडल सेटअप ओवरले"},
+  "debug_modal_show": {"message": "मोडल दिखा रहे हैं"},
+  "debug_modal_show_complete": {"message": "मोडल शो पूर्ण"},
+  "debug_modal_show_error": {"message": "मोडल शो त्रुटि"},
+  "debug_modal_show_promise_start": {"message": "मोडल शो प्रॉमिस शुरू कर रहे हैं"},
+  "debug_modal_system_init": {"message": "मोडल सिस्टम इनिशियलाइज़ कर रहे हैं"},
+  "debug_modal_system_ready": {"message": "मोडल सिस्टम तैयार"},
+  "debug_mode": {"message": "डिबग मोड"},
+  "debug_platform_detection_error": {"message": "प्लेटफॉर्म डिटेक्शन त्रुटि हुई"},
+  "debug_setting_reset": {
+    "message": "सेटिंग $KEY$ को $VALUE$ पर रीसेट",
+    "placeholders": {
+      "KEY": {
+        "content": "$1",
+        "example": "theme"
+      },
+      "VALUE": {
+        "content": "$2",
+        "example": "default"
+      }
+    }
+  },
+  "debug_settings_reset_complete": {"message": "सेटिंग्स रीसेट सफलतापूर्वक पूर्ण"},
+  "debug_settings_reset_count": {
+    "message": "$COUNT$ सेटिंग्स रीसेट कर रहे हैं",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "debug_settings_reset_error": {
+    "message": "सेटिंग्स रीसेट त्रुटि: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Storage error"
+      }
+    }
+  },
+  "debug_settings_reset_start": {"message": "सेटिंग्स रीसेट शुरू कर रहे हैं"},
+  "debug_system_ready": {"message": "डिबग सिस्टम इनिशियलाइज़ और तैयार"},
+  "debug_theme_apply_complete": {
+    "message": "थीम एप्लिकेशन पूर्ण: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "deepseek"
+      }
+    }
+  },
+  "debug_theme_apply_start": {
+    "message": "थीम लागू कर रहे हैं: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_change_complete": {
+    "message": "थीम परिवर्तन पूर्ण: $THEME$ ($NAME$)",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      },
+      "NAME": {
+        "content": "$2",
+        "example": "Claude"
+      }
+    }
+  },
+  "debug_theme_change_start": {
+    "message": "थीम परिवर्तन शुरू: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_colors_applied": {
+    "message": "थीम रंग लागू: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "grok"
+      }
+    }
+  },
+  "debug_theme_default_cleared": {"message": "डिफ़ॉल्ट थीम ने प्लेटफॉर्म स्टाइलिंग साफ की"},
+  "debug_theme_default_detected": {
+    "message": "डिफ़ॉल्ट थीम ने प्लेटफॉर्म पहचाना: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_default_using": {
+    "message": "डिफ़ॉल्ट थीम प्लेटफॉर्म का उपयोग: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_dropdown_set": {
+    "message": "थीम ड्रॉपडाउन सेट: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_grok_fx_added": {"message": "Grok शूटिंग स्टार इफेक्ट्स जोड़े गए"},
+  "debug_theme_load": {
+    "message": "थीम लोड: संग्रहीत=$STORED$, डिफ़ॉल्ट=$DEFAULT$, अंतिम=$FINAL$",
+    "placeholders": {
+      "STORED": {
+        "content": "$1",
+        "example": "chatgpt"
+      },
+      "DEFAULT": {
+        "content": "$2",
+        "example": "default"
+      },
+      "FINAL": {
+        "content": "$3",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_sync_error": {"message": "थीम सिंक्रोनाइज़ेशन त्रुटि"},
+  "debug_language_sync_error": {"message": "भाषा सिंक्रोनाइज़ेशन त्रुटि"},
+  "debug_toast_constructor": {"message": "टोस्ट कंपोनेंट कंस्ट्रक्टर"},
+  "debug_toast_ensure_host": {"message": "टोस्ट होस्ट एलिमेंट सुनिश्चित कर रहे हैं"},
+  "debug_toast_error": {"message": "त्रुटि टोस्ट कॉल"},
+  "debug_toast_hidden": {"message": "टोस्ट नोटिफिकेशन छुपाया गया"},
+  "debug_toast_hide": {"message": "टोस्ट नोटिफिकेशन छुपा रहे हैं"},
+  "debug_toast_host_created": {"message": "टोस्ट होस्ट एलिमेंट बनाया गया"},
+  "debug_toast_show": {"message": "टोस्ट नोटिफिकेशन दिखा रहे हैं"},
+  "debug_toast_shown": {"message": "टोस्ट नोटिफिकेशन दिखाया गया"},
+  "debug_toast_success": {"message": "सफलता टोस्ट कॉल"},
+  "debug_tooltip_cleanup": {"message": "[DEBUG] टूलटिप सफाई"},
+  "debug_tooltip_created": {"message": "[DEBUG] टूलटिप बनाया गया"},
+  "debug_tooltip_displayed": {"message": "टूलटिप सफलतापूर्वक प्रदर्शित"},
+  "debug_tooltip_error": {"message": "[DEBUG] टूलटिप त्रुटि"},
+  "debug_tooltip_escape_pressed": {"message": "टूलटिप में Escape दबाया गया"},
+  "debug_tooltip_help_clicked": {"message": "सहायता बटन क्लिक"},
+  "debug_tooltip_hidden": {"message": "टूलटिप सफलतापूर्वक छुपाया गया"},
+  "debug_tooltip_hide": {"message": "टूलटिप छुपा रहे हैं"},
+  "debug_tooltip_init": {"message": "[DEBUG] टूलटिप इनिट"},
+  "debug_tooltip_initialized": {"message": "[DEBUG] टूलटिप इनिशियलाइज़"},
+  "debug_tooltip_missing_text": {"message": "टूलटिप में टेक्स्ट एट्रिब्यूट गुम"},
+  "debug_tooltip_position": {"message": "[DEBUG] टूलटिप पोज़िशन"},
+  "debug_tooltip_setup": {"message": "[DEBUG] टूलटिप सेटअप"},
+  "debug_tooltip_show": {"message": "टूलटिप दिखा रहे हैं"},
+  "debug_tooltip_system_init": {"message": "टूलटिप सिस्टम इनिशियलाइज़ कर रहे हैं"},
+  "debug_tooltip_system_ready": {"message": "टूलटिप सिस्टम तैयार"},
+  "debug_ui_refresh_after_reset": {"message": "सेटिंग्स रीसेट के बाद UI रिफ्रेश कर रहे हैं"},
+  "debug_utils_message_send_error": {"message": "रनटाइम संदेश भेजना असफल"},
+  "debug_utils_message_send_start": {"message": "रनटाइम संदेश भेजना शुरू कर रहे हैं"},
+  "debug_utils_message_send_success": {"message": "रनटाइम संदेश सफलतापूर्वक भेजा गया"},
+  "debug_utils_storage_get_error": {"message": "स्टोरेज गेट ऑपरेशन असफल"},
+  "debug_utils_storage_get_start": {"message": "स्टोरेज गेट ऑपरेशन शुरू कर रहे हैं"},
+  "debug_utils_storage_get_success": {"message": "स्टोरेज गेट ऑपरेशन सफल"},
+  "debug_utils_storage_set_error": {"message": "स्टोरेज सेट ऑपरेशन असफल"},
+  "debug_utils_storage_set_start": {"message": "स्टोरेज सेट ऑपरेशन शुरू कर रहे हैं"},
+  "debug_utils_storage_set_success": {"message": "स्टोरेज सेट ऑपरेशन सफल"},
+  "debug_validation_custom_invalid": {"message": "[DEBUG] वैलिडेशन कस्टम अमान्य"},
+  "debug_validation_custom_start": {"message": "[DEBUG] वैलिडेशन कस्टम शुरू"},
+  "debug_validation_custom_valid": {"message": "[DEBUG] वैलिडेशन कस्टम मान्य"},
+  "debug_validation_display_check": {"message": "[DEBUG] वैलिडेशन डिस्प्ले चेक"},
+  "debug_validation_display_safe": {"message": "[DEBUG] वैलिडेशन डिस्प्ले सुरक्षित"},
+  "debug_validation_display_safety": {"message": "डिस्प्ले सुरक्षा चेक कर रहे हैं"},
+  "debug_validation_display_unsafe": {"message": "कंटेंट डिस्प्ले के लिए असुरक्षित"},
+  "debug_validation_error": {"message": "[DEBUG] वैलिडेशन त्रुटि"},
+  "debug_validation_event_name": {"message": "इवेंट नाम वैलिडेट कर रहे हैं"},
+  "debug_validation_extension_empty": {"message": "एक्सटेंशन इनपुट खाली है"},
+  "debug_validation_extension_invalid_input": {"message": "अमान्य एक्सटेंशन इनपुट प्रदान किया गया"},
+  "debug_validation_extension_risky": {"message": "जोखिम भरा एक्सटेंशन पहचाना गया"},
+  "debug_validation_extension_start": {"message": "एक्सटेंशन वैलिडेशन शुरू कर रहे हैं"},
+  "debug_validation_extension_truncated": {"message": "एक्सटेंशन 5 अक्षरों तक छोटा किया गया"},
+  "debug_validation_extension_valid": {"message": "एक्सटेंशन वैलिडेशन पास"},
+  "debug_validation_filename_complete": {"message": "फ़ाइलनेम वैलिडेशन पूर्ण"},
+  "debug_validation_filename_invalid_input": {"message": "अमान्य फ़ाइलनेम इनपुट प्रदान किया गया"},
+  "debug_validation_filename_no_extension": {"message": "फ़ाइलनेम बिना एक्सटेंशन के प्रोसेस"},
+  "debug_validation_filename_start": {"message": "फ़ाइलनेम वैलिडेशन शुरू कर रहे हैं"},
+  "debug_validation_filename_with_extension": {"message": "फ़ाइलनेम एक्सटेंशन के साथ प्रोसेस"},
+  "debug_validation_html_escape": {"message": "HTML कंटेंट एस्केप कर रहे हैं"},
+  "debug_validation_result": {"message": "[DEBUG] वैलिडेशन परिणाम"},
+  "debug_validation_sanitize_event": {"message": "[DEBUG] वैलिडेशन इवेंट सैनिटाइज़"},
+  "debug_validation_sanitize_filename": {"message": "[DEBUG] वैलिडेशन फ़ाइलनेम सैनिटाइज़"},
+  "debug_validation_system_init": {"message": "वैलिडेशन सिस्टम इनिशियलाइज़ कर रहे हैं"},
+  "debug_validation_system_ready": {"message": "वैलिडेशन सिस्टम तैयार"},
+  "debug_warn": {"message": "[चेतावनी]"},
+  "debug_warning": {"message": "[चेतावनी]"},
+
+  "debug_batch_content_too_short": {"message": "बैच प्रोसेसिंग के लिए कंटेंट बहुत छोटा"},
+  "debug_batch_split_insufficient": {"message": "कंटेंट को कई भागों में सार्थक रूप से विभाजित नहीं किया जा सका"},
+  "debug_batch_part_too_small": {"message": "भाग $1 बहुत छोटा है: $2 वर्ण"},
+  "debug_batch_structured_content": {"message": "संरचित कंटेंट का पता चला: $1"},
+  "debug_batch_too_few_lines": {"message": "सार्थक बैच विभाजन के लिए बहुत कम लाइनें: $1 लाइनें"},
+  "debug_file_content_empty": {"message": "कंटेंट खाली या अमान्य है"},
+  "debug_json_content_valid": {"message": "कंटेंट पहले से ही मान्य JSON है"},
+  "debug_json_parse_failed": {"message": "कंटेंट मान्य JSON नहीं है, सादे टेक्स्ट के रूप में माना जाएगा"},
+  "json_parse_failed_fallback": {"message": "JSON पार्सिंग विफल, सादे टेक्स्ट पर वापस जा रहे हैं"},
+  "debug_claude_replacing_pasted": {"message": "पेस्ट किए गए टेक्स्ट को फ़ाइल से बदल रहे हैं"},
+  "debug_file_no_content": {"message": "फ़ाइल में कोई कंटेंट नहीं"},
+  "default_auto_generated": {"message": "ऑटो-जेनरेट"},
+  "delay": {"message": "देरी"},
+  "delay_countdown": {
+    "message": "$SECONDS$ सेकंड में अटैच कर रहे हैं...",
+    "placeholders": {
+      "SECONDS": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "developer_website": {"message": "डेवलपर वेबसाइट"},
+  "development_team": {"message": "डेवलपमेंट टीम और सपोर्ट"},
+
+  "disabled_title": {"message": "इस पेज पर सुविधा अक्षम"},
+  "enter_custom": {"message": "कस्टम फॉर्मेट दर्ज करें"},
+  "errors": {"message": "त्रुटियां"},
+  "errors_attachment_failed": {"message": "फ़ाइल अटैचमेंट असफल। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
+  "errors_batch_processing_failed": {"message": "बैच प्रोसेसिंग असफल: $1"},
+  "errors_busy_processing": {"message": "दूसरी फ़ाइल अटैचमेंट प्रगति में है। कृपया प्रतीक्षा करें"},
+
+  "errors_connection_failed": {"message": "पेज से कनेक्ट नहीं हो सकता। कृपया रिफ्रेश करें और फिर कोशिश करें"},
+
+  "errors_export_failed": {"message": "एक्सपोर्ट असफल। कृपया फिर कोशिश करें"},
+  "errors_extension_context": {"message": "एक्सटेंशन कॉन्टेक्स्ट समस्या। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
+  "errors_extension_reloaded": {"message": "एक्सटेंशन रीलोड हो गया। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
+  "errors_network_error": {"message": "नेटवर्क त्रुटि। अपना इंटरनेट कनेक्शन चेक करें और फिर कोशिश करें"},
+  "errors_no_file_input": {"message": "फ़ाइल अपलोड एरिया नहीं मिल सकता। पहले प्लेटफॉर्म पर अटैचमेंट बटन क्लिक करने की कोशिश करें"},
+  "errors_no_input_field": {"message": "चैट इनपुट फील्ड नहीं मिल सकता। सुनिश्चित करें कि आप समर्थित AI चैट पेज पर हैं"},
+  "errors_no_response": {"message": "पेज से कोई प्रतिक्रिया नहीं। कृपया रिफ्रेश करें और फिर कोशिश करें"},
+  "errors_no_tab_access": {"message": "वर्तमान टैब तक पहुंच नहीं हो सकती। कृपया फिर कोशिश करें"},
+  "errors_no_text_input": {"message": "चैट इनपुट में कोई टेक्स्ट नहीं मिला। पहले अपना संदेश टाइप करें"},
+  "errors_permission_denied": {"message": "अनुमति अस्वीकृत। कृपया पेज रिफ्रेश करें और फिर कोशिश करें"},
+  "errors_platform_not_supported": {"message": "यह AI प्लेटफॉर्म समर्थित नहीं है। ChatGPT, Claude, Gemini, DeepSeek, या Grok आज़माएं"},
+  "errors_text_too_short": {"message": "टेक्स्ट बहुत छोटा ($1 शब्द)। न्यूनतम $2 शब्द आवश्यक"},
+  "errors_text_too_short_manual": {"message": "मैन्युअल सेव के लिए टेक्स्ट बहुत छोटा। या तो अधिक टेक्स्ट जोड़ें या न्यूनतम शब्द सेटिंग कम करें"},
+
+  "errors_invalid_content_type": {"message": "अमान्य कंटेंट: टेक्स्ट एक गैर-खाली स्ट्रिंग होना चाहिए"},
+  "errors_invalid_content_empty": {"message": "अमान्य कंटेंट: टेक्स्ट खाली नहीं हो सकता"},
+  "errors_file_creation_failed": {"message": "मान्य फ़ाइल ऑब्जेक्ट बनाने में असफल"},
+  "errors_text_content_empty": {"message": "टेक्स्ट कंटेंट खाली या अमान्य है"},
+  "errors_makefile_invalid_content": {"message": "makeFile को मान्य स्ट्रिंग कंटेंट की आवश्यकता है"},
+  "errors_fileattach_invalid_result": {"message": "fileAttachComponent ने अमान्य परिणाम लौटाया"},
+  "errors_platform_attach_failed": {"message": "प्लेटफॉर्म हैंडलर फ़ाइल अटैच करने में असफल"},
+  "errors_modal_not_available": {"message": "मोडल कंपोनेंट उपलब्ध नहीं"},
+  "export": {"message": "एक्सपोर्ट"},
+  "export_by_prefix": {"message": "प्रीफिक्स द्वारा एक्सपोर्ट"},
+  "export_filename_prefix": {"message": "फ़ाइलनेम प्रीफिक्स"},
+  "feature_request": {"message": "फीचर अनुरोध"},
+  "feature_request_desc": {"message": "इसे बेहतर बनाने के लिए नई सुविधाओं या सुधारों का सुझाव दें"},
+  "feedback_default_description": {"message": "कृपया अपनी फीडबैक या समस्या का वर्णन करें"},
+  "feedback_improvement_description": {"message": "आप कौन से सुधार देखना चाहेंगे?"},
+  "feedback_question": {"message": "आप किस प्रकार की फीडबैक भेजना चाहते हैं?"},
+  "feedback_sent": {"message": "फीडबैक सफलतापूर्वक भेजा गया"},
+  "feedback_support_description": {"message": "आप किस समस्या का सामना कर रहे हैं?"},
+  "file_blob_created": {"message": "फ़ाइल ब्लॉब बनाया गया"},
+
+  "file_creation_insights": {"message": "आपकी फ़ाइल निर्माण अंतर्दृष्टि"},
+  "file_creation_started": {"message": "फ़ाइल निर्माण शुरू"},
+  "file_format": {"message": "फ़ाइल फॉर्मेट"},
+  "file_format_auto_selected": {"message": "ऑटो-डिटेक्ट फॉर्मेट सक्षम"},
+  "file_format_back_to_main": {"message": "मुख्य फॉर्मेट पर वापस"},
+  "file_format_changed": {"message": "फ़ाइल फॉर्मेट अपडेट"},
+  "file_format_custom_format_set": {"message": "कस्टम फॉर्मेट सेट: $1"},
+  "file_format_enter_custom": {"message": "कस्टम एक्सटेंशन दर्ज करें"},
+  "file_format_format_selected": {"message": "फ़ाइल फॉर्मेट सेट: .$1"},
+  "file_format_next_page": {"message": "अगला पेज लोड"},
+  "file_format_previous_page": {"message": "पिछला लोड"},
+  "file_format_tooltip": {"message": "<span class='tip-badge settings'>सेटिंग्स</span> फ़ाइल प्रकार चुनें, या ऑटो-डिटेक्ट चुनें। ऑटो-डिटेक्ट कोड को गलत लेबल करने से बचने के लिए .txt के सुरक्षित फॉलबैक के साथ रूढ़िवादी भाषा पहचान का उपयोग करता है। कस्टम किसी भी एक्सटेंशन की अनुमति देता है लेकिन सावधानी से उपयोग करें।"},
+  "file_formats": {"message": "फ़ाइल फॉर्मेट"},
+  "file_operations": {"message": "फ़ाइल ऑपरेशन"},
+  "file_operations_attachment_attaching": {"message": "फ़ाइल अटैच कर रहे हैं"},
+  "file_operations_attachment_cancelled": {"message": "फ़ाइल अटैचमेंट रद्द"},
+  "file_operations_attachment_preparing": {"message": "आपकी फ़ाइल तैयार कर रहे हैं"},
+  "file_operations_attachment_success": {"message": "अटैच किया गया $1"},
+  "file_operations_attachment_uploading": {"message": "फ़ाइल अपलोड कर रहे हैं"},
+  "file_operations_batch_attaching": {"message": "अटैच कर रहे हैं $1"},
+  "file_operations_batch_detected": {"message": "बड़ा कंटेंट पहचाना गया। $1 फ़ाइलों में विभाजित कर रहे हैं"},
+  "file_operations_batch_processing": {"message": "फ़ाइल $1 का $2 प्रोसेस कर रहे हैं: $3"},
+  "file_operations_batch_processing_start": {"message": "$1 फ़ाइलें प्रोसेस कर रहे हैं"},
+  "file_operations_batch_success": {"message": "बैच से $1 फ़ाइलें प्रोसेस की गईं"},
+  "file_operations_batch_uploading": {"message": "अपलोड कर रहे हैं $1"},
+
+  "file_operations_manual_save_success": {"message": "फ़ाइल अटैच"},
+  "files_per_day": {"message": "प्रति दिन फ़ाइलें"},
+  "flash_called": {"message": "फ्लैश संदेश कॉल"},
+  "flash_timeout_set": {"message": "फ्लैश टाइमआउट कॉन्फ़िगर"},
+  "footer_copyright": {"message": "© 2025 · Multi-AI File Paster · द्वारा विकसित"},
+  "format_auto_detected": {"message": "फ़ाइल फॉर्मेट ऑटो-डिटेक्ट"},
+  "format_changed": {"message": "फ़ाइल फॉर्मेट बदला गया"},
+  "format_selected": {
+    "message": "फॉर्मेट $FORMAT$ चुना गया",
+    "placeholders": {
+      "FORMAT": {
+        "content": "$1",
+        "example": ".txt"
+      }
+    }
+  },
+  "general_feedback": {"message": "सामान्य फीडबैक"},
+  "general_feedback_desc": {"message": "अपने विचार, सुझाव, या उपयोगकर्ता अनुभव साझा करें"},
+  "github_repository": {"message": "GitHub रिपॉजिटरी"},
+  "github_star": {"message": "GitHub पर स्टार"},
+  "hostwek_logo": {"message": "Hostwek लोगो"},
+  "html_sections_about_modal_content": {"message": "के बारे में मोडल कंटेंट"},
+  "html_sections_controls_section": {"message": "नियंत्रण अनुभाग"},
+  "html_sections_feedback_modal_content": {"message": "फीडबैक मोडल कंटेंट"},
+  "html_sections_footer_section": {"message": "फुटर अनुभाग"},
+  "html_sections_header_section": {"message": "हेडर अनुभाग"},
+  "i18n_cleanup": {"message": "[DEBUG] i18n सफाई पूर्ण"},
+  "i18n_cleanup_complete": {"message": "i18n सफाई पूर्ण"},
+
+  "key_features": {"message": "मुख्य विशेषताएं:"},
+  "key_features_text": {"message": "ऑटो-डिटेक्ट आपकी सामग्री से सही फ़ाइल प्रकार चुनता है और .txt के गारंटीशुदा फॉलबैक के साथ। ChatGPT, Claude, Gemini, DeepSeek, और Grok में काम करता है। प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट, और कस्टम एक्सटेंशन सहित 20+ फ़ाइल फॉर्मेट का समर्थन करता है।"},
+  "keyboard_shortcut": {"message": "कीबोर्ड शॉर्टकट:"},
+  "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (मैन्युअल सेव)"},
+  "language_abbreviation": {"message": "भाषा"},
+  "language_abbreviation_": {"message": "भाषा"},
+  "language_abbreviation_ar": {"message": "AR"},
+  "language_abbreviation_en": {"message": "EN"},
+  "language_abbreviation_sw": {"message": "SW"},
+  "language_abbreviation_es": {"message": "ES"},
+  "language_abbreviation_ja": {"message": "JA"},
+  "language_abbreviation_fr": {"message": "FR"},
+  "language_abbreviation_ru": {"message": "RU"},
+  "language_abbreviation_zh": {"message": "ZH"},
+  "language_abbreviation_pt": {"message": "PT"},
+  "language_abbreviation_de": {"message": "DE"},
+  "language_arabic": {"message": "अरबी"},
+  "language_changed": {"message": "भाषा सफलतापूर्वक बदली गई"},
+  "language_chinese": {"message": "चीनी"},
+  "language_english": {"message": "अंग्रेजी"},
+  "language_french": {"message": "फ्रेंच"},
+  "language_german": {"message": "जर्मन"},
+  "language_hindi": {"message": "हिंदी"},
+  "language_japanese": {"message": "जापानी"},
+  "language_portuguese": {"message": "पुर्तगाली"},
+  "language_russian": {"message": "रूसी"},
+  "language_selector": {"message": "भाषा चयन"},
+  "language_spanish": {"message": "स्पेनिश"},
+  "language_swahili": {"message": "स्वाहिली"},
+  "lead_developer": {"message": "मुख्य डेवलपर:"},
+  "letters_numbers_only": {"message": "केवल अक्षर और संख्याएं"},
+  "line_chart": {"message": "लाइन"},
+  "loader_cleanup": {"message": "[DEBUG] लोडर सफाई पूर्ण"},
+  "loader_cleanup_complete": {"message": "लोडर सफाई पूर्ण"},
+  "manual_action": {"message": "मैन्युअल"},
+  "manual_action_tooltip": {"message": "<span class='tip-badge feature'>फीचर</span> चैट इनपुट में टाइप किए गए किसी भी टेक्स्ट को मैन्युअल रूप से फ़ाइल अटैचमेंट में बदलें। किसी भी AI प्लेटफॉर्म पर काम करता है। जब आप ऑटो-डिटेक्शन के बिना अपने वर्तमान संदेश से फ़ाइल बनाना चाहते हैं तो बिल्कुल सही।"},
+  "manual_drag_drop": {"message": "मैन्युअल ड्रैग और ड्रॉप की आवश्यकता हो सकती है"},
+  "max_files": {"message": "अधिकतम फ़ाइलें"},
+  "max_files_tooltip": {"message": "<span class='tip-badge settings'>सेटिंग्स</span> सामग्री को विभाजित करने के लिए फ़ाइलों की संख्या। रेंज: 2-4 फ़ाइलें। सामग्री को चुनी गई फ़ाइलों की संख्या में लाइनों द्वारा समान रूप से विभाजित किया जाता है। उच्च संख्याएं छोटी फ़ाइलें बनाती हैं लेकिन प्लेटफॉर्म स्पैम डिटेक्शन को ट्रिगर कर सकती हैं। केवल तभी सक्रिय होता है जब सामग्री आपकी शब्द सीमा सेटिंग से अधिक हो।"},
+  "min_words_tooltip": {"message": "<span class='tip-badge settings'>सेटिंग्स</span> ऑटो-अटैच केवल तभी चलता है जब आपका पेस्ट कम से कम इतना लंबा हो। अनुशंसित: 100+ शब्द ताकि छोटे संदेश इनलाइन रहें।"},
+  "min_words_trigger": {"message": "ट्रिगर के लिए न्यूनतम शब्द"},
+  "misc_section": {"message": "अन्य"},
+  "modal_description": {"message": "कस्टम फ़ाइल फॉर्मेट एक्सटेंशन दर्ज करें"},
+  "modal_hint": {"message": "स्वचालित पहचान के लिए खाली छोड़ें"},
+  "modal_keys_hint": {"message": "<kbd>Enter</kbd> सेव करने के लिए, <kbd>Esc</kbd> रद्द करने के लिए"},
+  "modal_placeholder": {"message": "जैसे txt, md, json..."},
+  "modal_title": {"message": "कस्टम फॉर्मेट"},
+  "modals_about_title": {"message": "Multi-AI File Paster के बारे में"},
+  "modals_help_content": {"message": "सहायता सामग्री"},
+  "modals_help_title": {"message": "सहायता"},
+  "more_formats": {"message": "अधिक फॉर्मेट…"},
+  "more_formats_loaded": {"message": "लोड"},
+  "network_error": {"message": "नेट त्रुटि"},
+  "new_version": {"message": "v1.1.0 में नया:"},
+  "new_version_text": {"message": "बैच मोड बड़ी सामग्री को कई फ़ाइलों में विभाजित करता है, स्मार्ट भाषा पहचान स्वचालित रूप से फ़ाइल एक्सटेंशन चुनती है, और बेहतर एनालिटिक्स डैशबोर्ड आपके उपयोग पैटर्न को ट्रैक करता है।"},
+  "next_page": {"message": "आगे"},
+  "no_data_yet": {"message": "कोई डेटा नहीं"},
+  "no_file_input": {"message": "फ़ाइल इनपुट नहीं मिला"},
+  "not_on_platform": {"message": "प्लेटफॉर्म असमर्थित"},
+  "permission_denied": {"message": "पहुंच अस्वीकृत"},
+  "platform_chatgpt": {"message": "OpenAI ChatGPT: chat.openai.com और chatgpt.com दोनों के लिए पूर्ण समर्थन"},
+  "platform_claude": {"message": "Anthropic Claude: claude.ai के साथ उन्नत एकीकरण जिसमें बिल्ट-इन फीचर्स के लिए ओवरराइड शामिल है"},
+  "platform_deepseek": {"message": "DeepSeek AI: chat.deepseek.com के साथ पूर्ण संगतता"},
+  "platform_gemini": {"message": "Google Gemini: gemini.google.com के लिए अनुकूलित फ़ाइल हैंडलिंग"},
+  "platform_grok": {"message": "Grok: grok.com के साथ मानक एकीकरण (अटैच बटन + ड्रैग-ड्रॉप)"},
+  "platform_specific_chatgpt_no_input": {"message": "ChatGPT फ़ाइल इनपुट नहीं मिल सकता। पहले अटैचमेंट बटन क्लिक करने की कोशिश करें, फिर पुनः प्रयास करें"},
+  "platform_specific_claude_no_input": {"message": "Claude फ़ाइल इनपुट नहीं मिल सकता। पहले अटैचमेंट आइकन क्लिक करने की कोशिश करें, फिर पुनः प्रयास करें"},
+  "platform_specific_gemini_no_input": {"message": "Gemini फ़ाइल इनपुट नहीं मिल सकता। पहले पेपरक्लिप आइकन क्लिक करने की कोशिश करें, फिर पुनः प्रयास करें"},
+  "platform_specific_generic_no_input": {"message": "पहले प्लेटफॉर्म पर अटैचमेंट बटन क्लिक करने की कोशिश करें, फिर पुनः प्रयास करें"},
+  "platform_specific_manual_drag_drop": {"message": "अभी भी फ़ाइल इनपुट नहीं मिल सकता। कृपया फ़ाइल को चैट में खींचकर मैन्युअल रूप से अटैच करें"},
+  "platform_specific_try_attachment_button": {"message": "अटैचमेंट बटन आज़माएं"},
+  "platforms_chatgpt": {"message": "ChatGPT: chat.openai.com के साथ पूर्ण एकीकरण"},
+  "platforms_claude": {"message": "Claude: claude.ai बातचीत के लिए मूल समर्थन"},
+  "platforms_deepseek": {"message": "DeepSeek: chat.deepseek.com के लिए पूर्ण समर्थन"},
+  "platforms_description": {"message": "सबसे लोकप्रिय AI चैट प्लेटफॉर्म के साथ एकीकृत:"},
+  "platforms_gemini": {"message": "Gemini: gemini.google.com के साथ निर्बाध एकीकरण"},
+  "platforms_grok": {"message": "Grok: x.ai प्लेटफॉर्म के साथ पूर्ण संगतता"},
+  "platforms_why": {"message": "यह क्यों मायने रखता है:"},
+  "platforms_why_text": {"message": "प्रत्येक प्लेटफॉर्म में अलग फ़ाइल अटैचमेंट सिस्टम हैं। हमारा एक्सटेंशन इन अंतरों को स्वचालित रूप से संभालता है, यह सुनिश्चित करते हुए कि आप जो भी AI उपयोग कर रहे हैं, आपकी फ़ाइलें सही तरीके से अटैच हों।"},
+  "popup_cleanup": {"message": "[DEBUG] पॉपअप सफाई पूर्ण"},
+  "popup_cleanup_complete": {"message": "पॉपअप सफाई पूर्ण"},
+  "powered_by": {"message": "द्वारा संचालित"},
+  "previous_page": {"message": "पीछे"},
+  "privacy": {"message": "गोपनीयता"},
+  "privacy_description": {"message": "सभी टेक्स्ट प्रोसेसिंग पूरी तरह से आपके डिवाइस पर होती है। आपकी सामग्री आपके कंप्यूटर को कभी नहीं छोड़ती - कोई सर्वर नहीं, कोई क्लाउड प्रोसेसिंग नहीं, कोई डेटा ट्रांसमिशन नहीं।"},
+  "privacy_do": {"message": "फ़ाइल अटैचमेंट बनाने के लिए आपके टेक्स्ट को स्थानीय रूप से प्रोसेस करें, फिर तुरंत प्रोसेस किए गए डेटा को त्याग दें। सरल, सुरक्षित, पारदर्शी।"},
+  "privacy_dont": {"message": "हम कभी भी आपकी टेक्स्ट सामग्री, URL, व्यक्तिगत जानकारी, या ब्राउज़िंग डेटा को नहीं पढ़ते, स्टोर करते या ट्रांसमिट करते। AI के साथ आपकी बातचीत पूरी तरह से निजी रहती है।"},
+  "reset_modal_changes_title": {"message": "यह रीसेट करेगा:"},
+  "reset_modal_debug_item": {"message": "डिबग स्तर: केवल त्रुटियां"},
+  "reset_modal_question": {"message": "क्या आप वाकई सभी Multi-AI File Paster सेटिंग्स को उनकी डिफ़ॉल्ट वैल्यू पर रीसेट करना चाहते हैं?"},
+  "reset_modal_theme_item": {"message": "थीम: डिफ़ॉल्ट"},
+  "reset_modal_title": {"message": "सेटिंग्स रीसेट करें"},
+  "reset_modal_warning": {"message": "यह क्रिया पूर्ववत नहीं की जा सकती।"},
+  "reset_to_default": {"message": "डिफ़ॉल्ट पर रीसेट करें"},
+  "resources": {"message": "संसाधन:"},
+  "retry": {"message": "पुनः प्रयास"},
+  "saving": {"message": "सेव कर रहे हैं..."},
+  "scrum_master": {"message": "स्क्रम मास्टर:"},
+  "searching_for_file_input": {"message": "फ़ाइल इनपुट खोज रहे हैं..."},
+  "send_feedback": {"message": "फीडबैक भेजें"},
+  "sending_message_to_content": {"message": "कंटेंट स्क्रिप्ट को संदेश भेज रहे हैं"},
+  "setting_save_initiated": {"message": "सेटिंग सेव शुरू"},
+  "setting_saved_to_storage": {"message": "सेटिंग स्टोरेज में सेव"},
+  "settings_auto_attach_disabled": {"message": "ऑटो अटैच अक्षम। फ़ाइलें अटैच करने के लिए मैन्युअल सेव बटन का उपयोग करें"},
+  "settings_auto_attach_enabled": {"message": "ऑटो अटैच सक्षम। जब आप पेस्ट करेंगे तो फ़ाइलें स्वचालित रूप से अटैच होंगी"},
+
+  "settings_batch_delay_updated": {"message": "बैच प्रोसेसिंग देरी $1ms सेट"},
+  "settings_batch_mode_disabled": {"message": "बैच मोड अक्षम। ऑटो अटैच बहाल"},
+  "settings_batch_mode_enabled": {"message": "बैच मोड सक्षम। बैच मोड सक्रिय होने पर ऑटो अटैच अक्षम"},
+  "settings_claude_override_disabled": {"message": "Claude ओवरराइड अक्षम। Claude बिल्ट-इन फीचर्स का उपयोग करेगा"},
+  "settings_claude_override_enabled": {"message": "Claude ओवरराइड सक्षम। एक्सटेंशन Claude पर काम करेगा"},
+
+  "settings_debug_disabled": {"message": "डिबग मोड अक्षम"},
+  "settings_debug_enabled": {"message": "डिबग मोड सक्षम"},
+  "settings_delay_disabled": {"message": "अटैचमेंट देरी अक्षम"},
+  "settings_delay_enabled": {"message": "$1 सेकंड के लिए अटैचमेंट देरी सक्षम"},
+  "settings_max_batch_files_updated": {"message": "अधिकतम बैच फ़ाइलें $1 सेट"},
+  "settings_reset": {"message": "सेटिंग्स डिफ़ॉल्ट वैल्यू पर रीसेट"},
+  "settings_saving": {"message": "सेटिंग्स सेव कर रहे हैं"},
+  "settings_telemetry_disabled": {"message": "एनालिटिक्स अक्षम। कोई उपयोग डेटा एकत्र नहीं किया जाएगा"},
+  "settings_telemetry_enabled": {"message": "एनालिटिक्स सक्षम। यह एक्सटेंशन को बेहतर बनाने में मदद करता है"},
+  "settings_word_limit_updated": {"message": "शब्द सीमा $1 शब्दों में अपडेट"},
+  "smart_file_attachment": {"message": "AI चैट के लिए स्मार्ट फ़ाइल अटैचमेंट"},
+  "star_github": {"message": "⭐ GitHub पर स्टार"},
+  "status_connected": {
+    "message": "$PLATFORM$ से कनेक्ट",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "stopped_on": {
+    "message": "$MODEL$ पर रुका",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "success_analytics_exported": {"message": "एनालिटिक्स डेटा सफलतापूर्वक एक्सपोर्ट"},
+  "success_feedback_sent": {"message": "फीडबैक ईमेल सफलतापूर्वक खोला गया! हमें बेहतर बनाने में मदद करने के लिए धन्यवाद।"},
+  "success_github_star": {"message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> धन्यवाद! रिपॉजिटरी को स्टार करने के लिए GitHub खोल रहे हैं"},
+  "success_not_on_platform": {"message": "समर्थित AI प्लेटफॉर्म पर नहीं। पहले ChatGPT, Claude, Gemini, DeepSeek, या Grok खोलें"},
+  "support_contacts": {"message": "सहायता संपर्क:"},
+  "support_request": {"message": "सहायता अनुरोध"},
+  "support_request_desc": {"message": "समस्याओं, बग्स, या तकनीकी समस्याओं के साथ सहायता प्राप्त करें"},
+  "supported_platforms": {"message": "समर्थित AI प्लेटफॉर्म"},
+  "system_unavailable": {"message": "सिस्टम अनुपलब्ध"},
+  "tab_detection": {"message": "टैब प्लेटफॉर्म डिटेक्शन"},
+  "technical_issues": {"message": "तकनीकी समस्याएं:"},
+  "theme_changed": {
+    "message": "थीम $THEME$ में बदला गया",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "theme_chatgpt": {"message": "ChatGPT"},
+  "theme_claude": {"message": "Claude"},
+  "theme_deepseek": {"message": "DeepSeek"},
+  "theme_default": {"message": "डिफ़ॉल्ट"},
+  "theme_gemini": {"message": "Gemini"},
+  "theme_grok": {"message": "Grok"},
+  "theme_selection": {"message": "थीम"},
+  "theme_selection_tooltip": {"message": "<span class='tip-badge settings'>सेटिंग्स</span> हाइलाइटिंग और रंगों के लिए अपनी पसंदीदा थीम चुनें। प्रत्येक थीम एक्सटेंशन इंटरफेस के लिए अलग विज़ुअल स्टाइलिंग प्रदान करती है।"},
+  "this_week": {"message": "इस सप्ताह"},
+  "toast_cleanup": {"message": "[DEBUG] टोस्ट सफाई पूर्ण"},
+  "toast_cleanup_complete": {"message": "टोस्ट सफाई पूर्ण"},
+  "toggle_theme": {"message": "थीम टॉगल करें"},
+  "tooltips_cleanup": {"message": "[DEBUG] टूलटिप्स सफाई पूर्ण"},
+  "tooltips_cleanup_complete": {"message": "टूलटिप्स सफाई पूर्ण"},
+  "top_models": {"message": "टॉप मॉडल"},
+  "total_files": {"message": "कुल फ़ाइलें"},
+  "translating_wait": {"message": "अनुवाद कर रहे हैं, कृपया प्रतीक्षा करें..."},
+  "try_attachment_button": {"message": "इसके बजाय अटैचमेंट बटन का उपयोग करने की कोशिश करें"},
+
+  "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर ऑटो अटैच अक्षम है। बैच मोड विभाजित सामग्री के लिए स्वचालित रूप से फ़ाइल अटैचमेंट को संभालता है। नियमित एकल फ़ाइलों के लिए ऑटो अटैच का उपयोग करने के लिए बैच मोड बंद करें।"},
+  "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर यह सेटिंग अक्षम है। बैच मोड फ़ाइल अपलोड के लिए अपनी देरी सेटिंग का उपयोग करता है। इस देरी सेटिंग का उपयोग करने के लिए बैच मोड बंद करें।"},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>बैच सक्रिय</span> बैच मोड सक्षम होने पर मैन्युअल एक्शन बैच प्रोसेसिंग नियमों का उपयोग करता है। नियमित एकल फ़ाइल प्रोसेसिंग के लिए बैच मोड बंद करें।"},
+  "ui_components_custom_format_label": {"message": "कस्टम"},
+  "ui_components_custom_format_placeholder": {"message": "जैसे log, cfg, data"},
+  "ui_components_data_cleared_success": {"message": "डेटा सफलतापूर्वक साफ"},
+  "ui_components_delay_countdown": {"message": "$1 सेकंड में अटैच कर रहे हैं"},
+
+  "ui_components_disabled_title": {"message": "AI चैट खोलें और फ़ाइल के रूप में अटैच करने के लिए टेक्स्ट टाइप करें"},
+  "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
+  "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
+  "ui_components_feedback_default_description": {"message": "फीडबैक या सुझाव"},
+  "ui_components_feedback_improvement_description": {"message": "फीचर अनुरोध या सुधार विचार"},
+  "ui_components_feedback_support_description": {"message": "समस्या या प्रश्न"},
+  "ui_components_language_changed": {
+    "message": "भाषा $LANGUAGE$ में बदली गई",
+    "placeholders": {
+      "LANGUAGE": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_modal_description": {"message": "फ़ाइलनेम दर्ज करें (एक्सटेंशन के बिना)। डिफ़ॉल्ट नाम का उपयोग करने के लिए खाली छोड़ें।"},
+  "ui_components_modal_hint": {"message": "अनुमतित: अक्षर, संख्याएं, स्पेस, डैश, अंडरस्कोर (अधिकतम 64)। कोई एक्सटेंशन नहीं।"},
+  "ui_components_modal_keys_hint": {"message": "सेव करने के लिए <span class=\"key\">Enter</span> दबाएं · रद्द करने के लिए <span class=\"key\">Esc</span>"},
+  "ui_components_modal_placeholder": {"message": "जैसे conversation-notes"},
+  "ui_components_modal_save": {"message": "सेव"},
+  "ui_components_modal_title": {"message": "फ़ाइल का नाम बदलें"},
+  "ui_components_searching_for_file_input": {"message": "फ़ाइल इनपुट खोज रहे हैं"},
+  "ui_components_stopped_on": {"message": "पर रुका"},
+  "ui_components_toggle_theme": {"message": "थीम टॉगल करें"},
+  "usage_analytics": {"message": "उपयोग एनालिटिक्स"},
+  "use_delay": {"message": "देरी का उपयोग करें"},
+  "use_delay_tooltip": {"message": "<span class='tip-badge timing'>टाइमिंग</span> अटैच करने से पहले एक छोटा काउंटडाउन जोड़ता है। यदि आप कभी-कभी गलती से पेस्ट करते हैं तो सहायक - आप काउंटडाउन के दौरान रद्द कर सकते हैं।"},
+  "using_popup_flash": {"message": "पॉपअप फ्लैश डिस्प्ले का उपयोग कर रहे हैं"},
+  "validation_extension_required": {"message": "एक्सटेंशन आवश्यक है"},
+  "validation_invalid_characters": {"message": "केवल अक्षर, संख्याएं, स्पेस, डैश और अंडरस्कोर की अनुमति है"},
+  "validation_letters_numbers_only": {"message": "केवल अक्षर या संख्याएं दर्ज करें"},
+  "validation_no_dots_needed": {"message": "कोई डॉट्स या एक्सटेंशन की आवश्यकता नहीं - फ़ाइल फॉर्मेट एक्सटेंशन पॉपअप में सेट है"},
+  "validation_security_risk": {"message": "सुरक्षा जोखिम: एक्जीक्यूटेबल एक्सटेंशन की अनुमति नहीं है"},
+  "validation_security_risk_executable": {"message": "सुरक्षा जोखिम: एक्जीक्यूटेबल फ़ाइल एक्सटेंशन की अनुमति नहीं है"},
+  "validation_system_unavailable": {"message": "वैलिडेशन सिस्टम उपलब्ध नहीं"},
+  "view_on_github": {"message": "GitHub पर देखें"},
+  "wekturbo_page": {"message": "WekTurbo पेज"},
+  "what_we_do": {"message": "हम क्या करते हैं:"},
+  "what_we_dont_do": {"message": "हम क्या नहीं करते:"},
+  "zero_data_collection": {"message": "शून्य डेटा संग्रह:"},
+  "batch_part_created": {"message": "बैच भाग सफलतापूर्वक बनाया गया"},
+  "batch_part_skipped": {"message": "बैच भाग छोड़ा गया - सामग्री बहुत छोटी"},
+  "batch_split_avoided": {"message": "संरचित सामग्री के लिए बैच विभाजन से बचा गया"},
+  "batch_split_insufficient": {"message": "सामग्री को सार्थक रूप से भागों में विभाजित नहीं किया जा सका"},
+  "batch_split_skipped": {"message": "बैच प्रोसेसिंग के लिए सामग्री बहुत छोटी"},
+  "blob_creation_error": {"message": "फ़ाइल ब्लॉब बनाने में असफल"},
+  "claude_creating_file": {"message": "Claude प्लेटफॉर्म के लिए फ़ाइल बना रहे हैं"},
+  "claude_file_attached": {"message": "फ़ाइल सफलतापूर्वक Claude से अटैच"},
+  "claude_invalid_text": {"message": "Claude प्रोसेसिंग के लिए अमान्य टेक्स्ट सामग्री"},
+  "claude_removing_pasted_element": {"message": "Claude से पेस्ट किए गए टेक्स्ट एलिमेंट को हटा रहे हैं"},
+  "debug_using_popup_flash": {"message": "कंटेंट टेक्स्ट के बजाय पॉपअप फ्लैश का उपयोग"},
+
+  "empty_file_created": {"message": "चेतावनी: खाली फ़ाइल बनाई गई"},
+  "fileAttachComponent_error": {"message": "फ़ाइल अटैचमेंट कंपोनेंट में त्रुटि आई"},
+  "file_creation_complete": {"message": "फ़ाइल निर्माण प्रक्रिया पूर्ण"},
+  "file_creation_empty_content": {"message": "चेतावनी: बिना सामग्री के फ़ाइल बनाई गई"},
+  "file_extension_decision": {"message": "फ़ाइल एक्सटेंशन निर्णय पूर्ण"},
+  "file_extension_fallback": {"message": "फॉलबैक फ़ाइल एक्सटेंशन का उपयोग कर रहे हैं"},
+  "json_content_valid": {"message": "सामग्री पहले से ही मान्य JSON है"},
+  "language_detection_fallback": {"message": "फॉलबैक विधि का उपयोग करके भाषा पहचान"},
+  "language_detection_success": {"message": "भाषा पहचान सफलतापूर्वक पूर्ण"},
+  "makeFile_invalid_content": {"message": "makeFile फ़ंक्शन को अमान्य सामग्री प्रदान की गई"},
+  "makeFile_invalid_format": {"message": "makeFile फ़ंक्शन को अमान्य फॉर्मेट प्रदान किया गया"},
+  "ui_components_config_error": {"message": "कॉन्फ़िगरेशन त्रुटि"},
+  "ui_components_reset_failed": {"message": "रीसेट असफल"}
+}

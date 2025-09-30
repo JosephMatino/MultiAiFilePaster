@@ -1,0 +1,885 @@
+{
+  "extension_name": {"message": "Multi-AI File Paster"},
+  "extension_description": {"message": "Автоматически создавать вложения из вставленного текстового контента в ChatGPT, Claude, Gemini, DeepSeek и Grok. Включает пакетную обработку и сжатие файлов."},
+  "extension_short_name": {"message": "Multi-AI"},
+  "extension_context": {"message": "Контекст расширения потерян - пожалуйста, обновите страницу"},
+  "extension_reloaded": {"message": "Расширение перезагружено - пожалуйста, обновите страницу"},
+  "extension_support": {"message": "Поддержка расширения:"},
+  "header_title": {"message": "Multi-AI File Paster"},
+  "header_subtitle": {"message": "Автоматически конвертирует длинные вставки и прикрепляет чистые файлы в ChatGPT, Claude, Gemini, DeepSeek и Grok. Поддерживает авто-определение и более 20 форматов, включая файлы кода."},
+  "about_description": {"message": "Multi-AI File Paster определяет, когда вы вставляете длинный текст (код, документацию, данные) и конвертирует его в правильно отформатированные файлы. Это поддерживает разговоры в чистоте и в пределах лимитов платформ."},
+  "about_help": {"message": "О программе и помощь"},
+  "ai_model_default": {"message": "ИИ модель"},
+  "ai_platforms": {"message": "ИИ платформы"},
+  "all_time": {"message": "Все время"},
+  "analytics": {"message": "Аналитика"},
+  "analytics_all_time": {"message": "Все время"},
+  "analytics_analytics_updated": {
+    "message": "Аналитика обновлена: $PERIOD$",
+    "placeholders": {
+      "PERIOD": {
+        "content": "$1",
+        "example": "Последние 7 дней"
+      }
+    }
+  },
+  "analytics_chart_error": {"message": "Ошибка графика"},
+  "analytics_chart_unavailable": {"message": "График недоступен"},
+  "analytics_cleanup": {"message": "[DEBUG] Очистка аналитики завершена"},
+  "analytics_cleanup_complete": {"message": "Очистка аналитики завершена"},
+  "analytics_clearing_data": {"message": "Очистка данных..."},
+  "analytics_days_ago": {
+    "message": "$DAYS$ дней назад",
+    "placeholders": {
+      "DAYS": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "analytics_description": {"message": "Помогите улучшить расширение, делясь только анонимными счетчиками использования (созданные файлы, встреченные ошибки). Никогда не собирает контент, URL или персональные данные. Полностью опционально и может быть отключено в любое время."},
+  "analytics_error_loading": {"message": "Ошибка загрузки данных"},
+  "analytics_exported": {"message": "Данные аналитики экспортированы"},
+  "analytics_files_label": {"message": "файлы"},
+  "analytics_last_30_days": {"message": "Последние 30 дней"},
+  "analytics_last_7_days": {"message": "Последние 7 дней"},
+  "analytics_last_90_days": {"message": "Последние 90 дней"},
+  "analytics_no_data": {"message": "Нет данных"},
+  "analytics_note": {"message": "Примечание:"},
+  "analytics_note_text": {"message": "Панель аналитики видна только когда эта опция включена."},
+  "analytics_today": {"message": "Сегодня"},
+  "analytics_yesterday": {"message": "Вчера"},
+  "anonymous_analytics": {"message": "Анонимная аналитика использования (опционально)"},
+
+  "aria_batch_delay": {"message": "Пакетная задержка"},
+  "aria_batch_processing": {"message": "Пакетная обработка"},
+  "aria_chart_type": {"message": "Тип графика"},
+  "aria_choose_debug_level": {"message": "Выбрать уровень отладки"},
+  "aria_choose_file_format": {"message": "Выбрать формат файла"},
+  "aria_choose_theme": {"message": "Выбрать тему"},
+  "aria_claude_override": {"message": "Переопределение Claude"},
+
+  "aria_custom_format_help": {"message": "Помощь по пользовательскому формату"},
+  "aria_debug_level": {"message": "Помощь по уровню отладки"},
+  "aria_delay_seconds": {"message": "Секунды задержки (1-15)"},
+  "aria_files_per_day_chart": {"message": "Линейный график файлов в день"},
+  "aria_files_per_day_trend": {"message": "Тренд файлов в день"},
+  "aria_hostwek_website": {"message": "Веб-сайт Hostwek"},
+  "aria_more_file_formats": {"message": "Больше форматов файлов"},
+  "aria_theme_help": {"message": "Помощь по выбору темы"},
+  "aria_what_is_auto_attach": {"message": "Что такое авто-прикрепление?"},
+  "aria_what_is_delay": {"message": "Что такое задержка?"},
+  "aria_what_is_min_words": {"message": "Что такое мин. слова?"},
+  "attach_typed_text": {"message": "Прикрепить как файл"},
+  "attachment_attaching": {"message": "Прикрепление файла..."},
+  "attachment_cancelled": {"message": "Прикрепление отменено"},
+  "attachment_failed": {"message": "Ошибка прикрепления"},
+  "attachment_preparing": {"message": "Подготовка файла..."},
+  "attachment_success": {
+    "message": "Успешно прикреплен $FILE$",
+    "placeholders": {
+      "FILE": {
+        "content": "$1",
+        "example": "document.txt"
+      }
+    }
+  },
+  "attachment_uploading": {"message": "Загрузка файла..."},
+  "auto_attach": {"message": "Авто"},
+  "auto_attach_tooltip": {"message": "<span class='tip-badge feature'>ФУНКЦИЯ</span> Конвертирует длинные вставки в чистый файл и автоматически прикрепляет его к вашему разговору. Поддерживает сообщения в порядке и в пределах лимитов на ChatGPT, Claude, Gemini, DeepSeek и Grok. Отключите для обычной вставки и использования ручного сохранения."},
+  "auto_detect": {"message": "Авто-определение"},
+  "auto_filename_generated": {"message": "Автоматическое имя файла сгенерировано"},
+  "back_to_main": {"message": "Назад"},
+  "banner_not_supported": {"message": "Эта страница не поддерживается"},
+  "bar_chart": {"message": "Столбцы"},
+  "batch_active_badge": {"message": "ПАКЕТ"},
+  "batch_active_short": {"message": "ПАКЕТ АКТИВЕН"},
+  "batch_active_tip": {"message": "Пакетный режим активен - несколько файлов будут обработаны"},
+  "batch_auto_attach_tip": {"message": "Авто-прикрепление обработает все файлы в пакетном режиме"},
+
+  "batch_delay_tip": {"message": "Задержка применяется к каждому файлу в пакетной обработке"},
+  "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>ВРЕМЯ</span> Задержка между загрузкой каждого пакетного файла (100мс до 2000мс). Более высокие задержки снижают шансы быть отмеченным как спам ИИ платформами. Эта настройка автоматически отключается когда основная кнопка 'Пользовательская задержка' активна выше - в этом случае основная настройка задержки имеет приоритет для всех загрузок файлов."},
+  "batch_detected": {
+    "message": "Пакетный режим: обнаружено $COUNT$ файлов",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "batch_mode": {"message": "Пакетный режим"},
+  "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>БЕТА</span> Разделяет большой контент на несколько файлов на основе вашей настройки макс. файлов. Разделяет контент по строкам и использует умное определение языка для расширений файлов. Создает файлы с именами part1, part2, part3, part4. Идеально для разделения больших документов, файлов кода или любого контента, превышающего лимиты платформ. Каждая часть получает соответствующее расширение файла на основе анализа контента."},
+  "beta": {"message": "БЕТА"},
+  "cancel": {"message": "Отмена"},
+  "claude_override": {"message": "Переопределить авто Claude"},
+  "claude_override_tooltip": {"message": "<span class='tip-badge feature'>ФУНКЦИЯ</span> Claude включает свою собственную функцию вставки-в-файл. Включите это чтобы всегда использовать Multi-AI File Paster для более последовательного форматирования и именования."},
+  "clear_all_data": {"message": "Очистить все данные"},
+  "clear_analytics_data": {"message": "Очистить данные аналитики"},
+  "clear_data": {"message": "Очистить данные"},
+  "clear_data_warning": {"message": "Это навсегда удалит всю вашу статистику использования и не может быть отменено."},
+  "close": {"message": "Закрыть"},
+  "company": {"message": "Компания:"},
+
+  "config_analytics_dashboard": {"message": "Панель аналитики: отслеживание паттернов использования и статистики создания файлов"},
+  "config_auto_attach": {"message": "Авто-прикрепление: автоматически определяет и конвертирует длинные вставки (настраиваемый порог слов: 50-15 000 слов)"},
+  "config_batch_processing": {"message": "Пакетная обработка: разделение большого контента на 2-4 файла с умным разделением по строкам"},
+  "config_claude_integration": {"message": "Интеграция Claude: работает с или заменяет встроенную функцию вставки-в-файл Claude"},
+  "config_delay": {"message": "Задержка: опциональный обратный отсчет 1-15 секунд предотвращает случайные прикрепления"},
+
+  "config_manual_override": {"message": "Ручное переопределение: конвертация по требованию набранного текста в вложения"},
+  "config_multi_format": {"message": "Поддержка мульти-формата: выбор из более чем 20 типов файлов, включая языки программирования, разметку, форматы данных и пользовательские расширения"},
+  "config_platform_optimization": {"message": "Оптимизация платформы: специальная обработка для уникальной системы прикрепления файлов каждой ИИ платформы"},
+  "configuration": {"message": "Настройки"},
+  "connected_to": {
+    "message": "Подключен к $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "console_component_init_error": {"message": "Ошибка инициализации компонента:"},
+  "console_config_load_failed": {"message": "GPTPF: Не удалось загрузить config.js в фоновом воркере:"},
+  "console_i18n_load_failed": {"message": "Не удалось загрузить сообщения для"},
+  "console_manual_save_error": {"message": "Ошибка ручного сохранения:"},
+  "console_platform_handler_error": {"message": "Ошибка обработчика платформы:"},
+  "content_cleanup": {"message": "[DEBUG] Очистка контента завершена"},
+  "content_cleanup_complete": {"message": "Очистка скрипта контента завершена"},
+  "custom_filename_processed": {"message": "Пользовательское имя файла обработано"},
+  "custom_format_label": {"message": "Пользовательский:"},
+  "custom_format_placeholder": {"message": "Введите формат (напр. txt, md, json)"},
+  "custom_format_set": {
+    "message": "Пользовательский формат установлен на .$EXT$",
+    "placeholders": {
+      "EXT": {
+        "content": "$1",
+        "example": "txt"
+      }
+    }
+  },
+  "custom_format_tooltip": {"message": "<span class='tip-badge security'>БЕЗОПАСНОСТЬ</span> Вводите только буквы/цифры расширения без точек (напр., log, data, cfg). Рискованные исполняемые типы заблокированы."},
+  "data_cleared_success": {"message": "Все данные успешно очищены"},
+  "days_30": {"message": "30 дней"},
+  "days_7": {"message": "7 дней"},
+  "days_90": {"message": "90 дней"},
+  "debug_analytics_clear_confirm": {"message": "Подтверждение очистки аналитики"},
+  "debug_analytics_data_cleared": {"message": "Данные аналитики очищены из хранилища"},
+  "debug_background_command_received": {"message": "Получена фоновая команда"},
+  "debug_background_config_resolve": {"message": "Разрешение фоновой конфигурации"},
+  "debug_background_config_resolved": {"message": "Фоновая конфигурация разрешена"},
+  "debug_background_config_unavailable": {"message": "Фоновая конфигурация недоступна"},
+  "debug_background_extension_installed": {"message": "Событие установки расширения"},
+  "debug_background_extension_startup": {"message": "Событие запуска расширения"},
+  "debug_background_extension_updated": {"message": "Расширение обновлено"},
+  "debug_background_first_install": {"message": "Первая установка"},
+  "debug_background_get_debug_request": {"message": "Получен запрос на отладку"},
+  "debug_background_get_settings_request": {"message": "Получен запрос настроек"},
+  "debug_background_message_received": {"message": "Получено фоновое сообщение"},
+  "debug_background_metric_event_request": {"message": "Получен запрос события метрики"},
+  "debug_background_platform_check_request": {"message": "Получен запрос проверки платформы"},
+  "debug_background_save_chat_complete": {"message": "Операция сохранения чата завершена"},
+  "debug_background_save_chat_start": {"message": "Начало операции сохранения чата"},
+  "debug_background_save_connection_failed": {"message": "Соединение не удалось во время сохранения"},
+  "debug_background_save_message_request": {"message": "Получен запрос сохранения сообщения"},
+  "debug_background_save_no_tab": {"message": "Не найдена активная вкладка для сохранения"},
+  "debug_background_save_unsupported_platform": {"message": "Неподдерживаемая платформа для сохранения"},
+  "debug_background_script_init": {"message": "Инициализация фонового скрипта"},
+  "debug_background_scripts_loaded": {"message": "Фоновые скрипты успешно загружены"},
+  "debug_background_set_settings_request": {"message": "Получен запрос установки настроек"},
+  "debug_background_settings_get": {"message": "Получение фоновых настроек"},
+  "debug_background_settings_saved": {"message": "Фоновые настройки сохранены"},
+  "debug_background_settings_set": {"message": "Установка фоновых настроек"},
+  "debug_badge_refresh_error": {"message": "Произошла ошибка обновления значка"},
+  "debug_badges_refreshed": {"message": "Значки платформы успешно обновлены"},
+  "debug_config_defaults_missing": {"message": "Отсутствует объект DEFAULTS конфигурации"},
+  "debug_config_error": {"message": "[DEBUG] Ошибка конфигурации"},
+  "debug_config_get": {"message": "[DEBUG] Получение конфигурации"},
+  "debug_config_get_complete": {"message": "Получение конфигурации завершено"},
+  "debug_config_get_start": {"message": "Начало получения конфигурации"},
+  "debug_config_init": {"message": "[DEBUG] Инициализация конфигурации"},
+  "debug_config_initialized": {"message": "[DEBUG] Конфигурация инициализирована"},
+  "debug_config_load": {"message": "[DEBUG] Загрузка конфигурации"},
+  "debug_config_save": {"message": "[DEBUG] Сохранение конфигурации"},
+  "debug_config_set": {"message": "[DEBUG] Установка конфигурации"},
+  "debug_config_set_complete": {"message": "Сохранение конфигурации завершено"},
+  "debug_config_set_start": {"message": "Начало сохранения конфигурации"},
+  "debug_config_system_init": {"message": "Инициализация системы конфигурации"},
+  "debug_config_system_ready": {"message": "Система конфигурации готова"},
+  "debug_config_url_check": {"message": "Проверка поддержки URL"},
+  "debug_config_url_supported": {"message": "[DEBUG] URL конфигурации поддерживается"},
+  "debug_config_url_unsupported": {"message": "[DEBUG] URL конфигурации не поддерживается"},
+  "debug_content_theme_applied": {"message": "Тема скрипта контента применена"},
+  "debug_content_theme_error": {"message": "Ошибка применения темы скрипта контента"},
+  "debug_deepseek_attach_button_get": {"message": "Получение кнопки прикрепления DeepSeek"},
+  "debug_deepseek_attach_file": {"message": "Прикрепление файла к DeepSeek"},
+  "debug_deepseek_composer_get": {"message": "Получение элемента композера DeepSeek"},
+  "debug_deepseek_constructor": {"message": "Конструктор платформы DeepSeek"},
+  "debug_deepseek_ensure_file_input": {"message": "Обеспечение ввода файла DeepSeek"},
+  "debug_deepseek_file_attached": {"message": "Файл успешно прикреплен к DeepSeek"},
+  "debug_deepseek_file_input_get": {"message": "Получение ввода файла DeepSeek"},
+  "debug_deepseek_platform_check": {"message": "Проверка платформы DeepSeek"},
+  "debug_deepseek_post_paste_handle": {"message": "Обработка после вставки DeepSeek"},
+  "debug_deepseek_settings_get": {"message": "Получение настроек платформы DeepSeek"},
+  "debug_deepseek_should_handle_paste": {"message": "Проверка должен ли DeepSeek обрабатывать вставку"},
+  "debug_disabled": {"message": "Режим отладки отключен - Будут показаны только ошибки"},
+  "debug_enabled": {"message": "Режим отладки включен - Будут показаны сообщения отладки и всплывающие уведомления"},
+  "debug_error": {"message": "[ОШИБКА]"},
+  "debug_factory_create_handler": {"message": "Создание обработчика платформы"},
+  "debug_factory_default_settings": {"message": "Использование заводских настроек по умолчанию"},
+  "debug_factory_get_platform": {"message": "Получение текущей платформы"},
+  "debug_factory_get_settings": {"message": "Получение заводских настроек"},
+  "debug_factory_handler_created": {"message": "Обработчик платформы создан"},
+  "debug_factory_no_handler": {"message": "Не найден обработчик для платформы"},
+  "debug_factory_platform_detected": {"message": "Платформа успешно обнаружена"},
+  "debug_factory_settings_configured": {"message": "Заводские настройки сконфигурированы"},
+  "debug_factory_unknown_platform": {"message": "Обнаружена неизвестная платформа"},
+  "debug_grok_attach_button_get": {"message": "Получение кнопки прикрепления Grok"},
+  "debug_grok_attach_file": {"message": "Прикрепление файла к Grok"},
+  "debug_grok_composer_get": {"message": "Получение элемента композера Grok"},
+  "debug_grok_constructor": {"message": "Конструктор платформы Grok"},
+  "debug_grok_ensure_file_input": {"message": "Обеспечение ввода файла Grok"},
+  "debug_grok_file_attached": {"message": "Файл успешно прикреплен к Grok"},
+  "debug_grok_file_input_get": {"message": "Получение ввода файла Grok"},
+  "debug_grok_platform_check": {"message": "Проверка платформы Grok"},
+  "debug_grok_post_paste_handle": {"message": "Обработка после вставки Grok"},
+  "debug_grok_settings_get": {"message": "Получение настроек платформы Grok"},
+  "debug_grok_should_handle_paste": {"message": "Проверка должен ли Grok обрабатывать вставку"},
+  "debug_info": {"message": "[DEBUG]"},
+  "debug_level_all_messages": {"message": "Все сообщения"},
+  "debug_level_errors_only": {"message": "Только ошибки"},
+  "debug_level_tooltip": {"message": "<span class='tip-badge debug-info'>DEBUG</span> Контролировать какие сообщения отладки появляются во всплывающих уведомлениях. Только ошибки показывает критические проблемы, Предупреждения и ошибки включает предупреждения, Все сообщения показывает все включая информационные логи."},
+  "debug_level_warnings_errors": {"message": "Предупреждения и ошибки"},
+  "debug_loader_countdown_cancelled": {"message": "Обратный отсчет загрузчика отменен"},
+  "debug_loader_countdown_complete": {"message": "Обратный отсчет загрузчика завершен"},
+  "debug_loader_countdown_error": {"message": "Ошибка обратного отсчета загрузчика"},
+  "debug_loader_countdown_start": {"message": "Начало обратного отсчета загрузчика"},
+  "debug_loader_displayed": {"message": "Загрузчик отображен"},
+  "debug_loader_hidden": {"message": "Загрузчик скрыт"},
+  "debug_loader_hide": {"message": "Скрытие загрузчика"},
+  "debug_loader_show": {"message": "Показ загрузчика"},
+  "debug_log": {"message": "[LOG]"},
+  "debug_log_level": {"message": "Уровень отладки"},
+  "debug_log_level_changed": {
+    "message": "Уровень лога отладки изменен на: $LEVEL$",
+    "placeholders": {
+      "LEVEL": {
+        "content": "$1",
+        "example": "info"
+      }
+    }
+  },
+  "debug_modal_about_close": {"message": "Закрытие модального окна о программе"},
+  "debug_modal_about_close_missing": {"message": "Закрытие модального окна о программе - элемент отсутствует"},
+  "debug_modal_about_closed": {"message": "Модальное окно о программе успешно закрыто"},
+  "debug_modal_about_element_missing": {"message": "Элемент модального окна о программе отсутствует"},
+  "debug_modal_about_init": {"message": "[DEBUG] Инициализация модального окна о программе"},
+  "debug_modal_about_open": {"message": "Открытие модального окна о программе"},
+  "debug_modal_about_opened": {"message": "Модальное окно о программе успешно открыто"},
+  "debug_modal_cancel": {"message": "Нажата кнопка отмены модального окна"},
+  "debug_modal_clear_close": {"message": "Закрытие модального окна очистки данных"},
+  "debug_modal_clear_close_missing": {"message": "Закрытие модального окна очистки - элемент отсутствует"},
+  "debug_modal_clear_closed": {"message": "Модальное окно очистки данных успешно закрыто"},
+  "debug_modal_clear_data": {"message": "[DEBUG] Данные модального окна очистки"},
+  "debug_modal_clear_element_missing": {"message": "Элемент модального окна очистки данных отсутствует"},
+  "debug_modal_clear_escape": {"message": "Нажата клавиша Escape в модальном окне очистки"},
+  "debug_modal_clear_init": {"message": "[DEBUG] Инициализация модального окна очистки"},
+  "debug_modal_clear_open": {"message": "Открытие модального окна очистки данных"},
+  "debug_modal_clear_opened": {"message": "Модальное окно очистки данных успешно открыто"},
+  "debug_modal_closed": {"message": "[DEBUG] Модальное окно закрыто"},
+  "debug_modal_constructor": {"message": "Конструктор модального окна"},
+  "debug_modal_content_load": {"message": "Загрузка содержимого модального окна"},
+  "debug_modal_error": {"message": "[DEBUG] Ошибка модального окна"},
+  "debug_modal_escape_pressed": {"message": "Нажата клавиша Escape в модальном окне"},
+  "debug_modal_hidden": {"message": "Модальное окно скрыто"},
+  "debug_modal_hide": {"message": "Скрытие модального окна"},
+  "debug_modal_initialized": {"message": "[DEBUG] Модальное окно инициализировано"},
+  "debug_modal_initializing": {"message": "[DEBUG] Инициализация модального окна"},
+  "debug_modal_ok": {"message": "Нажата кнопка OK модального окна"},
+  "debug_modal_opened": {"message": "[DEBUG] Модальное окно открыто"},
+  "debug_modal_setup_background": {"message": "[DEBUG] Настройка фона модального окна"},
+  "debug_modal_setup_close": {"message": "[DEBUG] Настройка закрытия модального окна"},
+  "debug_modal_setup_overlay": {"message": "[DEBUG] Настройка наложения модального окна"},
+  "debug_modal_show": {"message": "Показ модального окна"},
+  "debug_modal_show_complete": {"message": "Показ модального окна завершен"},
+  "debug_modal_show_error": {"message": "Ошибка показа модального окна"},
+  "debug_modal_show_promise_start": {"message": "Начало обещания показа модального окна"},
+  "debug_modal_system_init": {"message": "Инициализация системы модальных окон"},
+  "debug_modal_system_ready": {"message": "Система модальных окон готова"},
+  "debug_mode": {"message": "Режим отладки"},
+  "debug_platform_detection_error": {"message": "Произошла ошибка обнаружения платформы"},
+  "debug_setting_reset": {
+    "message": "Сброс настройки $KEY$ на $VALUE$",
+    "placeholders": {
+      "KEY": {
+        "content": "$1",
+        "example": "theme"
+      },
+      "VALUE": {
+        "content": "$2",
+        "example": "default"
+      }
+    }
+  },
+  "debug_settings_reset_complete": {"message": "Сброс настроек успешно завершен"},
+  "debug_settings_reset_count": {
+    "message": "Сброс $COUNT$ настроек",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "debug_settings_reset_error": {
+    "message": "Ошибка сброса настроек: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Storage error"
+      }
+    }
+  },
+  "debug_settings_reset_start": {"message": "Начало сброса настроек"},
+  "debug_system_ready": {"message": "Система отладки инициализирована и готова"},
+  "debug_theme_apply_complete": {
+    "message": "Применение темы завершено: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "deepseek"
+      }
+    }
+  },
+  "debug_theme_apply_start": {
+    "message": "Применение темы: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_change_complete": {
+    "message": "Изменение темы завершено: $THEME$ ($NAME$)",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      },
+      "NAME": {
+        "content": "$2",
+        "example": "Claude"
+      }
+    }
+  },
+  "debug_theme_change_start": {
+    "message": "Изменение темы начато: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_colors_applied": {
+    "message": "Цвета темы применены для: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "grok"
+      }
+    }
+  },
+  "debug_theme_default_cleared": {"message": "Тема по умолчанию очистила стили платформы"},
+  "debug_theme_default_detected": {
+    "message": "Тема по умолчанию обнаружила платформу: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_default_using": {
+    "message": "Тема по умолчанию использует платформу: $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_dropdown_set": {
+    "message": "Выпадающий список темы установлен на: $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_grok_fx_added": {"message": "Добавлены эффекты падающих звезд Grok"},
+  "debug_theme_load": {
+    "message": "Загрузка темы: сохранена=$STORED$, по умолчанию=$DEFAULT$, финальная=$FINAL$",
+    "placeholders": {
+      "STORED": {
+        "content": "$1",
+        "example": "chatgpt"
+      },
+      "DEFAULT": {
+        "content": "$2",
+        "example": "default"
+      },
+      "FINAL": {
+        "content": "$3",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_sync_error": {"message": "Ошибка синхронизации темы"},
+  "debug_language_sync_error": {"message": "Ошибка синхронизации языка"},
+  "debug_toast_constructor": {"message": "Конструктор компонента уведомлений"},
+  "debug_toast_ensure_host": {"message": "Обеспечение элемента хоста уведомлений"},
+  "debug_toast_error": {"message": "Вызвано уведомление об ошибке"},
+  "debug_toast_hidden": {"message": "Уведомление скрыто"},
+  "debug_toast_hide": {"message": "Скрытие уведомления"},
+  "debug_toast_host_created": {"message": "Элемент хоста уведомлений создан"},
+  "debug_toast_show": {"message": "Показ уведомления"},
+  "debug_toast_shown": {"message": "Уведомление показано"},
+  "debug_toast_success": {"message": "Вызвано уведомление об успехе"},
+  "debug_tooltip_cleanup": {"message": "[DEBUG] Очистка подсказки"},
+  "debug_tooltip_created": {"message": "[DEBUG] Подсказка создана"},
+  "debug_tooltip_displayed": {"message": "Подсказка успешно отображена"},
+  "debug_tooltip_error": {"message": "[DEBUG] Ошибка подсказки"},
+  "debug_tooltip_escape_pressed": {"message": "Нажата клавиша Escape в подсказке"},
+  "debug_tooltip_help_clicked": {"message": "Нажата кнопка помощи"},
+  "debug_tooltip_hidden": {"message": "Подсказка успешно скрыта"},
+  "debug_tooltip_hide": {"message": "Скрытие подсказки"},
+  "debug_tooltip_init": {"message": "[DEBUG] Инициализация подсказки"},
+  "debug_tooltip_initialized": {"message": "[DEBUG] Подсказка инициализирована"},
+  "debug_tooltip_missing_text": {"message": "У подсказки отсутствует атрибут текста"},
+  "debug_tooltip_position": {"message": "[DEBUG] Позиция подсказки"},
+  "debug_tooltip_setup": {"message": "[DEBUG] Настройка подсказки"},
+  "debug_tooltip_show": {"message": "Показ подсказки"},
+  "debug_tooltip_system_init": {"message": "Инициализация системы подсказок"},
+  "debug_tooltip_system_ready": {"message": "Система подсказок готова"},
+  "debug_ui_refresh_after_reset": {"message": "Обновление интерфейса после сброса настроек"},
+  "debug_utils_message_send_error": {"message": "Отправка сообщения runtime не удалась"},
+  "debug_utils_message_send_start": {"message": "Начало отправки сообщения runtime"},
+  "debug_utils_message_send_success": {"message": "Отправка сообщения runtime успешна"},
+  "debug_utils_storage_get_error": {"message": "Операция получения из хранилища не удалась"},
+  "debug_utils_storage_get_start": {"message": "Начало операции получения из хранилища"},
+  "debug_utils_storage_get_success": {"message": "Операция получения из хранилища успешна"},
+  "debug_utils_storage_set_error": {"message": "Операция записи в хранилище не удалась"},
+  "debug_utils_storage_set_start": {"message": "Начало операции записи в хранилище"},
+  "debug_utils_storage_set_success": {"message": "Операция записи в хранилище успешна"},
+  "debug_validation_custom_invalid": {"message": "[DEBUG] Пользовательская валидация недействительна"},
+  "debug_validation_custom_start": {"message": "[DEBUG] Начало пользовательской валидации"},
+  "debug_validation_custom_valid": {"message": "[DEBUG] Пользовательская валидация действительна"},
+  "debug_validation_display_check": {"message": "[DEBUG] Проверка отображения валидации"},
+  "debug_validation_display_safe": {"message": "[DEBUG] Отображение валидации безопасно"},
+  "debug_validation_display_safety": {"message": "Проверка безопасности отображения"},
+  "debug_validation_display_unsafe": {"message": "Содержимое небезопасно для отображения"},
+  "debug_validation_error": {"message": "[DEBUG] Ошибка валидации"},
+  "debug_validation_event_name": {"message": "Валидация имени события"},
+  "debug_validation_extension_empty": {"message": "Ввод расширения пуст"},
+  "debug_validation_extension_invalid_input": {"message": "Предоставлен недействительный ввод расширения"},
+  "debug_validation_extension_risky": {"message": "Обнаружено рискованное расширение"},
+  "debug_validation_extension_start": {"message": "Начало валидации расширения"},
+  "debug_validation_extension_truncated": {"message": "Расширение обрезано до 5 символов"},
+  "debug_validation_extension_valid": {"message": "Валидация расширения пройдена"},
+  "debug_validation_filename_complete": {"message": "Валидация имени файла завершена"},
+  "debug_validation_filename_invalid_input": {"message": "Предоставлен недействительный ввод имени файла"},
+  "debug_validation_filename_no_extension": {"message": "Имя файла обработано без расширения"},
+  "debug_validation_filename_start": {"message": "Начало валидации имени файла"},
+  "debug_validation_filename_with_extension": {"message": "Имя файла обработано с расширением"},
+  "debug_validation_html_escape": {"message": "Экранирование HTML содержимого"},
+  "debug_validation_result": {"message": "[DEBUG] Результат валидации"},
+  "debug_validation_sanitize_event": {"message": "[DEBUG] Очистка события валидации"},
+  "debug_validation_sanitize_filename": {"message": "[DEBUG] Очистка имени файла валидации"},
+  "debug_validation_system_init": {"message": "Инициализация системы валидации"},
+  "debug_validation_system_ready": {"message": "Система валидации готова"},
+  "debug_warn": {"message": "[ПРЕДУПРЕЖДЕНИЕ]"},
+  "debug_warning": {"message": "[ПРЕДУПРЕЖДЕНИЕ]"},
+
+  "debug_batch_content_too_short": {"message": "Содержимое слишком короткое для пакетной обработки"},
+  "debug_batch_split_insufficient": {"message": "Содержимое не может быть осмысленно разделено на несколько частей"},
+  "debug_batch_part_too_small": {"message": "Часть $1 слишком мала: $2 символов"},
+  "debug_batch_structured_content": {"message": "Обнаружено структурированное содержимое: $1"},
+  "debug_batch_too_few_lines": {"message": "Содержимое имеет слишком мало строк для значимого пакетного разделения: $1 строк"},
+  "debug_file_content_empty": {"message": "Содержимое пустое или недействительное"},
+  "debug_json_content_valid": {"message": "Содержимое уже является действительным JSON"},
+  "debug_json_parse_failed": {"message": "Содержимое не является действительным JSON, обрабатывается как обычный текст"},
+  "json_parse_failed_fallback": {"message": "Ошибка разбора JSON, возврат к обычному тексту"},
+  "debug_claude_replacing_pasted": {"message": "Замена вставленного текста файлом"},
+  "debug_file_no_content": {"message": "Файл не имеет содержимого"},
+  "default_auto_generated": {"message": "авто-сгенерировано"},
+  "delay": {"message": "Задержка"},
+  "delay_countdown": {
+    "message": "Прикрепление через $SECONDS$ секунд...",
+    "placeholders": {
+      "SECONDS": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "developer_website": {"message": "Сайт разработчика"},
+  "development_team": {"message": "Команда разработки и поддержки"},
+
+  "disabled_title": {"message": "Функция отключена на этой странице"},
+  "enter_custom": {"message": "Ввести пользовательский формат"},
+  "errors": {"message": "Ошибки"},
+  "errors_attachment_failed": {"message": "Прикрепление файла не удалось. Пожалуйста, обновите страницу и попробуйте снова"},
+  "errors_batch_processing_failed": {"message": "Пакетная обработка не удалась: $1"},
+  "errors_busy_processing": {"message": "Выполняется другое прикрепление файла. Пожалуйста, подождите"},
+
+  "errors_connection_failed": {"message": "Не удается подключиться к странице. Пожалуйста, обновите и попробуйте снова"},
+
+  "errors_export_failed": {"message": "Экспорт не удался. Пожалуйста, попробуйте снова"},
+  "errors_extension_context": {"message": "Проблема контекста расширения. Пожалуйста, обновите страницу и попробуйте снова"},
+  "errors_extension_reloaded": {"message": "Расширение было перезагружено. Пожалуйста, обновите страницу и попробуйте снова"},
+  "errors_network_error": {"message": "Ошибка сети. Проверьте подключение к интернету и попробуйте снова"},
+  "errors_no_file_input": {"message": "Не удается найти область загрузки файлов. Попробуйте сначала нажать кнопку прикрепления на платформе"},
+  "errors_no_input_field": {"message": "Не удается найти поле ввода чата. Убедитесь, что вы находитесь на поддерживаемой странице чата ИИ"},
+  "errors_no_response": {"message": "Нет ответа от страницы. Пожалуйста, обновите и попробуйте снова"},
+  "errors_no_tab_access": {"message": "Не удается получить доступ к текущей вкладке. Пожалуйста, попробуйте снова"},
+  "errors_no_text_input": {"message": "Текст не найден в поле ввода чата. Сначала введите ваше сообщение"},
+  "errors_permission_denied": {"message": "Доступ запрещен. Пожалуйста, обновите страницу и попробуйте снова"},
+  "errors_platform_not_supported": {"message": "Эта ИИ платформа не поддерживается. Попробуйте ChatGPT, Claude, Gemini, DeepSeek или Grok"},
+  "errors_text_too_short": {"message": "Текст слишком короткий ($1 слов). Требуется минимум $2 слов"},
+  "errors_text_too_short_manual": {"message": "Текст слишком короткий для ручного сохранения. Либо добавьте больше текста, либо уменьшите настройку Мин. слов"},
+
+  "errors_invalid_content_type": {"message": "Недействительное содержимое: текст должен быть непустой строкой"},
+  "errors_invalid_content_empty": {"message": "Недействительное содержимое: текст не может быть пустым"},
+  "errors_file_creation_failed": {"message": "Не удалось создать действительный объект файла"},
+  "errors_text_content_empty": {"message": "Текстовое содержимое пустое или недействительное"},
+  "errors_makefile_invalid_content": {"message": "makeFile требует действительное строковое содержимое"},
+  "errors_fileattach_invalid_result": {"message": "fileAttachComponent вернул недействительный результат"},
+  "errors_platform_attach_failed": {"message": "Обработчик платформы не смог прикрепить файл"},
+  "errors_modal_not_available": {"message": "Компонент модального окна недоступен"},
+  "export": {"message": "Экспорт"},
+  "export_by_prefix": {"message": "Экспорт по префиксу"},
+  "export_filename_prefix": {"message": "Префикс имени файла"},
+  "feature_request": {"message": "Запрос функции"},
+  "feature_request_desc": {"message": "Предложите новые функции или улучшения, чтобы сделать его лучше"},
+  "feedback_default_description": {"message": "Пожалуйста, опишите ваш отзыв или проблему"},
+  "feedback_improvement_description": {"message": "Какие улучшения вы хотели бы видеть?"},
+  "feedback_question": {"message": "Какой тип отзыва вы хотели бы отправить?"},
+  "feedback_sent": {"message": "Отзыв успешно отправлен"},
+  "feedback_support_description": {"message": "С какой проблемой вы сталкиваетесь?"},
+  "file_blob_created": {"message": "Blob файла создан"},
+
+  "file_creation_insights": {"message": "Ваша аналитика создания файлов"},
+  "file_creation_started": {"message": "Создание файла начато"},
+  "file_format": {"message": "Формат файла"},
+  "file_format_auto_selected": {"message": "Автоопределение формата включено"},
+  "file_format_back_to_main": {"message": "Назад к основным форматам"},
+  "file_format_changed": {"message": "Формат файла обновлен"},
+  "file_format_custom_format_set": {"message": "Пользовательский формат установлен на $1"},
+  "file_format_enter_custom": {"message": "Введите пользовательское расширение"},
+  "file_format_format_selected": {"message": "Формат файла установлен на .$1"},
+  "file_format_next_page": {"message": "Следующая страница загружена"},
+  "file_format_previous_page": {"message": "Предыдущая страница загружена"},
+  "file_format_tooltip": {"message": "<span class='tip-badge settings'>НАСТРОЙКИ</span> Выберите тип файла или выберите Автоопределение. Автоопределение использует консервативное определение языка с безопасным возвратом к .txt чтобы избежать неправильной маркировки кода. Пользовательский позволяет любое расширение, но используйте с осторожностью."},
+  "file_formats": {"message": "Форматы файлов"},
+  "file_operations": {"message": "Операции с файлами"},
+  "file_operations_attachment_attaching": {"message": "Прикрепление файла"},
+  "file_operations_attachment_cancelled": {"message": "Прикрепление файла отменено"},
+  "file_operations_attachment_preparing": {"message": "Подготовка вашего файла"},
+  "file_operations_attachment_success": {"message": "Прикреплен $1"},
+  "file_operations_attachment_uploading": {"message": "Загрузка файла"},
+  "file_operations_batch_attaching": {"message": "Прикрепление $1"},
+  "file_operations_batch_detected": {"message": "Обнаружено большое содержимое. Разделение на $1 файлов"},
+  "file_operations_batch_processing": {"message": "Обработка файла $1 из $2: $3"},
+  "file_operations_batch_processing_start": {"message": "Обработка $1 файлов"},
+  "file_operations_batch_success": {"message": "Обработано $1 файлов из пакета"},
+  "file_operations_batch_uploading": {"message": "Загрузка $1"},
+
+  "file_operations_manual_save_success": {"message": "Файл прикреплен"},
+  "files_per_day": {"message": "Файлов в день"},
+  "flash_called": {"message": "Вызвано flash сообщение"},
+  "flash_timeout_set": {"message": "Таймаут flash настроен"},
+  "footer_copyright": {"message": "© 2025 · Multi-AI File Paster · Разработано"},
+  "format_auto_detected": {"message": "Формат файла автоопределен"},
+  "format_changed": {"message": "Формат файла изменен"},
+  "format_selected": {
+    "message": "Формат $FORMAT$ выбран",
+    "placeholders": {
+      "FORMAT": {
+        "content": "$1",
+        "example": ".txt"
+      }
+    }
+  },
+  "general_feedback": {"message": "Общий отзыв"},
+  "general_feedback_desc": {"message": "Поделитесь своими мыслями, предложениями или пользовательским опытом"},
+  "github_repository": {"message": "GitHub репозиторий"},
+  "github_star": {"message": "Звезда на GitHub"},
+  "hostwek_logo": {"message": "Логотип Hostwek"},
+  "html_sections_about_modal_content": {"message": "Содержимое модального окна о программе"},
+  "html_sections_controls_section": {"message": "Секция управления"},
+  "html_sections_feedback_modal_content": {"message": "Содержимое модального окна отзывов"},
+  "html_sections_footer_section": {"message": "Секция подвала"},
+  "html_sections_header_section": {"message": "Секция заголовка"},
+  "i18n_cleanup": {"message": "[DEBUG] Очистка i18n завершена"},
+  "i18n_cleanup_complete": {"message": "Очистка i18n завершена"},
+
+  "key_features": {"message": "Ключевые функции:"},
+  "key_features_text": {"message": "Автоопределение выбирает правильный тип файла из вашего содержимого с гарантированным возвратом к .txt. Работает в ChatGPT, Claude, Gemini, DeepSeek и Grok. Поддерживает 20+ форматов файлов включая языки программирования, разметку, форматы данных и пользовательские расширения."},
+  "keyboard_shortcut": {"message": "Горячая клавиша:"},
+  "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Ручное сохранение)"},
+  "language_abbreviation": {"message": "Язык"},
+  "language_abbreviation_": {"message": "Язык"},
+  "language_abbreviation_ar": {"message": "AR"},
+  "language_abbreviation_en": {"message": "EN"},
+  "language_abbreviation_sw": {"message": "SW"},
+  "language_abbreviation_es": {"message": "ES"},
+  "language_abbreviation_ja": {"message": "JA"},
+  "language_abbreviation_fr": {"message": "FR"},
+  "language_abbreviation_ru": {"message": "RU"},
+  "language_abbreviation_zh": {"message": "ZH"},
+  "language_abbreviation_pt": {"message": "PT"},
+  "language_abbreviation_de": {"message": "DE"},
+  "language_arabic": {"message": "Арабский"},
+  "language_changed": {"message": "Язык успешно изменен"},
+  "language_chinese": {"message": "Китайский"},
+  "language_english": {"message": "Английский"},
+  "language_french": {"message": "Французский"},
+  "language_german": {"message": "Немецкий"},
+  "language_hindi": {"message": "Хинди"},
+  "language_japanese": {"message": "Японский"},
+  "language_portuguese": {"message": "Португальский"},
+  "language_russian": {"message": "Русский"},
+  "language_selector": {"message": "Выбор языка"},
+  "language_spanish": {"message": "Испанский"},
+  "language_swahili": {"message": "Суахили"},
+  "lead_developer": {"message": "Ведущий разработчик:"},
+  "letters_numbers_only": {"message": "Только буквы и цифры"},
+  "line_chart": {"message": "Линия"},
+  "loader_cleanup": {"message": "[DEBUG] Очистка загрузчика завершена"},
+  "loader_cleanup_complete": {"message": "Очистка загрузчика завершена"},
+  "manual_action": {"message": "Вручную"},
+  "manual_action_tooltip": {"message": "<span class='tip-badge feature'>ФУНКЦИЯ</span> Вручную конвертировать любой текст, который вы набрали в поле ввода чата, в прикрепление файла. Работает на любой ИИ платформе. Идеально когда вы хотите создать файл из вашего текущего сообщения без автоопределения."},
+  "manual_drag_drop": {"message": "Может потребоваться ручное перетаскивание"},
+  "max_files": {"message": "Макс. файлов"},
+  "max_files_tooltip": {"message": "<span class='tip-badge settings'>НАСТРОЙКИ</span> Количество файлов для разделения содержимого. Диапазон: 2-4 файла. Содержимое делится поровну по строкам на выбранное количество файлов. Большие числа создают меньшие файлы, но могут вызвать обнаружение спама платформой. Активируется только когда содержимое превышает вашу настройку лимита слов."},
+  "min_words_tooltip": {"message": "<span class='tip-badge settings'>НАСТРОЙКИ</span> Автоприкрепление работает только когда ваша вставка имеет как минимум такую длину. Рекомендуется: 100+ слов, чтобы короткие сообщения оставались встроенными."},
+  "min_words_trigger": {"message": "Мин. слов для активации"},
+  "misc_section": {"message": "РАЗНОЕ"},
+  "modal_description": {"message": "Введите расширение пользовательского формата файла"},
+  "modal_hint": {"message": "Оставьте пустым для автоматического определения"},
+  "modal_keys_hint": {"message": "<kbd>Enter</kbd> для сохранения, <kbd>Esc</kbd> для отмены"},
+  "modal_placeholder": {"message": "напр. txt, md, json..."},
+  "modal_title": {"message": "Пользовательский формат"},
+  "modals_about_title": {"message": "О Multi-AI File Paster"},
+  "modals_help_content": {"message": "Содержимое помощи"},
+  "modals_help_title": {"message": "Помощь"},
+  "more_formats": {"message": "Больше форматов…"},
+  "more_formats_loaded": {"message": "Больше форматов загружено"},
+  "network_error": {"message": "Произошла ошибка сети"},
+  "new_version": {"message": "Новое в v1.1.0:"},
+  "new_version_text": {"message": "Пакетный режим разделяет большое содержимое на несколько файлов, умное определение языка автоматически выбирает расширения файлов, и улучшенная панель аналитики отслеживает ваши паттерны использования."},
+  "next_page": {"message": "Следующая страница"},
+  "no_data_yet": {"message": "Пока нет данных"},
+  "no_file_input": {"message": "Поле ввода файла не найдено на странице"},
+  "not_on_platform": {"message": "Не на поддерживаемой платформе"},
+  "permission_denied": {"message": "Доступ запрещен"},
+  "platform_chatgpt": {"message": "OpenAI ChatGPT: Полная поддержка как chat.openai.com, так и chatgpt.com"},
+  "platform_claude": {"message": "Anthropic Claude: Продвинутая интеграция с claude.ai включая переопределение встроенных функций"},
+  "platform_deepseek": {"message": "DeepSeek AI: Полная совместимость с chat.deepseek.com"},
+  "platform_gemini": {"message": "Google Gemini: Оптимизированная обработка файлов для gemini.google.com"},
+  "platform_grok": {"message": "Grok: Стандартная интеграция с grok.com (кнопка прикрепления + перетаскивание)"},
+  "platform_specific_chatgpt_no_input": {"message": "Не удается найти поле ввода файла ChatGPT. Попробуйте сначала нажать кнопку прикрепления, затем повторите"},
+  "platform_specific_claude_no_input": {"message": "Не удается найти поле ввода файла Claude. Попробуйте сначала нажать значок прикрепления, затем повторите"},
+  "platform_specific_gemini_no_input": {"message": "Не удается найти поле ввода файла Gemini. Попробуйте сначала нажать значок скрепки, затем повторите"},
+  "platform_specific_generic_no_input": {"message": "Попробуйте сначала нажать кнопку прикрепления на платформе, затем повторите"},
+  "platform_specific_manual_drag_drop": {"message": "Все еще не удается найти поле ввода файла. Пожалуйста, прикрепите файл вручную, перетащив его в чат"},
+  "platform_specific_try_attachment_button": {"message": "Попробуйте кнопку прикрепления"},
+  "platforms_chatgpt": {"message": "ChatGPT: Полная интеграция с chat.openai.com"},
+  "platforms_claude": {"message": "Claude: Нативная поддержка разговоров claude.ai"},
+  "platforms_deepseek": {"message": "DeepSeek: Полная поддержка chat.deepseek.com"},
+  "platforms_description": {"message": "Интегрируется с самыми популярными ИИ чат-платформами:"},
+  "platforms_gemini": {"message": "Gemini: Бесшовная интеграция с gemini.google.com"},
+  "platforms_grok": {"message": "Grok: Полная совместимость с платформой x.ai"},
+  "platforms_why": {"message": "Почему это важно:"},
+  "platforms_why_text": {"message": "Каждая платформа имеет разные системы прикрепления файлов. Наше расширение автоматически обрабатывает эти различия, обеспечивая правильное прикрепление ваших файлов независимо от того, какой ИИ вы используете."},
+  "popup_cleanup": {"message": "[DEBUG] Очистка всплывающего окна завершена"},
+  "popup_cleanup_complete": {"message": "Очистка всплывающего окна завершена"},
+  "powered_by": {"message": "работает на"},
+  "previous_page": {"message": "Предыдущая страница"},
+  "privacy": {"message": "Конфиденциальность"},
+  "privacy_description": {"message": "Вся обработка текста происходит полностью на вашем устройстве. Ваш контент никогда не покидает ваш компьютер - никаких серверов, никакой облачной обработки, никакой передачи данных."},
+  "privacy_do": {"message": "Обрабатывать ваш текст локально для создания файловых вложений, затем немедленно удалять обработанные данные. Просто, безопасно, прозрачно."},
+  "privacy_dont": {"message": "Мы никогда не читаем, не сохраняем и не передаем ваш текстовый контент, URL, личную информацию или данные просмотра. Ваши разговоры с ИИ остаются полностью приватными."},
+  "reset_modal_changes_title": {"message": "Это сбросит:"},
+  "reset_modal_debug_item": {"message": "Уровень отладки: Только ошибки"},
+  "reset_modal_question": {"message": "Вы уверены, что хотите сбросить все настройки Multi-AI File Paster к их значениям по умолчанию?"},
+  "reset_modal_theme_item": {"message": "Тема: По умолчанию"},
+  "reset_modal_title": {"message": "Сброс настроек"},
+  "reset_modal_warning": {"message": "Это действие нельзя отменить."},
+  "reset_to_default": {"message": "Сбросить по умолчанию"},
+  "resources": {"message": "Ресурсы:"},
+  "retry": {"message": "Повторить"},
+  "saving": {"message": "Сохранение..."},
+  "scrum_master": {"message": "Скрам-мастер:"},
+  "searching_for_file_input": {"message": "Поиск поля ввода файла..."},
+  "send_feedback": {"message": "Отправить отзыв"},
+  "sending_message_to_content": {"message": "Отправка сообщения скрипту контента"},
+  "setting_save_initiated": {"message": "Сохранение настройки инициировано"},
+  "setting_saved_to_storage": {"message": "Настройка сохранена в хранилище"},
+  "settings_auto_attach_disabled": {"message": "Автоприкрепление отключено. Используйте кнопку ручного сохранения для прикрепления файлов"},
+  "settings_auto_attach_enabled": {"message": "Автоприкрепление включено. Файлы будут прикрепляться автоматически при вставке"},
+
+  "settings_batch_delay_updated": {"message": "Задержка пакетной обработки установлена на $1мс"},
+  "settings_batch_mode_disabled": {"message": "Пакетный режим отключен. Автоприкрепление восстановлено"},
+  "settings_batch_mode_enabled": {"message": "Пакетный режим включен. Автоприкрепление отключено пока активен пакетный режим"},
+  "settings_claude_override_disabled": {"message": "Переопределение Claude отключено. Claude будет использовать встроенные функции"},
+  "settings_claude_override_enabled": {"message": "Переопределение Claude включено. Расширение будет работать на Claude"},
+
+  "settings_debug_disabled": {"message": "Режим отладки отключен"},
+  "settings_debug_enabled": {"message": "Режим отладки включен"},
+  "settings_delay_disabled": {"message": "Задержка прикрепления отключена"},
+  "settings_delay_enabled": {"message": "Задержка прикрепления включена на $1 секунд"},
+  "settings_max_batch_files_updated": {"message": "Максимум пакетных файлов установлен на $1"},
+  "settings_reset": {"message": "Настройки сброшены к значениям по умолчанию"},
+  "settings_saving": {"message": "Сохранение настроек"},
+  "settings_telemetry_disabled": {"message": "Аналитика отключена. Данные об использовании не будут собираться"},
+  "settings_telemetry_enabled": {"message": "Аналитика включена. Это помогает улучшить расширение"},
+  "settings_word_limit_updated": {"message": "Лимит слов обновлен до $1 слов"},
+  "smart_file_attachment": {"message": "Умное прикрепление файлов для ИИ чатов"},
+  "star_github": {"message": "⭐ Звезда на GitHub"},
+  "status_connected": {
+    "message": "Подключен к $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "stopped_on": {
+    "message": "Остановлен на $MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "success_analytics_exported": {"message": "Данные аналитики успешно экспортированы"},
+  "success_feedback_sent": {"message": "Электронная почта с отзывом успешно открыта! Спасибо за помощь в улучшении."},
+  "success_github_star": {"message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> Спасибо! Открываем GitHub для добавления звезды репозиторию"},
+  "success_not_on_platform": {"message": "Не на поддерживаемой ИИ платформе. Сначала откройте ChatGPT, Claude, Gemini, DeepSeek или Grok"},
+  "support_contacts": {"message": "Контакты поддержки:"},
+  "support_request": {"message": "Запрос поддержки"},
+  "support_request_desc": {"message": "Получить помощь с проблемами, багами или техническими вопросами"},
+  "supported_platforms": {"message": "Поддерживаемые ИИ платформы"},
+  "system_unavailable": {"message": "Система недоступна"},
+  "tab_detection": {"message": "Определение платформы вкладки"},
+  "technical_issues": {"message": "Технические проблемы:"},
+  "theme_changed": {
+    "message": "Тема изменена на $THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "theme_chatgpt": {"message": "ChatGPT"},
+  "theme_claude": {"message": "Claude"},
+  "theme_deepseek": {"message": "DeepSeek"},
+  "theme_default": {"message": "По умолчанию"},
+  "theme_gemini": {"message": "Gemini"},
+  "theme_grok": {"message": "Grok"},
+  "theme_selection": {"message": "Тема"},
+  "theme_selection_tooltip": {"message": "<span class='tip-badge settings'>НАСТРОЙКИ</span> Выберите предпочитаемую тему для подсветки и цветов. Каждая тема предоставляет разные визуальные стили для интерфейса расширения."},
+  "this_week": {"message": "На этой неделе"},
+  "toast_cleanup": {"message": "[DEBUG] Очистка уведомлений завершена"},
+  "toast_cleanup_complete": {"message": "Очистка уведомлений завершена"},
+  "toggle_theme": {"message": "Переключить тему"},
+  "tooltips_cleanup": {"message": "[DEBUG] Очистка подсказок завершена"},
+  "tooltips_cleanup_complete": {"message": "Очистка подсказок завершена"},
+  "top_models": {"message": "Топ моделей"},
+  "total_files": {"message": "Всего файлов"},
+  "translating_wait": {"message": "Переводим, пожалуйста подождите..."},
+  "try_attachment_button": {"message": "Попробуйте использовать кнопку прикрепления вместо этого"},
+
+  "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Автоприкрепление отключено когда включен пакетный режим. Пакетный режим автоматически обрабатывает прикрепление файлов для разделенного контента. Отключите пакетный режим чтобы использовать автоприкрепление для обычных одиночных файлов."},
+  "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Эта настройка отключена когда включен пакетный режим. Пакетный режим использует свою собственную настройку задержки для загрузки файлов. Отключите пакетный режим чтобы использовать эту настройку задержки."},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>ПАКЕТ АКТИВЕН</span> Ручное действие отключено когда включен Пакетный режим. Пакетный режим обрабатывает содержимое автоматически в несколько файлов. Отключите Пакетный режим чтобы использовать Ручное действие для одиночных файлов."},
+  "ui_components_config_error": {"message": "Ошибка конфигурации: DEFAULTS не найден"},
+  "ui_components_reset_failed": {"message": "Сброс не удался"},
+
+  "ui_components_custom_format_label": {"message": "Пользовательский"},
+  "ui_components_custom_format_placeholder": {"message": "напр. log, cfg, data"},
+  "ui_components_data_cleared_success": {"message": "Данные успешно очищены"},
+  "ui_components_delay_countdown": {"message": "Прикрепление через $1 секунд"},
+
+  "ui_components_disabled_title": {"message": "Откройте ИИ чат и введите текст для прикрепления как файл"},
+  "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
+  "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
+  "ui_components_feedback_default_description": {"message": "отзыв или предложение"},
+  "ui_components_feedback_improvement_description": {"message": "запрос функции или идея улучшения"},
+  "ui_components_feedback_support_description": {"message": "проблема или вопрос"},
+  "ui_components_language_changed": {
+    "message": "Язык изменен на $LANGUAGE$",
+    "placeholders": {
+      "LANGUAGE": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_modal_description": {"message": "Введите имя файла (без расширения). Оставьте пустым для использования имени по умолчанию."},
+  "ui_components_modal_hint": {"message": "Разрешено: буквы, цифры, пробелы, тире, подчеркивания (макс. 64). Без расширения."},
+  "ui_components_modal_keys_hint": {"message": "Нажмите <span class=\"key\">Enter</span> для сохранения · <span class=\"key\">Esc</span> для отмены"},
+  "ui_components_modal_placeholder": {"message": "напр. заметки-разговора"},
+  "ui_components_modal_save": {"message": "Сохранить"},
+  "ui_components_modal_title": {"message": "Переименовать файл"},
+  "ui_components_searching_for_file_input": {"message": "Поиск поля ввода файла"},
+  "ui_components_stopped_on": {"message": "Остановлен на"},
+  "ui_components_toggle_theme": {"message": "Переключить тему"},
+  "usage_analytics": {"message": "Аналитика использования"},
+  "use_delay": {"message": "Использовать задержку"},
+  "use_delay_tooltip": {"message": "<span class='tip-badge timing'>ВРЕМЯ</span> Добавляет короткий обратный отсчет перед прикреплением. Полезно если вы иногда вставляете по ошибке - вы можете отменить во время обратного отсчета."},
+  "using_popup_flash": {"message": "Использование flash отображения всплывающего окна"},
+  "validation_extension_required": {"message": "Расширение обязательно"},
+  "validation_invalid_characters": {"message": "Разрешены только буквы, цифры, пробелы, тире и подчеркивания"},
+  "validation_letters_numbers_only": {"message": "Вводите только буквы или цифры"},
+  "validation_no_dots_needed": {"message": "Точки или расширения не нужны - формат файла устанавливается во всплывающем окне расширения"},
+  "validation_security_risk": {"message": "Риск безопасности: исполняемые расширения не разрешены"},
+  "validation_security_risk_executable": {"message": "Риск безопасности: Расширения исполняемых файлов не разрешены"},
+  "validation_system_unavailable": {"message": "Система валидации недоступна"},
+  "view_on_github": {"message": "Посмотреть на GitHub"},
+  "wekturbo_page": {"message": "Страница WekTurbo"},
+  "what_we_do": {"message": "Что мы ДЕЛАЕМ:"},
+  "what_we_dont_do": {"message": "Что мы НЕ делаем:"},
+  "zero_data_collection": {"message": "Нулевой сбор данных:"},
+  "batch_part_created": {"message": "Часть пакета успешно создана"},
+  "batch_part_skipped": {"message": "Часть пакета пропущена - содержимое слишком мало"},
+  "batch_split_avoided": {"message": "Разделение пакета избежано для структурированного содержимого"},
+  "batch_split_insufficient": {"message": "Содержимое не может быть осмысленно разделено на части"},
+  "batch_split_skipped": {"message": "Содержимое слишком короткое для пакетной обработки"},
+  "blob_creation_error": {"message": "Не удалось создать blob файла"},
+  "claude_creating_file": {"message": "Создание файла для платформы Claude"},
+  "claude_file_attached": {"message": "Файл успешно прикреплен к Claude"},
+  "claude_invalid_text": {"message": "Недействительное текстовое содержимое для обработки Claude"},
+  "claude_removing_pasted_element": {"message": "Удаление вставленного текстового элемента из Claude"},
+  "debug_using_popup_flash": {"message": "Использование всплывающей вспышки вместо текста содержимого"},
+
+  "empty_file_created": {"message": "Предупреждение: Создан пустой файл"},
+  "fileAttachComponent_error": {"message": "Компонент прикрепления файла столкнулся с ошибкой"},
+  "file_creation_complete": {"message": "Процесс создания файла завершен"},
+  "file_creation_empty_content": {"message": "Предупреждение: Файл создан без содержимого"},
+  "file_extension_decision": {"message": "Решение о расширении файла завершено"},
+  "file_extension_fallback": {"message": "Использование резервного расширения файла"},
+  "json_content_valid": {"message": "Содержимое уже является действительным JSON"},
+  "language_detection_fallback": {"message": "Определение языка с использованием резервного метода"},
+  "language_detection_success": {"message": "Определение языка успешно завершено"},
+  "makeFile_invalid_content": {"message": "Недействительное содержимое предоставлено функции makeFile"},
+  "makeFile_invalid_format": {"message": "Недействительный формат предоставлен функции makeFile"}
+}

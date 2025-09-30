@@ -13,17 +13,17 @@
  * RELIABILITY: Production error handling, graceful degradation, stable operation
  *
  * DEVELOPMENT TEAM & PROJECT LEADERSHIP:
- * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https://josephmatino.com
- * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https://majokdeng.com
+ * • LEAD DEVELOPER: Joseph Matino <dev@josephmatino.com> | https:
+ * • SCRUM MASTER & PROJECT FUNDING: Majok Deng <scrum@majokdeng.com> | https:
  * • QUALITY ASSURANCE: Automated testing pipeline with CircleCI integration
  * • PROJECT MANAGEMENT: Agile methodology, continuous integration/deployment
  * • CODE REVIEW: Peer review process, automated quality gates, security audits
  * • DOCUMENTATION: Technical writers, API documentation, user experience guides
  *
  * ORGANIZATION & GOVERNANCE:
- * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https://hostwek.com
- * • DIVISION: WekTurbo Designs - Web Development Division | https://hostwek.com/wekturbo
- * • REPOSITORY: https://github.com/JosephMatino/MultiAiFilePaster
+ * • COMPANY: HOSTWEK LTD - Premium Hosting Company | East Africa | https:
+ * • DIVISION: WekTurbo Designs - Web Development Division | https:
+ * • REPOSITORY: https:
  * • TECHNICAL SUPPORT: dev@josephmatino.com, wekturbo@hostwek.com | Response time: 24-48 hours
  * • DOCUMENTATION: Complete API docs, user guides, developer documentation
  * • COMMUNITY: Development community, issue tracking, feature requests
@@ -98,19 +98,19 @@
  * may result in legal action, including injunctive relief and monetary damages.
  * ================================================================================
  */
-
 (() => {
   let lastFocus = null;
-
   function openAboutModal() {
+    window.GPTPF_DEBUG?.log('debug_modal_about_open');
     const aboutModal = document.getElementById('aboutModal');
     const aboutBtn = document.getElementById('aboutBtn');
-    if (!aboutModal) return;
-    
+    if (!aboutModal) {
+      window.GPTPF_DEBUG?.warn('debug_modal_about_element_missing');
+      return;
+    }
     lastFocus = document.activeElement;
     aboutModal.hidden = false;
     aboutBtn && aboutBtn.setAttribute('aria-expanded','true');
-
     if (window.GPTPF_TOOLTIPS) {
       window.GPTPF_TOOLTIPS.hideTooltip();
     }
@@ -119,28 +119,31 @@
     card && card.focus();
     document.addEventListener('keydown', trapEsc, true);
     document.addEventListener('focus', trapFocus, true);
+    window.GPTPF_DEBUG?.log('debug_modal_about_opened');
   }
-
   function closeAboutModal() {
+    window.GPTPF_DEBUG?.log('debug_modal_about_close');
     const aboutModal = document.getElementById('aboutModal');
     const aboutBtn = document.getElementById('aboutBtn');
-    if (!aboutModal) return;
-    
+    if (!aboutModal) {
+      window.GPTPF_DEBUG?.warn('debug_modal_about_close_missing');
+      return;
+    }
     aboutModal.hidden = true;
     aboutBtn && aboutBtn.setAttribute('aria-expanded','false');
     document.documentElement.classList.remove('tips-disabled');
     document.removeEventListener('keydown', trapEsc, true);
     document.removeEventListener('focus', trapFocus, true);
     if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    window.GPTPF_DEBUG?.log('debug_modal_about_closed');
   }
-
   function trapEsc(e) { 
     if (e.key === 'Escape') { 
+      window.GPTPF_DEBUG?.log('debug_modal_escape_pressed');
       e.preventDefault(); 
       closeAboutModal(); 
     } 
   }
-
   function trapFocus(e) {
     const aboutModal = document.getElementById('aboutModal');
     if (!aboutModal || aboutModal.hidden) return;
@@ -150,46 +153,47 @@
       e.preventDefault();
     }
   }
-
   function openClearModal() {
+    window.GPTPF_DEBUG?.log('debug_modal_clear_open');
     const clearModal = document.getElementById('clearDataModal');
-    if (!clearModal) return;
-
+    if (!clearModal) {
+      window.GPTPF_DEBUG?.warn('debug_modal_clear_element_missing');
+      return;
+    }
     lastFocus = document.activeElement;
     clearModal.hidden = false;
-
     if (window.GPTPF_TOOLTIPS) {
       window.GPTPF_TOOLTIPS.hideTooltip();
     }
     document.documentElement.classList.add('tips-disabled');
-
     const card = clearModal.querySelector('.modal-card');
     card && card.focus();
-
     document.addEventListener('keydown', trapEscClear, true);
     document.addEventListener('focus', trapFocusClear, true);
-
     setTimeout(() => document.getElementById('confirmClear')?.focus(), 100);
+    window.GPTPF_DEBUG?.log('debug_modal_clear_opened');
   }
-
   function closeClearModal() {
+    window.GPTPF_DEBUG?.log('debug_modal_clear_close');
     const clearModal = document.getElementById('clearDataModal');
-    if (!clearModal) return;
-
+    if (!clearModal) {
+      window.GPTPF_DEBUG?.warn('debug_modal_clear_close_missing');
+      return;
+    }
     clearModal.hidden = true;
     document.documentElement.classList.remove('tips-disabled');
     document.removeEventListener('keydown', trapEscClear, true);
     document.removeEventListener('focus', trapFocusClear, true);
     if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    window.GPTPF_DEBUG?.log('debug_modal_clear_closed');
   }
-
   function trapEscClear(e) {
     if (e.key === 'Escape') {
+      window.GPTPF_DEBUG?.log('debug_modal_clear_escape');
       e.preventDefault();
       closeClearModal();
     }
   }
-
   function trapFocusClear(e) {
     const clearModal = document.getElementById('clearDataModal');
     if (!clearModal || clearModal.hidden) return;
@@ -199,15 +203,12 @@
       e.preventDefault();
     }
   }
-
   function loadModalContent() {
-    // Modal content is already in HTML with i18n attributes
-    // This function can be used for dynamic content loading if needed
+    window.GPTPF_DEBUG?.log('debug_modal_content_load');
   }
-
   function initModals() {
+    window.GPTPF_DEBUG?.log('debug_modal_system_init');
     loadModalContent();
-
     const aboutBtn = document.getElementById('aboutBtn');
     const aboutClose = document.getElementById('aboutClose');
     const aboutModal = document.getElementById('aboutModal');
@@ -215,48 +216,44 @@
     const clearModal = document.getElementById('clearDataModal');
     const cancelClear = document.getElementById('cancelClear');
     const confirmClear = document.getElementById('confirmClear');
-
     aboutBtn && aboutBtn.addEventListener('click', () => openAboutModal());
     aboutClose && aboutClose.addEventListener('click', () => closeAboutModal());
     aboutModal && aboutModal.addEventListener('click', (e) => {
       const el = e.target;
       if (el && el.getAttribute && el.getAttribute('data-close')) closeAboutModal();
     });
-
     if (clearStatsBtn && clearModal) {
       clearStatsBtn.addEventListener('click', openClearModal);
-
       if (cancelClear) {
         cancelClear.addEventListener('click', closeClearModal);
       }
-
       clearModal.addEventListener('click', (e) => {
         const el = e.target;
         if (el && el.getAttribute && el.getAttribute('data-close')) closeClearModal();
       });
-
       if (confirmClear) {
         confirmClear.addEventListener('click', () => {
+          window.GPTPF_DEBUG?.log('debug_analytics_clear_confirm');
           if (window.GPTPF_ANALYTICS) {
             window.GPTPF_ANALYTICS.showAnalyticsLoading(true);
           }
           closeClearModal();
-
           setTimeout(() => {
             chrome.storage.local.remove(['__analytics_data'], () => {
+              window.GPTPF_DEBUG?.log('debug_analytics_data_cleared');
               if (window.GPTPF_ANALYTICS) {
                 window.GPTPF_ANALYTICS.loadAnalytics();
               }
               if (window.GPTPF_FLASH) {
-                window.GPTPF_FLASH(window.GPTPF_MESSAGES.getMessage('UI_COMPONENTS', 'DATA_CLEARED_SUCCESS'), 'success');
+                window.GPTPF_FLASH(window.GPTPF_I18N.getMessage('data_cleared_success'), 'success');
               }
             });
           }, 500);
         });
       }
     }
+    window.GPTPF_DEBUG?.log('debug_modal_system_ready');
   }
-
   window.GPTPF_MODALS = {
     openAboutModal,
     closeAboutModal,

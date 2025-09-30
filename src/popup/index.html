@@ -16,8 +16,8 @@
   <header>
       <div class="header-content">
         <div class="header-title">
-          <img src="../../logo/mfp_128.png" alt="Multi-AI File Paster" class="header-logo" />
-          <h1 id="title" data-i18n="header_title">Multi-AI File Paster</h1>
+          <img src="../../logo/mfp_128.png" data-i18n-alt="extension_name" class="header-logo" />
+          <h1 id="title" data-i18n="extension_name">Multi-AI File Paster</h1>
         </div>
         <p class="subtitle" data-i18n="header_subtitle">Auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 20+ formats including code files.</p>
       </div>
@@ -30,13 +30,13 @@
       </div>
       <div class="header-controls">
         <div class="language-selector" id="languageSelector">
-          <button class="language-btn" id="languageBtn" type="button" data-i18n-aria-label="language_selector" aria-label="Language">
+          <button class="language-btn" id="languageBtn" type="button" data-i18n-aria-label="language_selector">
             <div class="flag-icon uk-flag" id="currentFlag"></div>
             <span id="currentLanguage">English</span>
           </button>
         </div>
 
-  <div class="theme-toggle" id="themeToggle" data-i18n-title="ui_components_toggle_theme" title="Toggle theme">
+  <div class="theme-toggle" id="themeToggle" data-i18n-title="ui_components_toggle_theme">
           <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/>
             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -53,18 +53,10 @@
     </div>
 
     <section class="card" aria-describedby="controls">
-      <div class="row" id="debugRow">
-        <label for="debugToggle" class="label" data-i18n="debug_mode">Debug Mode</label>
-        <label class="switch">
-          <input type="checkbox" id="debugToggle" />
-          <span class="slider" aria-hidden="true"></span>
-        </label>
-      </div>
-
       <div class="row">
         <div class="label">
           <span data-i18n="auto_attach">Auto Attach</span>
-          <button class="help" type="button" aria-label="What is Auto Attach?" aria-expanded="false" data-tip-i18n="auto_attach_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="aria_what_is_auto_attach" aria-expanded="false" data-tip-i18n="auto_attach_tooltip">?</button>
         </div>
         <label class="switch">
           <input type="checkbox" id="attachToggle" />
@@ -75,7 +67,7 @@
       <div class="row" id="claudeRow" hidden>
         <div class="label">
           <span data-i18n="claude_override">Override Claude's Auto-Attach</span>
-          <button class="help" type="button" aria-label="Claude Override" aria-expanded="false" data-tip-i18n="claude_override_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="aria_claude_override" aria-expanded="false" data-tip-i18n="claude_override_tooltip">?</button>
         </div>
         <label class="switch">
           <input type="checkbox" id="claudeOverrideToggle" />
@@ -86,7 +78,7 @@
       <div class="row">
         <label for="wordLimit" class="label">
           <span data-i18n="min_words_trigger">Min Words to Trigger</span>
-          <button class="help" type="button" aria-label="What is Min Words?" aria-expanded="false" data-tip-i18n="min_words_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="aria_what_is_min_words" aria-expanded="false" data-tip-i18n="min_words_tooltip">?</button>
         </label>
         <input type="number" id="wordLimit" min="50" max="15000" inputmode="numeric" class="input" />
       </div>
@@ -94,7 +86,7 @@
       <div class="row">
         <div class="label">
           <span data-i18n="use_delay">Use Delay</span>
-          <button class="help" type="button" aria-label="What is Delay?" aria-expanded="false" data-tip-i18n="use_delay_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="aria_what_is_delay" aria-expanded="false" data-tip-i18n="use_delay_tooltip">?</button>
         </div>
         <div class="controls-inline">
           <label class="switch">
@@ -102,7 +94,7 @@
             <span class="slider" aria-hidden="true"></span>
           </label>
           <div class="inline-delay" id="delaySecondsWrap" hidden>
-            <input type="number" id="delaySeconds" min="1" max="15" inputmode="numeric" class="input sm" aria-label="Delay seconds (1-15)" />
+            <input type="number" id="delaySeconds" min="1" max="15" inputmode="numeric" class="input sm" data-i18n-aria-label="aria_delay_seconds" />
           </div>
         </div>
       </div>
@@ -111,10 +103,10 @@
       <div class="row row-format">
         <label for="formatSelect" class="label">
           <span data-i18n="file_format">File Format</span>
-          <button class="help" type="button" aria-label="File format" aria-expanded="false" data-tip-i18n="file_format_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="file_format" aria-expanded="false" data-tip-i18n="file_format_tooltip">?</button>
         </label>
         <div class="format-container">
-          <select id="formatSelect" class="select format-select" aria-label="Choose file format">
+          <select id="formatSelect" class="select format-select" data-i18n-aria-label="file_format">
             <option value="auto" data-i18n="auto_detect">Auto-Detect</option>
             <option value="txt">.txt</option>
             <option value="js">.js</option>
@@ -124,10 +116,10 @@
             <option value="md">.md</option>
             <option value="more" data-i18n="more_formats">More formats…</option>
           </select>
-          <select id="moreFormats" class="select format-select hidden" aria-label="More file formats"></select>
+          <select id="moreFormats" class="select format-select hidden" data-i18n-aria-label="aria_more_file_formats"></select>
           <div class="custom-input-row hidden" id="customInputRow">
-            <input type="text" id="customFormat" class="input custom-input" data-i18n-placeholder="custom_format_placeholder" placeholder="e.g. log, cfg, data" maxlength="6">
-            <button id="customFormatTip" class="help" type="button" aria-label="Custom format help" data-tip-i18n="custom_format_tooltip">?</button>
+            <input type="text" id="customFormat" class="input custom-input" data-i18n-placeholder="ui_components_custom_format_placeholder" maxlength="6">
+            <button id="customFormatTip" class="help" type="button" data-i18n-aria-label="aria_custom_format_help" data-tip-i18n="custom_format_tooltip">?</button>
           </div>
         </div>
       </div>
@@ -135,7 +127,7 @@
       <div class="row">
         <div class="label">
           <span data-i18n="batch_mode">Batch Mode</span> <span class="beta-badge" data-i18n="beta">BETA</span>
-          <button class="help" type="button" aria-label="Batch Processing" aria-expanded="false" data-tip-i18n="batch_mode_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="aria_batch_processing" aria-expanded="false" data-tip-i18n="batch_mode_tooltip">?</button>
         </div>
         <label class="switch">
           <input type="checkbox" id="batchToggle" />
@@ -147,7 +139,7 @@
         <div class="row">
           <label for="maxFilesSlider" class="label">
             <span data-i18n="max_files">Max Files</span>
-            <button class="help" type="button" aria-label="Max Files" aria-expanded="false" data-tip-i18n="max_files_tooltip">?</button>
+            <button class="help" type="button" data-i18n-aria-label="max_files" aria-expanded="false" data-tip-i18n="max_files_tooltip">?</button>
           </label>
           <div class="slider-container">
             <input type="range" id="maxFilesSlider" min="2" max="4" value="3" class="range-slider" />
@@ -158,7 +150,7 @@
         <div class="row">
           <label for="processingDelaySlider" class="label">
             <span data-i18n="delay">Delay</span>
-            <button class="help" type="button" aria-label="Batch Delay" aria-expanded="false" data-tip-i18n="batch_delay_tooltip">?</button>
+            <button class="help" type="button" data-i18n-aria-label="aria_batch_delay" aria-expanded="false" data-tip-i18n="batch_delay_tooltip">?</button>
           </label>
           <div class="slider-container">
             <input type="range" id="processingDelaySlider" min="100" max="2000" step="100" value="500" class="range-slider" />
@@ -166,40 +158,13 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="label">
-            <span data-i18n="compression">Compression</span>
-            <button class="help" type="button" aria-label="Batch Compression" aria-expanded="false" data-tip-i18n="batch_compression_tooltip">?</button>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="batchCompressionToggle" />
-            <span class="slider" aria-hidden="true"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="label">
-          <span data-i18n="file_compression">File Compression</span>
-          <button class="help" type="button" aria-label="File Compression" aria-expanded="false" data-tip-i18n="file_compression_tooltip">?</button>
-        </div>
-        <div class="controls-inline">
-          <label class="switch">
-            <input type="checkbox" id="compressionToggle" />
-            <span class="slider" aria-hidden="true"></span>
-          </label>
-          <div class="inline-delay hidden" id="compressionThresholdWrap">
-            <input type="number" id="compressionThreshold" min="512" max="10240" step="256" inputmode="numeric" class="input sm" aria-label="Compression threshold in bytes" />
-            <span class="unit" data-i18n="bytes">bytes</span>
-          </div>
-        </div>
       </div>
 
       <div class="divider" role="separator" aria-hidden="true"></div>
       <div class="row">
         <div class="label">
           <span data-i18n="manual_action">Manual Action</span>
-          <button class="help" type="button" aria-label="Manual Action" aria-expanded="false" data-tip-i18n="manual_action_tooltip">?</button>
+          <button class="help" type="button" data-i18n-aria-label="manual_action" aria-expanded="false" data-tip-i18n="manual_action_tooltip">?</button>
         </div>
         <button id="saveNow" class="btn" type="button" aria-live="polite" data-i18n="attach_typed_text">Attach typed text as file</button>
       </div>
@@ -307,18 +272,18 @@
           </div>
 
 
-            <div class="analytics-trend" aria-label="Files per day trend">
+            <div class="analytics-trend" data-i18n-aria-label="aria_files_per_day_trend">
               <div class="trend-head">
                 <span data-i18n="files_per_day">Files per day</span>
                 <div class="trend-controls">
-                  <select id="chartTypeSelector" class="chart-selector" aria-label="Chart type">
+                  <select id="chartTypeSelector" class="chart-selector" data-i18n-aria-label="aria_chart_type">
                     <option value="bar" data-i18n="bar_chart">Bar</option>
                     <option value="line" data-i18n="line_chart">Line</option>
                   </select>
                   <span id="trendSummary" class="trend-summary">—</span>
                 </div>
               </div>
-              <div id="trendSparkline" class="sparkline" role="img" aria-label="Files per day line chart">
+              <div id="trendSparkline" class="sparkline" role="img" data-i18n-aria-label="aria_files_per_day_chart">
                 <svg class="sparkline-skeleton hidden" viewBox="0 0 280 48">
                   <defs>
                     <linearGradient id="sparklineShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -405,6 +370,59 @@
         </div>
       </div>
 
+      <div class="misc-section">
+        <div class="row" id="miscRow">
+          <div class="label">
+            <svg class="misc-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
+            </svg>
+            <span data-i18n="misc_section">MISC</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="miscToggle" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <div id="miscOptions" class="misc-options">
+          <div class="row">
+            <label for="themeSelect" class="label theme-label">
+              <span data-i18n="theme_selection">Theme</span>
+              <button class="help" type="button" data-i18n-aria-label="aria_theme_help" aria-expanded="false" data-tip-i18n="theme_selection_tooltip">?</button>
+            </label>
+            <select id="themeSelect" class="select" data-i18n-aria-label="aria_choose_theme">
+              <option value="default" data-i18n="theme_default">Default</option>
+              <option value="chatgpt" data-i18n="theme_chatgpt">ChatGPT</option>
+              <option value="claude" data-i18n="theme_claude">Claude</option>
+              <option value="gemini" data-i18n="theme_gemini">Gemini</option>
+              <option value="deepseek" data-i18n="theme_deepseek">DeepSeek</option>
+              <option value="grok" data-i18n="theme_grok">Grok</option>
+            </select>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <label for="debugLevelSelect" class="label debug-label">
+              <span data-i18n="debug_log_level">Debug Level</span>
+              <button class="help" type="button" data-i18n-aria-label="aria_debug_level" aria-expanded="false" data-tip-i18n="debug_level_tooltip">?</button>
+            </label>
+            <select id="debugLevelSelect" class="select debug-select" data-i18n-aria-label="aria_choose_debug_level">
+              <option value="errors" data-i18n="debug_level_errors_only">Errors Only</option>
+              <option value="warnings" data-i18n="debug_level_warnings_errors">Warnings & Errors</option>
+              <option value="all" data-i18n="debug_level_all_messages">All Messages</option>
+            </select>
+          </div>
+
+          <button class="reset-btn" id="resetBtn" data-i18n="reset_to_default">
+            <svg class="reset-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+            </svg>
+            <span data-i18n="reset_to_default">Reset to Default</span>
+          </button>
+        </div>
+      </div>
+
       <div id="clearDataModal" class="modal" hidden>
         <div class="modal-backdrop" data-close="1"></div>
         <div class="modal-card clear-data-modal" role="dialog" aria-modal="true" tabindex="-1">
@@ -431,19 +449,19 @@
 
     <footer class="footer">
       <div class="footer-left">
-        <span><span data-i18n="footer_copyright">© 2025 · Multi-AI File Paster · Developed by</span> <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a> | <span data-i18n="scrum_master">Scrum Master:</span> <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a> | <span data-i18n="powered_by">powered by</span> <a href="https://hostwek.com" target="_blank" rel="noopener" aria-label="Hostwek website"><img src="../../logo/hostwek.png" alt="Hostwek" class="logo" /></a></span>
+        <span><span data-i18n="footer_copyright">© 2025 · Multi-AI File Paster · Developed by</span> <a href="https://josephmatino.com" target="_blank" rel="noopener">Joseph Matino</a> | <span data-i18n="scrum_master">Scrum Master:</span> <a href="https://majokdeng.com" target="_blank" rel="noopener">Majok Deng</a> | <span data-i18n="powered_by">powered by</span> <a href="https://hostwek.com" target="_blank" rel="noopener" data-i18n-aria-label="aria_hostwek_website"><img src="../../logo/hostwek.png" data-i18n-alt="hostwek_logo" class="logo" /></a></span>
       </div>
       <div class="footer-icons">
-        <button id="aboutBtn" class="icon-btn help" type="button" data-i18n-aria-label="about_help" data-i18n-title="about_help" aria-label="About & Help" title="About & Help">
+        <button id="aboutBtn" class="icon-btn help" type="button" data-i18n-aria-label="about_help" data-i18n-title="about_help">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
         </button>
-        <a class="icon-btn help" href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener" data-i18n-aria-label="github_repository" data-i18n-title="view_on_github" aria-label="GitHub Repository" title="View on GitHub">
+        <a class="icon-btn help" href="https://github.com/JosephMatino/MultiAiFilePaster" target="_blank" rel="noopener" data-i18n-aria-label="github_repository" data-i18n-title="view_on_github">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.36-1.37-3.36-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.52 1.06 1.52 1.06.89 1.56 2.34 1.11 2.9.85.09-.66.35-1.11.64-1.36-2.22-.26-4.56-1.14-4.56-5.09 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.31.1-2.74 0 0 .85-.28 2.78 1.05A9.35 9.35 0 0 1 12 7.1c.86 0 1.73.12 2.54.34 1.93-1.33 2.78-1.05 2.78-1.05.55 1.43.2 2.48.1 2.74.64.71 1.03 1.62 1.03 2.74 0 3.96-2.34 4.82-4.57 5.08.36.32.68.93.68 1.88 0 1.36-.01 2.45-.01 2.78 0 .27.18.6.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
         </a>
-        <button id="feedbackBtn" class="icon-btn help" type="button" data-i18n-aria-label="send_feedback" data-i18n-title="send_feedback" aria-label="Send Feedback" title="Send Feedback">
+        <button id="feedbackBtn" class="icon-btn help" type="button" data-i18n-aria-label="send_feedback" data-i18n-title="send_feedback">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
         </button>
-        <button id="likeBtn" class="icon-btn help" type="button" data-i18n-aria-label="star_github" data-i18n-title="star_github" aria-label="Star on GitHub" title="⭐ Star on GitHub">
+        <button id="likeBtn" class="icon-btn help" type="button" data-i18n-aria-label="star_github" data-i18n-title="star_github">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </button>
       </div>
@@ -453,15 +471,15 @@
       <div class="modal-backdrop" data-close="1"></div>
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" tabindex="-1">
         <header class="modal-head">
-          <h2 id="aboutTitle" data-i18n="about_title">About & Help</h2>
-          <button class="modal-close" id="aboutClose" type="button" data-i18n-aria-label="close" aria-label="Close">×</button>
+          <h2 id="aboutTitle" data-i18n="about_help">About & Help</h2>
+          <button class="modal-close" id="aboutClose" type="button" data-i18n-aria-label="close">×</button>
         </header>
         <div class="modal-body">
           <div class="modal-section">
             <h3 data-i18n="smart_file_attachment">Smart File Attachment for AI Chats</h3>
             <p data-i18n="about_description">Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits.</p>
             <p><strong data-i18n="key_features">Key Features:</strong> <span data-i18n="key_features_text">Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions.</span></p>
-            <p><strong data-i18n="new_version">New in v1.1.0:</strong> <span data-i18n="new_version_text">Batch Mode splits large content into multiple files, GZIP compression reduces file sizes by 60-80%, and improved analytics dashboard tracks your usage patterns.</span></p>
+            <p><strong data-i18n="new_version">New in v1.1.0:</strong> <span data-i18n="new_version_text">Batch Mode splits large content into multiple files and improved analytics dashboard tracks your usage patterns.</span></p>
           </div>
 
           <div class="modal-section">
@@ -472,7 +490,6 @@
               <li data-i18n="config_multi_format">Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions</li>
               <li data-i18n="config_platform_optimization">Platform Optimization: Special handling for each AI platform's unique file attachment system</li>
               <li data-i18n="config_batch_processing">Batch Processing: Split large content into 2-4 files with smart line division</li>
-              <li data-i18n="config_file_compression">File Compression: GZIP compression reduces file sizes for better performance</li>
               <li data-i18n="config_manual_override">Manual Override: On-demand conversion of typed text to file attachments</li>
               <li data-i18n="config_claude_integration">Claude Integration: Works alongside or replaces Claude's built-in paste-to-file feature</li>
               <li data-i18n="config_analytics_dashboard">Analytics Dashboard: Track usage patterns and file creation statistics</li>
@@ -530,8 +547,8 @@
       <div class="modal-backdrop" data-close="1"></div>
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle" tabindex="-1">
         <header class="modal-head">
-          <h2 id="feedbackTitle" data-i18n="feedback_title">Send Feedback</h2>
-          <button class="modal-close" data-close="1" type="button" data-i18n-aria-label="close" aria-label="Close">×</button>
+          <h2 id="feedbackTitle" data-i18n="send_feedback">Send Feedback</h2>
+          <button class="modal-close" data-close="1" type="button" data-i18n-aria-label="close">×</button>
         </header>
         <div class="modal-body">
           <div class="modal-section">
@@ -565,7 +582,7 @@
     </div>
   </main>
 
-  <!-- Language Dropdown - Outside container for proper z-index -->
+  
   <div class="language-backdrop" id="languageBackdrop" hidden></div>
 
   <div class="language-loading-overlay" id="languageLoadingOverlay" hidden>
@@ -589,11 +606,44 @@
       <div class="flag-icon arabic-flag"></div>
       <span data-i18n="language_arabic">العربية</span>
     </button>
+    <button class="language-option" data-lang="es" type="button">
+      <div class="flag-icon spain-flag"></div>
+      <span data-i18n="language_spanish">Español</span>
+    </button>
+    <button class="language-option" data-lang="ja" type="button">
+      <div class="flag-icon japan-flag"></div>
+      <span data-i18n="language_japanese">日本語</span>
+    </button>
+    <button class="language-option" data-lang="fr" type="button">
+      <div class="flag-icon france-flag"></div>
+      <span data-i18n="language_french">Français</span>
+    </button>
+    <button class="language-option" data-lang="ru" type="button">
+      <div class="flag-icon russia-flag"></div>
+      <span data-i18n="language_russian">Русский</span>
+    </button>
+    <button class="language-option" data-lang="zh" type="button">
+      <div class="flag-icon china-flag"></div>
+      <span data-i18n="language_chinese">中文</span>
+    </button>
+    <button class="language-option" data-lang="pt" type="button">
+      <div class="flag-icon portugal-flag"></div>
+      <span data-i18n="language_portuguese">Português</span>
+    </button>
+    <button class="language-option" data-lang="de" type="button">
+      <div class="flag-icon germany-flag"></div>
+      <span data-i18n="language_german">Deutsch</span>
+    </button>
+    <button class="language-option" data-lang="hi" type="button">
+      <div class="flag-icon india-flag"></div>
+      <span data-i18n="language_hindi">हिंदी</span>
+    </button>
   </div>
 
   <script src="../shared/config.js"></script>
+  <script src="../shared/debug.js"></script>
+  <script src="../shared/utils.js"></script>
   <script src="../shared/validation.js"></script>
-  <script src="../shared/messages.js"></script>
   <script src="../shared/i18n.js"></script>
   <script src="../shared/metrics.js"></script>
   <script src="tooltips.js"></script>

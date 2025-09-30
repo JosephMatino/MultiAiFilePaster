@@ -8,6 +8,9 @@
   "author": "Joseph Matino",
   "homepage_url": "https://github.com/JosephMatino/MultiAiFilePaster",
   "minimum_chrome_version": "88",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "icons": {
     "16": "logo/mfp_16.png",
     "32": "logo/mfp_32.png",
@@ -57,12 +60,12 @@
         "src/content/styles.css"
       ],
       "js": [
+        "src/shared/i18n.js",
         "src/shared/config.js",
+        "src/shared/debug.js",
         "src/shared/validation.js",
-        "src/shared/messages.js",
         "src/shared/metrics.js",
         "src/shared/languagedetector.js",
-        "src/shared/compression.js",
         "src/shared/batchprocessor.js",
         "src/content/components/toast.js",
         "src/content/components/loader.js",
@@ -85,7 +88,15 @@
         "src/content/styles.css",
         "_locales/en/messages.json",
         "_locales/sw/messages.json",
-        "_locales/ar/messages.json"
+        "_locales/ar/messages.json",
+        "_locales/es/messages.json",
+        "_locales/ja/messages.json",
+        "_locales/fr/messages.json",
+        "_locales/ru/messages.json",
+        "_locales/zh/messages.json",
+        "_locales/pt/messages.json",
+        "_locales/de/messages.json",
+        "_locales/hi/messages.json"
       ],
       "matches": [
         "https://chat.openai.com/*",

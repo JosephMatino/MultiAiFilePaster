@@ -1,0 +1,885 @@
+{
+  "extension_name": {"message": "Multi-AI File Paster"},
+  "extension_description": {"message": "在ChatGPT、Claude、Gemini、DeepSeek和Grok平台上自动从粘贴的文本内容创建文件附件。支持批处理和文件压缩。"},
+  "extension_short_name": {"message": "Multi-AI"},
+  "extension_context": {"message": "扩展上下文丢失 - 请刷新页面"},
+  "extension_reloaded": {"message": "扩展已重新加载 - 请刷新页面"},
+  "extension_support": {"message": "扩展支持："},
+  "header_title": {"message": "Multi-AI File Paster"},
+  "header_subtitle": {"message": "自动转换长粘贴并在ChatGPT、Claude、Gemini、DeepSeek和Grok中自动附加干净文件。支持自动检测和20+格式，包括代码文件。"},
+  "about_description": {"message": "Multi-AI File Paster检测您粘贴长文本（代码、文档、数据）时，将其转换为格式正确的文件。这保持聊天整洁并在平台限制内。"},
+  "about_help": {"message": "关于和帮助"},
+  "ai_model_default": {"message": "AI模型"},
+  "ai_platforms": {"message": "AI平台"},
+  "all_time": {"message": "全部时间"},
+  "analytics": {"message": "分析"},
+  "analytics_all_time": {"message": "全部时间"},
+  "analytics_analytics_updated": {
+    "message": "分析已更新：$PERIOD$",
+    "placeholders": {
+      "PERIOD": {
+        "content": "$1",
+        "example": "最近7天"
+      }
+    }
+  },
+  "analytics_chart_error": {"message": "图表错误"},
+  "analytics_chart_unavailable": {"message": "图表不可用"},
+  "analytics_cleanup": {"message": "[DEBUG] 分析清理完成"},
+  "analytics_cleanup_complete": {"message": "分析清理已完成"},
+  "analytics_clearing_data": {"message": "正在清除数据..."},
+  "analytics_days_ago": {
+    "message": "$DAYS$天前",
+    "placeholders": {
+      "DAYS": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "analytics_description": {"message": "通过仅分享匿名使用计数（创建的文件、遇到的错误）来帮助改进扩展。从不收集内容、URL或个人数据。完全可选，可随时禁用。"},
+  "analytics_error_loading": {"message": "加载数据错误"},
+  "analytics_exported": {"message": "分析数据已导出"},
+  "analytics_files_label": {"message": "文件"},
+  "analytics_last_30_days": {"message": "最近30天"},
+  "analytics_last_7_days": {"message": "最近7天"},
+  "analytics_last_90_days": {"message": "最近90天"},
+  "analytics_no_data": {"message": "无数据"},
+  "analytics_note": {"message": "注意："},
+  "analytics_note_text": {"message": "分析仪表板仅在启用此选项时可见。"},
+  "analytics_today": {"message": "今天"},
+  "analytics_yesterday": {"message": "昨天"},
+  "anonymous_analytics": {"message": "匿名使用分析（可选）"},
+
+  "aria_batch_delay": {"message": "批量延迟"},
+  "aria_batch_processing": {"message": "批量处理"},
+  "aria_chart_type": {"message": "图表类型"},
+  "aria_choose_debug_level": {"message": "选择调试级别"},
+  "aria_choose_file_format": {"message": "选择文件格式"},
+  "aria_choose_theme": {"message": "选择主题"},
+  "aria_claude_override": {"message": "Claude覆盖"},
+
+  "aria_custom_format_help": {"message": "自定义格式帮助"},
+  "aria_debug_level": {"message": "调试级别帮助"},
+  "aria_delay_seconds": {"message": "延迟秒数（1-15）"},
+  "aria_files_per_day_chart": {"message": "每日文件折线图"},
+  "aria_files_per_day_trend": {"message": "每日文件趋势"},
+  "aria_hostwek_website": {"message": "Hostwek网站"},
+  "aria_more_file_formats": {"message": "更多文件格式"},
+  "aria_theme_help": {"message": "主题选择帮助"},
+  "aria_what_is_auto_attach": {"message": "什么是自动附加？"},
+  "aria_what_is_delay": {"message": "什么是延迟？"},
+  "aria_what_is_min_words": {"message": "什么是最少字数？"},
+  "attach_typed_text": {"message": "附加为文件"},
+  "attachment_attaching": {"message": "正在附加文件..."},
+  "attachment_cancelled": {"message": "附件已取消"},
+  "attachment_failed": {"message": "附件失败"},
+  "attachment_preparing": {"message": "正在准备文件..."},
+  "attachment_success": {
+    "message": "成功附加$FILE$",
+    "placeholders": {
+      "FILE": {
+        "content": "$1",
+        "example": "document.txt"
+      }
+    }
+  },
+  "attachment_uploading": {"message": "正在上传文件..."},
+  "auto_attach": {"message": "自动"},
+  "auto_attach_tooltip": {"message": "<span class='tip-badge feature'>功能</span> 将长粘贴转换为干净文件并自动附加到您的聊天中。在ChatGPT、Claude、Gemini、DeepSeek和Grok上保持消息整洁并在限制内。关闭以正常粘贴并使用手动保存。"},
+  "auto_detect": {"message": "自动检测"},
+  "auto_filename_generated": {"message": "自动文件名已生成"},
+  "back_to_main": {"message": "返回"},
+  "banner_not_supported": {"message": "此页面不受支持"},
+  "bar_chart": {"message": "柱状图"},
+  "batch_active_badge": {"message": "批量"},
+  "batch_active_short": {"message": "批量激活"},
+  "batch_active_tip": {"message": "批量模式已激活 - 将处理多个文件"},
+  "batch_auto_attach_tip": {"message": "自动附加将在批量模式下处理所有文件"},
+
+  "batch_delay_tip": {"message": "延迟适用于批量处理中的每个文件"},
+  "batch_delay_tooltip": {"message": "<span class='tip-badge timing'>时间</span> 上传每个批量文件之间的时间延迟（100ms到2000ms）。更高的延迟减少被AI平台标记为垃圾邮件的机会。当上面的主要\"用户延迟\"切换激活时，此设置会自动禁用 - 在这种情况下，主延迟设置对所有文件上传具有优先级。"},
+  "batch_detected": {
+    "message": "批量模式：检测到$COUNT$个文件",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "batch_mode": {"message": "批量模式"},
+  "batch_mode_tooltip": {"message": "<span class='tip-badge beta'>测试版</span> 根据您的最大文件设置将大内容拆分为多个文件。按行划分内容并使用智能语言检测进行文件扩展名。创建名为part1、part2、part3、part4的文件。非常适合拆分大文档、代码文件或任何超出平台限制的内容。每个部分根据内容分析获得适当的文件扩展名。"},
+  "beta": {"message": "测试版"},
+  "cancel": {"message": "取消"},
+  "claude_override": {"message": "覆盖Claude自动附加"},
+  "claude_override_tooltip": {"message": "<span class='tip-badge feature'>功能</span> Claude包含自己的粘贴到文件功能。启用此选项以始终使用Multi-AI File Paster获得更一致的格式和命名。"},
+  "clear_all_data": {"message": "清除所有数据"},
+  "clear_analytics_data": {"message": "清除分析数据"},
+  "clear_data": {"message": "清除数据"},
+  "clear_data_warning": {"message": "这将永久删除您的所有使用统计信息且无法撤消。"},
+  "close": {"message": "关闭"},
+  "company": {"message": "公司："},
+
+  "config_analytics_dashboard": {"message": "分析仪表板：跟踪使用模式和文件创建统计信息"},
+  "config_auto_attach": {"message": "自动附加：自动检测并转换长粘贴（可自定义字数阈值：50-15,000字）"},
+  "config_batch_processing": {"message": "批量处理：将大内容拆分为2-4个文件，智能行分割"},
+  "config_claude_integration": {"message": "Claude集成：与Claude内置的粘贴到文件功能一起工作或替换它"},
+  "config_delay": {"message": "延迟：可选的1-15秒倒计时防止意外附件"},
+
+  "config_manual_override": {"message": "手动覆盖：按需将键入的文本转换为文件附件"},
+  "config_multi_format": {"message": "多格式支持：从20+文件类型中选择，包括编程语言、标记、数据格式和自定义扩展名"},
+  "config_platform_optimization": {"message": "平台优化：针对每个AI平台独特的文件附件系统进行特殊处理"},
+  "configuration": {"message": "配置"},
+  "connected_to": {
+    "message": "已连接到$MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "console_component_init_error": {"message": "组件初始化错误："},
+  "console_config_load_failed": {"message": "GPTPF：在后台工作器中加载config.js失败："},
+  "console_i18n_load_failed": {"message": "加载消息失败"},
+  "console_manual_save_error": {"message": "手动保存错误："},
+  "console_platform_handler_error": {"message": "平台处理程序错误："},
+  "content_cleanup": {"message": "[DEBUG] 内容清理完成"},
+  "content_cleanup_complete": {"message": "内容脚本清理已完成"},
+  "custom_filename_processed": {"message": "自定义文件名已处理"},
+  "custom_format_label": {"message": "自定义："},
+  "custom_format_placeholder": {"message": "输入格式（例如txt、md、json）"},
+  "custom_format_set": {
+    "message": "自定义格式设置为.$EXT$",
+    "placeholders": {
+      "EXT": {
+        "content": "$1",
+        "example": "txt"
+      }
+    }
+  },
+  "custom_format_tooltip": {"message": "<span class='tip-badge security'>安全</span> 仅输入不带点的扩展名的字母/数字（例如log、data、cfg）。危险的可执行类型被阻止。"},
+  "data_cleared_success": {"message": "所有数据已成功清除"},
+  "days_30": {"message": "30天"},
+  "days_7": {"message": "7天"},
+  "days_90": {"message": "90天"},
+  "debug_analytics_clear_confirm": {"message": "分析清除已确认"},
+  "debug_analytics_data_cleared": {"message": "分析数据已从存储中清除"},
+  "debug_background_command_received": {"message": "后台命令已接收"},
+  "debug_background_config_resolve": {"message": "解析后台配置"},
+  "debug_background_config_resolved": {"message": "后台配置已解析"},
+  "debug_background_config_unavailable": {"message": "后台配置不可用"},
+  "debug_background_extension_installed": {"message": "扩展安装事件"},
+  "debug_background_extension_startup": {"message": "扩展启动事件"},
+  "debug_background_extension_updated": {"message": "扩展已更新"},
+  "debug_background_first_install": {"message": "首次安装"},
+  "debug_background_get_debug_request": {"message": "获取调试请求已接收"},
+  "debug_background_get_settings_request": {"message": "获取设置请求已接收"},
+  "debug_background_message_received": {"message": "后台消息已接收"},
+  "debug_background_metric_event_request": {"message": "指标事件请求已接收"},
+  "debug_background_platform_check_request": {"message": "平台检查请求已接收"},
+  "debug_background_save_chat_complete": {"message": "保存聊天操作完成"},
+  "debug_background_save_chat_start": {"message": "开始保存聊天操作"},
+  "debug_background_save_connection_failed": {"message": "保存期间连接失败"},
+  "debug_background_save_message_request": {"message": "保存消息请求已接收"},
+  "debug_background_save_no_tab": {"message": "未找到活动标签页进行保存"},
+  "debug_background_save_unsupported_platform": {"message": "不支持的保存平台"},
+  "debug_background_script_init": {"message": "初始化后台脚本"},
+  "debug_background_scripts_loaded": {"message": "后台脚本加载成功"},
+  "debug_background_set_settings_request": {"message": "设置设置请求已接收"},
+  "debug_background_settings_get": {"message": "获取后台设置"},
+  "debug_background_settings_saved": {"message": "后台设置已保存"},
+  "debug_background_settings_set": {"message": "设置后台设置"},
+  "debug_badge_refresh_error": {"message": "徽章刷新错误发生"},
+  "debug_badges_refreshed": {"message": "平台徽章刷新成功"},
+  "debug_config_defaults_missing": {"message": "配置DEFAULTS对象缺失"},
+  "debug_config_error": {"message": "[DEBUG] 配置错误"},
+  "debug_config_get": {"message": "[DEBUG] 配置获取"},
+  "debug_config_get_complete": {"message": "配置检索完成"},
+  "debug_config_get_start": {"message": "开始配置检索"},
+  "debug_config_init": {"message": "[DEBUG] 配置初始化"},
+  "debug_config_initialized": {"message": "[DEBUG] 配置已初始化"},
+  "debug_config_load": {"message": "[DEBUG] 配置加载"},
+  "debug_config_save": {"message": "[DEBUG] 配置保存"},
+  "debug_config_set": {"message": "[DEBUG] 配置设置"},
+  "debug_config_set_complete": {"message": "配置保存完成"},
+  "debug_config_set_start": {"message": "开始配置保存"},
+  "debug_config_system_init": {"message": "初始化配置系统"},
+  "debug_config_system_ready": {"message": "配置系统就绪"},
+  "debug_config_url_check": {"message": "检查URL支持"},
+  "debug_config_url_supported": {"message": "[DEBUG] 配置URL支持"},
+  "debug_config_url_unsupported": {"message": "[DEBUG] 配置URL不支持"},
+  "debug_content_theme_applied": {"message": "内容脚本主题已应用"},
+  "debug_content_theme_error": {"message": "内容脚本主题应用错误"},
+  "debug_deepseek_attach_button_get": {"message": "获取DeepSeek附加按钮"},
+  "debug_deepseek_attach_file": {"message": "将文件附加到DeepSeek"},
+  "debug_deepseek_composer_get": {"message": "获取DeepSeek编辑器元素"},
+  "debug_deepseek_constructor": {"message": "DeepSeek平台构造函数"},
+  "debug_deepseek_ensure_file_input": {"message": "确保DeepSeek文件输入"},
+  "debug_deepseek_file_attached": {"message": "文件成功附加到DeepSeek"},
+  "debug_deepseek_file_input_get": {"message": "获取DeepSeek文件输入"},
+  "debug_deepseek_platform_check": {"message": "检查DeepSeek平台"},
+  "debug_deepseek_post_paste_handle": {"message": "处理DeepSeek粘贴后"},
+  "debug_deepseek_settings_get": {"message": "获取DeepSeek平台设置"},
+  "debug_deepseek_should_handle_paste": {"message": "检查DeepSeek是否应处理粘贴"},
+  "debug_disabled": {"message": "调试模式已禁用 - 仅显示错误"},
+  "debug_enabled": {"message": "调试模式已启用 - 将显示调试消息和弹出通知"},
+  "debug_error": {"message": "[错误]"},
+  "debug_factory_create_handler": {"message": "创建平台处理程序"},
+  "debug_factory_default_settings": {"message": "使用默认工厂设置"},
+  "debug_factory_get_platform": {"message": "获取当前平台"},
+  "debug_factory_get_settings": {"message": "获取工厂设置"},
+  "debug_factory_handler_created": {"message": "平台处理程序已创建"},
+  "debug_factory_no_handler": {"message": "未找到平台处理程序"},
+  "debug_factory_platform_detected": {"message": "平台检测成功"},
+  "debug_factory_settings_configured": {"message": "工厂设置已配置"},
+  "debug_factory_unknown_platform": {"message": "检测到未知平台"},
+  "debug_grok_attach_button_get": {"message": "获取Grok附加按钮"},
+  "debug_grok_attach_file": {"message": "将文件附加到Grok"},
+  "debug_grok_composer_get": {"message": "获取Grok编辑器元素"},
+  "debug_grok_constructor": {"message": "Grok平台构造函数"},
+  "debug_grok_ensure_file_input": {"message": "确保Grok文件输入"},
+  "debug_grok_file_attached": {"message": "文件成功附加到Grok"},
+  "debug_grok_file_input_get": {"message": "获取Grok文件输入"},
+  "debug_grok_platform_check": {"message": "检查Grok平台"},
+  "debug_grok_post_paste_handle": {"message": "处理Grok粘贴后"},
+  "debug_grok_settings_get": {"message": "获取Grok平台设置"},
+  "debug_grok_should_handle_paste": {"message": "检查Grok是否应处理粘贴"},
+  "debug_info": {"message": "[DEBUG]"},
+  "debug_level_all_messages": {"message": "全部消息"},
+  "debug_level_errors_only": {"message": "仅错误"},
+  "debug_level_tooltip": {"message": "<span class='tip-badge debug-info'>DEBUG</span> 控制在弹出通知中显示哪些调试消息。仅错误显示关键问题，警告和错误包括警告，全部消息显示包括信息日志在内的所有内容。"},
+  "debug_level_warnings_errors": {"message": "警告和错误"},
+  "debug_loader_countdown_cancelled": {"message": "加载器倒计时已取消"},
+  "debug_loader_countdown_complete": {"message": "加载器倒计时完成"},
+  "debug_loader_countdown_error": {"message": "加载器倒计时错误"},
+  "debug_loader_countdown_start": {"message": "开始加载器倒计时"},
+  "debug_loader_displayed": {"message": "加载器已显示"},
+  "debug_loader_hidden": {"message": "加载器已隐藏"},
+  "debug_loader_hide": {"message": "隐藏加载器"},
+  "debug_loader_show": {"message": "显示加载器"},
+  "debug_log": {"message": "[LOG]"},
+  "debug_log_level": {"message": "调试级别"},
+  "debug_log_level_changed": {
+    "message": "调试日志级别已更改为：$LEVEL$",
+    "placeholders": {
+      "LEVEL": {
+        "content": "$1",
+        "example": "info"
+      }
+    }
+  },
+  "debug_modal_about_close": {"message": "关闭关于模态框"},
+  "debug_modal_about_close_missing": {"message": "关于模态框关闭 - 元素缺失"},
+  "debug_modal_about_closed": {"message": "关于模态框关闭成功"},
+  "debug_modal_about_element_missing": {"message": "关于模态框元素缺失"},
+  "debug_modal_about_init": {"message": "[DEBUG] 关于模态框初始化"},
+  "debug_modal_about_open": {"message": "打开关于模态框"},
+  "debug_modal_about_opened": {"message": "关于模态框打开成功"},
+  "debug_modal_cancel": {"message": "模态框取消按钮已点击"},
+  "debug_modal_clear_close": {"message": "关闭清除数据模态框"},
+  "debug_modal_clear_close_missing": {"message": "清除模态框关闭 - 元素缺失"},
+  "debug_modal_clear_closed": {"message": "清除数据模态框关闭成功"},
+  "debug_modal_clear_data": {"message": "[DEBUG] 清除模态框数据"},
+  "debug_modal_clear_element_missing": {"message": "清除数据模态框元素缺失"},
+  "debug_modal_clear_escape": {"message": "在清除模态框中按下Escape"},
+  "debug_modal_clear_init": {"message": "[DEBUG] 清除模态框初始化"},
+  "debug_modal_clear_open": {"message": "打开清除数据模态框"},
+  "debug_modal_clear_opened": {"message": "清除数据模态框打开成功"},
+  "debug_modal_closed": {"message": "[DEBUG] 模态框已关闭"},
+  "debug_modal_constructor": {"message": "模态框构造函数"},
+  "debug_modal_content_load": {"message": "加载模态框内容"},
+  "debug_modal_error": {"message": "[DEBUG] 模态框错误"},
+  "debug_modal_escape_pressed": {"message": "在模态框中按下Escape键"},
+  "debug_modal_hidden": {"message": "模态框已隐藏"},
+  "debug_modal_hide": {"message": "隐藏模态框"},
+  "debug_modal_initialized": {"message": "[DEBUG] 模态框已初始化"},
+  "debug_modal_initializing": {"message": "[DEBUG] 模态框初始化中"},
+  "debug_modal_ok": {"message": "模态框确定按钮已点击"},
+  "debug_modal_opened": {"message": "[DEBUG] 模态框已打开"},
+  "debug_modal_setup_background": {"message": "[DEBUG] 模态框设置背景"},
+  "debug_modal_setup_close": {"message": "[DEBUG] 模态框设置关闭"},
+  "debug_modal_setup_overlay": {"message": "[DEBUG] 模态框设置覆盖层"},
+  "debug_modal_show": {"message": "显示模态框"},
+  "debug_modal_show_complete": {"message": "模态框显示完成"},
+  "debug_modal_show_error": {"message": "模态框显示错误"},
+  "debug_modal_show_promise_start": {"message": "开始模态框显示承诺"},
+  "debug_modal_system_init": {"message": "初始化模态框系统"},
+  "debug_modal_system_ready": {"message": "模态框系统就绪"},
+  "debug_mode": {"message": "调试模式"},
+  "debug_platform_detection_error": {"message": "平台检测错误发生"},
+  "debug_setting_reset": {
+    "message": "重置设置$KEY$为$VALUE$",
+    "placeholders": {
+      "KEY": {
+        "content": "$1",
+        "example": "theme"
+      },
+      "VALUE": {
+        "content": "$2",
+        "example": "default"
+      }
+    }
+  },
+  "debug_settings_reset_complete": {"message": "设置重置成功完成"},
+  "debug_settings_reset_count": {
+    "message": "重置$COUNT$个设置",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "debug_settings_reset_error": {
+    "message": "设置重置错误：$ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Storage error"
+      }
+    }
+  },
+  "debug_settings_reset_start": {"message": "开始设置重置"},
+  "debug_system_ready": {"message": "调试系统已初始化并就绪"},
+  "debug_theme_apply_complete": {
+    "message": "主题应用完成：$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "deepseek"
+      }
+    }
+  },
+  "debug_theme_apply_start": {
+    "message": "应用主题：$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_change_complete": {
+    "message": "主题更改完成：$THEME$（$NAME$）",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "claude"
+      },
+      "NAME": {
+        "content": "$2",
+        "example": "Claude"
+      }
+    }
+  },
+  "debug_theme_change_start": {
+    "message": "主题更改开始：$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_colors_applied": {
+    "message": "主题颜色已应用于：$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "grok"
+      }
+    }
+  },
+  "debug_theme_default_cleared": {"message": "默认主题已清除平台样式"},
+  "debug_theme_default_detected": {
+    "message": "默认主题检测到平台：$PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "claude"
+      }
+    }
+  },
+  "debug_theme_default_using": {
+    "message": "默认主题使用平台：$PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_dropdown_set": {
+    "message": "主题下拉菜单设置为：$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "gemini"
+      }
+    }
+  },
+  "debug_theme_grok_fx_added": {"message": "Grok流星效果已添加"},
+  "debug_theme_load": {
+    "message": "主题加载：存储=$STORED$，默认=$DEFAULT$，最终=$FINAL$",
+    "placeholders": {
+      "STORED": {
+        "content": "$1",
+        "example": "chatgpt"
+      },
+      "DEFAULT": {
+        "content": "$2",
+        "example": "default"
+      },
+      "FINAL": {
+        "content": "$3",
+        "example": "chatgpt"
+      }
+    }
+  },
+  "debug_theme_sync_error": {"message": "主题同步错误"},
+  "debug_language_sync_error": {"message": "语言同步错误"},
+  "debug_toast_constructor": {"message": "Toast组件构造函数"},
+  "debug_toast_ensure_host": {"message": "确保toast主机元素"},
+  "debug_toast_error": {"message": "错误toast已调用"},
+  "debug_toast_hidden": {"message": "Toast通知已隐藏"},
+  "debug_toast_hide": {"message": "隐藏toast通知"},
+  "debug_toast_host_created": {"message": "Toast主机元素已创建"},
+  "debug_toast_show": {"message": "显示toast通知"},
+  "debug_toast_shown": {"message": "Toast通知已显示"},
+  "debug_toast_success": {"message": "成功toast已调用"},
+  "debug_tooltip_cleanup": {"message": "[DEBUG] 工具提示清理"},
+  "debug_tooltip_created": {"message": "[DEBUG] 工具提示已创建"},
+  "debug_tooltip_displayed": {"message": "工具提示显示成功"},
+  "debug_tooltip_error": {"message": "[DEBUG] 工具提示错误"},
+  "debug_tooltip_escape_pressed": {"message": "在工具提示中按下Escape"},
+  "debug_tooltip_help_clicked": {"message": "帮助按钮已点击"},
+  "debug_tooltip_hidden": {"message": "工具提示隐藏成功"},
+  "debug_tooltip_hide": {"message": "隐藏工具提示"},
+  "debug_tooltip_init": {"message": "[DEBUG] 工具提示初始化"},
+  "debug_tooltip_initialized": {"message": "[DEBUG] 工具提示已初始化"},
+  "debug_tooltip_missing_text": {"message": "工具提示缺少文本属性"},
+  "debug_tooltip_position": {"message": "[DEBUG] 工具提示位置"},
+  "debug_tooltip_setup": {"message": "[DEBUG] 工具提示设置"},
+  "debug_tooltip_show": {"message": "显示工具提示"},
+  "debug_tooltip_system_init": {"message": "初始化工具提示系统"},
+  "debug_tooltip_system_ready": {"message": "工具提示系统就绪"},
+  "debug_ui_refresh_after_reset": {"message": "设置重置后刷新UI"},
+  "debug_utils_message_send_error": {"message": "运行时消息发送失败"},
+  "debug_utils_message_send_start": {"message": "开始运行时消息发送"},
+  "debug_utils_message_send_success": {"message": "运行时消息发送成功"},
+  "debug_utils_storage_get_error": {"message": "存储获取操作失败"},
+  "debug_utils_storage_get_start": {"message": "开始存储获取操作"},
+  "debug_utils_storage_get_success": {"message": "存储获取操作成功"},
+  "debug_utils_storage_set_error": {"message": "存储设置操作失败"},
+  "debug_utils_storage_set_start": {"message": "开始存储设置操作"},
+  "debug_utils_storage_set_success": {"message": "存储设置操作成功"},
+  "debug_validation_custom_invalid": {"message": "[DEBUG] 自定义验证无效"},
+  "debug_validation_custom_start": {"message": "[DEBUG] 自定义验证开始"},
+  "debug_validation_custom_valid": {"message": "[DEBUG] 自定义验证有效"},
+  "debug_validation_display_check": {"message": "[DEBUG] 验证显示检查"},
+  "debug_validation_display_safe": {"message": "[DEBUG] 验证显示安全"},
+  "debug_validation_display_safety": {"message": "检查显示安全性"},
+  "debug_validation_display_unsafe": {"message": "内容显示不安全"},
+  "debug_validation_error": {"message": "[DEBUG] 验证错误"},
+  "debug_validation_event_name": {"message": "验证事件名称"},
+  "debug_validation_extension_empty": {"message": "扩展名输入为空"},
+  "debug_validation_extension_invalid_input": {"message": "提供了无效的扩展名输入"},
+  "debug_validation_extension_risky": {"message": "检测到危险扩展名"},
+  "debug_validation_extension_start": {"message": "开始扩展名验证"},
+  "debug_validation_extension_truncated": {"message": "扩展名截断为5个字符"},
+  "debug_validation_extension_valid": {"message": "扩展名验证通过"},
+  "debug_validation_filename_complete": {"message": "文件名验证完成"},
+  "debug_validation_filename_invalid_input": {"message": "提供了无效的文件名输入"},
+  "debug_validation_filename_no_extension": {"message": "文件名处理时无扩展名"},
+  "debug_validation_filename_start": {"message": "开始文件名验证"},
+  "debug_validation_filename_with_extension": {"message": "文件名处理时有扩展名"},
+  "debug_validation_html_escape": {"message": "转义HTML内容"},
+  "debug_validation_result": {"message": "[DEBUG] 验证结果"},
+  "debug_validation_sanitize_event": {"message": "[DEBUG] 验证清理事件"},
+  "debug_validation_sanitize_filename": {"message": "[DEBUG] 验证清理文件名"},
+  "debug_validation_system_init": {"message": "初始化验证系统"},
+  "debug_validation_system_ready": {"message": "验证系统就绪"},
+  "debug_warn": {"message": "[警告]"},
+  "debug_warning": {"message": "[警告]"},
+
+  "debug_batch_content_too_short": {"message": "内容太短，无法进行批处理"},
+  "debug_batch_split_insufficient": {"message": "内容无法有意义地拆分为多个部分"},
+  "debug_batch_part_too_small": {"message": "部分$1太小：$2个字符"},
+  "debug_batch_structured_content": {"message": "检测到结构化内容：$1"},
+  "debug_batch_too_few_lines": {"message": "内容行数太少，无法进行有意义的批量分割：$1行"},
+  "debug_file_content_empty": {"message": "内容为空或无效"},
+  "debug_json_content_valid": {"message": "内容已经是有效的JSON"},
+  "debug_json_parse_failed": {"message": "内容不是有效的JSON，将作为纯文本处理"},
+  "json_parse_failed_fallback": {"message": "JSON解析失败，回退到纯文本"},
+  "debug_claude_replacing_pasted": {"message": "用文件替换粘贴的文本"},
+  "debug_file_no_content": {"message": "文件没有内容"},
+  "default_auto_generated": {"message": "自动生成"},
+  "delay": {"message": "延迟"},
+  "delay_countdown": {
+    "message": "$SECONDS$秒后附加...",
+    "placeholders": {
+      "SECONDS": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "developer_website": {"message": "开发者网站"},
+  "development_team": {"message": "开发团队和支持"},
+
+  "disabled_title": {"message": "此页面上功能已禁用"},
+  "enter_custom": {"message": "输入自定义格式"},
+  "errors": {"message": "错误"},
+  "errors_attachment_failed": {"message": "文件附件失败。请刷新页面并重试"},
+  "errors_batch_processing_failed": {"message": "批处理失败：$1"},
+  "errors_busy_processing": {"message": "另一个文件附件正在进行中。请等待"},
+
+  "errors_connection_failed": {"message": "无法连接到页面。请刷新并重试"},
+
+  "errors_export_failed": {"message": "导出失败。请重试"},
+  "errors_extension_context": {"message": "扩展上下文问题。请刷新页面并重试"},
+  "errors_extension_reloaded": {"message": "扩展已重新加载。请刷新页面并重试"},
+  "errors_network_error": {"message": "网络错误。检查您的互联网连接并重试"},
+  "errors_no_file_input": {"message": "找不到文件上传区域。请先尝试点击平台上的附件按钮"},
+  "errors_no_input_field": {"message": "找不到聊天输入字段。确保您在支持的AI聊天页面上"},
+  "errors_no_response": {"message": "页面无响应。请刷新并重试"},
+  "errors_no_tab_access": {"message": "无法访问当前标签页。请重试"},
+  "errors_no_text_input": {"message": "聊天输入中未找到文本。请先输入您的消息"},
+  "errors_permission_denied": {"message": "权限被拒绝。请刷新页面并重试"},
+  "errors_platform_not_supported": {"message": "不支持此AI平台。请尝试ChatGPT、Claude、Gemini、DeepSeek或Grok"},
+  "errors_text_too_short": {"message": "文本太短（$1个字）。至少需要$2个字"},
+  "errors_text_too_short_manual": {"message": "文本太短，无法手动保存。请添加更多文本或降低最少字数设置"},
+
+  "errors_invalid_content_type": {"message": "内容无效：文本必须是非空字符串"},
+  "errors_invalid_content_empty": {"message": "内容无效：文本不能为空"},
+  "errors_file_creation_failed": {"message": "创建有效文件对象失败"},
+  "errors_text_content_empty": {"message": "文本内容为空或无效"},
+  "errors_makefile_invalid_content": {"message": "makeFile需要有效的字符串内容"},
+  "errors_fileattach_invalid_result": {"message": "fileAttachComponent返回无效结果"},
+  "errors_platform_attach_failed": {"message": "平台处理程序附加文件失败"},
+  "errors_modal_not_available": {"message": "模态组件不可用"},
+  "export": {"message": "导出"},
+  "export_by_prefix": {"message": "按前缀导出"},
+  "export_filename_prefix": {"message": "文件名前缀"},
+  "feature_request": {"message": "功能请求"},
+  "feature_request_desc": {"message": "建议新功能或改进以使其更好"},
+  "feedback_default_description": {"message": "请描述您的反馈或问题"},
+  "feedback_improvement_description": {"message": "您希望看到哪些改进？"},
+  "feedback_question": {"message": "您想发送什么类型的反馈？"},
+  "feedback_sent": {"message": "反馈发送成功"},
+  "feedback_support_description": {"message": "您遇到了什么问题？"},
+  "file_blob_created": {"message": "文件blob已创建"},
+
+  "file_creation_insights": {"message": "您的文件创建见解"},
+  "file_creation_started": {"message": "文件创建已开始"},
+  "file_format": {"message": "文件格式"},
+  "file_format_auto_selected": {"message": "自动检测格式已启用"},
+  "file_format_back_to_main": {"message": "返回主要格式"},
+  "file_format_changed": {"message": "文件格式已更新"},
+  "file_format_custom_format_set": {"message": "自定义格式设置为$1"},
+  "file_format_enter_custom": {"message": "输入自定义扩展名"},
+  "file_format_format_selected": {"message": "文件格式设置为.$1"},
+  "file_format_next_page": {"message": "下一页已加载"},
+  "file_format_previous_page": {"message": "上一页已加载"},
+  "file_format_tooltip": {"message": "<span class='tip-badge settings'>设置</span> 选择文件类型，或选择自动检测。自动检测使用保守的语言检测，安全回退到.txt以避免错误标记代码。自定义允许任何扩展名，但请谨慎使用。"},
+  "file_formats": {"message": "文件格式"},
+  "file_operations": {"message": "文件操作"},
+  "file_operations_attachment_attaching": {"message": "正在附加文件"},
+  "file_operations_attachment_cancelled": {"message": "文件附件已取消"},
+  "file_operations_attachment_preparing": {"message": "正在准备您的文件"},
+  "file_operations_attachment_success": {"message": "已附加$1"},
+  "file_operations_attachment_uploading": {"message": "正在上传文件"},
+  "file_operations_batch_attaching": {"message": "正在附加$1"},
+  "file_operations_batch_detected": {"message": "检测到大内容。拆分为$1个文件"},
+  "file_operations_batch_processing": {"message": "正在处理文件$1/$2：$3"},
+  "file_operations_batch_processing_start": {"message": "正在处理$1个文件"},
+  "file_operations_batch_success": {"message": "从批次处理了$1个文件"},
+  "file_operations_batch_uploading": {"message": "正在上传$1"},
+
+  "file_operations_manual_save_success": {"message": "文件已附加"},
+  "files_per_day": {"message": "每日文件"},
+  "flash_called": {"message": "闪存消息已调用"},
+  "flash_timeout_set": {"message": "闪存超时已配置"},
+  "footer_copyright": {"message": "© 2025 · Multi-AI File Paster · 开发者"},
+  "format_auto_detected": {"message": "文件格式自动检测"},
+  "format_changed": {"message": "文件格式已更改"},
+  "format_selected": {
+    "message": "格式$FORMAT$已选择",
+    "placeholders": {
+      "FORMAT": {
+        "content": "$1",
+        "example": ".txt"
+      }
+    }
+  },
+  "general_feedback": {"message": "一般反馈"},
+  "general_feedback_desc": {"message": "分享您的想法、建议或用户体验"},
+  "github_repository": {"message": "GitHub仓库"},
+  "github_star": {"message": "在GitHub上加星"},
+  "hostwek_logo": {"message": "Hostwek标志"},
+  "html_sections_about_modal_content": {"message": "关于模态框内容"},
+  "html_sections_controls_section": {"message": "控制部分"},
+  "html_sections_feedback_modal_content": {"message": "反馈模态框内容"},
+  "html_sections_footer_section": {"message": "页脚部分"},
+  "html_sections_header_section": {"message": "页眉部分"},
+  "i18n_cleanup": {"message": "[DEBUG] i18n清理完成"},
+  "i18n_cleanup_complete": {"message": "i18n清理已完成"},
+
+  "key_features": {"message": "主要功能："},
+  "key_features_text": {"message": "自动检测从您的内容中选择正确的文件类型，保证回退到.txt。适用于ChatGPT、Claude、Gemini、DeepSeek和Grok。支持20+文件格式，包括编程语言、标记、数据格式和自定义扩展名。"},
+  "keyboard_shortcut": {"message": "键盘快捷键："},
+  "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S（手动保存）"},
+  "language_abbreviation": {"message": "语言"},
+  "language_abbreviation_": {"message": "语言"},
+  "language_abbreviation_ar": {"message": "AR"},
+  "language_abbreviation_en": {"message": "EN"},
+  "language_abbreviation_sw": {"message": "SW"},
+  "language_abbreviation_es": {"message": "ES"},
+  "language_abbreviation_ja": {"message": "JA"},
+  "language_abbreviation_fr": {"message": "FR"},
+  "language_abbreviation_ru": {"message": "RU"},
+  "language_abbreviation_zh": {"message": "ZH"},
+  "language_abbreviation_pt": {"message": "PT"},
+  "language_abbreviation_de": {"message": "DE"},
+  "language_arabic": {"message": "阿拉伯语"},
+  "language_changed": {"message": "语言更改成功"},
+  "language_chinese": {"message": "中文"},
+  "language_english": {"message": "英语"},
+  "language_french": {"message": "法语"},
+  "language_german": {"message": "德语"},
+  "language_hindi": {"message": "印地语"},
+  "language_japanese": {"message": "日语"},
+  "language_portuguese": {"message": "葡萄牙语"},
+  "language_russian": {"message": "俄语"},
+  "language_selector": {"message": "语言选择"},
+  "language_spanish": {"message": "西班牙语"},
+  "language_swahili": {"message": "斯瓦希里语"},
+  "lead_developer": {"message": "首席开发者："},
+  "letters_numbers_only": {"message": "仅字母和数字"},
+  "line_chart": {"message": "折线图"},
+  "loader_cleanup": {"message": "[DEBUG] 加载器清理完成"},
+  "loader_cleanup_complete": {"message": "加载器清理已完成"},
+  "manual_action": {"message": "手动"},
+  "manual_action_tooltip": {"message": "<span class='tip-badge feature'>功能</span> 手动将您在聊天输入中键入的任何文本转换为文件附件。适用于任何AI平台。当您想从当前消息创建文件而不进行自动检测时非常完美。"},
+  "manual_drag_drop": {"message": "可能需要手动拖放"},
+  "max_files": {"message": "最大文件数"},
+  "max_files_tooltip": {"message": "<span class='tip-badge settings'>设置</span> 将内容拆分为的文件数量。范围：2-4个文件。内容按行平均分配到选定数量的文件中。更高的数字创建更小的文件，但可能触发平台垃圾邮件检测。仅在内容超过您的字数限制设置时激活。"},
+  "min_words_tooltip": {"message": "<span class='tip-badge settings'>设置</span> 自动附加仅在您的粘贴至少这么长时运行。建议：100+字，这样短消息保持内联。"},
+  "min_words_trigger": {"message": "触发最少字数"},
+  "misc_section": {"message": "杂项"},
+  "modal_description": {"message": "输入自定义文件格式扩展名"},
+  "modal_hint": {"message": "留空以自动检测"},
+  "modal_keys_hint": {"message": "<kbd>Enter</kbd>保存，<kbd>Esc</kbd>取消"},
+  "modal_placeholder": {"message": "例如txt、md、json..."},
+  "modal_title": {"message": "自定义格式"},
+  "modals_about_title": {"message": "关于Multi-AI File Paster"},
+  "modals_help_content": {"message": "帮助内容"},
+  "modals_help_title": {"message": "帮助"},
+  "more_formats": {"message": "更多格式…"},
+  "more_formats_loaded": {"message": "更多格式已加载"},
+  "network_error": {"message": "网络错误发生"},
+  "new_version": {"message": "v1.1.0新功能："},
+  "new_version_text": {"message": "批量模式将大内容拆分为多个文件，智能语言检测自动选择文件扩展名，改进的分析仪表板跟踪您的使用模式。"},
+  "next_page": {"message": "下一页"},
+  "no_data_yet": {"message": "暂无数据"},
+  "no_file_input": {"message": "页面上未找到文件输入"},
+  "not_on_platform": {"message": "不在支持的平台上"},
+  "permission_denied": {"message": "权限被拒绝"},
+  "platform_chatgpt": {"message": "OpenAI ChatGPT：完全支持chat.openai.com和chatgpt.com"},
+  "platform_claude": {"message": "Anthropic Claude：与claude.ai高级集成，包括覆盖内置功能"},
+  "platform_deepseek": {"message": "DeepSeek AI：与chat.deepseek.com完全兼容"},
+  "platform_gemini": {"message": "Google Gemini：为gemini.google.com优化文件处理"},
+  "platform_grok": {"message": "Grok：与grok.com标准集成（附加按钮+拖放）"},
+  "platform_specific_chatgpt_no_input": {"message": "找不到ChatGPT文件输入。请先尝试点击附件按钮，然后重试"},
+  "platform_specific_claude_no_input": {"message": "找不到Claude文件输入。请先尝试点击附件图标，然后重试"},
+  "platform_specific_gemini_no_input": {"message": "找不到Gemini文件输入。请先尝试点击回形针图标，然后重试"},
+  "platform_specific_generic_no_input": {"message": "请先尝试点击平台上的附件按钮，然后重试"},
+  "platform_specific_manual_drag_drop": {"message": "仍然找不到文件输入。请通过将文件拖到聊天中手动附加文件"},
+  "platform_specific_try_attachment_button": {"message": "尝试附件按钮"},
+  "platforms_chatgpt": {"message": "ChatGPT：与chat.openai.com完全集成"},
+  "platforms_claude": {"message": "Claude：对claude.ai对话的原生支持"},
+  "platforms_deepseek": {"message": "DeepSeek：对chat.deepseek.com的完全支持"},
+  "platforms_description": {"message": "与最受欢迎的AI聊天平台集成："},
+  "platforms_gemini": {"message": "Gemini：与gemini.google.com无缝集成"},
+  "platforms_grok": {"message": "Grok：与x.ai平台完全兼容"},
+  "platforms_why": {"message": "为什么这很重要："},
+  "platforms_why_text": {"message": "每个平台都有不同的文件附件系统。我们的扩展自动处理这些差异，确保无论您使用哪个AI，您的文件都能正确附加。"},
+  "popup_cleanup": {"message": "[DEBUG] 弹出窗口清理完成"},
+  "popup_cleanup_complete": {"message": "弹出窗口清理已完成"},
+  "powered_by": {"message": "由...提供支持"},
+  "previous_page": {"message": "上一页"},
+  "privacy": {"message": "隐私"},
+  "privacy_description": {"message": "所有文本处理完全在您的设备上进行。您的内容永远不会离开您的计算机 - 没有服务器，没有云处理，没有数据传输。"},
+  "privacy_do": {"message": "在本地处理您的文本以创建文件附件，然后立即丢弃处理的数据。简单、安全、透明。"},
+  "privacy_dont": {"message": "我们从不读取、存储或传输您的文本内容、URL、个人信息或浏览数据。您与AI的对话保持完全私密。"},
+  "reset_modal_changes_title": {"message": "这将重置："},
+  "reset_modal_debug_item": {"message": "调试级别：仅错误"},
+  "reset_modal_question": {"message": "您确定要将所有Multi-AI File Paster设置重置为默认值吗？"},
+  "reset_modal_theme_item": {"message": "主题：默认"},
+  "reset_modal_title": {"message": "重置设置"},
+  "reset_modal_warning": {"message": "此操作无法撤消。"},
+  "reset_to_default": {"message": "重置为默认"},
+  "resources": {"message": "资源："},
+  "retry": {"message": "重试"},
+  "saving": {"message": "正在保存..."},
+  "scrum_master": {"message": "Scrum主管："},
+  "searching_for_file_input": {"message": "正在搜索文件输入..."},
+  "send_feedback": {"message": "发送反馈"},
+  "sending_message_to_content": {"message": "向内容脚本发送消息"},
+  "setting_save_initiated": {"message": "设置保存已启动"},
+  "setting_saved_to_storage": {"message": "设置已保存到存储"},
+  "settings_auto_attach_disabled": {"message": "自动附加已禁用。使用手动保存按钮附加文件"},
+  "settings_auto_attach_enabled": {"message": "自动附加已启用。粘贴时文件将自动附加"},
+
+  "settings_batch_delay_updated": {"message": "批处理延迟设置为$1ms"},
+  "settings_batch_mode_disabled": {"message": "批量模式已禁用。自动附加已恢复"},
+  "settings_batch_mode_enabled": {"message": "批量模式已启用。批量模式激活时自动附加已禁用"},
+  "settings_claude_override_disabled": {"message": "Claude覆盖已禁用。Claude将使用内置功能"},
+  "settings_claude_override_enabled": {"message": "Claude覆盖已启用。扩展将在Claude上工作"},
+
+  "settings_debug_disabled": {"message": "调试模式已禁用"},
+  "settings_debug_enabled": {"message": "调试模式已启用"},
+  "settings_delay_disabled": {"message": "附件延迟已禁用"},
+  "settings_delay_enabled": {"message": "附件延迟已启用$1秒"},
+  "settings_max_batch_files_updated": {"message": "最大批量文件设置为$1"},
+  "settings_reset": {"message": "设置重置为默认值"},
+  "settings_saving": {"message": "正在保存设置"},
+  "settings_telemetry_disabled": {"message": "分析已禁用。不会收集使用数据"},
+  "settings_telemetry_enabled": {"message": "分析已启用。这有助于改进扩展"},
+  "settings_word_limit_updated": {"message": "字数限制更新为$1字"},
+  "smart_file_attachment": {"message": "AI聊天智能文件附件"},
+  "star_github": {"message": "⭐ 在GitHub上加星"},
+  "status_connected": {
+    "message": "已连接到$PLATFORM$",
+    "placeholders": {
+      "PLATFORM": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "stopped_on": {
+    "message": "停止在$MODEL$",
+    "placeholders": {
+      "MODEL": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "success_analytics_exported": {"message": "分析数据导出成功"},
+  "success_feedback_sent": {"message": "反馈邮件打开成功！感谢您帮助我们改进。"},
+  "success_github_star": {"message": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z\"/></svg> 谢谢！打开GitHub为仓库加星"},
+  "success_not_on_platform": {"message": "不在支持的AI平台上。请先打开ChatGPT、Claude、Gemini、DeepSeek或Grok"},
+  "support_contacts": {"message": "支持联系："},
+  "support_request": {"message": "支持请求"},
+  "support_request_desc": {"message": "获取问题、错误或技术问题的帮助"},
+  "supported_platforms": {"message": "支持的AI平台"},
+  "system_unavailable": {"message": "系统不可用"},
+  "tab_detection": {"message": "标签页平台检测"},
+  "technical_issues": {"message": "技术问题："},
+  "theme_changed": {
+    "message": "主题已更改为$THEME$",
+    "placeholders": {
+      "THEME": {
+        "content": "$1",
+        "example": "ChatGPT"
+      }
+    }
+  },
+  "theme_chatgpt": {"message": "ChatGPT"},
+  "theme_claude": {"message": "Claude"},
+  "theme_deepseek": {"message": "DeepSeek"},
+  "theme_default": {"message": "默认"},
+  "theme_gemini": {"message": "Gemini"},
+  "theme_grok": {"message": "Grok"},
+  "theme_selection": {"message": "主题"},
+  "theme_selection_tooltip": {"message": "<span class='tip-badge settings'>设置</span> 选择您喜欢的主题以突出显示和颜色。每个主题为扩展界面提供不同的视觉样式。"},
+  "this_week": {"message": "本周"},
+  "toast_cleanup": {"message": "[DEBUG] Toast清理完成"},
+  "toast_cleanup_complete": {"message": "Toast清理已完成"},
+  "toggle_theme": {"message": "切换主题"},
+  "tooltips_cleanup": {"message": "[DEBUG] 工具提示清理完成"},
+  "tooltips_cleanup_complete": {"message": "工具提示清理已完成"},
+  "top_models": {"message": "热门模型"},
+  "total_files": {"message": "总文件数"},
+  "translating_wait": {"message": "正在翻译，请稍候..."},
+  "try_attachment_button": {"message": "尝试使用附件按钮"},
+
+  "ui_components_batch_auto_attach_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 启用批量模式时自动附加被禁用。批量模式自动处理拆分内容的文件附件。关闭批量模式以对常规单个文件使用自动附加。"},
+  "ui_components_batch_delay_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 启用批量模式时此设置被禁用。批量模式使用自己的延迟设置进行文件上传。关闭批量模式以使用此延迟设置。"},
+  "ui_components_batch_manual_action_tip": {"message": "<span class='tip-badge batch'>批量激活</span> 当批量模式启用时，手动操作被禁用。批量模式自动将内容处理为多个文件。关闭批量模式以对单个文件使用手动操作。"},
+  "ui_components_config_error": {"message": "配置错误：未找到DEFAULTS"},
+  "ui_components_reset_failed": {"message": "重置失败"},
+
+  "ui_components_custom_format_label": {"message": "自定义"},
+  "ui_components_custom_format_placeholder": {"message": "例如log、cfg、data"},
+  "ui_components_data_cleared_success": {"message": "数据清除成功"},
+  "ui_components_delay_countdown": {"message": "$1秒后附加"},
+
+  "ui_components_disabled_title": {"message": "打开AI聊天并输入文本以作为文件附加"},
+  "ui_components_export_by_prefix": {"message": "Multi-AI File Paster v"},
+  "ui_components_export_filename_prefix": {"message": "multi-ai-paster-analytics-"},
+  "ui_components_feedback_default_description": {"message": "反馈或建议"},
+  "ui_components_feedback_improvement_description": {"message": "功能请求或改进想法"},
+  "ui_components_feedback_support_description": {"message": "问题或疑问"},
+  "ui_components_language_changed": {
+    "message": "语言已更改为$LANGUAGE$",
+    "placeholders": {
+      "LANGUAGE": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "ui_components_modal_description": {"message": "输入文件名（不含扩展名）。留空使用默认名称。"},
+  "ui_components_modal_hint": {"message": "允许：字母、数字、空格、破折号、下划线（最多64个）。无扩展名。"},
+  "ui_components_modal_keys_hint": {"message": "按<span class=\"key\">Enter</span>保存 · <span class=\"key\">Esc</span>取消"},
+  "ui_components_modal_placeholder": {"message": "例如conversation-notes"},
+  "ui_components_modal_save": {"message": "保存"},
+  "ui_components_modal_title": {"message": "重命名文件"},
+  "ui_components_searching_for_file_input": {"message": "正在搜索文件输入"},
+  "ui_components_stopped_on": {"message": "停止在"},
+  "ui_components_toggle_theme": {"message": "切换主题"},
+  "usage_analytics": {"message": "使用分析"},
+  "use_delay": {"message": "使用延迟"},
+  "use_delay_tooltip": {"message": "<span class='tip-badge timing'>时间</span> 在附加前添加短暂倒计时。如果您有时意外粘贴很有帮助 - 您可以在倒计时期间取消。"},
+  "using_popup_flash": {"message": "使用弹出闪存显示"},
+  "validation_extension_required": {"message": "需要扩展名"},
+  "validation_invalid_characters": {"message": "只允许字母、数字、空格、破折号和下划线"},
+  "validation_letters_numbers_only": {"message": "仅输入字母或数字"},
+  "validation_no_dots_needed": {"message": "不需要点或扩展名 - 文件格式在扩展弹出窗口中设置"},
+  "validation_security_risk": {"message": "安全风险：不允许可执行扩展名"},
+  "validation_security_risk_executable": {"message": "安全风险：不允许可执行文件扩展名"},
+  "validation_system_unavailable": {"message": "验证系统不可用"},
+  "view_on_github": {"message": "在GitHub上查看"},
+  "wekturbo_page": {"message": "WekTurbo页面"},
+  "what_we_do": {"message": "我们做什么："},
+  "what_we_dont_do": {"message": "我们不做什么："},
+  "zero_data_collection": {"message": "零数据收集："},
+  "batch_part_created": {"message": "批次部分创建成功"},
+  "batch_part_skipped": {"message": "批次部分已跳过 - 内容太小"},
+  "batch_split_avoided": {"message": "结构化内容避免批次拆分"},
+  "batch_split_insufficient": {"message": "内容无法有意义地拆分为部分"},
+  "batch_split_skipped": {"message": "内容太短，无法进行批处理"},
+  "blob_creation_error": {"message": "创建文件blob失败"},
+  "claude_creating_file": {"message": "为Claude平台创建文件"},
+  "claude_file_attached": {"message": "文件成功附加到Claude"},
+  "claude_invalid_text": {"message": "Claude处理的文本内容无效"},
+  "claude_removing_pasted_element": {"message": "从Claude中删除粘贴的文本元素"},
+  "debug_using_popup_flash": {"message": "使用弹出闪烁而不是内容文本"},
+
+  "empty_file_created": {"message": "警告：创建了空文件"},
+  "fileAttachComponent_error": {"message": "文件附件组件遇到错误"},
+  "file_creation_complete": {"message": "文件创建过程完成"},
+  "file_creation_empty_content": {"message": "警告：创建的文件没有内容"},
+  "file_extension_decision": {"message": "文件扩展名决定完成"},
+  "file_extension_fallback": {"message": "使用回退文件扩展名"},
+  "json_content_valid": {"message": "内容已经是有效的JSON"},
+  "language_detection_fallback": {"message": "语言检测使用回退方法"},
+  "language_detection_success": {"message": "语言检测成功完成"},
+  "makeFile_invalid_content": {"message": "向makeFile函数提供了无效内容"},
+  "makeFile_invalid_format": {"message": "向makeFile函数提供了无效格式"}
+}
