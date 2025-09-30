@@ -9,7 +9,7 @@
 [![MCP Server](https://img.shields.io/badge/🔧_MCP_Server-Python_3.11-2563eb?style=for-the-badge&logo=python)](.)
 [![Environment](https://img.shields.io/badge/🐍_Environment-Virtual_Isolated-dc2626?style=for-the-badge&logo=virtualenv)](.)
 [![Bootstrap](https://img.shields.io/badge/⚡_Bootstrap-Cross_Platform-059669?style=for-the-badge&logo=windows)](.)
-[![Tools](https://img.shields.io/badge/🛠️_Tools-11_Analysis_Tools-7c3aed?style=for-the-badge&logo=tools)](.)
+[![Tools](https://img.shields.io/badge/🛠️_Tools-5_Analysis_Tools-7c3aed?style=for-the-badge&logo=tools)](.)
 
 [![Dependencies](https://img.shields.io/badge/📦_Dependencies-SHA256_Tracked-f59e0b?style=flat&logo=package)](.)
 [![Compatibility](https://img.shields.io/badge/🌍_Compatibility-Win_Linux_macOS-0891b2?style=flat&logo=cross-platform)](.)
@@ -34,15 +34,15 @@ The Model Context Protocol (MCP) is a simple way for an AI client (Augment, Clau
 | Asset inventory | Manual ls + notes | `brand_assets` output |
 
 ### High-Level Flow
-1. MCP client launches `env.py` (defined in `.vscode/mcp.json`).
-2. `env.py` ensures `.venv` exists, dependencies installed, hashes match.
-3. It replaces its process with `multi_ai_assistant.py` (so no wrapper overhead).
-4. The server registers 11 tools over stdio.
+1. MCP client launches `server.py` (defined in `.vscode/mcp.json`).
+2. `server.py` loads 5 specialized tools from `tools/` directory.
+3. Each tool (i18n.py, manifest.py, platform.py, config.py, quality.py) provides codebase-aware analysis.
+4. The server registers 5 tools over stdio with zero Pylance errors.
 5. Client requests tool list (tool listing) then executes tools on demand.
 6. Results are returned instantly; no network calls, no remote services.
 
 ### Reusing In Other Projects
-Copy `mcp-servers/`, `.vscode/mcp.json`, and `requirements.txt` into a new repo. Adjust or remove tools you do not need. Update any project-specific constants in the analysis scripts. Run the setup task; tools will appear automatically in compatible MCP clients.
+Copy `mcp-servers/`, `.vscode/mcp.json`, and `requirements.txt` into a new repo. Adjust or remove tools you do not need. The modular `tools/` architecture makes it easy to add/remove specific analysis capabilities. Run the setup task; tools will appear automatically in compatible MCP clients.
 
 ### Mental Model
 “Local JSON API of project-aware utilities.” Each tool is a small focused function; no persistent DB, no background daemon, no external telemetry.
@@ -60,7 +60,7 @@ graph TB
     A[Augment/Claude Client] --> B[VSCode MCP Configuration]
     B --> C[Python Virtual Environment]
     C --> D[MCP Server Process]
-    D --> E[11 Analysis Tools]
+    D --> E[5 Analysis Tools]
     E --> F[Chrome Extension Analysis]
 
     G[Bootstrap Script env.py] --> H[Environment Setup]
@@ -81,7 +81,7 @@ graph TB
 - Validates environment integrity before server launch
 
 **2. MCP Server Initialization**
-- Python process starts the MCP server with 11 specialized tools
+- Python process starts the MCP server with 5 specialized tools
 - Server establishes JSON-RPC communication channel via stdio
 - Augment/Claude client connects and lists available tools
 - Tools provide Chrome Extension development analysis capabilities
@@ -98,15 +98,18 @@ graph TB
 
 ```
 mcp-servers/
+├── 📁 tools/                    # MCP Tool Implementations (Modular Architecture)
+│   ├── 📄 __init__.py           # Tools package initialization
+│   ├── 📄 base.py               # Base tool class with common functionality
+│   ├── 📄 i18n.py               # I18N validation (648 keys × 11 languages)
+│   ├── 📄 manifest.py           # Manifest V3 validation (5 AI platforms)
+│   ├── 📄 platform.py           # Platform handler analysis
+│   ├── 📄 config.py             # Config system validation (50-15,000 word limits)
+│   └── 📄 quality.py            # Code quality analysis (cross-platform)
+├── 📄 server.py                 # MCP Server Entry Point (5 Tools)
+├── 📄 README.md                 # Comprehensive MCP documentation (300+ lines)
 ├── 📄 env.py                    # Bootstrap Script (Environment Management)
-├── 📄 multi_ai_assistant.py     # MCP Server (11 Analysis Tools)
-├── 📄 test-mcp.py               # MCP server testing and validation utilities
-├── 📁 __pycache__/              # Python cache directory (runtime generated)
-│   └── 📄 multi_ai_assistant.cpython-311.pyc # Compiled Python bytecode
-└── 📁 ai-scripts/               # Python Analysis Tools
-    ├── 📄 analyze.sh            # Shell runner for analysis suite
-    ├── 📄 i18ncheck.py          # Internationalization coverage analysis
-    └── 📄 projanalyze.py        # Project structure and quality analysis
+└── 📄 test-mcp.py               # MCP server testing and validation utilities
 ```
 
 ### 🔧 File Responsibilities & Connections
@@ -116,7 +119,7 @@ mcp-servers/
 **Connections**:
 - Creates `.venv/` virtual environment
 - Installs dependencies from `requirements.txt`
-- Launches `multi_ai_assistant.py` using `os.execv()`
+- Launches `server.py` using `os.execv()`
 - Used by VSCode tasks for manual environment management
 
 **Key Features**:
@@ -125,10 +128,11 @@ mcp-servers/
 - WSL (Windows Subsystem for Linux) detection and support
 - Environment validation and testing capabilities
 
-#### `multi_ai_assistant.py` - MCP Server (Core Analysis Engine)
-**Purpose**: The actual MCP server with 11 Chrome Extension analysis tools
+#### `server.py` - MCP Server (Core Analysis Engine)
+**Purpose**: The actual MCP server with 5 specialized Chrome Extension analysis tools
 **Connections**:
 - Used directly by Augment/Claude via `.vscode/settings.json`
+- Imports all tools from `tools/` directory (i18n, manifest, platform, config, quality)
 - Communicates via JSON-RPC over stdio with AI clients
 - Analyzes files in the Chrome Extension project directory
 - Provides specialized tools for Chrome Extension development
@@ -278,10 +282,10 @@ sequenceDiagram
 
     A->>V: Read .vscode/settings.json
     V->>P: Launch .venv/Scripts/python.exe
-    P->>M: Start multi_ai_assistant.py
+    P->>M: Start server.py
     M->>A: JSON-RPC initialize response
     A->>M: Tool list request
-    M->>A: Return 11 available tools
+    M->>A: Return 5 available tools (i18n, manifest, platform, config, quality)
     A->>M: Execute analysis tool
     M->>T: Run Chrome Extension analysis
     T->>M: Return analysis results
@@ -339,7 +343,7 @@ cd "Multi-AI File Paster"
 # 3. Create .venv/ with Linux structure
 # 4. Install all dependencies
 # 5. Launch MCP server
-python3 mcp-servers/env.py
+python3 mcp-servers/server.py
 ```
 
 **Output you'll see:**
@@ -404,17 +408,17 @@ This MCP environment documentation provides a complete understanding of how the 
 **Answer to your question**: You should **NOT** add any environment variables in Augment. Leave the environment variables section empty when configuring the MCP server. The system gets everything it needs from:
 
 1. **Command**: `${workspaceFolder}/.venv/Scripts/python.exe`
-2. **Args**: `["mcp-servers/multi_ai_assistant.py"]`
+2. **Args**: `["mcp-servers/server.py"]`
 3. **Working Directory**: `${workspaceFolder}`
 
-The MCP server automatically detects the project root and configures itself appropriately.
+The MCP server automatically detects the project root and configures itself appropriately. The modular `tools/` architecture provides 5 specialized analysis tools.
 
 ### 🔧 Immediate Action Items
 
 1. **Save Augment Configuration**: Click "Save" with no environment variables
-2. **Test MCP Connection**: Verify Augment shows "11 tools registered"
-3. **Run Analysis**: Try using one of the MCP tools to analyze your Chrome Extension
-4. **Validate Setup**: Use `python mcp-servers/env.py --validate-env` if issues occur
+2. **Test MCP Connection**: Verify Augment shows "5 tools registered"
+3. **Run Analysis**: Try using one of the MCP tools (i18n, manifest, platform, config, quality) to analyze your Chrome Extension
+4. **Validate Setup**: Use `python mcp-servers/test-mcp.py` if issues occur
 
 ---
 
@@ -495,14 +499,14 @@ git branch    # Verify branch display works
 
 | Scenario | Recommended Command | Explanation |
 |----------|-------------------|-------------|
-| **🔄 Regular Development** | `python3 mcp-servers/env.py` | Full bootstrap with automatic optimization |
-| **⚡ Quick Restart** | `python3 mcp-servers/env.py --quick` | Skip reinstall if dependencies unchanged |
-| **🔍 Environment Check** | `python3 mcp-servers/env.py --status` | View current setup without changes |
-| **🧪 CI/CD Pipeline** | `python3 mcp-servers/env.py --no-launch --status` | Prepare environment without starting server |
-| **🔧 Dependency Issues** | `python3 mcp-servers/env.py --force-reinstall` | Force clean reinstall of all dependencies |
-| **🐛 Debugging Setup** | `python3 mcp-servers/env.py --validate-env` | Full environment validation |
-| **🧪 Server Testing** | `python3 mcp-servers/env.py --test-server` | Test MCP server functionality |
-| **📋 Script Integration** | `python3 mcp-servers/env.py --print-python` | Get Python interpreter path for scripts |
+| **🔄 Regular Development** | `python3 mcp-servers/server.py` | Start MCP server with 5 tools |
+| **⚡ Quick Test** | `python3 mcp-servers/test-mcp.py` | Test MCP server functionality |
+| **🔍 Tool Check** | Check `.vscode/mcp.json` | Verify server.py configuration |
+| **🧪 CI/CD Pipeline** | Import validation in CI | Test tool imports work correctly |
+| **🔧 Dependency Issues** | `pip install -r requirements.txt` | Reinstall MCP dependencies |
+| **🐛 Debugging Setup** | `python3 mcp-servers/test-mcp.py` | Full environment validation |
+| **🧪 Server Testing** | `python3 mcp-servers/test-mcp.py` | Test all 5 tools (i18n, manifest, platform, config, quality) |
+| **📋 Tool Documentation** | See `mcp-servers/README.md` | Complete tool usage guide (300+ lines) |
 
 ## 🔧 Troubleshooting Guide
 
@@ -510,50 +514,54 @@ git branch    # Verify branch display works
 
 | 🚨 Symptom | 🔍 Diagnosis | 💡 Solution |
 |------------|--------------|-------------|
-| **"No module named 'mcp'"** | MCP not installed or wrong environment | `python3 mcp-servers/env.py --force-reinstall` |
-| **"Server exited before responding"** | MCP server startup failure | `python3 mcp-servers/env.py --test-server` |
+| **"No module named 'mcp'"** | MCP not installed or wrong environment | `pip install -r requirements.txt` |
+| **"Server exited before responding"** | MCP server startup failure | `python3 mcp-servers/test-mcp.py` |
 | **"No suitable Python 3 executable"** | Python not in PATH or wrong version | Install Python 3.8+ and ensure it's in PATH |
-| **Dependencies install skipped** | Hash marker preventing reinstall | `rm .venv/.deps_hash` or use `--force-reinstall` |
-| **Wrong interpreter detected** | Multiple Python versions causing confusion | `python3 mcp-servers/env.py --print-python` to verify |
+| **"ModuleNotFoundError: tools"** | Tools package not found | Check `mcp-servers/tools/__init__.py` exists |
+| **Pylance errors in tools** | Type hint issues | All tools have zero Pylance errors - check Python extension |
 | **Permission denied errors** | File system permissions issue | Check folder permissions and run as appropriate user |
 | **WSL path issues** | Mixed Windows/Linux path confusion | Ensure you're using Linux-style commands in WSL |
 
 ### 🧪 Diagnostic Workflow
 
 ```bash
-# Step 1: Check environment status
-python3 mcp-servers/env.py --status
+# Step 1: Check Python version
+python3 --version  # Should be 3.8+
 
-# Step 2: Validate complete setup
-python3 mcp-servers/env.py --validate-env
+# Step 2: Install dependencies
+pip install -r requirements.txt
 
-# Step 3: Test server functionality
-python3 mcp-servers/env.py --test-server
-
-# Step 4: Run testing diagnostics
+# Step 3: Test MCP server
 python3 mcp-servers/test-mcp.py
 
-# Step 5: If issues persist, force clean reinstall
-python3 mcp-servers/env.py --force-reinstall
+# Step 4: Verify tool imports
+python3 -c "from mcp_servers.tools import i18n, manifest, platform, config, quality; print('✅ All tools imported')"
+
+# Step 5: Check .vscode/mcp.json configuration
+cat .vscode/mcp.json
 ```
 
 ### 🔍 Advanced Debugging
 
-**Enable Verbose Mode:**
+**Test Individual Tools:**
 ```bash
-python3 mcp-servers/env.py --verbose --force-reinstall
+python3 -c "from mcp_servers.tools.i18n import I18nTool; print('✅ i18n tool OK')"
+python3 -c "from mcp_servers.tools.manifest import ManifestTool; print('✅ manifest tool OK')"
+python3 -c "from mcp_servers.tools.platform import PlatformTool; print('✅ platform tool OK')"
+python3 -c "from mcp_servers.tools.config import ConfigTool; print('✅ config tool OK')"
+python3 -c "from mcp_servers.tools.quality import QualityTool; print('✅ quality tool OK')"
 ```
 
 **Check Python Environment:**
 ```bash
-python3 mcp-servers/env.py --print-python
 python3 -c "import sys; print(sys.path)"
+python3 -c "import mcp; print(f'MCP version: {mcp.__version__}')"
 ```
 
 **Manual MCP Server Test:**
 ```bash
-.venv/Scripts/python.exe mcp-servers/multi_ai_assistant.py  # Windows
-.venv/bin/python mcp-servers/multi_ai_assistant.py         # Linux/macOS
+.venv/Scripts/python.exe mcp-servers/server.py  # Windows
+.venv/bin/python mcp-servers/server.py         # Linux/macOS
 ```
 
 ## Future Enhancements (Optional)

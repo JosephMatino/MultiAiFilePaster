@@ -93,6 +93,16 @@ class QualityTool(BaseTool):
                         "type": "boolean",
                         "description": "Check for hardcoded strings and fallback patterns",
                         "default": True
+                    },
+                    "run_tests": {
+                        "type": "boolean",
+                        "description": "Execute Jest test suite and analyze coverage (38 tests)",
+                        "default": False
+                    },
+                    "coverage_report": {
+                        "type": "boolean",
+                        "description": "Generate detailed coverage report with recommendations",
+                        "default": False
                     }
                 }
             }
@@ -102,6 +112,8 @@ class QualityTool(BaseTool):
         run_i18n_check = arguments.get('run_i18n_check', True)
         check_signatures = arguments.get('check_signatures', True)
         check_centralization = arguments.get('check_centralization', True)
+        run_tests = arguments.get('run_tests', False)
+        coverage_report = arguments.get('coverage_report', False)
         
         sections: List[Dict[str, Any]] = []
         
@@ -116,6 +128,10 @@ class QualityTool(BaseTool):
         if check_centralization:
             centralization = self._check_centralization()
             sections.append(centralization)
+        
+        if run_tests:
+            test_results = self._run_tests(with_coverage=coverage_report)
+            sections.append(test_results)
         
         return self.format_result("CODE QUALITY ANALYSIS", sections)
 
@@ -193,12 +209,13 @@ class QualityTool(BaseTool):
             }
 
     def _check_file_signatures(self) -> Dict[str, Any]:
-        """Check for Hostwek signature headers in source files."""
+        """Check for Hostwek signature headers in source files (JS and PY only, NOT CSS/HTML)."""
         results: List[str] = []
         missing_signatures: List[str] = []
         checked_files = 0
 
-        file_extensions: List[str] = ['.js', '.py', '.css']
+        # ONLY check JS and PY files - CSS and HTML don't need comment headers
+        file_extensions: List[str] = ['.js', '.py']
         directories: List[str] = ['src', 'mcp-servers', '.github/hooks']
 
         for directory in directories:
@@ -256,7 +273,9 @@ class QualityTool(BaseTool):
         safe_patterns: List[str] = [
             "''", '""', "'txt'", '"txt"', "'auto'", '"auto"',
             "'unknown'", '"unknown"', "'AI Model'", '"AI Model"',
-            "'default'", '"default"', "'none'", '"none"'
+            "'default'", '"default"', "'none'", '"none"',
+            "'errors'", '"errors"', "'text'", '"text"',  # Valid default values
+            "'warnings'", '"warnings"', "'all'", '"all"'  # Valid debug levels
         ]
 
         js_files = self.list_files('src', '.js')
@@ -298,4 +317,190 @@ class QualityTool(BaseTool):
             'content': results,
             'status': 'error' if violations else 'success'
         }
+
+    def _run_tests(self, with_coverage: bool = False) -> Dict[str, Any]:
+        """Execute Jest test suite and analyze results with optional coverage report."""
+        test_dir = os.path.join(self.project_root, 'tests')
+        
+        if not os.path.exists(test_dir):
+            return {
+                'title': "Jest Test Suite Execution",
+                'content': ["❌ Tests directory not found at project root"],
+                'status': 'error'
+            }
+        
+        # Check if node_modules exists
+        node_modules = os.path.join(test_dir, 'node_modules')
+        if not os.path.exists(node_modules):
+            return {
+                'title': "Jest Test Suite Execution",
+                'content': [
+                    "❌ Test dependencies not installed",
+                    "Run: cd tests && npm install"
+                ],
+                'status': 'error'
+            }
+        
+        results: List[str] = []
+        
+        try:
+            # Determine command based on coverage flag
+            cmd = ['npm', 'test']
+            if not with_coverage:
+                cmd.append('--')
+                cmd.append('--no-coverage')
+            
+            # Execute tests
+            result = subprocess.run(
+                cmd,
+                cwd=test_dir,
+                capture_output=True,
+                text=True,
+                timeout=120,
+                env=os.environ.copy()
+            )
+            
+            output_lines = result.stdout.split('\n')
+            
+            # Extract test summary
+            test_summary: List[str] = []
+            coverage_summary: List[str] = []
+            in_coverage = False
+            
+            for line in output_lines:
+                # Test results
+                if 'Test Suites:' in line or 'Tests:' in line or 'Snapshots:' in line or 'Time:' in line:
+                    test_summary.append(line.strip())
+                
+                # Coverage results
+                if '----------|---------|----------|---------|---------|' in line:
+                    in_coverage = True
+                    continue
+                
+                if in_coverage and line.strip():
+                    if line.startswith('All files'):
+                        coverage_summary.append(line.strip())
+                        in_coverage = False
+                    elif '|' in line:
+                        coverage_summary.append(line.strip())
+            
+            # Analyze test results
+            if 'Tests:' in result.stdout:
+                # Extract pass/fail counts
+                for line in test_summary:
+                    if 'Tests:' in line:
+                        results.append(f"📊 {line}")
+                    elif 'Test Suites:' in line:
+                        results.append(f"📦 {line}")
+                    elif 'Time:' in line:
+                        results.append(f"⏱️  {line}")
+            
+            results.append("")
+            
+            # Add coverage if available
+            if with_coverage and coverage_summary:
+                results.append("📈 Coverage Report:")
+                results.append("")
+                for line in coverage_summary[:10]:  # Limit to top 10 lines
+                    results.append(f"  {line}")
+                
+                # Analyze coverage percentages
+                if 'All files' in result.stdout:
+                    results.append("")
+                    results.append("🎯 Coverage Analysis:")
+                    
+                    # Check if we meet 80% thresholds
+                    coverage_metrics = self._parse_coverage_metrics(result.stdout)
+                    if coverage_metrics:
+                        recommendations = self._generate_coverage_recommendations(coverage_metrics)
+                        results.extend(recommendations)
+            
+            # Determine status
+            failed_tests = 'failed' in result.stdout.lower() and ', 0 failed' not in result.stdout.lower()
+            status = 'error' if (result.returncode != 0 or failed_tests) else 'success'
+            
+            if status == 'success':
+                results.append("")
+                results.append("✅ All tests passing - ready for production")
+            else:
+                results.append("")
+                results.append("❌ Test failures detected - review required")
+            
+            return {
+                'title': "Jest Test Suite Execution (38 tests)",
+                'content': results,
+                'status': status
+            }
+            
+        except subprocess.TimeoutExpired:
+            return {
+                'title': "Jest Test Suite Execution",
+                'content': ["❌ Tests timed out after 120 seconds", "Check for infinite loops or hanging tests"],
+                'status': 'error'
+            }
+        except FileNotFoundError:
+            return {
+                'title': "Jest Test Suite Execution",
+                'content': ["❌ npm command not found", "Install Node.js 16+ and npm"],
+                'status': 'error'
+            }
+        except Exception as e:
+            return {
+                'title': "Jest Test Suite Execution",
+                'content': [f"❌ Test execution failed: {str(e)}"],
+                'status': 'error'
+            }
+    
+    def _parse_coverage_metrics(self, output: str) -> Optional[Dict[str, float]]:
+        """Parse coverage percentages from Jest output."""
+        try:
+            # Look for "All files" line with coverage percentages
+            for line in output.split('\n'):
+                if 'All files' in line:
+                    parts = line.split('|')
+                    if len(parts) >= 5:
+                        return {
+                            'statements': float(parts[1].strip().replace('%', '')),
+                            'branches': float(parts[2].strip().replace('%', '')),
+                            'functions': float(parts[3].strip().replace('%', '')),
+                            'lines': float(parts[4].strip().replace('%', ''))
+                        }
+        except (ValueError, IndexError):
+            pass
+        return None
+    
+    def _generate_coverage_recommendations(self, metrics: Dict[str, float]) -> List[str]:
+        """Generate recommendations based on coverage metrics."""
+        recommendations: List[str] = []
+        threshold = 80.0
+        
+        below_threshold = {k: v for k, v in metrics.items() if v < threshold}
+        
+        if not below_threshold:
+            recommendations.append("  ✅ All coverage metrics meet 80% threshold")
+            recommendations.append("  🎯 Consider adding integration tests for platform handlers")
+            recommendations.append("  🎯 Consider adding E2E tests for full workflows")
+        else:
+            recommendations.append("  ⚠️  Coverage below 80% threshold:")
+            for metric, value in below_threshold.items():
+                gap = threshold - value
+                recommendations.append(f"    • {metric.capitalize()}: {value:.1f}% (need {gap:.1f}% more)")
+            
+            recommendations.append("")
+            recommendations.append("  💡 Recommendations:")
+            
+            if metrics.get('branches', 100) < threshold:
+                recommendations.append("    • Add tests for edge cases and error conditions")
+                recommendations.append("    • Test null/undefined inputs and boundary values")
+            
+            if metrics.get('functions', 100) < threshold:
+                recommendations.append("    • Ensure all exported functions have test coverage")
+                recommendations.append("    • Focus on utility functions in shared/ directory")
+            
+            if metrics.get('lines', 100) < threshold:
+                recommendations.append("    • Add tests for uncovered code paths")
+                recommendations.append("    • Review try-catch blocks and error handlers")
+        
+        return recommendations
+
 

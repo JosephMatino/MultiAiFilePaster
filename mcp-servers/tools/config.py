@@ -242,14 +242,32 @@ class ConfigTool(BaseTool):
                     locale_count += 1
                     content = self.read_file(f'_locales/{locale}/messages.json')
                     if content:
-                        limit_text = f"{limits['min']}-{limits['max']:,}"
-                        if limit_text in content or limit_text.replace(',', '') in content:
+                        # Support ALL international number formats
+                        # Examples from actual locales:
+                        # - ar: 50-15000 (no separator)
+                        # - de/pt: 50-15.000 (dot as thousands separator)
+                        # - en/es/hi/ja/sw/zh: 50-15,000 (comma as thousands separator)
+                        # - fr/ru: 50-15 000 (space as thousands separator)
+                        
+                        min_val = str(limits['min'])
+                        max_val = str(limits['max'])
+                        
+                        # Build comprehensive pattern list
+                        patterns_to_check = [
+                            f"{min_val}-{max_val}",           # 50-15000 (no separator)
+                            f"{min_val}-{max_val[:-3]},{max_val[-3:]}",  # 50-15,000 (comma)
+                            f"{min_val}-{max_val[:-3]}.{max_val[-3:]}",  # 50-15.000 (dot)
+                            f"{min_val}-{max_val[:-3]} {max_val[-3:]}",  # 50-15 000 (space)
+                        ]
+                        
+                        # Check if ANY format matches
+                        if any(pattern in content for pattern in patterns_to_check):
                             locale_matches += 1
 
             if locale_matches == locale_count:
-                results.append(f"✅ All {locale_count} locales: Correct word limit text")
+                results.append(f"✅ All {locale_count} locales: Word limit text validated (supports 4 number formats)")
             else:
-                results.append(f"❌ Locales: {locale_matches}/{locale_count} have correct limit text")
+                results.append(f"❌ Locales: {locale_matches}/{locale_count} have word limit text")
                 all_consistent = False
 
         return {

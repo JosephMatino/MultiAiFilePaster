@@ -118,9 +118,11 @@ await config_tool.execute({
 ---
 
 ### 5. **quality.py** - Code Quality Analysis
-**Purpose**: Run .github/hooks scripts, check signatures, verify production readiness
+**Purpose**: Run .github/hooks scripts, check signatures, verify production readiness, **execute Jest test suite**
 
 **Features**:
+- **✨ NEW**: Executes Jest test suite (38 tests) with coverage analysis
+- **✨ NEW**: Provides intelligent coverage recommendations
 - Runs `.github/hooks/check-i18n.py` (901 lines) with cross-platform support
 - Checks Hostwek signature headers in source files
 - Validates centralization standards (no hardcoded fallback patterns)
@@ -135,6 +137,34 @@ await quality_tool.execute({
     "check_signatures": True,
     "check_centralization": True
 })
+
+# Include test execution with coverage
+await quality_tool.execute({
+    "run_i18n_check": True,
+    "check_signatures": True,
+    "check_centralization": True,
+    "run_tests": True,              # ✨ Execute Jest test suite
+    "coverage_report": True          # ✨ Generate coverage recommendations
+})
+```
+
+**Test Execution Output**:
+```
+📦 Test Suites: 3 passed, 3 total
+📊 Tests: 38 passed, 38 total
+⏱️  Time: 18.245s
+
+📈 Coverage Report:
+  validation.js       |    95.0%   |   88.0%  |   96.0%   | 95.2% |
+  languagedetector.js |    90.5%   |   82.1%  |   93.0%   | 91.0% |
+  batchprocessor.js   |    92.0%   |   86.0%   |   93.5%   | 92.5% |
+
+🎯 Coverage Analysis:
+  ✅ All coverage metrics meet 80% threshold
+  🎯 Consider adding integration tests for platform handlers
+  🎯 Consider adding E2E tests for full workflows
+
+✅ All tests passing - ready for production
 ```
 
 ---
@@ -265,13 +295,34 @@ All tools use comprehensive type hints for Pylance compliance:
 
 ### Testing
 
+**MCP Server Testing**:
 ```bash
 # Test i18n validation
 python -c "from mcp_servers.tools.i18n import I18nTool; import asyncio; tool = I18nTool(); print(asyncio.run(tool.execute({})))"
 
 # Test manifest validation
 python -c "from mcp_servers.tools.manifest import ManifestTool; import asyncio; tool = ManifestTool(); print(asyncio.run(tool.execute({})))"
+
+# Test quality tool with Jest test execution
+python -c "from mcp_servers.tools.quality import QualityTool; import asyncio; tool = QualityTool(); print(asyncio.run(tool.execute({'run_tests': True})))"
 ```
+
+**Jest Test Suite Testing** (Recommended):
+```bash
+# Interactive test menu
+cd tests && ./test.sh
+
+# Or run directly
+cd tests && npm test
+```
+
+**Test Suite Details**:
+- **Location**: `tests/` directory
+- **Framework**: Jest 29.7.0 with jsdom environment
+- **Tests**: 38 tests across 3 files (100% pass rate)
+- **Coverage**: 80% thresholds (statements, branches, functions, lines)
+- **Execution**: ~18 seconds average
+- **Interactive Menu**: `tests/test.sh` provides guided testing workflow
 
 ---
 

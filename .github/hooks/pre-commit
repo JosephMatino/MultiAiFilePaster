@@ -210,15 +210,15 @@ while IFS= read -r -d '' file; do
 done < <(find src/ -name "*.js" -print0)
 
 # Enhanced MCP validation integration
-if command -v python3 >/dev/null 2>&1 && [[ -f "mcp-servers/multi_ai_assistant.py" ]]; then
+if command -v python3 >/dev/null 2>&1 && [[ -f "mcp-servers/server.py" ]]; then
     echo -e "${BLUE}${ICON_CHECK} Running MCP quality analysis...${NC}"
 
     # Check if MCP server is syntactically valid
-    if python3 -m py_compile mcp-servers/multi_ai_assistant.py 2>/dev/null; then
+    if python3 -m py_compile mcp-servers/server.py 2>/dev/null; then
         echo -e "${GREEN}   ${ICON_SUCCESS} MCP server syntax validation passed${NC}"
     else
         echo -e "${RED}   ${ICON_ERROR} MCP server has syntax errors${NC}"
-        fallback_violations+=("mcp-servers/multi_ai_assistant.py: Python syntax errors detected")
+        fallback_violations+=("mcp-servers/server.py: Python syntax errors detected")
     fi
 
     # Validate MCP server dependencies
@@ -229,6 +229,32 @@ if command -v python3 >/dev/null 2>&1 && [[ -f "mcp-servers/multi_ai_assistant.p
     fi
 else
     echo -e "${YELLOW}   ${ICON_WARNING} MCP validation skipped (Python3 or MCP server not available)${NC}"
+fi
+
+# Jest test suite validation (develop branch only)
+if [[ "$current_branch" == "develop" ]] && [[ -d "tests" ]]; then
+    echo -e "${BLUE}${ICON_CHECK} Running Jest test suite (38 tests)...${NC}"
+    
+    # Check if test dependencies are installed
+    if [[ -d "tests/node_modules" ]]; then
+        # Run tests without coverage for speed
+        if (cd tests && npm test -- --no-coverage --silent 2>&1 | tee /tmp/test-output.txt | grep -q "38 passed"); then
+            echo -e "${GREEN}   ${ICON_SUCCESS} All 38 tests passed${NC}"
+        else
+            echo -e "${RED}   ${ICON_ERROR} Test failures detected${NC}"
+            echo -e "${GRAY}   Review output above for details${NC}"
+            echo -e "${GRAY}   Run 'cd tests && npm test' for full output${NC}"
+            echo -e "${GRAY}   Or use './tests/test.sh' for interactive testing${NC}"
+            exit 1
+        fi
+    else
+        echo -e "${YELLOW}   ${ICON_WARNING} Test dependencies not installed${NC}"
+        echo -e "${GRAY}   Run 'cd tests && npm install' to enable test execution${NC}"
+    fi
+elif [[ "$current_branch" == "develop" ]]; then
+    echo -e "${YELLOW}   ${ICON_WARNING} Tests directory not found${NC}"
+else
+    echo -e "${GREEN}   ${ICON_SUCCESS} Production branch - tests not required${NC}"
 fi
 
 # Check for deprecated chrome.i18n.getMessage calls (should use window.GPTPF_I18N.getMessage)

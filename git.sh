@@ -64,8 +64,9 @@ DEVELOPMENT_FILES=(
   ".augment/"                   # AI guidelines
   ".github/hooks/"              # Local git hooks (not needed in store package)
   ".github/instructions/"       # Internal AI/rules instructions
+  "tests/"                      # Jest test suite (development only)
   # NOTE: Retain .github root markdown (SECURITY.md, CODE_OF_CONDUCT.md, etc.) on main
-  # Add more: "tests/", "dev-tools/", "*.dev.js" as future needs
+  # Add more: "dev-tools/", "*.dev.js" as future needs
 )
 # ================================================================================
 
@@ -227,12 +228,19 @@ show_menu() {
   echo -e "  ${RED}24.${NC} ${ICON_DELETE} Complete Reset ${GRAY}(🚨 NUCLEAR: Deletes EVERYTHING - requires typing confirmation!)${NC}"
   echo ""
 
+  echo -e "${BOLD}${MAGENTA}🧪 TEST SUITE MANAGEMENT${NC}"
+  echo -e "  ${MAGENTA}26.${NC} 🧪 Run All Tests ${GRAY}(Execute Jest test suite - 38 tests)${NC}"
+  echo -e "  ${MAGENTA}27.${NC} 📊 Run Tests with Coverage ${GRAY}(Generate coverage report)${NC}"
+  echo -e "  ${MAGENTA}28.${NC} 🎯 Interactive Test Menu ${GRAY}(Launch tests/test.sh)${NC}"
+  echo ""
+
   echo -e "${BOLD}${RED}0.${NC}  🚪 Exit"
   echo ""
   echo -e "${GRAY}─────────────────────────────────────────────────────────────────────────────${NC}"
   echo -e "${BOLD}${CYAN}💡 Daily Workflow: 1 → 2 → 3 → 4 (Don't skip steps!)${NC}"
   echo -e "${GRAY}   Release Examples: ./git.sh 4 v1.2.0 \"Bug fixes\" OR ./git.sh 4 (interactive)${NC}"
-  read -p "$(echo -e "${BOLD}${CYAN}Choose option [0-25]:${NC} ")" choice
+  echo -e "${GRAY}   Test Suite: Use option 28 for interactive testing menu${NC}"
+  read -p "$(echo -e "${BOLD}${CYAN}Choose option [0-28]:${NC} ")" choice
   echo ""
 }
 
@@ -1142,6 +1150,96 @@ install_hooks() {
   echo -e "${GRAY}Hooks will run automatically on git commit${NC}"
 }
 
+# ================================================================================
+# 🧪 TEST SUITE MANAGEMENT (Options 26-28)
+# ================================================================================
+
+run_tests() {
+  echo -e "${MAGENTA}${ICON_INFO} Running Jest Test Suite (38 tests)...${NC}"
+  echo ""
+  
+  # Check if tests directory exists
+  if [[ ! -d "tests" ]]; then
+    echo -e "${RED}${ICON_ERROR} Tests directory not found${NC}"
+    return 1
+  fi
+  
+  # Check if node_modules exists
+  if [[ ! -d "tests/node_modules" ]]; then
+    echo -e "${YELLOW}${ICON_WARNING} Test dependencies not installed${NC}"
+    echo -e "${GRAY}Installing dependencies...${NC}"
+    (cd tests && npm install)
+  fi
+  
+  # Run tests without coverage (fast)
+  echo -e "${BLUE}${ICON_CHECK} Executing tests...${NC}"
+  (cd tests && npm test -- --no-coverage)
+  
+  echo ""
+  echo -e "${GREEN}${ICON_SUCCESS} Test execution complete${NC}"
+}
+
+run_tests_coverage() {
+  echo -e "${MAGENTA}${ICON_INFO} Running Tests with Coverage Analysis...${NC}"
+  echo ""
+  
+  # Check if tests directory exists
+  if [[ ! -d "tests" ]]; then
+    echo -e "${RED}${ICON_ERROR} Tests directory not found${NC}"
+    return 1
+  fi
+  
+  # Check if node_modules exists
+  if [[ ! -d "tests/node_modules" ]]; then
+    echo -e "${YELLOW}${ICON_WARNING} Test dependencies not installed${NC}"
+    echo -e "${GRAY}Installing dependencies...${NC}"
+    (cd tests && npm install)
+  fi
+  
+  # Run tests with coverage
+  echo -e "${BLUE}${ICON_CHECK} Executing tests with coverage...${NC}"
+  (cd tests && npm run test:coverage)
+  
+  echo ""
+  echo -e "${GREEN}${ICON_SUCCESS} Coverage report generated at tests/coverage/lcov-report/index.html${NC}"
+  
+  # Ask if user wants to open coverage report
+  read -p "$(echo -e "${BOLD}Open coverage report in browser? (y/N):${NC} ")" open_coverage
+  if [[ "$open_coverage" == "y" || "$open_coverage" == "Y" ]]; then
+    if command -v xdg-open &> /dev/null; then
+      xdg-open tests/coverage/lcov-report/index.html
+    elif command -v open &> /dev/null; then
+      open tests/coverage/lcov-report/index.html
+    else
+      echo -e "${YELLOW}${ICON_WARNING} Unable to open browser automatically${NC}"
+      echo "Open: tests/coverage/lcov-report/index.html"
+    fi
+  fi
+}
+
+run_tests_interactive() {
+  echo -e "${MAGENTA}${ICON_INFO} Launching Interactive Test Menu...${NC}"
+  echo ""
+  
+  # Check if tests directory exists
+  if [[ ! -d "tests" ]]; then
+    echo -e "${RED}${ICON_ERROR} Tests directory not found${NC}"
+    return 1
+  fi
+  
+  # Check if test.sh exists
+  if [[ ! -f "tests/test.sh" ]]; then
+    echo -e "${RED}${ICON_ERROR} tests/test.sh not found${NC}"
+    return 1
+  fi
+  
+  # Make sure test.sh is executable
+  chmod +x tests/test.sh 2>/dev/null || true
+  
+  # Execute test.sh
+  (cd tests && ./test.sh)
+}
+
 complete_github_reset() {
   echo -e "${RED}${ICON_WARNING} 🚨 NUCLEAR OPTION: Complete Project Reset 🚨${NC}"
   echo -e "${RED}${BOLD}THIS WILL PERMANENTLY DELETE:${NC}"
@@ -1239,7 +1337,10 @@ if [[ $# -ge 1 ]]; then
     23) fresh_start "$@" ;;
     24) complete_github_reset "$@" ;;
     25) install_hooks "$@" ;;
-    *) echo -e "${RED}${ICON_ERROR} Invalid option: $1 (valid range: 1-25)${NC}" ;;
+    26) run_tests "$@" ;;
+    27) run_tests_coverage "$@" ;;
+    28) run_tests_interactive "$@" ;;
+    *) echo -e "${RED}${ICON_ERROR} Invalid option: $1 (valid range: 1-28)${NC}" ;;
   esac
 else
   while true; do
@@ -1270,6 +1371,9 @@ else
       23) fresh_start ;;
       24) complete_github_reset ;;
       25) install_hooks ;;
+      26) run_tests ;;
+      27) run_tests_coverage ;;
+      28) run_tests_interactive ;;
       0)
         echo -e "${CYAN}╔══════════════════════════════════════════════════════════════════════════════╗${NC}"
         echo -e "${CYAN}║${NC}                           ${BOLD}${WHITE}Thank you for using${NC}                              ${CYAN}║${NC}"

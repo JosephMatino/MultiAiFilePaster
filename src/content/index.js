@@ -194,7 +194,9 @@ function initializeComponents() {
       try {
         window.GPTPF_LANGUAGE_DETECTOR = new window.LanguageDetector();
       } catch (err) {
-        console.warn('[Multi-AI] LanguageDetector initialization failed:', err);
+        if (window.GPTPF_DEBUG) {
+          window.GPTPF_DEBUG.error('console_language_detector_init_failed', err);
+        }
         window.GPTPF_LANGUAGE_DETECTOR = null;
       }
     }

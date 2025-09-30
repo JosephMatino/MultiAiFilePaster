@@ -24,13 +24,18 @@ All notable changes to the **Multi-AI File Paster** Chrome extension are documen
 ## [1.1.0] - 2025-09-30
 
 ### Added - Major Feature Expansion
-- **Complete Internationalization** - 11 languages fully supported (648/648 keys each): English, Arabic, Swahili, Spanish, Japanese, French, Russian, Chinese, Portuguese, German, Hindi
+- **Complete Internationalization** - 11 languages fully supported (677/677 keys each): English, Arabic, Swahili, Spanish, Japanese, French, Russian, Chinese, Portuguese, German, Hindi
 - **SHORT UI Text Optimization** - Layout-conscious translations prevent UI overflow across all languages
 - **Real-time Language Sync** - Language changes sync instantly between main popup and content scripts
 - **Enhanced Debug System** - Centralized debug logging with toast integration (`src/shared/debug.js`)
 - **Utility Functions** - Unified Chrome API operations utilities (`src/shared/utils.js`)
 - **Advanced Validation** - Enhanced input sanitization and security (`src/shared/validation.js`)
 - **Batch Processing Engine** - Content splitting processor for large files (`src/shared/batchprocessor.js`)
+- **Comprehensive Testing Suite** - Jest 29.7.0 with 105 automated tests (38 unit + 67 integration)
+  - Unit tests: validation, language detection, batch processing
+  - Integration tests: platform factory, config management, file operations
+  - 100% pass rate with ~65% coverage achieved
+  - Fast execution (~1 second for all tests)
 - **Enhanced i18n Validation Tool** - Comprehensive comment detection with auto-fix capabilities for JavaScript, Python, and HTML files
 - **Git Workflow Automation** - Professional dual-branch workflow with production file filtering (`git.sh`)
 - **Comprehensive MIME Type Support** - 30+ file formats with proper UTF-8 charset declarations

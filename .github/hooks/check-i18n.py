@@ -1,15 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-# Multi-AI File Paster - i18n Analysis Tool
-# Comprehensive codebase-aware internationalization checker
-# Author: Joseph Matino | Hostwek Ltd | WekTurbo Designs
+"""
+ * ================================================================================
+ * MULTI-AI FILE PASTER CHROME EXTENSION | PRODUCTION RELEASE v1.1.0
+ * CHROME EXTENSION SOFTWARE - HOSTWEK CUSTOM LICENSE
+ * ================================================================================
+ *
+ * MODULE: .github/hooks/check-i18n.py
+ * FUNCTION: Comprehensive i18n validation tool for git hooks and CI/CD
+ * ARCHITECTURE: Codebase-aware analysis with pattern detection and validation
+ * SECURITY: Local processing only, no data transmission, privacy-first design
+ * PERFORMANCE: Optimized file scanning, efficient pattern matching
+ * COMPATIBILITY: Python 3.8+, Windows/Linux/macOS cross-platform support
+ *
+ * COPYRIGHT © 2025 HOSTWEK LTD. ALL RIGHTS RESERVED.
+ * DEVELOPED BY JOSEPH MATINO UNDER WEKTURBO DESIGNS - HOSTWEK LTD
+ * LICENSED UNDER HOSTWEK CUSTOM LICENSE
+ * ================================================================================
+ """
 
 import os
 import json
 import re
 import sys
 from typing import Set, Dict, List, Any
+import fnmatch
 
 # Force UTF-8 encoding for Windows console
 if sys.platform == 'win32':
@@ -17,14 +32,70 @@ if sys.platform == 'win32':
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
+def load_gitignore_patterns() -> List[str]:
+    """Load patterns from .gitignore to exclude files from checking."""
+    patterns: List[str] = []
+    gitignore_path = '.gitignore'
+    
+    if os.path.exists(gitignore_path):
+        try:
+            with open(gitignore_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    # Skip comments and empty lines
+                    if line and not line.startswith('#'):
+                        patterns.append(line)
+        except Exception:
+            pass
+    
+    # Always ignore these directories
+    patterns.extend([
+        'node_modules/',
+        '.git/',
+        'dist/',
+        'build/',
+        'coverage/',
+        '.venv/',
+        'venv/',
+        '__pycache__/',
+        'tests/node_modules/',
+        'tests/coverage/',
+        '*.pyc',
+        '*.test.js',
+        '*.spec.js'
+    ])
+    
+    return patterns
+
+def should_ignore_file(filepath: str, patterns: List[str]) -> bool:
+    """Check if file should be ignored based on gitignore patterns."""
+    # Normalize path separators
+    filepath = filepath.replace('\\', '/')
+    
+    for pattern in patterns:
+        # Handle directory patterns
+        if pattern.endswith('/'):
+            if filepath.startswith(pattern) or f'/{pattern}' in filepath:
+                return True
+        # Handle wildcard patterns
+        elif '*' in pattern:
+            if fnmatch.fnmatch(filepath, pattern) or fnmatch.fnmatch(os.path.basename(filepath), pattern):
+                return True
+        # Handle exact matches
+        elif pattern in filepath:
+            return True
+    
+    return False
+
 def find_commented_code() -> List[Dict[str, Any]]:
     """Find ALL inline comments in JavaScript and Python files excluding header signatures."""
     commented_files: List[Dict[str, Any]] = []
+    ignore_patterns = load_gitignore_patterns()
 
     # Scan JavaScript and Python files for ALL inline comments
     for root, dirs, files in os.walk('.'):
         # Skip node_modules, .git, and other irrelevant directories
-        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', 'dist', 'build']]
+        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', 'dist', 'build', 'tests']]
 
         for file in files:
             # Skip the check-i18n.py tool itself
@@ -33,6 +104,11 @@ def find_commented_code() -> List[Dict[str, Any]]:
 
             if file.endswith(('.js', '.jsx', '.ts', '.tsx', '.py', '.html', '.htm')):
                 file_path = os.path.join(root, file)
+                
+                # Check if file should be ignored
+                if should_ignore_file(file_path, ignore_patterns):
+                    continue
+                
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
@@ -468,6 +544,7 @@ def analyze_i18n() -> Dict[str, Any]:
 def find_hardcoded_strings() -> List[Dict[str, Any]]:
     """Find ONLY actual hardcoded user-facing strings that should be internationalized."""
     hardcoded_strings: List[Dict[str, Any]] = []
+    ignore_patterns = load_gitignore_patterns()
 
     # FOCUSED patterns for ONLY actual user-facing strings that need i18n
     string_patterns: List[str] = [
@@ -570,6 +647,11 @@ def find_hardcoded_strings() -> List[Dict[str, Any]]:
             for file in files:
                 if file.endswith(file_extensions):
                     filepath: str = os.path.join(root, file)
+                    
+                    # Check if file should be ignored
+                    if should_ignore_file(filepath, ignore_patterns):
+                        continue
+                    
                     try:
                         with open(filepath, 'r', encoding='utf-8') as f:
                             content: str = f.read()

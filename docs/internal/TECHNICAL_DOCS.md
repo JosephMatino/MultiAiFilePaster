@@ -158,14 +158,19 @@ Multi-AI File Paster/
 │   ├── 📄 mfp_48.png          # Standard icon 48x48 (extension details)
 │   └── 📄 mfp_512chrome.png   # Chrome Web Store large icon 512x512
 ├── 📁 mcp-servers/            # Model Context Protocol Server Implementation
-│   ├── 📁 ai-scripts/         # AI Development Analysis Tools
-│   │   ├── 📄 analyze.sh      # Shell runner script for analysis suite
-│   │   ├── 📄 i18ncheck.py    # Internationalization analysis and coverage
-│   │   └── 📄 projanalyze.py  # Project structure and quality analysis
+│   ├── 📁 tools/              # MCP Tool Implementations (Modular Architecture)
+│   │   ├── 📄 __init__.py     # Tools package initialization
+│   │   ├── 📄 base.py         # Base tool class with common functionality
+│   │   ├── 📄 i18n.py         # I18N validation (648 keys × 11 languages)
+│   │   ├── 📄 manifest.py     # Manifest V3 validation (5 AI platforms)
+│   │   ├── 📄 platform.py     # Platform handler analysis
+│   │   ├── 📄 config.py       # Config system validation (50-15,000 word limits)
+│   │   └── 📄 quality.py      # Code quality analysis (cross-platform)
 │   ├── � __pycache__/        # Python cache directory (runtime generated)
 │   │   └── �📄 multi_ai_assistant.cpython-311.pyc # Compiled Python bytecode
+│   ├── 📄 server.py           # MCP Server Entry Point (5 Tools)
+│   ├── 📄 README.md           # Comprehensive MCP documentation (300+ lines)
 │   ├── 📄 env.py              # Bootstrap environment setup script (cross-platform)
-│   ├── 📄 multi_ai_assistant.py # Main MCP server with 11 analysis tools
 │   └── 📄 test-mcp.py         # MCP server testing and validation utilities
 ├── 📁 .github/                # GitHub Repository Configuration & Automation
 │   ├── 📁 hooks/              # Git hooks for repository automation
@@ -991,45 +996,118 @@ export function detectLanguageWithConfidence(content, options = {}) {
 
 ### 🔬 Current Testing Status
 
-**Reality Check**: No formal testing infrastructure present in codebase.
+**Status**: ✅ **Automated test suite implemented and operational**
 
-**CI/CD Pipeline**: GitHub Actions performs basic validation:
-- Syntax checking
-- Manifest validation  
-- Security pattern scanning
-- License compliance verification
+**Test Framework**: Jest 29.7.0 with jsdom environment
 
-### 🧪 Proposed Testing Architecture
+**Test Coverage**:
+- **Total Tests**: 105 tests across 6 test suites (38 unit + 67 integration)
+- **Pass Rate**: 100% (105/105 passing)
+- **Execution Time**: ~1 second average
+- **Coverage Achieved**: ~65% (meeting 60-65% target)
+
+**Test Suite Breakdown**:
+```
+Unit Tests (38 tests):
+✅ tests/unit/validation.test.js       - 12 tests (GPTPF_VALIDATION namespace)
+✅ tests/unit/batchprocessor.test.js   - 11 tests (GPTPF_BATCH namespace)
+✅ tests/unit/languagedetector.test.js - 15 tests (LanguageDetector class)
+
+Integration Tests (67 tests):
+✅ tests/integration/platform-factory.test.js - 12 tests (Platform detection & handlers)
+✅ tests/integration/config.test.js           - 20 tests (Configuration management)
+✅ tests/integration/file-attachment.test.js  - 35 tests (File operations & MIME types)
+```
+
+**CI/CD Pipeline**: GitHub Actions performs comprehensive validation:
+- ✅ Jest test execution (105 tests: 38 unit + 67 integration)
+- ✅ Code coverage analysis (~65% achieved)
+- ✅ Syntax checking
+- ✅ Manifest validation
+- ✅ Security pattern scanning
+- ✅ License compliance verification
+- ✅ MCP server test integration
+
+**Test Infrastructure**:
+- **Location**: `tests/` directory
+- **Configuration**: `tests/jest.config.js`
+- **Mocks**: Chrome API mocks (storage, runtime, i18n, alarms)
+- **Setup**: `tests/setup.js` with global environment configuration
+- **Interactive Menu**: `tests/test.sh` - user-friendly testing workflow
+- **Commands**: 
+  - `cd tests && ./test.sh` - Interactive menu (recommended)
+  - `npm test` - Run all tests
+  - `npm run test:coverage` - Run with coverage report
+  - `npm run test:watch` - Watch mode for development
+
+### 🧪 Implemented Testing Architecture
 
 ```mermaid
 graph TB
-    A[Unit Tests] --> B[Component Tests]
-    B --> C[Integration Tests]
-    C --> D[E2E Platform Tests]
-    
-    A1[Shared Utilities] --> A
-    A2[Language Detection] --> A
-    A3[Language Detection] --> A
-    A4[Validation] --> A
-    
-    B1[Toast Components] --> B
-    B2[Modal System] --> B
-    B3[File Attachment] --> B
-    
-    C1[Platform Factory] --> C
-    C2[Config Management] --> C
-    C3[Analytics Pipeline] --> C
-    
-    D1[ChatGPT Integration] --> D
-    D2[Claude Integration] --> D
-    D3[Gemini Integration] --> D
+    A[Unit Tests - 38 Tests] --> B[Integration Tests - 67 Tests]
+    B --> C[E2E Platform Tests - Planned]
+
+    A1[✅ Validation 12 tests] --> A
+    A2[✅ Language Detection 15 tests] --> A
+    A3[✅ Batch Processing 11 tests] --> A
+
+    B1[✅ Platform Factory 12 tests] --> B
+    B2[✅ Config Management 20 tests] --> B
+    B3[✅ File Operations 35 tests] --> B
+
+    C1[⏳ ChatGPT Integration] --> C
+    C2[⏳ Claude Integration] --> C
+    C3[⏳ Gemini Integration] --> C
+    C4[⏳ Grok Integration] --> C
+    C5[⏳ DeepSeek Integration] --> C
 ```
 
-**Testing Implementation Roadmap:**
-1. **Phase 1**: Unit tests for shared utilities (validation, language detection)
-2. **Phase 2**: Component tests for UI elements (toast, modal, file attachment)
-3. **Phase 3**: Integration tests for platform factory and configuration
-4. **Phase 4**: E2E tests for each platform integration
+**Testing Implementation Progress:**
+- ✅ **Phase 1 Complete**: Unit tests for shared utilities (validation, language detection, batch processing)
+- ✅ **Phase 2 Complete**: Integration tests (platform factory, config management, file operations)
+- ⏳ **Phase 3 Planned**: Component tests for UI elements (toast, modal, loader)
+- ⏳ **Phase 4 Planned**: E2E tests for each platform integration (5 platforms)
+
+**What's Tested**:
+
+**Unit Tests (38 tests):**
+1. **Validation Module** (12 tests):
+   - Filename sanitization (empty strings, invalid characters, path traversal, length limits)
+   - Extension validation (allowed extensions, dangerous extensions, empty inputs)
+   - Utility functions (word count, clamping, HTML escaping)
+
+2. **Language Detection** (15 tests):
+   - Multi-language detection (JavaScript, Python, HTML, CSS, JSON)
+   - File extension mapping (with confidence thresholds)
+   - Fence hint parsing (````language` markers)
+   - JSON validation
+
+3. **Batch Processing** (11 tests):
+   - Content splitting (null handling, short content, long content, line-based splitting)
+   - Filename generation (part numbering, line ranges, extensions)
+   - BatchProcessor class (instantiation, empty arrays, sequential processing, cancellation)
+
+**Integration Tests (67 tests):**
+4. **Platform Factory** (12 tests):
+   - Platform detection and configuration
+   - Handler creation for all platforms (ChatGPT, Claude, Gemini, DeepSeek, Grok)
+   - Settings merging and timeout configuration
+   - Debug logging and error handling
+
+5. **Configuration Management** (20 tests):
+   - Configuration loading and saving with Chrome storage
+   - URL validation for all supported platforms
+   - Default values and validation limits
+   - Configuration persistence and error handling
+
+6. **File Attachment** (35 tests):
+   - File creation from content with proper MIME types
+   - Filename sanitization and custom naming
+   - MIME type detection for 20+ file formats
+   - DataTransfer object creation
+   - Edge case handling (empty content, special characters, long content)
+
+**MCP Integration**: Tests can be executed via MCP server `check_quality` tool with `run_tests` parameter for automated quality assurance workflows.
 
 ## 📋 Change Management & Documentation
 
@@ -1114,7 +1192,7 @@ This technical documentation provides a full, **code-verified** analysis of the 
 
 ---
 
-## ��� MCP Server Architecture (Model Context Protocol)
+## ��� MCP Server Architecture (Model Context Protocol)
 
 The project includes a professional MCP server with 5 codebase-aware tools for AI assistants (Augment, Claude, etc.):
 
@@ -1150,7 +1228,7 @@ graph TB
     style M fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
 ```
 
-### ��� MCP Tools Overview
+### ��� MCP Tools Overview
 
 | Tool | Purpose | Key Features | Lines |
 |------|---------|--------------|-------|

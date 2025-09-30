@@ -31,7 +31,7 @@
 			"args": [
 				"bash",
 				"-c",
-				"cd '/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster' && .venv/bin/python mcp-servers/multi_ai_assistant.py"
+				"cd '/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster' && .venv/bin/python mcp-servers/server.py"
 			],
 			"problemMatcher": [],
 			"isBackground": true,

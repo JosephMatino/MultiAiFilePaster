@@ -1,4 +1,4 @@
-Multi-AI File Paster automatically attaches and converts pasted text into file attachments for AI platforms. When you paste code, documents, or data into ChatGPT, Claude, Gemini, DeepSeek, or Grok, the extension creates properly formatted files with correct extensions and syntax highlighting.
+Multi-AI File Paster automatically attaches and converts pasted text into file attachments for ChatGPT, Claude, Gemini, DeepSeek, and Grok. When you paste code, documents, or data into these AI platforms, the extension creates properly formatted files with correct extensions and syntax highlighting.
 
 The extension combines two powerful features that work together seamlessly. Auto-attach creates file attachments when your pasted content exceeds your word threshold (default 500 words, adjustable from 50 to 15,000 words). Auto-convert detects the programming language or file type from your content and assigns the correct file extension automatically. You paste normally and the extension handles everything in the background without interrupting your workflow.
 
@@ -32,13 +32,13 @@ Available in 11 languages including English, Arabic, Swahili, Spanish, Japanese,
 
 Who Benefits
 
-Developers can share complete component files, API implementations, database schemas, and configuration files without hitting paste limits. Get code reviews and optimization suggestions faster with properly formatted files.
+Developers can share complete component files, API implementations, database schemas, and configuration files without hitting 4,000 character paste limits. Get instant code reviews and optimization suggestions with properly formatted files that maintain syntax highlighting.
 
-Data scientists can share large datasets, complex SQL queries, and analysis scripts seamlessly. CSV files with thousands of rows and Python data processing scripts become instantly shareable with correct formatting.
+Data scientists can share large datasets, complex SQL queries, and analysis scripts seamlessly. CSV files with thousands of rows and Python data processing scripts become instantly shareable with correct formatting and proper encoding.
 
-Technical writers can share documentation drafts, API guides, and tutorials exceeding standard limits. Markdown files with code examples maintain perfect formatting and syntax highlighting.
+Technical writers can share documentation drafts, API guides, and tutorials exceeding standard character limits. Markdown files with code examples maintain perfect formatting and syntax highlighting across all platforms.
 
-Students and educators can share programming assignments, project files, and learning materials easily. Get help with multi-file projects without complex file management or compression tools.
+Students and educators can share programming assignments, project files, and learning materials without compression tools. Get help with multi-file projects instantly with automatic file organization and proper formatting.
 
 Customization Options
 
@@ -63,3 +63,7 @@ If file attachment fails, refresh the AI platform page and clear browser cache. 
 Browser Compatibility
 
 Works on all Chromium based browsers including Google Chrome, Microsoft Edge (version 88 and above), Brave Browser, and Opera (version 74 and above). Compatible with Windows, macOS, and Linux operating systems.
+
+Updates and Support
+
+Regular updates ensure compatibility with AI platform changes and new features. Active development maintains support for all five platforms with prompt fixes for any platform-specific issues. Community feedback drives continuous improvement and feature additions.

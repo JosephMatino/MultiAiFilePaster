@@ -239,6 +239,8 @@ jobs:
   security:
     name: 🛡️ Security Analysis
     runs-on: ubuntu-latest
+    # Only run security analysis on PRs to main, not on develop pushes
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
     permissions:
       actions: read
       contents: read

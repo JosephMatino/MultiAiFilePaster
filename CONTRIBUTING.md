@@ -371,15 +371,29 @@ Multi-AI File Paster/
 │       ├── validation.js    # Centralized input validation and security
 │       ├── metrics.js       # Privacy-safe analytics system
 │       ├── languagedetector.js # Language detection engine
-│       ├── languagedetector.js # Smart language detection utilities
-│       └── batchprocessor.js # Multi-file batch processing engine
-
+│       ├── batchprocessor.js # Multi-file batch processing engine
+│       ├── debug.js         # Centralized debug logging system
+│       ├── i18n.js          # Internationalization utilities
+│       └── utils.js         # Chrome API operations utilities
+├── _locales/                # Internationalization (11 languages)
+│   ├── en/                  # English (baseline)
+│   ├── ar/                  # Arabic
+│   ├── de/                  # German
+│   ├── es/                  # Spanish
+│   ├── fr/                  # French
+│   ├── hi/                  # Hindi
+│   ├── ja/                  # Japanese
+│   ├── pt/                  # Portuguese
+│   ├── ru/                  # Russian
+│   ├── sw/                  # Swahili
+│   └── zh/                  # Chinese
 ├── logo/                    # Extension branding assets
 ├── manifest.json            # Chrome Extension Manifest V3
 ├── readme.md                # Project documentation
 ├── CONTRIBUTING.md          # Contribution guidelines (this file)
 ├── changelog.md             # Version history
-└── LICENSE                  # Hostwek Custom License
+├── LICENSE                  # Hostwek Custom License
+└── NOTICE                   # Legal notices
 ```
 
 ### Key Concepts
@@ -405,6 +419,26 @@ Multi-AI File Paster/
 6. Test thoroughly on the target platform
 
 ## 🧪 Testing Guidelines
+
+### Automated Testing
+
+The extension includes a comprehensive automated test suite in the `develop` branch:
+
+**Test Suite**: 105 tests (38 unit + 67 integration)
+**Framework**: Jest 29.7.0 with jsdom environment
+**Coverage**: ~65% (meeting target)
+**Execution**: ~1 second
+
+**Running Tests** (develop branch only):
+```bash
+cd tests
+npm install
+npm test                  # Run all tests
+npm run test:coverage     # With coverage report
+npm run test:watch        # Watch mode for development
+```
+
+All contributions should include appropriate test coverage for new features.
 
 ### Manual Testing Checklist
 

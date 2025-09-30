@@ -63,7 +63,7 @@ class BaseTool(ABC):
             pass
         return None
     
-    def list_files(self, directory: str, extension: str = None) -> List[str]:
+    def list_files(self, directory: str, extension: Optional[str] = None) -> List[str]:
         """List files in a directory with optional extension filter."""
         files: List[str] = []
         try:
@@ -97,7 +97,8 @@ class BaseTool(ABC):
                 lines.append("-" * 80)
             
             if isinstance(section_content, list):
-                for item in section_content:
+                content_items: List[Any] = section_content  # type: ignore
+                for item in content_items:
                     lines.append(f"  • {item}")
             elif isinstance(section_content, str):
                 lines.append(f"  {section_content}")

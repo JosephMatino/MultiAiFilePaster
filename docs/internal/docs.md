@@ -153,9 +153,11 @@ docs/
     ├── TECHNICAL_DOCS.md       # ⚙️ Technical architecture & implementation
     ├── features.md             # 🎯 Feature matrix & implementation status
     ├── GIT_WORKFLOW.md         # 🔄 Git workflow & branch management
+    ├── MCP_TEST_INTEGRATION.md # 🧪 MCP test integration documentation
+    ├── PIPELINE_PROTECTION.md  # 🛡️ Security & deployment protection
+    ├── ENV_MCP.md              # 🔧 MCP environment setup guide
     ├── description.md          # 🎨 Product description & Chrome Store content
-    ├── docs.md                 # 📖 Documentation standards (this file)
-    └── PIPELINE_PROTECTION.md  # 🛡️ Security & deployment protection
+    └── docs.md                 # 📖 Documentation standards (this file)
 ```
 </details>
 
@@ -192,11 +194,10 @@ src/
 │   └── tooltips.js             # Premium tooltip system
 └── shared/                     # Cross-context utilities
     ├── batchprocessor.js       # Content splitting processor for large files
-    ├── languagedetector.js     # Smart language detection algorithms
     ├── config.js               # Centralized configuration
     ├── debug.js                # Centralized debug logging and error handling
     ├── i18n.js                 # Chrome i18n API integration
-    ├── languagedetector.js     # Programming language detection
+    ├── languagedetector.js     # Smart language detection algorithms
     ├── metrics.js              # Performance monitoring
     ├── utils.js                # Unified Chrome API operations utilities
     └── validation.js           # Security-focused validation
@@ -220,6 +221,80 @@ logo/
 ```
 </details>
 
+#### Internationalization (_locales/)
+<details>
+<summary><strong>🌍 Click to expand internationalization structure</strong></summary>
+
+```
+_locales/
+├── ar/                         # Arabic translations (677 keys)
+│   └── messages.json
+├── de/                         # German translations (677 keys)
+│   └── messages.json
+├── en/                         # English baseline (677 keys)
+│   └── messages.json
+├── es/                         # Spanish translations (677 keys)
+│   └── messages.json
+├── fr/                         # French translations (677 keys)
+│   └── messages.json
+├── hi/                         # Hindi translations (677 keys)
+│   └── messages.json
+├── ja/                         # Japanese translations (677 keys)
+│   └── messages.json
+├── pt/                         # Portuguese translations (677 keys)
+│   └── messages.json
+├── ru/                         # Russian translations (677 keys)
+│   └── messages.json
+├── sw/                         # Swahili translations (677 keys)
+│   └── messages.json
+└── zh/                         # Chinese translations (677 keys)
+    └── messages.json
+```
+</details>
+
+#### Testing Suite (tests/) - DEVELOP BRANCH ONLY
+<details>
+<summary><strong>🧪 Click to expand testing structure</strong></summary>
+
+```
+tests/
+├── README.md                   # Test suite documentation
+├── jest.config.js              # Jest configuration
+├── setup.js                    # Test environment setup
+├── test.sh                     # Interactive test menu
+├── package.json                # Test dependencies
+├── unit/                       # Unit tests (38 tests)
+│   ├── validation.test.js      # 12 tests - GPTPF_VALIDATION
+│   ├── languagedetector.test.js # 15 tests - LanguageDetector
+│   └── batchprocessor.test.js  # 11 tests - GPTPF_BATCH
+└── integration/                # Integration tests (67 tests)
+    ├── platform-factory.test.js # 12 tests - Platform detection
+    ├── config.test.js          # 20 tests - Configuration management
+    └── file-attachment.test.js # 35 tests - File operations
+```
+</details>
+
+#### MCP Server (mcp-servers/) - DEVELOP BRANCH ONLY
+<details>
+<summary><strong>🔧 Click to expand MCP server structure</strong></summary>
+
+```
+mcp-servers/
+├── README.md                   # MCP documentation (300+ lines)
+├── server.py                   # MCP server entry point (5 tools)
+├── env.py                      # Environment bootstrap script
+├── test-mcp.py                 # MCP testing utilities
+└── tools/                      # MCP tool implementations
+    ├── __init__.py             # Tools package initialization
+    ├── base.py                 # Base tool class
+    ├── i18n.py                 # I18N validation tool
+    ├── manifest.py             # Manifest validation tool
+    ├── platform.py             # Platform analysis tool
+    ├── config.py               # Config validation tool
+    └── quality.py              # Quality checking tool
+```
+</details>
+
 #### Root Configuration Files
 <details>
 <summary><strong>⚙️ Click to expand root configuration</strong></summary>
@@ -230,9 +305,12 @@ Root Level/
 ├── .vscode/                    # VS Code workspace settings
 ├── CONTRIBUTING.md             # PUBLIC contribution guidelines
 ├── LICENSE                     # Hostwek Custom License
+├── NOTICE                      # Legal notices
 ├── changelog.md                # PUBLIC version history
-├── git.sh                      # Git workflow automation tool
+├── git.sh                      # Git workflow automation tool (DEVELOP ONLY)
 ├── manifest.json               # Chrome Extension Manifest V3
+├── pyrightconfig.json          # Python type checking config (DEVELOP ONLY)
+├── requirements.txt            # Python dependencies (DEVELOP ONLY)
 └── readme.md                   # PUBLIC user documentation
 ```
 </details>
@@ -267,9 +345,9 @@ Root Level/
 
 **Header signatures are ONLY required for:**
 - `.js` files in `src/`
-- `.css` files in `src/`  
+- `.css` files in `src/`
 - `.html` files in `src/`
-- `.py` files in `mcp-servers/`
+- `.py` files in `mcp-servers/` and `mcp-servers/tools/`
 - Git hook files in `.github/hooks/`
 
 **Documentation files (.md) should NOT include header signatures** - they start with extension logo and content directly.

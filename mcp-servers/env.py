@@ -283,7 +283,7 @@ def install_requirements(root_dir: Path, force: bool, quick: bool, verbose: bool
 
 def launch_mcp_server(root_dir: Path) -> None:
     python_exe, _ = get_venv_paths(root_dir)
-    server_script = root_dir / "mcp-servers" / "multi_ai_assistant.py"
+    server_script = root_dir / "mcp-servers" / "server.py"
     if not server_script.exists():
         raise FileNotFoundError(f"MCP server script not found: {server_script}")
     safe_print(f"🚀 Launching MCP server: {server_script}")
@@ -293,7 +293,7 @@ def launch_mcp_server(root_dir: Path) -> None:
 def test_mcp_server(root_dir: Path) -> bool:
     """Test MCP server startup with visible output for diagnostics."""
     python_exe, _ = get_venv_paths(root_dir)
-    server_script = root_dir / "mcp-servers" / "multi_ai_assistant.py"
+    server_script = root_dir / "mcp-servers" / "server.py"
 
     if not server_script.exists():
         safe_print(f"❌ MCP server script not found: {server_script}")
@@ -310,7 +310,7 @@ def test_mcp_server(root_dir: Path) -> bool:
             return False
         safe_print(f"✅ {result.stdout.strip()}")
 
-        server_script = root_dir / "mcp-servers" / "multi_ai_assistant.py"
+        server_script = root_dir / "mcp-servers" / "server.py"
         result = subprocess.run([str(python_exe), "-m", "py_compile", str(server_script)],
                                capture_output=True, text=True, timeout=10)
         if result.returncode != 0:
@@ -399,6 +399,7 @@ def parse_args() -> argparse.Namespace:
         prog="env.py",
         description="Multi-AI File Paster MCP environment bootstrap"
     )
+    parser.add_argument("--menu", "-m", action="store_true", help="Show interactive menu")
     parser.add_argument("--quick", "-q", action="store_true", help="Skip hash and deep dependency checks if core packages import")
     parser.add_argument("--force-reinstall", "-f", action="store_true", help="Force reinstall dependencies even if hash matches")
     parser.add_argument("--no-launch", action="store_true", help="Prepare environment only, do not start MCP server")
@@ -408,6 +409,342 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--test-server", action="store_true", help="Test MCP server startup with visible output (diagnostic mode)")
     parser.add_argument("--validate-env", action="store_true", help="Validate complete environment setup and dependencies")
     return parser.parse_args()
+
+
+def show_interactive_menu(root_dir: Path, python_cmd: str) -> None:
+    """Interactive menu system for MCP environment management."""
+    while True:
+        # Check server status
+        mcp_running = is_mcp_server_running(root_dir)
+        
+        safe_print("\n" + "="*70)
+        safe_print("🔧 Multi-AI File Paster MCP Environment Manager")
+        safe_print("="*70)
+        
+        # Show server status
+        if mcp_running:
+            safe_print("🟢 MCP Server Status: RUNNING")
+        else:
+            safe_print("🔴 MCP Server Status: STOPPED")
+        
+        safe_print("")
+        safe_print("📋 SETUP & INSTALLATION")
+        safe_print("  [1] Setup Environment (Create venv + Install dependencies)")
+        safe_print("  [2] Setup Environment (Quick mode - skip checks)")
+        safe_print("  [3] Force Reinstall Dependencies")
+        safe_print("")
+        safe_print("🔍 DIAGNOSTICS & VALIDATION")
+        safe_print("  [4] Show Environment Status")
+        safe_print("  [5] Validate Environment")
+        safe_print("  [6] Test Server Startup")
+        safe_print("  [7] Print Python Interpreter Path")
+        safe_print("")
+        safe_print("🚀 LAUNCH & SHUTDOWN")
+        
+        if mcp_running:
+            safe_print("  [8] Launch MCP Server (⚠️  Server already running!)")
+        else:
+            safe_print("  [8] Launch MCP Server")
+        
+        safe_print("  [9] Shutdown & Clean Environment")
+        safe_print("")
+        safe_print("💡 HELP")
+        safe_print("  [h] Show Command-Line Usage")
+        safe_print("  [q] Quit Menu")
+        safe_print("")
+        safe_print("="*70)
+        
+        try:
+            choice = input("Enter your choice: ").strip().lower()
+        except (KeyboardInterrupt, EOFError):
+            safe_print("\n👋 Exiting menu...")
+            sys.exit(0)
+        
+        if choice == "q":
+            safe_print("👋 Exiting menu...")
+            if mcp_running:
+                safe_print("ℹ️  MCP server is still running in the background")
+                safe_print("💡 Use option [9] to shutdown the server if needed")
+            break
+        elif choice == "h":
+            show_cli_help()
+        elif choice == "1":
+            safe_print("\n🔧 Setting up environment...")
+            if not create_virtual_environment(root_dir, python_cmd):
+                safe_print("❌ Setup failed")
+                continue
+            if not install_requirements(root_dir, force=False, quick=False, verbose=False):
+                safe_print("❌ Setup failed")
+                continue
+            safe_print("✅ Environment setup completed!")
+        elif choice == "2":
+            safe_print("\n🔧 Setting up environment (quick mode)...")
+            if not create_virtual_environment(root_dir, python_cmd):
+                safe_print("❌ Setup failed")
+                continue
+            if not install_requirements(root_dir, force=False, quick=True, verbose=False):
+                safe_print("❌ Setup failed")
+                continue
+            safe_print("✅ Environment setup completed (quick mode)!")
+        elif choice == "3":
+            safe_print("\n🔧 Force reinstalling dependencies...")
+            if not install_requirements(root_dir, force=True, quick=False, verbose=True):
+                safe_print("❌ Reinstall failed")
+                continue
+            safe_print("✅ Dependencies reinstalled successfully!")
+        elif choice == "4":
+            safe_print("\n🔍 Environment Status:")
+            show_status(root_dir)
+        elif choice == "5":
+            safe_print("\n🔍 Validating environment...")
+            if validate_environment(root_dir):
+                safe_print("✅ Environment validation passed!")
+            else:
+                safe_print("❌ Environment validation failed")
+        elif choice == "6":
+            safe_print("\n🧪 Testing server startup...")
+            if test_mcp_server(root_dir):
+                safe_print("✅ Server test passed!")
+            else:
+                safe_print("❌ Server test failed")
+        elif choice == "7":
+            safe_print(f"\n🐍 Python Interpreter: {python_cmd}")
+            venv_python, _ = get_venv_paths(root_dir)
+            if venv_python.exists():
+                safe_print(f"🐍 Virtual Environment Python: {venv_python}")
+        elif choice == "8":
+            if mcp_running:
+                safe_print("\n⚠️  WARNING: MCP server is already running!")
+                safe_print("� Opening another instance may cause conflicts")
+                try:
+                    confirm = input("Continue anyway? (yes/no): ").strip().lower()
+                except (KeyboardInterrupt, EOFError):
+                    safe_print("\n❌ Launch cancelled")
+                    continue
+                
+                if confirm != "yes":
+                    safe_print("❌ Launch cancelled")
+                    continue
+            
+            safe_print("\n�🚀 Launching MCP server...")
+            safe_print("💡 Server will run in foreground - press Ctrl+C to stop")
+            safe_print("💡 Or run 'python3 env.py --menu' in another terminal to manage")
+            safe_print("")
+            launch_mcp_server(root_dir)
+        elif choice == "9":
+            safe_print("\n🛑 Shutdown & Clean Environment")
+            safe_print("="*70)
+            if mcp_running:
+                safe_print("⚠️  WARNING: MCP server is currently running!")
+                safe_print("💡 This will attempt to terminate the server process")
+            shutdown_and_clean(root_dir)
+        else:
+            safe_print(f"❌ Invalid choice: {choice}")
+            safe_print("💡 Please enter a number (1-9), 'h' for help, or 'q' to quit")
+
+
+def show_cli_help() -> None:
+    """Show command-line usage help."""
+    safe_print("\n" + "="*70)
+    safe_print("📚 COMMAND-LINE USAGE")
+    safe_print("="*70)
+    safe_print("")
+    safe_print("BASIC USAGE:")
+    safe_print("  python3 mcp-servers/env.py                    # Setup and launch server")
+    safe_print("  python3 mcp-servers/env.py --menu             # Show this interactive menu")
+    safe_print("")
+    safe_print("SETUP OPTIONS:")
+    safe_print("  --quick, -q                   # Quick setup (skip detailed checks)")
+    safe_print("  --force-reinstall, -f         # Force reinstall all dependencies")
+    safe_print("  --no-launch                   # Setup only, don't launch server")
+    safe_print("  --verbose                     # Show detailed pip output")
+    safe_print("")
+    safe_print("DIAGNOSTIC OPTIONS:")
+    safe_print("  --status                      # Show environment status")
+    safe_print("  --validate-env                # Validate complete environment")
+    safe_print("  --test-server                 # Test server startup")
+    safe_print("  --print-python                # Show Python interpreter path")
+    safe_print("")
+    safe_print("EXAMPLES:")
+    safe_print("  # First time setup on WSL/Ubuntu")
+    safe_print("  python3 mcp-servers/env.py --no-launch")
+    safe_print("")
+    safe_print("  # Quick setup and launch")
+    safe_print("  python3 mcp-servers/env.py --quick")
+    safe_print("")
+    safe_print("  # Check if everything is working")
+    safe_print("  python3 mcp-servers/env.py --validate-env")
+    safe_print("")
+    safe_print("  # Fix broken dependencies")
+    safe_print("  python3 mcp-servers/env.py --force-reinstall --verbose")
+    safe_print("")
+    safe_print("="*70)
+
+
+def show_status(root_dir: Path) -> None:
+    """Show detailed environment status."""
+    venv_python, _ = get_venv_paths(root_dir)
+    safe_print(f"  • Platform: {platform.system()} {platform.release()}")
+    
+    if platform.system() == "Linux":
+        try:
+            with open("/proc/version", "r") as f:
+                version_info = f.read()
+                if "microsoft" in version_info.lower() or "wsl" in version_info.lower():
+                    safe_print("  • Environment: WSL (Windows Subsystem for Linux)")
+                else:
+                    safe_print("  • Environment: Native Linux")
+        except:
+            safe_print("  • Environment: Linux (unknown variant)")
+    
+    safe_print(f"  • Virtual environment: {'✅ Exists' if venv_python.exists() else '❌ Not created'}")
+    
+    if venv_python.exists():
+        safe_print(f"  • Venv interpreter: {venv_python}")
+        try:
+            result = subprocess.run([str(venv_python), "--version"], capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                safe_print(f"  • Python version: {result.stdout.strip()}")
+        except:
+            pass
+    
+    req_hash = requirements_hash(root_dir)
+    saved_hash = load_saved_hash(root_dir)
+    safe_print(f"  • requirements.txt hash: {req_hash[:16]}...")
+    safe_print(f"  • Stored hash: {(saved_hash[:16] + '...') if saved_hash else 'none'}")
+    safe_print(f"  • Dependencies: {'✅ Up to date' if saved_hash and saved_hash == req_hash else '⚠️  Need installation/update'}")
+    
+    deps_ok = check_dependencies_installed(root_dir)
+    safe_print(f"  • Core packages (MCP): {'✅ Installed' if deps_ok else '❌ Missing'}")
+    
+    server_script = root_dir / "mcp-servers" / "server.py"
+    safe_print(f"  • Server script: {'✅ Found' if server_script.exists() else '❌ Missing'}")
+
+
+def shutdown_and_clean(root_dir: Path) -> None:
+    """Shutdown MCP server and clean virtual environment."""
+    import shutil
+    
+    venv_dir = root_dir / ".venv"
+    
+    if not venv_dir.exists():
+        safe_print("ℹ️  No virtual environment found - nothing to clean")
+        safe_print("📂 .venv directory does not exist")
+        return
+    
+    safe_print("⚠️  WARNING: This will permanently delete the virtual environment!")
+    safe_print(f"📂 Target directory: {venv_dir}")
+    safe_print("")
+    safe_print("This action will:")
+    safe_print("  • Terminate any running MCP server processes")
+    safe_print("  • Delete the entire .venv folder and all installed packages")
+    safe_print("  • Remove dependency hash markers")
+    safe_print("  • Return to a clean development state")
+    safe_print("")
+    
+    try:
+        confirmation = input("Type 'YES' (uppercase) to confirm deletion: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        safe_print("\n❌ Shutdown cancelled by user")
+        return
+    
+    if confirmation != "YES":
+        safe_print("❌ Shutdown cancelled - confirmation did not match 'YES'")
+        return
+    
+    safe_print("\n🛑 Starting shutdown and cleanup...")
+    
+    # Try to terminate any Python processes from this venv
+    venv_python, _ = get_venv_paths(root_dir)
+    if venv_python.exists():
+        safe_print("🔍 Checking for running MCP server processes...")
+        try:
+            if platform.system() == "Windows":
+                # Windows: tasklist and taskkill
+                result = subprocess.run(
+                    ["tasklist", "/FI", f"IMAGENAME eq python.exe"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if "python.exe" in result.stdout:
+                    safe_print("⚠️  Python processes detected - they may be terminated")
+            else:
+                # Linux/macOS: ps and pkill
+                python_path_str = str(venv_python)
+                result = subprocess.run(
+                    ["pgrep", "-f", python_path_str],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if result.stdout.strip():
+                    pids = result.stdout.strip().split('\n')
+                    safe_print(f"🔍 Found {len(pids)} process(es) using venv Python")
+                    for pid in pids:
+                        try:
+                            subprocess.run(["kill", "-9", pid], timeout=2)
+                            safe_print(f"✅ Terminated process {pid}")
+                        except:
+                            safe_print(f"⚠️  Could not terminate process {pid}")
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            safe_print("ℹ️  Process check skipped (command not available)")
+    
+    # Delete .venv directory
+    safe_print(f"🗑️  Removing .venv directory: {venv_dir}")
+    try:
+        shutil.rmtree(venv_dir)
+        safe_print("✅ Virtual environment deleted successfully")
+    except PermissionError as e:
+        safe_print(f"❌ Permission denied - close any programs using the venv")
+        safe_print(f"   Error: {e}")
+        return
+    except Exception as e:
+        safe_print(f"❌ Failed to delete .venv: {e}")
+        return
+    
+    safe_print("")
+    safe_print("="*70)
+    safe_print("✅ SHUTDOWN COMPLETE")
+    safe_print("="*70)
+    safe_print("📊 Summary:")
+    safe_print("  • Virtual environment removed")
+    safe_print("  • All packages uninstalled")
+    safe_print("  • Clean development state restored")
+    safe_print("")
+    safe_print("💡 To set up again, choose option [1] from the menu")
+    safe_print("="*70)
+
+
+
+def is_mcp_server_running(root_dir: Path) -> bool:
+    """Check if MCP server is already running."""
+    venv_python, _ = get_venv_paths(root_dir)
+    if not venv_python.exists():
+        return False
+    
+    try:
+        if platform.system() == "Windows":
+            # Windows: check for python.exe running server.py
+            result = subprocess.run(
+                ["tasklist", "/FI", "IMAGENAME eq python.exe", "/FO", "CSV"],
+                capture_output=True,
+                text=True,
+                timeout=3
+            )
+            return "server.py" in result.stdout
+        else:
+            # Linux/macOS: check for processes running server.py
+            server_script = root_dir / "mcp-servers" / "server.py"
+            result = subprocess.run(
+                ["pgrep", "-f", str(server_script)],
+                capture_output=True,
+                text=True,
+                timeout=3
+            )
+            return bool(result.stdout.strip())
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return False
 
 
 def main() -> None:
@@ -423,11 +760,25 @@ def main() -> None:
             (sys.stderr if log_to_stderr else sys.stdout).write("✅\n")
         except UnicodeEncodeError:
             ascii_mode = True
+        
+        python_cmd = detect_python_executable()
+        
+        # Check if MCP server is already running
+        mcp_running = is_mcp_server_running(root_dir)
+        
+        # If --menu flag OR server is already running, show menu
+        if args.menu or mcp_running:
+            if mcp_running and not args.menu:
+                safe_print("ℹ️  MCP server is already running")
+                safe_print("📋 Opening interactive menu for management...\n")
+            show_interactive_menu(root_dir, python_cmd)
+            return
+        
         safe_print("🔧 Multi-AI File Paster MCP Environment Bootstrap")
         safe_print(f"📁 Project root: {root_dir}")
         safe_print(f"🖥️  Platform: {platform.system()} {platform.release()}")
-        python_cmd = detect_python_executable()
         safe_print(f"🐍 Python executable: {python_cmd}")
+        
         if args.print_python:
             return
         if args.status:
@@ -462,6 +813,11 @@ def main() -> None:
         if args.no_launch:
             safe_print("ℹ️  Environment prepared; skipping launch (--no-launch)")
             return
+        
+        safe_print("")
+        safe_print("💡 TIP: Use 'python3 env.py --menu' or just 'python3 env.py' when server is running for management menu")
+        safe_print("")
+        
         launch_mcp_server(root_dir)
     except Exception as e:
         safe_print(f"❌ Bootstrap failed: {e}")

@@ -11,11 +11,24 @@
     "path": "/bin/bash"
   },
   "files.eol": "\n",
-  "python.defaultInterpreterPath": "/mnt/c/Users/mrzeer/Desktop/Joseph Matino/Chrome Exention/Multi-AI File Paster/.venv/bin/python",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
   "python.terminal.activateEnvironment": true,
   "python.terminal.activateEnvInCurrentTerminal": true,
   "chat.renderRelatedFiles": true,
   "chat.mcp.assisted.nuget.enabled": true,
   "chat.mcp.autostart": "newAndOutdated",
-  "chat.agent.maxRequests": 120
+  "chat.agent.maxRequests": 120,
+  "json.schemas": [
+    {
+      "fileMatch": [".vscode/mcp.json"],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "mcpServers": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  ]
 }
