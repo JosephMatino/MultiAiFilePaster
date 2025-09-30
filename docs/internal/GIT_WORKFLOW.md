@@ -63,11 +63,11 @@ graph LR
     A[1. Commit Changes] --> B[2. Push to Develop]
     B --> C[3. Update Main]
     C --> D[4. Create Release]
-    
-    style A fill:#ff6600,stroke:#333,color:#fff
-    style B fill:#ff8c00,stroke:#333,color:#fff
-    style C fill:#ffa500,stroke:#333,color:#fff
-    style D fill:#ffb84d,stroke:#333,color:#fff
+
+    style A fill:#2563eb,stroke:#1e40af,stroke-width:3px,color:#fff
+    style B fill:#7c3aed,stroke:#6d28d9,stroke-width:3px,color:#fff
+    style C fill:#059669,stroke:#047857,stroke-width:3px,color:#fff
+    style D fill:#dc2626,stroke:#b91c1c,stroke-width:3px,color:#fff
 ```
 
 #### Step 1: Commit Changes

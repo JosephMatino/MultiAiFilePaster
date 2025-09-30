@@ -44,10 +44,19 @@ graph TB
     I --> J[Penetration Tests]
     J --> K[Production Deploy]
     K --> L[Runtime Monitoring]
-    
-    style A fill:#DC2626,color:#fff
-    style K fill:#B91C1C,color:#fff
-    style L fill:#991B1B,color:#fff
+
+    style A fill:#2563eb,stroke:#1e40af,stroke-width:3px,color:#fff
+    style B fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+    style C fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style D fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style E fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style F fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style G fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
+    style H fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+    style I fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style J fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
+    style K fill:#16a34a,stroke:#15803d,stroke-width:3px,color:#fff
+    style L fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
 ```
 ## 🔧 Development Security
 
@@ -78,9 +87,13 @@ graph TD
     C --> D[Testing]
     D --> E[Release Branch]
     E --> F[Chrome Store Submission]
-    
-    style A fill:#e1f5fe
-    style F fill:#e8f5e8
+
+    style A fill:#2563eb,stroke:#1e40af,stroke-width:3px,color:#fff
+    style B fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+    style C fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style D fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style E fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
+    style F fill:#16a34a,stroke:#15803d,stroke-width:3px,color:#fff
 ```
 
 ### 🔄 Current Process

@@ -1111,3 +1111,62 @@ This technical documentation provides a full, **code-verified** analysis of the 
 ---
 
 *This document reflects the actual state of the codebase as of September 30, 2025. All technical claims have been verified against source code implementation.*
+
+---
+
+## í´– MCP Server Architecture (Model Context Protocol)
+
+The project includes a professional MCP server with 5 codebase-aware tools for AI assistants (Augment, Claude, etc.):
+
+```mermaid
+graph TB
+    A[MCP Server Entry Point<br/>server.py] --> B[Base Tool Class<br/>base.py]
+    B --> C[I18N Tool<br/>i18n.py]
+    B --> D[Manifest Tool<br/>manifest.py]
+    B --> E[Platform Tool<br/>platform.py]
+    B --> F[Config Tool<br/>config.py]
+    B --> G[Quality Tool<br/>quality.py]
+    
+    C --> H[Dynamic Locale Detection<br/>648 keys Ã— 11 languages]
+    D --> I[Manifest V3 Validation<br/>5 AI platforms]
+    E --> J[Platform Handler Analysis<br/>ChatGPT, Claude, Gemini, DeepSeek, Grok]
+    F --> K[Config System Validation<br/>50-15,000 word limits]
+    G --> L[Code Quality Analysis<br/>Cross-platform compatible]
+    
+    H --> M[.github/hooks/check-i18n.py<br/>901 lines comprehensive validation]
+    
+    style A fill:#2563eb,stroke:#1e40af,stroke-width:3px,color:#fff
+    style B fill:#7c3aed,stroke:#6d28d9,stroke-width:3px,color:#fff
+    style C fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style D fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style E fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style F fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style G fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    style H fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style I fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style J fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style K fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style L fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#fff
+    style M fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
+```
+
+### í¾¯ MCP Tools Overview
+
+| Tool | Purpose | Key Features | Lines |
+|------|---------|--------------|-------|
+| **i18n.py** | I18N validation | Dynamic locale detection (648 keys), hardcoded string detection, integration with check-i18n.py | 356 |
+| **manifest.py** | Manifest V3 validation | Platform detection from config.js, content_scripts validation, web_accessible_resources check | 300 |
+| **platform.py** | Platform handler analysis | Factory pattern analysis, required methods detection, DOM selector validation | 268 |
+| **config.py** | Config system validation | Word limits validation (50-15,000), PLATFORM_TIMEOUTS check, DEFAULTS analysis | 343 |
+| **quality.py** | Code quality analysis | Cross-platform support (Windows WSL + Linux), signature header validation, centralization checks | 300 |
+
+**Key Characteristics:**
+- âœ… **Zero Pylance Errors**: All tools have comprehensive type hints (`List[str]`, `Dict[str, Any]`, `Set[str]`, `Optional[T]`)
+- âœ… **Dynamic Detection**: No hardcoded values - all expected values detected from actual codebase
+- âœ… **Complete File Reading**: Tools read entire files for true codebase awareness
+- âœ… **Cross-Platform**: Works on Windows WSL and Linux Ubuntu
+- âœ… **Production Ready**: Professional error handling, logging, and user feedback
+
+---
+
+**Â© 2025 Â· Multi-AI File Paster Â· Technical Documentation Â· Developed by Joseph Matino | WekTurbo Designs - Hostwek LTD**

@@ -785,9 +785,31 @@ create_tag() {
 
   git tag -a "$tag" -m "$release_title"
   git push origin "$tag"
-  echo -e "${GREEN}${ICON_SUCCESS} Created and pushed release tag: ${tag}${NC}"
-  echo -e "${BLUE}${ICON_INFO} GitHub release: ${release_title}${NC}"
-  echo -e "${GRAY}View at: ${remote_url}/releases/tag/${tag}${NC}"
+  echo -e "${GREEN}${ICON_SUCCESS} Created and pushed git tag: ${tag}${NC}"
+
+  # Create GitHub Release using gh CLI (if available)
+  if command -v gh &> /dev/null; then
+    echo -e "${BLUE}${ICON_INFO} Creating GitHub Release...${NC}"
+
+    # Create release with gh CLI
+    gh release create "$tag" \
+      --title "$release_title" \
+      --notes "$msg" \
+      --latest \
+      --verify-tag || {
+      echo -e "${YELLOW}${ICON_WARNING} GitHub CLI release creation failed${NC}"
+      echo -e "${GRAY}Tag created successfully, but GitHub Release must be created manually${NC}"
+      echo -e "${GRAY}Visit: ${remote_url}/releases/new?tag=${tag}${NC}"
+    }
+
+    echo -e "${GREEN}${ICON_SUCCESS} GitHub Release created: ${release_title}${NC}"
+    echo -e "${GRAY}View at: ${remote_url}/releases/tag/${tag}${NC}"
+  else
+    echo -e "${YELLOW}${ICON_WARNING} GitHub CLI (gh) not installed${NC}"
+    echo -e "${GRAY}Git tag created successfully, but GitHub Release must be created manually${NC}"
+    echo -e "${GRAY}Install gh CLI: https://cli.github.com/${NC}"
+    echo -e "${GRAY}Or create release manually at: ${remote_url}/releases/new?tag=${tag}${NC}"
+  fi
 
   # Switch back to original branch if it wasn't main
   if [[ "$current_branch" != "main" ]]; then
