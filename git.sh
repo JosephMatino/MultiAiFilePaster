@@ -1011,23 +1011,29 @@ update_main_from_develop() {
 
   echo -e "${BLUE}${ICON_PUSH} Merging develop into main (production files only)...${NC}"
 
-  # Instead of direct merge, copy only production files
-  git checkout develop -- . 2>/dev/null || true
+  # Merge develop into main
+  git merge develop --no-commit --no-ff 2>/dev/null || {
+    echo -e "${YELLOW}${ICON_WARNING} Merge conflict or no changes, continuing...${NC}"
+    git merge --abort 2>/dev/null || true
+    # Fallback: checkout all files from develop
+    git checkout develop -- . 2>/dev/null || true
+  }
 
-  # Remove development files from git index only (not from filesystem)
+  # Remove development files from git index AND working directory on main branch
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
     if [[ -e "$dev_file" ]]; then
       if [[ "$dev_file" == ".venv/" ]]; then
-        echo -e "${GRAY}Untracking (preserving local) virtual environment: ${dev_file}${NC}"
-        git rm -r --cached "$dev_file" 2>/dev/null || true
+        echo -e "${GRAY}Removing from main branch: ${dev_file}${NC}"
+        git rm -rf --cached "$dev_file" 2>/dev/null || true
+        rm -rf "$dev_file" 2>/dev/null || true
       else
-        echo -e "${GRAY}Removing from git: ${dev_file}${NC}"
-        git rm -r --cached "$dev_file" 2>/dev/null || true
+        echo -e "${GRAY}Removing from main branch: ${dev_file}${NC}"
+        git rm -rf "$dev_file" 2>/dev/null || true
       fi
     fi
   done
 
-  # Stage the changes
+  # Stage all remaining changes
   git add -A
 
   # Create production .gitignore
