@@ -1047,10 +1047,7 @@ update_main_from_develop() {
 
   echo -e "${BLUE}${ICON_PUSH} Merging develop into main (production files only)...${NC}"
 
-  # Instead of direct merge, copy only production files
-  git checkout develop -- . 2>/dev/null || true
-
-  # Remove development files from git index only (not from filesystem)
+  # First, remove development files from main branch BEFORE copying from develop
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
     # CRITICAL: NEVER delete git.sh from develop branch - it must always exist there
     if [[ "$dev_file" == "git.sh" ]]; then
@@ -1064,8 +1061,22 @@ update_main_from_develop() {
         git rm -r --cached "$dev_file" 2>/dev/null || true
       else
         echo -e "${GRAY}Removing from git: ${dev_file}${NC}"
-        git rm -r --cached "$dev_file" 2>/dev/null || true
+        git rm -rf "$dev_file" 2>/dev/null || true
       fi
+    fi
+  done
+
+  # Now copy production files from develop (excluding development files)
+  git checkout develop -- . 2>/dev/null || true
+
+  # Remove development files again (in case they were copied)
+  for dev_file in "${DEVELOPMENT_FILES[@]}"; do
+    if [[ "$dev_file" == "git.sh" ]]; then
+      continue
+    fi
+    if [[ -e "$dev_file" ]]; then
+      echo -e "${GRAY}Removing from git: ${dev_file}${NC}"
+      git rm -rf "$dev_file" 2>/dev/null || true
     fi
   done
 
