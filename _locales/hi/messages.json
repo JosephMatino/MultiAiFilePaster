@@ -1,12 +1,12 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "ChatGPT, Claude, Gemini, DeepSeek और Grok प्लेटफॉर्म पर पेस्ट किए गए टेक्स्ट कंटेंट से स्वचालित रूप से फ़ाइल अटैचमेंट बनाएं। बैच प्रोसेसिंग और फ़ाइल कंप्रेशन की सुविधा।"},
+  "extension_description": {"message": "ChatGPT, Claude, Gemini, DeepSeek, Grok के लिए पेस्ट किए गए टेक्स्ट को स्वचालित रूप से अटैच और कन्वर्ट करें। स्मार्ट डिटेक्शन, 30+ फॉर्मेट।"},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "एक्सटेंशन कॉन्टेक्स्ट खो गया - कृपया पेज रिफ्रेश करें"},
   "extension_reloaded": {"message": "एक्सटेंशन रीलोड हो गया - कृपया पेज रिफ्रेश करें"},
   "extension_support": {"message": "एक्सटेंशन सपोर्ट:"},
   "header_title": {"message": "Multi-AI File Paster"},
-  "header_subtitle": {"message": "ChatGPT, Claude, Gemini, DeepSeek और Grok में लंबे पेस्ट को ऑटो-कन्वर्ट करता है और साफ फ़ाइलें ऑटो-अटैच करता है। ऑटो-डिटेक्ट और कोड फ़ाइलों सहित 20+ फॉर्मेट का समर्थन।"},
+  "header_subtitle": {"message": "ChatGPT, Claude, Gemini, DeepSeek और Grok में लंबे पेस्ट को ऑटो-कन्वर्ट करता है और साफ फ़ाइलें ऑटो-अटैच करता है। ऑटो-डिटेक्ट और कोड फ़ाइलों सहित 30+ फॉर्मेट का समर्थन।"},
   "about_description": {"message": "Multi-AI File Paster पहचानता है जब आप लंबा टेक्स्ट (कोड, डॉक्यूमेंटेशन, डेटा) पेस्ट करते हैं और इसे सही तरीके से फॉर्मेट की गई फ़ाइलों में बदल देता है। यह चैट को साफ रखता है और प्लेटफॉर्म की सीमा के भीतर।"},
   "about_help": {"message": "के बारे में और सहायता"},
   "ai_model_default": {"message": "AI मॉडल"},
@@ -128,7 +128,7 @@
   "config_delay": {"message": "देरी: वैकल्पिक 1-15 सेकंड काउंटडाउन आकस्मिक अटैचमेंट को रोकता है"},
 
   "config_manual_override": {"message": "मैन्युअल ओवरराइड: टाइप किए गए टेक्स्ट को फ़ाइल अटैचमेंट में ऑन-डिमांड रूपांतरण"},
-  "config_multi_format": {"message": "मल्टी-फॉर्मेट समर्थन: प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट और कस्टम एक्सटेंशन सहित 20+ फ़ाइल प्रकारों में से चुनें"},
+  "config_multi_format": {"message": "मल्टी-फॉर्मेट समर्थन: प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट और कस्टम एक्सटेंशन सहित 30+ फ़ाइल प्रकारों में से चुनें"},
   "config_platform_optimization": {"message": "प्लेटफॉर्म अनुकूलन: प्रत्येक AI प्लेटफॉर्म के अनूठे फ़ाइल अटैचमेंट सिस्टम के लिए विशेष हैंडलिंग"},
   "configuration": {"message": "कॉन्फ़िग"},
   "connected_to": {
@@ -628,7 +628,7 @@
   "i18n_cleanup_complete": {"message": "i18n सफाई पूर्ण"},
 
   "key_features": {"message": "मुख्य विशेषताएं:"},
-  "key_features_text": {"message": "ऑटो-डिटेक्ट आपकी सामग्री से सही फ़ाइल प्रकार चुनता है और .txt के गारंटीशुदा फॉलबैक के साथ। ChatGPT, Claude, Gemini, DeepSeek, और Grok में काम करता है। प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट, और कस्टम एक्सटेंशन सहित 20+ फ़ाइल फॉर्मेट का समर्थन करता है।"},
+  "key_features_text": {"message": "ऑटो-डिटेक्ट आपकी सामग्री से सही फ़ाइल प्रकार चुनता है और .txt के गारंटीशुदा फॉलबैक के साथ। ChatGPT, Claude, Gemini, DeepSeek, और Grok में काम करता है। प्रोग्रामिंग भाषाओं, मार्कअप, डेटा फॉर्मेट, और कस्टम एक्सटेंशन सहित 30+ फ़ाइल फॉर्मेट का समर्थन करता है।"},
   "keyboard_shortcut": {"message": "कीबोर्ड शॉर्टकट:"},
   "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (मैन्युअल सेव)"},
   "language_abbreviation": {"message": "भाषा"},

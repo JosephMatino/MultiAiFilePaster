@@ -103,7 +103,8 @@
   let morePage = 0;
   let extendedPages = [
     ['ts','java','cs','cpp','c','go','rs'],
-    ['rb','css','php','xml','sql','csv','sh','custom']
+    ['rb','css','php','xml','sql','csv','sh'],
+    ['swift','kt','dart','scala','r','pl','lua','yml','custom']
   ];
   function renderMore(pageIndex, selected) {
     const moreFormats = document.getElementById('moreFormats');

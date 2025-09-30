@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🆘 Multi-AI File Paster - Support & Help
-
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="96" height="96">
+
+# 🆘 Multi-AI File Paster - Support & Help
 
 **Chrome Extension Support for Chrome Extension Users & Developers**
 

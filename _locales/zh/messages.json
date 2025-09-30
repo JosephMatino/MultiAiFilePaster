@@ -1,12 +1,12 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "在ChatGPT、Claude、Gemini、DeepSeek和Grok平台上自动从粘贴的文本内容创建文件附件。支持批处理和文件压缩。"},
+  "extension_description": {"message": "为ChatGPT、Claude、Gemini、DeepSeek、Grok自动附加和转换粘贴的文本为文件。智能检测，支持30+格式。"},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "扩展上下文丢失 - 请刷新页面"},
   "extension_reloaded": {"message": "扩展已重新加载 - 请刷新页面"},
   "extension_support": {"message": "扩展支持："},
   "header_title": {"message": "Multi-AI File Paster"},
-  "header_subtitle": {"message": "自动转换长粘贴并在ChatGPT、Claude、Gemini、DeepSeek和Grok中自动附加干净文件。支持自动检测和20+格式，包括代码文件。"},
+  "header_subtitle": {"message": "自动转换长粘贴并在ChatGPT、Claude、Gemini、DeepSeek和Grok中自动附加干净文件。支持自动检测和30+格式，包括代码文件。"},
   "about_description": {"message": "Multi-AI File Paster检测您粘贴长文本（代码、文档、数据）时，将其转换为格式正确的文件。这保持聊天整洁并在平台限制内。"},
   "about_help": {"message": "关于和帮助"},
   "ai_model_default": {"message": "AI模型"},
@@ -128,7 +128,7 @@
   "config_delay": {"message": "延迟：可选的1-15秒倒计时防止意外附件"},
 
   "config_manual_override": {"message": "手动覆盖：按需将键入的文本转换为文件附件"},
-  "config_multi_format": {"message": "多格式支持：从20+文件类型中选择，包括编程语言、标记、数据格式和自定义扩展名"},
+  "config_multi_format": {"message": "多格式支持：从30+文件类型中选择，包括编程语言、标记、数据格式和自定义扩展名"},
   "config_platform_optimization": {"message": "平台优化：针对每个AI平台独特的文件附件系统进行特殊处理"},
   "configuration": {"message": "配置"},
   "connected_to": {
@@ -628,7 +628,7 @@
   "i18n_cleanup_complete": {"message": "i18n清理已完成"},
 
   "key_features": {"message": "主要功能："},
-  "key_features_text": {"message": "自动检测从您的内容中选择正确的文件类型，保证回退到.txt。适用于ChatGPT、Claude、Gemini、DeepSeek和Grok。支持20+文件格式，包括编程语言、标记、数据格式和自定义扩展名。"},
+  "key_features_text": {"message": "自动检测从您的内容中选择正确的文件类型，保证回退到.txt。适用于ChatGPT、Claude、Gemini、DeepSeek和Grok。支持30+文件格式，包括编程语言、标记、数据格式和自定义扩展名。"},
   "keyboard_shortcut": {"message": "键盘快捷键："},
   "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S（手动保存）"},
   "language_abbreviation": {"message": "语言"},

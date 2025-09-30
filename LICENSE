@@ -1,45 +1,521 @@
-HOSTWEK CUSTOM LICENSE
+================================================================================
+HOSTWEK CUSTOM LICENSE AGREEMENT
+Multi-AI File Paster Chrome Extension
+================================================================================
 
-Copyright (c) 2025 Hostwek LTD
+Copyright © 2025 Hostwek Limited. All Rights Reserved.
 
-This software and associated documentation files are proprietary technology of Hostwek LTD and its subsidiary WekTurbo Designs. The software contains trade secrets, confidential algorithms, and proprietary methodologies developed by Joseph Matino for browser extension solutions.
+This Software License Agreement ("Agreement") is a legally binding contract between 
+you (either an individual or a single legal entity, "Licensee", "You", or "Your") 
+and Hostwek Limited, a company incorporated under the laws of the United Kingdom 
+("Licensor", "Hostwek", "We", "Us", or "Our"), concerning the Multi-AI File Paster 
+Chrome Extension software, including all associated documentation, source code, 
+object code, executables, data files, and related materials (collectively, the 
+"Software").
 
-1. Permitted Usage Rights
-Personal use by individuals for non-commercial purposes is permitted. Educational institutions may use this software for instructional and research activities. End users are authorized to install and operate the extension as distributed through official channels. Security researchers may conduct legitimate analysis for vulnerability disclosure purposes.
+BY INSTALLING, COPYING, ACCESSING, OR OTHERWISE USING THE SOFTWARE, YOU ACKNOWLEDGE 
+THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS 
+TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, DO NOT 
+INSTALL, COPY, ACCESS, OR USE THE SOFTWARE.
 
-2. Restricted Commercial Activities
-Commercial use, including integration into commercial products, resale, sublicensing, or distribution as part of commercial offerings, requires written authorization from Hostwek LTD. Creation of derivative works, competing products, or services based on this technology is prohibited without prior licensing agreements. Reverse engineering for competitive intelligence or commercial advantage is forbidden.
+================================================================================
+1. DEFINITIONS
+================================================================================
 
-3. Intellectual Property Enforcement
-Removal, modification, or obscuring of copyright notices, attribution statements, or proprietary markings constitutes a breach of this license. Use of Hostwek LTD trademarks, service marks, or brand elements without authorization is prohibited and may result in trademark infringement proceedings.
+1.1 "Software" means the Multi-AI File Paster Chrome Extension, including but not 
+    limited to all source code, object code, executables, documentation, 
+    configuration files, assets, trademarks, and any updates, modifications, or 
+    derivative works provided by Licensor.
 
-4. Commercial Licensing & Partnerships
-Organizations seeking commercial licensing, integration solutions, white-label implementations, or custom development services should contact Hostwek LTD through designated channels: wekturbo@hostwek.com for technical licensing inquiries, scrum@majokdeng.com for business partnership discussions.
+1.2 "Proprietary Technology" means trade secrets, confidential algorithms, 
+    proprietary methodologies, technical specifications, design patterns, 
+    architectural decisions, and implementation details contained within the Software.
 
-5. Intellectual Property Protection
-This software is protected under international copyright treaties and domestic intellectual property laws. "Multi-AI File Paster", "Hostwek", and "WekTurbo Designs" are trademarks of Hostwek LTD. Unauthorized copying, modification, distribution, or reverse engineering may result in civil penalties and criminal prosecution under applicable intellectual property statutes.
+1.3 "Personal Use" means use by an individual for non-commercial purposes on 
+    personal devices for personal benefit, excluding any use that generates revenue 
+    or commercial advantage.
 
-6. Confidentiality & Trade Secret Protection
-This software contains confidential and proprietary information constituting trade secrets of Hostwek LTD. Unauthorized disclosure, use, or distribution of this technology or its underlying source code is prohibited and may result in legal action, including injunctive relief and monetary damages.
+1.4 "Commercial Use" means any use of the Software in connection with business 
+    operations, revenue-generating activities, commercial products, professional 
+    services, or organizational activities.
 
-7. Warranty Disclaimer
-THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. USE IS AT THE USER’S SOLE RISK.
+1.5 "Derivative Work" means any software, application, or work based upon, derived 
+    from, incorporating, or using substantial portions of the Software's code, 
+    architecture, algorithms, or proprietary methodologies.
 
-8. Limitation of Liability
-IN NO EVENT SHALL HOSTWEK LTD, WEKTURBO DESIGNS, OR THE AUTHORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, DATA, OR USE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+1.6 "Educational Institution" means accredited schools, colleges, universities, 
+    research institutions, and recognized educational organizations.
 
-9. Governing Law & Jurisdiction
-This license shall be governed by and construed in accordance with the laws of the United Kingdom. Any disputes arising hereunder shall be subject to the exclusive jurisdiction of the courts of England and Wales.
+1.7 "Security Researcher" means an individual or organization conducting good-faith 
+    security research for vulnerability discovery and responsible disclosure purposes.
 
-10. Contact Information
-Legal inquiries: legal@hostwek.com
-Commercial licensing: wekturbo@hostwek.com
-Business partnerships: scrum@majokdeng.com
-Company website: https://hostwek.com/wekturbo
+================================================================================
+2. GRANT OF LICENSE - PERMITTED USES
+================================================================================
 
-11. Acknowledgment
-By installing, copying, or using this software, you acknowledge that you have read, understood, and agree to be bound by the terms of this Hostwek Custom License.
+2.1 PERSONAL USE LICENSE
+    Subject to the terms and conditions of this Agreement, Licensor grants You a 
+    limited, non-exclusive, non-transferable, revocable license to:
+    
+    (a) Install and use the Software on personal computing devices for Personal Use;
+    (b) Access and utilize all features and functionality of the Software as 
+        distributed through official Chrome Web Store channels;
+    (c) Make backup copies of the Software for archival purposes only;
+    (d) View source code for personal learning and educational purposes without 
+        distribution or commercial exploitation.
 
-Document Version: 1.1.0
-Last Updated: September 28, 2025
+2.2 EDUCATIONAL USE LICENSE
+    Educational Institutions may use the Software for:
+    
+    (a) Classroom instruction and educational demonstrations;
+    (b) Academic research and non-commercial scholarly activities;
+    (c) Student projects and assignments within educational contexts;
+    (d) Teaching software development, browser extension architecture, or related 
+        technical subjects.
+    
+    Educational Use does not permit commercialization of research outputs, 
+    incorporation into commercial products, or use in revenue-generating activities.
 
+2.3 SECURITY RESEARCH LICENSE
+    Security Researchers may:
+    
+    (a) Analyze the Software for security vulnerabilities using standard security 
+        testing methodologies;
+    (b) Reverse engineer the Software solely for vulnerability identification purposes;
+    (c) Report discovered vulnerabilities to Licensor through responsible disclosure 
+        channels specified in SECURITY.md;
+    (d) Publish vulnerability details after Licensor acknowledgment and reasonable 
+        remediation period (minimum 90 days from initial disclosure).
+    
+    Security Research does not permit exploitation of vulnerabilities, creation of 
+    malicious tools, or commercial security product development using discovered 
+    vulnerabilities without separate licensing agreements.
+
+2.4 END USER LICENSE
+    End users installing the Software through official distribution channels are 
+    authorized to:
+    
+    (a) Install and operate the Software on compatible browsers and operating systems;
+    (b) Configure and customize Software settings according to personal preferences;
+    (c) Receive automatic updates and improvements distributed by Licensor;
+    (d) Access user documentation and support resources.
+
+================================================================================
+3. RESTRICTIONS - PROHIBITED USES
+================================================================================
+
+3.1 COMMERCIAL RESTRICTIONS
+    You may NOT, without prior written authorization from Licensor:
+    
+    (a) Use the Software in connection with commercial activities, business operations, 
+        or revenue-generating services;
+    (b) Integrate the Software into commercial products, services, or applications;
+    (c) Offer the Software as part of Software-as-a-Service (SaaS), Platform-as-a-Service 
+        (PaaS), or managed service offerings;
+    (d) Resell, sublicense, rent, lease, or distribute the Software commercially;
+    (e) Use the Software to provide commercial consulting, development, or professional 
+        services;
+    (f) Create white-label versions or rebranded distributions of the Software;
+    (g) Charge fees for access to, installation of, or use of the Software.
+
+3.2 DERIVATIVE WORKS RESTRICTIONS
+    You may NOT:
+    
+    (a) Create, develop, or distribute derivative works based on the Software;
+    (b) Develop competing products, services, or extensions using Software code, 
+        architecture, or methodologies;
+    (c) Extract, reuse, or repurpose substantial portions of Software code in other 
+        projects;
+    (d) Fork, modify, or create alternative versions of the Software for distribution;
+    (e) Combine the Software with other software to create integrated products without 
+        explicit written permission.
+
+3.3 REVERSE ENGINEERING RESTRICTIONS
+    Except as explicitly permitted under Section 2.3 (Security Research), You may NOT:
+    
+    (a) Reverse engineer, decompile, or disassemble the Software for competitive 
+        intelligence purposes;
+    (b) Extract proprietary algorithms, methodologies, or trade secrets for commercial 
+        exploitation;
+    (c) Analyze the Software to create competing products or services;
+    (d) Circumvent or disable security measures, license enforcement mechanisms, or 
+        technical protection measures.
+
+3.4 REDISTRIBUTION RESTRICTIONS
+    You may NOT:
+    
+    (a) Distribute, publish, or make available the Software through unauthorized channels;
+    (b) Host the Software on public repositories, file-sharing services, or download sites;
+    (c) Include the Software in software bundles, package managers, or distribution platforms;
+    (d) Transfer Your license rights to third parties without Licensor consent.
+
+3.5 INTELLECTUAL PROPERTY RESTRICTIONS
+    You may NOT:
+    
+    (a) Remove, modify, obscure, or alter copyright notices, attribution statements, 
+        license headers, or proprietary markings;
+    (b) Claim authorship, ownership, or creation rights over the Software;
+    (c) Use Hostwek trademarks, service marks, logos, or brand elements without 
+        authorization;
+    (d) Misrepresent the origin, sponsorship, or endorsement of the Software;
+    (e) Register trademarks, domain names, or business names confusingly similar to 
+        Hostwek brands.
+
+================================================================================
+4. INTELLECTUAL PROPERTY RIGHTS
+================================================================================
+
+4.1 OWNERSHIP
+    The Software is proprietary technology of Hostwek Limited and its subsidiary 
+    WekTurbo Designs. All right, title, and interest in and to the Software, 
+    including all intellectual property rights, remain exclusively with Licensor. 
+    This Agreement does not transfer ownership of the Software to You.
+
+4.2 COPYRIGHT PROTECTION
+    The Software is protected by United Kingdom copyright laws, international 
+    copyright treaties, and intellectual property laws of jurisdictions worldwide. 
+    Unauthorized copying, modification, distribution, or use constitutes copyright 
+    infringement subject to civil and criminal penalties.
+
+4.3 TRADE SECRET PROTECTION
+    The Software contains confidential and proprietary information constituting 
+    trade secrets of Hostwek Limited under applicable trade secret laws. You 
+    acknowledge that the Software embodies valuable confidential information and 
+    agree to maintain its confidentiality using reasonable security measures.
+
+4.4 TRADEMARK RIGHTS
+    "Multi-AI File Paster", "Hostwek", "Hostwek LTD", "Hostwek Limited", "WekTurbo", 
+    and "WekTurbo Designs" are trademarks or service marks of Hostwek Limited. 
+    The Hostwek logo, WekTurbo logo, and Multi-AI File Paster logo are registered 
+    trade dress. Unauthorized use of these marks constitutes trademark infringement 
+    and unfair competition violations.
+
+4.5 PATENT RIGHTS (IF APPLICABLE)
+    The Software may be covered by pending or issued patents in various jurisdictions. 
+    This license does not grant You any rights under such patents except as necessary 
+    to exercise the limited license rights granted herein.
+
+================================================================================
+5. COMMERCIAL LICENSING & PARTNERSHIPS
+================================================================================
+
+5.1 COMMERCIAL LICENSE AVAILABILITY
+    Organizations requiring commercial use rights may obtain appropriate licenses 
+    through Hostwek Limited commercial licensing programs. Commercial licenses may 
+    include:
+    
+    (a) Enterprise Licenses: For internal business use within organizations;
+    (b) OEM Licenses: For integration into commercial products;
+    (c) Reseller Licenses: For distribution and resale rights;
+    (d) White-Label Licenses: For rebranded implementations;
+    (e) Custom Development Licenses: For bespoke modifications and integrations.
+
+5.2 PARTNERSHIP OPPORTUNITIES
+    Hostwek Limited welcomes partnership inquiries for:
+    
+    (a) Technology integration and API partnerships;
+    (b) Strategic business development opportunities;
+    (c) Co-marketing and distribution arrangements;
+    (d) Custom feature development and consulting services.
+
+5.3 CONTACT INFORMATION FOR COMMERCIAL INQUIRIES
+    • Technical Licensing: wekturbo@hostwek.com
+    • Business Development: scrum@majokdeng.com
+    • Legal Department: legal@hostwek.com
+    • Lead Developer: dev@josephmatino.com
+
+================================================================================
+6. CONFIDENTIALITY OBLIGATIONS
+================================================================================
+
+6.1 CONFIDENTIAL INFORMATION
+    You acknowledge that the Software contains confidential and proprietary 
+    information of Hostwek Limited, including but not limited to:
+    
+    (a) Source code, object code, and architectural designs;
+    (b) Algorithms, methodologies, and technical specifications;
+    (c) Performance benchmarks and optimization techniques;
+    (d) Business processes and development methodologies;
+    (e) Trade secrets and know-how.
+
+6.2 NON-DISCLOSURE OBLIGATIONS
+    You agree to:
+    
+    (a) Maintain the confidentiality of Proprietary Technology using reasonable 
+        security measures;
+    (b) Not disclose confidential information to unauthorized third parties;
+    (c) Limit access to confidential information to authorized personnel only;
+    (d) Use confidential information solely for licensed purposes under this Agreement.
+
+6.3 EXCEPTIONS TO CONFIDENTIALITY
+    Confidentiality obligations do not apply to information that:
+    
+    (a) Was publicly available before disclosure by Licensor;
+    (b) Becomes publicly available through no breach of this Agreement by You;
+    (c) Was rightfully in Your possession before disclosure by Licensor;
+    (d) Is independently developed by You without use of confidential information;
+    (e) Is required to be disclosed by law, regulation, or court order (with prompt 
+        notice to Licensor).
+
+================================================================================
+7. WARRANTY DISCLAIMER
+================================================================================
+
+7.1 "AS IS" PROVISION
+    THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, 
+    IMPLIED, STATUTORY, OR OTHERWISE. LICENSOR EXPRESSLY DISCLAIMS ALL WARRANTIES, 
+    INCLUDING BUT NOT LIMITED TO:
+    
+    (a) IMPLIED WARRANTIES OF MERCHANTABILITY;
+    (b) IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE;
+    (c) IMPLIED WARRANTIES OF TITLE AND NON-INFRINGEMENT;
+    (d) WARRANTIES ARISING FROM COURSE OF DEALING OR USAGE OF TRADE;
+    (e) WARRANTIES OF ACCURACY, RELIABILITY, OR ERROR-FREE OPERATION;
+    (f) WARRANTIES OF COMPATIBILITY WITH YOUR HARDWARE OR SOFTWARE;
+    (g) WARRANTIES OF UNINTERRUPTED OR SECURE OPERATION.
+
+7.2 NO SUPPORT OBLIGATION
+    Licensor is under no obligation to provide technical support, maintenance, 
+    updates, bug fixes, or enhancements. Any support provided is discretionary 
+    and does not create ongoing support obligations.
+
+7.3 RISK ASSUMPTION
+    You assume all risks associated with Software use, including risks of program 
+    errors, data loss, system failures, or business interruptions. You are solely 
+    responsible for determining the appropriateness of Software use and assume all 
+    risks associated with its exercise of rights under this Agreement.
+
+================================================================================
+8. LIMITATION OF LIABILITY
+================================================================================
+
+8.1 EXCLUSION OF DAMAGES
+    TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LICENSOR, 
+    ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, OR SUPPLIERS BE LIABLE 
+    FOR ANY:
+    
+    (a) INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES;
+    (b) PUNITIVE OR AGGRAVATED DAMAGES;
+    (c) LOSS OF PROFITS, REVENUE, OR BUSINESS OPPORTUNITIES;
+    (d) LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES;
+    (e) BUSINESS INTERRUPTION OR SYSTEM DOWNTIME;
+    (f) COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    (g) DAMAGES ARISING FROM THIRD-PARTY CLAIMS OR ACTIONS;
+    
+    EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES AND 
+    REGARDLESS OF THE THEORY OF LIABILITY (CONTRACT, TORT, NEGLIGENCE, STRICT 
+    LIABILITY, OR OTHERWISE).
+
+8.2 MAXIMUM LIABILITY CAP
+    LICENSOR'S TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT 
+    SHALL NOT EXCEED FIFTY POUNDS STERLING (£50 GBP), REGARDLESS OF THE NUMBER OF 
+    CLAIMS OR CAUSES OF ACTION.
+
+8.3 ESSENTIAL PURPOSE
+    You acknowledge that these limitations of liability reflect an agreed allocation 
+    of risk and are an essential element of the basis of the bargain between You 
+    and Licensor. The Software would not be provided without these limitations.
+
+================================================================================
+9. INDEMNIFICATION
+================================================================================
+
+9.1 YOUR INDEMNIFICATION OBLIGATIONS
+    You agree to indemnify, defend, and hold harmless Licensor, its affiliates, 
+    officers, directors, employees, agents, licensors, and suppliers from and 
+    against any claims, liabilities, damages, losses, costs, expenses, or fees 
+    (including reasonable attorneys' fees) arising out of or related to:
+    
+    (a) Your violation of this Agreement;
+    (b) Your violation of applicable laws or regulations;
+    (c) Your violation of third-party rights, including intellectual property rights;
+    (d) Your unauthorized use, modification, or distribution of the Software;
+    (e) Any claim that Your use of the Software caused injury or damage to third parties.
+
+================================================================================
+10. TERMINATION
+================================================================================
+
+10.1 AUTOMATIC TERMINATION
+     This Agreement automatically terminates immediately upon Your breach of any 
+     term or condition herein without notice from Licensor.
+
+10.2 TERMINATION BY LICENSOR
+     Licensor may terminate this Agreement at any time for any reason or no reason 
+     by providing written notice to You.
+
+10.3 TERMINATION BY YOU
+     You may terminate this Agreement at any time by permanently deleting all copies 
+     of the Software in Your possession or control.
+
+10.4 EFFECTS OF TERMINATION
+     Upon termination:
+     
+     (a) All license rights granted herein immediately cease;
+     (b) You must immediately cease all use of the Software;
+     (c) You must delete or destroy all copies of the Software in Your possession;
+     (d) Sections 1, 4, 6, 7, 8, 9, 11, 12, 13, and 14 survive termination indefinitely.
+
+================================================================================
+11. EXPORT COMPLIANCE
+================================================================================
+
+11.1 EXPORT CONTROL LAWS
+     The Software may be subject to export control laws and regulations of the 
+     United Kingdom, United States, European Union, and other jurisdictions. You 
+     agree to comply strictly with all applicable export and import control laws 
+     and regulations.
+
+11.2 PROHIBITED DESTINATIONS
+     You will not export, re-export, or transfer the Software, directly or indirectly, 
+     to any country, entity, or person prohibited by applicable export control laws 
+     or to any embargoed or sanctioned destination.
+
+================================================================================
+12. GOVERNING LAW & DISPUTE RESOLUTION
+================================================================================
+
+12.1 GOVERNING LAW
+     This Agreement shall be governed by and construed in accordance with the laws 
+     of England and Wales, without regard to its conflict of law principles.
+
+12.2 JURISDICTION
+     The parties irrevocably submit to the exclusive jurisdiction of the courts of 
+     England and Wales for the resolution of any disputes arising out of or related 
+     to this Agreement.
+
+12.3 WAIVER OF JURY TRIAL
+     To the extent permitted by law, each party waives any right to jury trial in 
+     connection with any litigation arising out of or related to this Agreement.
+
+12.4 INJUNCTIVE RELIEF
+     You acknowledge that breach of this Agreement may cause irreparable harm to 
+     Licensor for which monetary damages may be inadequate. Licensor shall be entitled 
+     to seek equitable relief, including injunctions and specific performance, without 
+     proof of actual damages.
+
+================================================================================
+13. GENERAL PROVISIONS
+================================================================================
+
+13.1 ENTIRE AGREEMENT
+     This Agreement constitutes the entire agreement between You and Licensor 
+     concerning the Software and supersedes all prior or contemporaneous oral or 
+     written communications, proposals, and representations.
+
+13.2 AMENDMENTS
+     Licensor reserves the right to modify this Agreement at any time. Continued use 
+     of the Software after changes constitutes acceptance of modified terms. It is 
+     Your responsibility to review this Agreement periodically.
+
+13.3 SEVERABILITY
+     If any provision of this Agreement is held invalid, illegal, or unenforceable, 
+     the remaining provisions shall continue in full force and effect, and the invalid 
+     provision shall be modified to the minimum extent necessary to make it valid and 
+     enforceable.
+
+13.4 NO WAIVER
+     Licensor's failure to enforce any right or provision of this Agreement shall not 
+     constitute a waiver of such right or provision. Any waiver must be in writing 
+     and signed by Licensor.
+
+13.5 ASSIGNMENT
+     You may not assign, transfer, or delegate this Agreement or any rights or 
+     obligations hereunder without Licensor's prior written consent. Licensor may 
+     freely assign this Agreement. Any attempted assignment in violation hereof is 
+     void.
+
+13.6 FORCE MAJEURE
+     Licensor shall not be liable for any failure or delay in performance due to 
+     causes beyond its reasonable control, including but not limited to acts of God, 
+     war, terrorism, strikes, embargoes, government actions, or network infrastructure 
+     failures.
+
+13.7 INDEPENDENT CONTRACTORS
+     The parties are independent contractors. This Agreement does not create any 
+     partnership, joint venture, agency, franchise, sales representative, or 
+     employment relationship.
+
+13.8 THIRD-PARTY BENEFICIARIES
+     This Agreement is for the sole benefit of the parties and their permitted 
+     successors and assigns and does not confer any third-party beneficiary rights.
+
+13.9 NOTICES
+     All notices under this Agreement must be in writing and sent to:
+     
+     Hostwek Limited
+     Attn: Legal Department
+     Email: legal@hostwek.com
+     
+     Notices to You may be sent to the email address associated with Your Software 
+     installation or use.
+
+13.10 HEADINGS
+      Section headings are for convenience only and shall not affect the interpretation 
+      of this Agreement.
+
+13.11 LANGUAGE
+      This Agreement is executed in the English language. Any translation is for 
+      convenience only and the English version shall prevail in case of discrepancies.
+
+================================================================================
+14. ACKNOWLEDGMENT OF UNDERSTANDING
+================================================================================
+
+BY INSTALLING, COPYING, ACCESSING, OR USING THE SOFTWARE, YOU ACKNOWLEDGE THAT:
+
+(a) You have read and understood this entire Agreement;
+(b) You agree to be bound by all terms and conditions herein;
+(c) You have the legal capacity and authority to enter into this Agreement;
+(d) If accepting on behalf of an organization, you have authority to bind that 
+    organization to these terms;
+(e) You understand the limitations on use, warranties, and liability;
+(f) You acknowledge that this is a binding legal agreement enforceable under law.
+
+IF YOU DO NOT AGREE TO THESE TERMS, DO NOT INSTALL, COPY, ACCESS, OR USE THE 
+SOFTWARE. DELETE ALL COPIES IN YOUR POSSESSION IMMEDIATELY.
+
+================================================================================
+CONTACT INFORMATION
+================================================================================
+
+HOSTWEK LIMITED
+WekTurbo Designs Division
+United Kingdom
+
+GENERAL INQUIRIES:
+• Company Website: https://hostwek.com
+• WekTurbo Division: https://hostwek.com/wekturbo
+• Repository: https://github.com/JosephMatino/MultiAiFilePaster
+
+TECHNICAL & DEVELOPMENT:
+• Lead Developer: Joseph Matino
+  Email: dev@josephmatino.com
+  Website: https://josephmatino.com
+
+• Technical Support & Licensing: wekturbo@hostwek.com
+
+BUSINESS & PARTNERSHIPS:
+• Scrum Master: Majok Deng
+  Email: scrum@majokdeng.com
+  Website: https://majokdeng.com
+
+LEGAL MATTERS:
+• Legal Department: legal@hostwek.com
+
+================================================================================
+DOCUMENT CONTROL
+================================================================================
+
+License Agreement Version: 2.0.0
+Document Revision Date: September 30, 2025
+Effective Date: September 30, 2025
+Software Version: v1.1.0 and all subsequent versions
+Supersedes: License Agreement Version 1.1.0 (September 28, 2025)
+
+This Hostwek Custom License Agreement is a legally binding contract.
+Retain this document for your records.
+
+================================================================================
+END OF LICENSE AGREEMENT
+================================================================================

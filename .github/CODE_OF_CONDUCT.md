@@ -1,16 +1,14 @@
 <div align="center">
 
-# 🧩 Multi-AI File Paster — Community Standards
-
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="96" height="96">
+
+# 🧩 Multi-AI File Paster — Community Standards
 
 [![Community Standards](https://img.shields.io/badge/Community-Standards-blue?style=for-the-badge&logo=github)](#)
 [![Contributors Welcome](https://img.shields.io/badge/Contributors-Welcome-brightgreen?style=for-the-badge&logo=github)](../CONTRIBUTING.md)
 [![Security Policy](https://img.shields.io/badge/Security-Policy-red?style=for-the-badge&logo=shield)](SECURITY.md)
 
 </div>
-
-# Multi-AI File Paster Community Standards
 
 ## Project Mission
 

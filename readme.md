@@ -1,12 +1,12 @@
-# Multi-AI File Paster
-
 <div align="center">
 
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="128" height="128" />
 
-**Free Chrome Extension for AI File Attachments**
+# Multi-AI File Paster
 
-*Turn large text content into clean file attachments across ChatGPT, Claude, Gemini, DeepSeek, and Grok - Completely Free*
+**Free Chrome Extension - Automatically Attach and Convert Files for AI Platforms**
+
+*Automatically creates file attachments when you paste text over your word threshold, and automatically detects the programming language to assign the correct file extension - Works on ChatGPT, Claude, Gemini, DeepSeek, and Grok*
 
 <br>
 
@@ -14,45 +14,45 @@
 [![Version](https://img.shields.io/badge/Version-v1.1.0-blue?style=for-the-badge&logo=semver&logoColor=white)](https://github.com/JosephMatino/MultiAiFilePaster/releases/tag/v1.1.0)
 [![License](https://img.shields.io/badge/License-Hostwek%20Custom-blueviolet?style=for-the-badge)](https://github.com/JosephMatino/MultiAiFilePaster/blob/main/LICENSE)
 
-[![6 AI Platforms](https://img.shields.io/badge/🤖%20Works%20with-6%20AI%20Platforms-blue?style=for-the-badge)](#-supported-platforms)
-[![20+ File Formats](https://img.shields.io/badge/🧠%20Detects-20+%20File%20Formats-orange?style=for-the-badge)](#-file-format-support)
+[![5 AI Platforms](https://img.shields.io/badge/🤖%20Works%20with-5%20AI%20Platforms-blue?style=for-the-badge)](#-supported-platforms)
+[![30+ File Formats](https://img.shields.io/badge/🧠%20Detects-30+%20File%20Formats-orange?style=for-the-badge)](#-file-format-support)
 [![11 Languages](https://img.shields.io/badge/🌍%20Multilingual-11%20Languages%20Supported-green?style=for-the-badge)](#-internationalization)
 [![Privacy First](https://img.shields.io/badge/🔒%20Privacy-First-green?style=for-the-badge)](#-privacy--security)
 [![Completely Free](https://img.shields.io/badge/💰%20Completely-FREE-brightgreen?style=for-the-badge)](#-installation)
 
 ---
 
-Multi-AI File Paster is a free Chrome extension that automatically converts your pasted text content into file attachments on AI platforms. When you paste text over 500 words (customizable), it detects the content type and creates a properly formatted file attachment with the correct extension (.js, .py, .sql, etc.). This eliminates the need to manually create text files and upload them to ChatGPT, Claude, Gemini, DeepSeek, Grok, or other AI platforms.
-
-### 🔄 Data Flow
+Multi-AI File Paster is a free Chrome extension that automatically attaches and converts your pasted text into file attachments on AI platforms. The extension has two core features working together: **Auto-Attach** automatically creates file attachments when your pasted content exceeds your word threshold (default 500 words, adjustable 50-15,000), and **Auto-Convert** automatically detects the programming language or file type and assigns the correct extension (.js, .py, .sql, etc.). You paste normally and the extension handles everything automatically in the background.
 
 ```mermaid
 graph TD
-    A[User Pastes Text] --> B{Text Length > 500 words?}
+    A[User Pastes Text] --> B{Text Length > Threshold?}
     B -->|No| C[Normal Paste]
-    B -->|Yes| D[Language Detection]
-    D --> E[Format Analysis] 
-    E --> F[File Creation]
-    F --> G[Automatic Attachment]
-    G --> H[Clean Chat Interface]
-    
-    style A fill:#e1f5fe
-    style H fill:#e8f5e8
-    style D fill:#fff3e0
-    style F fill:#f3e5f5
+    B -->|Yes| D[Auto-Convert: Language Detection]
+    D --> E[Auto-Convert: Format Analysis]
+    E --> F[File Creation with Correct Extension]
+    F --> G[Auto-Attach: Automatic File Attachment]
+    G --> H[Clean Chat with Proper File]
+
+    style A fill:#2196F3,stroke:#1976D2,stroke-width:3px,color:#fff
+    style B fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style C fill:#9E9E9E,stroke:#757575,stroke-width:2px,color:#fff
+    style D fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style E fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style F fill:#9C27B0,stroke:#7B1FA2,stroke-width:3px,color:#fff
+    style G fill:#E91E63,stroke:#C2185B,stroke-width:3px,color:#fff
+    style H fill:#00BCD4,stroke:#0097A7,stroke-width:3px,color:#fff
 ```
 
-Instead of the tedious process of copying code, creating a text file, saving it, then uploading to AI platforms, you just paste your text normally. The extension automatically detects when your pasted content is large enough to benefit from file formatting and converts it into a clean file attachment with proper syntax highlighting.
+Instead of manually creating text files and uploading them to AI platforms, you paste your text normally. The extension automatically detects when your content exceeds your threshold (auto-attach) and identifies the file type (auto-convert), then creates a properly formatted file attachment with syntax highlighting. This eliminates the tedious process of copying code, creating files, saving them, and uploading to ChatGPT, Claude, Gemini, DeepSeek, or Grok.
 
-The extension works on Chrome, Edge, and Brave browsers. It recognizes over 20 file formats including Python, JavaScript, TypeScript, HTML, CSS, JSON, CSV, SQL, and Shell scripts. All processing happens on your device - no data is sent to external servers. The extension requires no configuration, no subscriptions, no hidden costs, and works immediately after installation.
+The extension works on Chrome, Edge, and Brave browsers. It recognizes 30+ file formats including Python, JavaScript, TypeScript, Java, C++, Go, Rust, Swift, Kotlin, HTML, CSS, PHP, JSON, XML, SQL, CSV, YAML, Shell scripts, and more. All processing happens on your device - no data is sent to external servers. The extension requires no configuration, no subscriptions, no hidden costs, and works immediately after installation.
 
 </div>
 
 ---
 
 ## 🎬 See It In Action
-
-### **How It Works**
 
 <div align="center">
 
@@ -66,8 +66,6 @@ The extension works on Chrome, Edge, and Brave browsers. It recognizes over 20 f
 
 </div>
 
-### **🎯 Real Use Cases**
-
 Multi-AI File Paster excels in development workflows. During code reviews, developers can share complete modules as organized files instead of messy text blocks that break formatting. For bug reports, it automatically converts error logs and stack traces into readable files that maintain proper structure and syntax highlighting.
 
 Data analysts can upload CSV datasets and format JSON responses, while technical writers can share API documentation, endpoint specifications, and schemas as properly structured files. Students and educators use Multi-AI File Paster to submit homework and coding projects as formatted files that preserve code integrity and readability.
@@ -76,11 +74,11 @@ Data analysts can upload CSV datasets and format JSON responses, while technical
 
 ## ✨ Key Features
 
-Multi-AI File Paster offers native integration with five major AI platforms including ChatGPT, Claude, Gemini, DeepSeek, and Grok. The extension automatically identifies 20+ different file formats with high accuracy, ensuring your code and documents are properly formatted every time.
+Multi-AI File Paster offers native integration with five major AI platforms including ChatGPT, Claude, Gemini, DeepSeek, and Grok. The extension automatically identifies 30+ different file formats with high accuracy, ensuring your code and documents are properly formatted every time.
 
 **Batch File Processing:** Automatically detects multiple code blocks in pasted text and creates separate files for each block. Perfect for multi-file projects where you paste content containing ```javascript, ```python, and ```css blocks - each becomes its own properly formatted file.
 
-**Smart Language Detection:** Automatically detects programming languages and content types to select the most appropriate file extension. Supports 20+ languages including JavaScript, Python, SQL, CSS, HTML, and more.
+**Smart Language Detection:** Automatically detects programming languages and content types to select the most appropriate file extension. Supports 30+ languages including JavaScript, TypeScript, Python, Java, C++, C#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, Perl, Lua, Shell, SQL, HTML, CSS, JSON, XML, YAML, Markdown, CSV, and more.
 
 **Analytics Dashboard:** View usage stats: total files, platform breakdowns, file type trends, time ranges (7/30/90 days, all‑time), and export data if you opt in.
 
@@ -106,7 +104,7 @@ Privacy and security are built into the core architecture. All processing happen
 
 ## 📦 Installation
 
-### **Method 1: Developer Installation (Current)**
+**Developer Installation (Current)**
 
 1. **Clone the Repository**
    ```bash
@@ -126,7 +124,7 @@ Privacy and security are built into the core architecture. All processing happen
    - You should see the settings popup
    - Visit any supported AI platform to test
 
-### **🏪 Method 2: Chrome Web Store (Recommended)**
+**Chrome Web Store (Recommended)**
 *One-click installation from Chrome Web Store - coming soon*
 
 1. **Visit Chrome Web Store** (publishing in progress)
@@ -137,8 +135,6 @@ Privacy and security are built into the core architecture. All processing happen
 ---
 
 ## 🚀 Quick Start (2 Minutes)
-
-### **Get Started in 2 Minutes**
 1. **Install**: Load the extension using Developer Mode (see Installation section)
 2. **Test**: Navigate to ChatGPT and paste this sample code:
    ```python
@@ -186,9 +182,9 @@ Multi-AI File Paster offers flexible customization options to match your workflo
 
 ---
 
-## 📁 **File Format Support**
+## 📁 File Format Support
 
-### **20+ Supported Formats with Smart Detection**
+**30+ Supported Formats with Smart Detection**
 
 <details>
 <summary><b>📄 Text & Documentation</b></summary>
@@ -237,7 +233,7 @@ Multi-AI File Paster offers flexible customization options to match your workflo
 
 </details>
 
-### **🧠 Smart Language Detection**
+**Smart Language Detection**
 
 Multi-AI File Paster uses pattern recognition to identify file formats accurately:
 
@@ -252,11 +248,9 @@ Multi-AI File Paster uses pattern recognition to identify file formats accuratel
 
 ## ⚡ Performance & Reliability
 
-### **⚡ Performance**
-
 Multi-AI File Paster delivers exceptional performance with instant language detection that completes in under 100 milliseconds. It maintains a minimal memory footprint, using less than 2MB of RAM while running. File creation works completely offline with no internet connection required - you only need internet access for the AI platforms themselves. Full cross-platform support across Windows, macOS, and Linux operating systems.
 
-### **🆚 Why Use This Instead of Manual File Creation?**
+**Why Use This Instead of Manual File Creation?**
 
 <div align="center">
 
@@ -266,7 +260,7 @@ Multi-AI File Paster delivers exceptional performance with instant language dete
 | 🤔 Guess the file format | 🧠 Smart auto-detection |
 | 📝 Type filename manually | 🎯 Auto-generates meaningful names |
 | 💾 Save to disk first | 🚀 Direct attachment |
-| 🔄 Repeat for every paste | ⚙️ Set once, works forever |
+| ⏱️ Repeat for every paste | ⚙️ Set once, works forever |
 
 </div>
 
@@ -275,8 +269,6 @@ Multi-AI File Paster delivers exceptional performance with instant language dete
 ## 🌍 Internationalization
 
 Multi-AI File Paster supports 11 languages with complete native translations:
-
-### **Supported Languages**
 
 <div align="center">
 
@@ -296,9 +288,9 @@ Multi-AI File Paster supports 11 languages with complete native translations:
 
 </div>
 
-### **Language Features**
-- **RTL Support**: Full right-to-left text support for Arabic
-- **Context-Aware**: Different translations for different UI contexts
+**Language Features:**
+- Full right-to-left text support for Arabic
+- Context-aware translations for different UI contexts
 - **Chrome Standards**: Following Chrome extension i18n best practices
 - **Auto-Detection**: Browser language automatically detected
 - **Manual Selection**: Override language in extension settings
@@ -359,7 +351,7 @@ Claude's feature is basic. This extension adds smart language detection, customi
 
 **"Does it support shell scripts and custom file extensions?"**
 
-Yes! The extension supports .sh files and custom file extensions. You can choose from 20+ built-in formats or specify your own custom extension for specialized file types.
+Yes! The extension supports .sh files and custom file extensions. You can choose from 30+ built-in formats or specify your own custom extension for specialized file types.
 
 **"Why can't I see the analytics dashboard?"**
 
@@ -390,8 +382,6 @@ The analytics dashboard is only visible when anonymous usage analytics is enable
 </tr>
 </table>
 
-### **Powered By**
-
 <div align="center">
 <a href="https://hostwek.com" target="_blank">
 <img src="logo/hostwek.png" alt="Hostwek" height="32" />
@@ -401,9 +391,8 @@ The analytics dashboard is only visible when anonymous usage analytics is enable
 <a href="https://hostwek.com">🏢 Company Website</a>
 </div>
 
-### **Getting Help**
-
-- **Technical Issues**: [dev@josephmatino.com](mailto:dev@josephmatino.com)
+**Getting Help:**
+- Technical Issues: [dev@josephmatino.com](mailto:dev@josephmatino.com)
 - **Bug Reports**: [GitHub Issues](https://github.com/JosephMatino/MultiAiFilePaster/issues/new?assignees=JosephMatino%2CMajok-Deng&labels=bug%2Cneeds-triage&projects=&template=bug_report.md&title=%5BBUG%5D+Brief+description+of+the+issue)
 - **Feature Requests**: [GitHub Issues](https://github.com/JosephMatino/MultiAiFilePaster/issues/new?assignees=JosephMatino%2CMajok-Deng&labels=enhancement%2Cneeds-triage&projects=&template=feature_request.md&title=%5BFEATURE%5D+Brief+description+of+the+feature)
 - **General Support**: [wekturbo@hostwek.com](mailto:wekturbo@hostwek.com)
@@ -420,7 +409,7 @@ The analytics dashboard is only visible when anonymous usage analytics is enable
 
 </div>
 
-### **🛠️ Development Setup**
+**Development Setup:**
 ```bash
 # Fork and clone the repository
 git clone https://github.com/JosephMatino/MultiAiFilePaster.git
@@ -439,7 +428,7 @@ cd MultiAiFilePaster
 # 4. Start developing! 🎉
 ```
 
-### **🔧 Git Workflow Helper**
+**Git Workflow Helper:**
 This project includes a `git.sh` tool for streamlined development:
 
 ```bash
@@ -454,10 +443,10 @@ This project includes a `git.sh` tool for streamlined development:
 ```
 
 **Features:**
-- 🎨 Styled terminal output
-- 🔄 21 git operations with clear LOCAL/REMOTE indicators
-- ⚠️ Safety warnings for destructive operations
-- 🚀 GitHub Actions integration
+- Styled terminal output
+- 21 git operations with clear LOCAL/REMOTE indicators
+- Safety warnings for destructive operations
+- GitHub Actions integration
 - 📊 Repository status display
 
 **📖 Complete Guide**: See [CONTRIBUTING.md](https://github.com/JosephMatino/MultiAiFilePaster/blob/main/CONTRIBUTING.md) for detailed development setup, coding standards, testing procedures, and contribution guidelines.
@@ -492,14 +481,14 @@ This project uses the Hostwek Custom License. Personal, non‑commercial use is 
 <details>
 <summary><b>📋 Recent Updates (Click to expand)</b></summary>
 
-### **v1.1.0 (Current) - Latest Release**
+**v1.1.0 (Current) - Latest Release**
 - ✅ **Batch File Processing** - Automatically detects multiple code blocks and creates separate files
 - ✅ **Smart Language Detection** - Automatic file extension selection based on content analysis
 - ✅ **Smart Code Detection** - Recognizes both fenced (```language) and indented code blocks
 - ✅ **Progress Indicators** - Real-time feedback during batch processing and file operations
 - ✅ **Complete Internationalization** - 11 languages with 648 translation keys each
 
-### **v1.1.0 - Manual Save & Error Handling**
+**v1.1.0 - Manual Save & Error Handling**
 - ✅ Fixed manual save error handling with specific, helpful error messages
 - ✅ Improved empty text detection - shows "No text found in chat input" instead of generic errors
 - ✅ Fixed word threshold logic - manual save now respects the Min Words setting instead of using separate threshold
@@ -507,9 +496,9 @@ This project uses the Hostwek Custom License. Personal, non‑commercial use is 
 - ✅ Enhanced error recovery with better detection of connection and context issues
 - ✅ Clear toast notifications with actionable user feedback
 
-### **v1.0.9 - Foundation Release**
+**v1.0.9 - Foundation Release**
 - ✅ Multi-platform AI support (ChatGPT, Claude, Gemini, DeepSeek, Grok)
-- ✅ Smart language detection with 20+ file formats
+- ✅ Smart language detection with 30+ file formats
 - ✅ Configurable settings and user preferences
 - ✅ Privacy-first on-device processing
 - ✅ Basic file attachment functionality
@@ -531,7 +520,7 @@ This project uses the Hostwek Custom License. Personal, non‑commercial use is 
 
 ---
 
-### **🔗 Quick Action Links**
+**Quick Action Links:**
 
 [⭐ **Star on GitHub**](https://github.com/JosephMatino/MultiAiFilePaster/stargazers) •
 [🐛 **Report Bug**](https://github.com/JosephMatino/MultiAiFilePaster/issues/new?assignees=JosephMatino%2CMajok-Deng&labels=bug%2Cneeds-triage&projects=&template=bug_report.md&title=%5BBUG%5D+Brief+description+of+the+issue) •

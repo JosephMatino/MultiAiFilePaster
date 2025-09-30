@@ -1,12 +1,12 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "Kuunda kiotomatiki viambatisho vya faili kutoka kwa maudhui ya maandishi yaliyobandikwa kwenye ChatGPT, Claude, Gemini, DeepSeek na Grok. Ina uchakataji wa kundi na mkandamizo wa faili."},
+  "extension_description": {"message": "Ambatisha na badilisha kiotomatiki maandishi yaliyobandikwa kuwa faili kwa ChatGPT, Claude, Gemini, DeepSeek, Grok. Utambuzi mahiri, muundo 30+."},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "Muktadha wa kiendelezi umepotea - tafadhali onyesha upya ukurasa"},
   "extension_reloaded": {"message": "Kiendelezi kimepakiwa upya - tafadhali onyesha upya ukurasa"},
   "extension_support": {"message": "Msaada wa Kiendelezi:"},
   "header_title": {"message": "Multi-AI File Paster"},
-  "header_subtitle": {"message": "Hubadilisha kiotomatiki mabandiko marefu na kuambatisha faili safi katika ChatGPT, Claude, Gemini, DeepSeek na Grok. Inasaidia Kutambua-Kiotomatiki na miundo 20+ ikiwa ni pamoja na faili za msimbo."},
+  "header_subtitle": {"message": "Hubadilisha kiotomatiki mabandiko marefu na kuambatisha faili safi katika ChatGPT, Claude, Gemini, DeepSeek na Grok. Inasaidia Kutambua-Kiotomatiki na miundo 30+ ikiwa ni pamoja na faili za msimbo."},
   "about_description": {"message": "Multi-AI File Paster hutambua unapobandika maandishi marefu (msimbo, nyaraka, data) na kuyabadilisha kuwa faili zilizopangwa vizuri. Hii huhifadhi mazungumzo yakiwa safi na ndani ya mipaka ya jukwaa."},
   "about_help": {"message": "Kuhusu na Msaada"},
   "ai_model_default": {"message": "Mfano wa AI"},
@@ -628,7 +628,7 @@
   "i18n_cleanup_complete": {"message": "Usafishaji wa i18n umekamilika"},
 
   "key_features": {"message": "Vipengele Muhimu:"},
-  "key_features_text": {"message": "Kutambua-Kiotomatiki huchagua aina sahihi ya faili kutoka kwa maudhui yako na kurudi kwa uhakika kwa .txt. Inafanya kazi katika ChatGPT, Claude, Gemini, DeepSeek, na Grok. Inasaidia miundo 20+ ya faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi binafsi."},
+  "key_features_text": {"message": "Kutambua-Kiotomatiki huchagua aina sahihi ya faili kutoka kwa maudhui yako na kurudi kwa uhakika kwa .txt. Inafanya kazi katika ChatGPT, Claude, Gemini, DeepSeek, na Grok. Inasaidia miundo 30+ ya faili ikiwa ni pamoja na lugha za uprogramu, alama, miundo ya data, na viendelezi binafsi."},
   "keyboard_shortcut": {"message": "Njia ya Mkato ya Kibodi:"},
   "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Hifadhi ya Mkononi)"},
   "language_abbreviation": {"message": "Lugha"},

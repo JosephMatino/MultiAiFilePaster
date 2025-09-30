@@ -1,4 +1,10 @@
-# Trademark Policy
+<div align="center">
+
+<img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="96" height="96">
+
+# ™️ Multi-AI File Paster - Trademark Policy
+
+</div>
 
 This document explains how to use our brand names, logos, and related marks for the Multi‑AI File Paster project.
 
