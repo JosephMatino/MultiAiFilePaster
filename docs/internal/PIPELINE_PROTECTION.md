@@ -624,6 +624,6 @@ security-pipeline:
     </tr>
   </table>
   
-  <p><strong>Last Updated:</strong> September 18, 2025 | <strong>Version:</strong> v1.1.0</p>
+  <p><strong>Last Updated:</strong> September 30, 2025 | <strong>Version:</strong> v1.1.0</p>
   <p><em>Security is not a destination, but a continuous journey of improvement.</em></p>
 </div>

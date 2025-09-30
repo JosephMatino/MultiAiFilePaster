@@ -872,6 +872,6 @@ graph LR
     </tr>
   </table>
   
-  <p><strong>Last Updated:</strong> September 11, 2025 | <strong>Version:</strong> v1.1.0</p>
+  <p><strong>Last Updated:</strong> September 30, 2025 | <strong>Version:</strong> v1.1.0</p>
   <p><em>Documentation standards that evolve with our codebase.</em></p>
 </div>

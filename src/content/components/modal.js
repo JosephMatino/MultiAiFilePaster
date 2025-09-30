@@ -127,7 +127,6 @@ class RenameModal {
         desc.textContent = window.GPTPF_I18N.getMessage('ui_components_modal_description');
         const input = document.createElement('input');
         input.type = 'text';
-        //TEST TO DO
         input.placeholder = window.GPTPF_I18N.getMessage('ui_components_modal_placeholder');
         input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); if(!confirm.disabled){ ok(); } } });
         const hint = document.createElement('div');
