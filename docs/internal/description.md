@@ -1,4 +1,4 @@
-Multi-AI File Paster automatically attaches and converts pasted text into file attachments for ChatGPT, Claude, Gemini, DeepSeek, and Grok. When you paste code, documents, or data into these AI platforms, the extension creates properly formatted files with correct extensions and syntax highlighting.
+Multi-AI File Paster automatically attaches and converts pasted text into file attachments for ChatGPT, Claude, Gemini, DeepSeek, and Grok. When you paste code or documents into these AI platforms, the extension creates properly formatted files with correct extensions and syntax highlighting.
 
 The extension combines two powerful features that work together seamlessly. Auto-attach creates file attachments when your pasted content exceeds your word threshold (default 500 words, adjustable from 50 to 15,000 words). Auto-convert detects the programming language or file type from your content and assigns the correct file extension automatically. You paste normally and the extension handles everything in the background without interrupting your workflow.
 
@@ -10,9 +10,9 @@ Smart Language Detection
 
 Recognizes 30+ programming languages and file formats including JavaScript, TypeScript, Python, Java, C++, C#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, Perl, Lua, Shell scripts, SQL, HTML, CSS, JSON, XML, YAML, CSV, Markdown, and more. Files automatically receive the correct extension with proper MIME type declarations for optimal platform compatibility.
 
-Batch Processing
+Automatic Content Splitting
 
-When you paste multiple code blocks together, the extension detects each one and creates separate files automatically. Perfect for sharing projects with HTML, CSS, and JavaScript together. Each section becomes its own properly formatted file with intelligent content splitting.
+When you paste multiple code blocks together, the extension detects each one and creates separate files automatically. Perfect for sharing projects with HTML, CSS, and JavaScript together. Splits large content into multiple files to avoid character limits. Each section becomes its own properly formatted file with intelligent content splitting.
 
 Complete Privacy
 
