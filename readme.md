@@ -4,9 +4,9 @@
 
 # Multi-AI File Paster
 
-**Free Chrome Extension for AI File Attachments**
+**Free Chrome Extension - Automatically Attach and Convert Files for AI Platforms**
 
-*Turn large text content into clean file attachments across ChatGPT, Claude, Gemini, DeepSeek, and Grok - Completely Free*
+*Automatically creates file attachments when you paste text over your word threshold, and automatically detects the programming language to assign the correct file extension - Works on ChatGPT, Claude, Gemini, DeepSeek, and Grok*
 
 <br>
 
@@ -22,25 +22,29 @@
 
 ---
 
-Multi-AI File Paster is a free Chrome extension that automatically converts your pasted text content into file attachments on AI platforms. When you paste text over 500 words (customizable), it detects the content type and creates a properly formatted file attachment with the correct extension (.js, .py, .sql, etc.). This eliminates the need to manually create text files and upload them to ChatGPT, Claude, Gemini, DeepSeek, Grok, or other AI platforms.
+Multi-AI File Paster is a free Chrome extension that automatically attaches and converts your pasted text into file attachments on AI platforms. The extension has two core features working together: **Auto-Attach** automatically creates file attachments when your pasted content exceeds your word threshold (default 500 words, adjustable 50-15,000), and **Auto-Convert** automatically detects the programming language or file type and assigns the correct extension (.js, .py, .sql, etc.). You paste normally and the extension handles everything automatically in the background.
 
 ```mermaid
 graph TD
-    A[User Pastes Text] --> B{Text Length > 500 words?}
+    A[User Pastes Text] --> B{Text Length > Threshold?}
     B -->|No| C[Normal Paste]
-    B -->|Yes| D[Language Detection]
-    D --> E[Format Analysis] 
-    E --> F[File Creation]
-    F --> G[Automatic Attachment]
-    G --> H[Clean Chat Interface]
-    
-    style A fill:#e1f5fe
-    style H fill:#e8f5e8
-    style D fill:#fff3e0
-    style F fill:#f3e5f5
+    B -->|Yes| D[Auto-Convert: Language Detection]
+    D --> E[Auto-Convert: Format Analysis]
+    E --> F[File Creation with Correct Extension]
+    F --> G[Auto-Attach: Automatic File Attachment]
+    G --> H[Clean Chat with Proper File]
+
+    style A fill:#2196F3,stroke:#1976D2,stroke-width:3px,color:#fff
+    style B fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style C fill:#9E9E9E,stroke:#757575,stroke-width:2px,color:#fff
+    style D fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style E fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style F fill:#9C27B0,stroke:#7B1FA2,stroke-width:3px,color:#fff
+    style G fill:#E91E63,stroke:#C2185B,stroke-width:3px,color:#fff
+    style H fill:#00BCD4,stroke:#0097A7,stroke-width:3px,color:#fff
 ```
 
-Instead of the tedious process of copying code, creating a text file, saving it, then uploading to AI platforms, you just paste your text normally. The extension automatically detects when your pasted content is large enough to benefit from file formatting and converts it into a clean file attachment with proper syntax highlighting.
+Instead of manually creating text files and uploading them to AI platforms, you paste your text normally. The extension automatically detects when your content exceeds your threshold (auto-attach) and identifies the file type (auto-convert), then creates a properly formatted file attachment with syntax highlighting. This eliminates the tedious process of copying code, creating files, saving them, and uploading to ChatGPT, Claude, Gemini, DeepSeek, or Grok.
 
 The extension works on Chrome, Edge, and Brave browsers. It recognizes 30+ file formats including Python, JavaScript, TypeScript, Java, C++, Go, Rust, Swift, Kotlin, HTML, CSS, PHP, JSON, XML, SQL, CSV, YAML, Shell scripts, and more. All processing happens on your device - no data is sent to external servers. The extension requires no configuration, no subscriptions, no hidden costs, and works immediately after installation.
 

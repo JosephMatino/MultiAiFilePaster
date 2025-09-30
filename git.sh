@@ -292,6 +292,12 @@ fresh_start() {
   # Remove development files from main branch using configuration
   echo -e "${BLUE}${ICON_INFO} Removing development files from main...${NC}"
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
+    # CRITICAL: NEVER delete git.sh from develop branch - it must always exist there
+    if [[ "$dev_file" == "git.sh" ]]; then
+      echo -e "${GRAY}Skipping git.sh removal (must stay on develop branch)${NC}"
+      continue
+    fi
+
     if [[ -e "$dev_file" ]]; then
       # SAFETY: Never physically delete existing local virtual environment directory.
       # We only want to untrack it if it was ever committed. Physical removal can
@@ -1011,29 +1017,29 @@ update_main_from_develop() {
 
   echo -e "${BLUE}${ICON_PUSH} Merging develop into main (production files only)...${NC}"
 
-  # Merge develop into main
-  git merge develop --no-commit --no-ff 2>/dev/null || {
-    echo -e "${YELLOW}${ICON_WARNING} Merge conflict or no changes, continuing...${NC}"
-    git merge --abort 2>/dev/null || true
-    # Fallback: checkout all files from develop
-    git checkout develop -- . 2>/dev/null || true
-  }
+  # Instead of direct merge, copy only production files
+  git checkout develop -- . 2>/dev/null || true
 
-  # Remove development files from git index AND working directory on main branch
+  # Remove development files from git index only (not from filesystem)
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
+    # CRITICAL: NEVER delete git.sh from develop branch - it must always exist there
+    if [[ "$dev_file" == "git.sh" ]]; then
+      echo -e "${GRAY}Skipping git.sh removal (must stay on develop branch)${NC}"
+      continue
+    fi
+
     if [[ -e "$dev_file" ]]; then
       if [[ "$dev_file" == ".venv/" ]]; then
-        echo -e "${GRAY}Removing from main branch: ${dev_file}${NC}"
-        git rm -rf --cached "$dev_file" 2>/dev/null || true
-        rm -rf "$dev_file" 2>/dev/null || true
+        echo -e "${GRAY}Untracking (preserving local) virtual environment: ${dev_file}${NC}"
+        git rm -r --cached "$dev_file" 2>/dev/null || true
       else
-        echo -e "${GRAY}Removing from main branch: ${dev_file}${NC}"
-        git rm -rf "$dev_file" 2>/dev/null || true
+        echo -e "${GRAY}Removing from git: ${dev_file}${NC}"
+        git rm -r --cached "$dev_file" 2>/dev/null || true
       fi
     fi
   done
 
-  # Stage all remaining changes
+  # Stage the changes
   git add -A
 
   # Create production .gitignore

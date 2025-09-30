@@ -39,39 +39,50 @@ Thank you for your interest in contributing to Multi-AI File Paster! This docume
 
 ## 🎯 Extension Core Functionality & Data Flow
 
-Multi-AI File Paster automatically converts large text pastes into file attachments for AI platforms. Instead of users manually creating text files and uploading them, the extension detects when pasted content exceeds platform limits or would benefit from file formatting, then instantly creates a properly formatted file attachment with syntax highlighting.
+Multi-AI File Paster automatically attaches and converts pasted text into file attachments for AI platforms. The extension has two core features: **Auto-Attach** automatically creates file attachments when pasted content exceeds your word threshold (default 500, adjustable 50-15,000), and **Auto-Convert** automatically detects the programming language or file type and assigns the correct extension. Instead of manually creating text files and uploading them, you paste normally and the extension handles everything automatically.
 
 ### 🔄 System Data Flow
 
 ```mermaid
 graph TD
-    A[User Pastes Content] --> B{Content Length Check}
-    B -->|> Threshold| C[Language Detection Engine]
+    A[User Pastes Content] --> B{Auto-Attach: Length Check}
+    B -->|> Threshold| C[Auto-Convert: Language Detection]
     B -->|< Threshold| D[Normal Paste Behavior]
-    
-    C --> E[Pattern Analysis]
-    E --> F[Format Classification]
-    F --> G[File Creation Engine]
-    
+
+    C --> E[Auto-Convert: Pattern Analysis]
+    E --> F[Auto-Convert: Format Classification]
+    F --> G[File Creation with Extension]
+
     G --> H[Platform Detection]
     H --> I{Platform Type}
-    
+
     I -->|ChatGPT| J[File Input Simulation]
     I -->|Claude| K[ContentEditable Injection]
     I -->|Gemini| L[Shadow DOM Integration]
     I -->|Others| M[Standard Upload Handler]
-    
-    J --> N[Auto Attachment]
+
+    J --> N[Auto-Attach: Automatic Attachment]
     K --> N
     L --> N
     M --> N
-    
-    N --> O[Clean Chat Interface]
-    
-    style A fill:#e1f5fe
-    style C fill:#fff3e0
-    style G fill:#f3e5f5
-    style O fill:#e8f5e8
+
+    N --> O[Clean Chat with Proper File]
+
+    style A fill:#2196F3,stroke:#1976D2,stroke-width:3px,color:#fff
+    style B fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style C fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style D fill:#9E9E9E,stroke:#757575,stroke-width:2px,color:#fff
+    style E fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style F fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style G fill:#9C27B0,stroke:#7B1FA2,stroke-width:3px,color:#fff
+    style H fill:#FF5722,stroke:#E64A19,stroke-width:3px,color:#fff
+    style I fill:#FF5722,stroke:#E64A19,stroke-width:3px,color:#fff
+    style J fill:#795548,stroke:#5D4037,stroke-width:2px,color:#fff
+    style K fill:#795548,stroke:#5D4037,stroke-width:2px,color:#fff
+    style L fill:#795548,stroke:#5D4037,stroke-width:2px,color:#fff
+    style M fill:#795548,stroke:#5D4037,stroke-width:2px,color:#fff
+    style N fill:#E91E63,stroke:#C2185B,stroke-width:3px,color:#fff
+    style O fill:#00BCD4,stroke:#0097A7,stroke-width:3px,color:#fff
 ```
 
 ### 🏗️ Architecture Overview

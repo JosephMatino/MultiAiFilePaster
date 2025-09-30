@@ -97,7 +97,7 @@ Multi-AI File Paster/
 │   │   │   ├── 📄 deepseek.js # DeepSeek integration (chat.deepseek.com)
 │   │   │   ├── 📄 factory.js  # Platform factory pattern with auto-detection
 │   │   │   ├── 📄 gemini.js   # Gemini integration (gemini.google.com) shadow DOM
-│   │   │   └── 📄 grok.js     # Grok integration (x.com/i/grok) Twitter-style
+│   │   │   └── 📄 grok.js     # Grok integration (grok.com) Twitter-style
 │   │   ├── 📄 index.js        # Content script entry point with platform detection
 │   │   └── 📄 styles.css      # Content script styles with CSS custom properties
 │   ├── 📁 popup/              # Extension Popup Interface (Chrome Extension UI)

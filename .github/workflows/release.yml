@@ -1,4 +1,4 @@
-name: � Build Extension Package
+name: 📦 Build Extension Package
 
 on:
   workflow_dispatch:
