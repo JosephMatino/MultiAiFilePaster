@@ -33,6 +33,7 @@ type: "always_apply"
 - Standard workflow: `./git.sh 1 "msg"` → `./git.sh 2` → `./git.sh 3` → `./git.sh 4`
 - Update ALL references when changing file names or paths
 - Check pre-commit and post-commit hooks when modifying tools
+- git.sh must ALWAYS remain on develop branch - NEVER delete from develop
 
 ### 6. PRODUCTION QUALITY STANDARDS (ABSOLUTE)
 - Every line of code must be production-ready
@@ -91,100 +92,92 @@ type: "always_apply"
 - Main branch = Production files only, no development artifacts
 - Use proper signature headers in all source code files
 - Maintain consistent naming conventions across all project files
+- git.sh must ALWAYS remain on develop branch - NEVER delete from develop
 
 ### 15. VALIDATION PATTERNS (COMPREHENSIVE)
 - Check HTML data attributes: `data-i18n`, `data-i18n-html`, `data-i18n-placeholder`
 - Check JavaScript getMessage patterns and GPTPF_DEBUG calls
 - Check manifest.json __MSG__ patterns for Chrome extension i18n
 - Include dynamic key families in validation logic
-- Show all supported locales (en, ar, sw, es, ja, fr, ru, zh, pt) with key counts
+- Show all supported locales (en, ar, sw, es, ja, fr, ru, zh, pt, de, hi) with key counts
 
-### 16. LANGUAGE SYNCHRONIZATION (CRITICAL)
-- ALL language changes in main popup MUST sync to content scripts in real-time
-- Use message passing pattern identical to theme synchronization
-- Content popup modal must respond to language changes without page refresh
-- NO "please wait" overlays in content scripts (popup-only UI elements)
-- Language sync function must be available globally on window object
-- Content script must listen for 'setLanguage' action messages
-- Existing modal event listeners for 'gptpf:translations-updated' must work seamlessly
+### 16. i18n TRANSLATION WORKFLOW (MANDATORY)
+- ALL translations must be systematic chunk-by-chunk from English source
+- Use 175-200 line chunks for maximum efficiency and speed
+- NEVER translate brand names (Multi-AI File Paster, ChatGPT, Claude, etc.)
+- PRESERVE all placeholders and complex JSON structures exactly
+- Work from English _locales/en/messages.json as single source of truth
+- Must achieve 100% completion (all keys) with valid JSON structure
+- Validate JSON syntax and key count after completion
 
-### 17. MEMORY AND RULES UPDATES (CRITICAL)
+### 17. SYSTEMATIC APPROACH (ABSOLUTE REQUIREMENT)
+- Read large chunks from source file (175-200 lines recommended)
+- Translate complete chunks at once for efficiency
+- Continue systematically until ALL keys translated (no exceptions)
+- User demands complete work - partial translations are unacceptable
+- Time and resource efficiency through bulk operations, not tiny chunks
+
+### 18. BRAND NAME PRESERVATION (CRITICAL)
+- Extension name "Multi-AI File Paster" stays English in ALL languages
+- Platform names (ChatGPT, Claude, Gemini, DeepSeek, Grok) stay English
+- Company names and technical terms remain untranslated
+- Only translate user-facing descriptive text and UI messages
+- BETA must be translated to proper language equivalents (not left as English)
+
+### 19. JSON STRUCTURE INTEGRITY (MANDATORY)
+- Maintain exact placeholder structure with content/$1 and example fields
+- Preserve all HTML markup and special formatting in messages
+- Keep all debug messages and technical strings properly formatted
+- Final validation must show all keys matching English exactly
+
+### 20. UI TEXT LENGTH OPTIMIZATION (CRITICAL)
+- ONLY shorten UI elements that affect layout: buttons, toggles, badges, dropdowns
+- NEVER shorten descriptive text, tooltips, modals, or configuration descriptions
+- Match English character/word count for UI elements to maintain professional design
+- Keep full quality descriptions for help text, explanations, and modal content
+- Focus on button/toggle text that causes container overflow or layout breaking
+
+### 21. NEW LANGUAGE ADDITION WORKFLOW (COMPREHENSIVE REQUIREMENT)
+- COMPLETE process required when adding any new language to extension
+- Create _locales/{lang_code}/messages.json with all keys from English source
+- Update src/shared/i18n.js with new language in ALL validation functions
+- Update popup language dropdown with new flag CSS and option element
+- Apply SHORT UI text methodology following established patterns
+- Test language switching functionality thoroughly before completion
+- Verify all platform integrations work properly with new language
+
+### 22. MEMORY AND RULES UPDATES (CRITICAL)
 - ALWAYS update rules.md when learning new requirements from user
 - When user provides new instructions, add them to rules immediately
 - Keep rules current with all user preferences and requirements
 - Rules must be complete reference for all development standards
 - Update memories AND rules together - never update one without the other
 
-### 18. NEW LANGUAGE ADDITION WORKFLOW (CRITICAL)
-- Create complete locale file (_locales/{lang}/messages.json) with ALL 648 keys
-- Update i18n system (src/shared/i18n.js) to include new language in ALL validation functions
-- Add language option to popup UI (src/popup/index.html) with proper flag CSS class
-- Add CSS flag styling (src/popup/styles.css) with color variables and flag design
-- MUST add new locale to web_accessible_resources in manifest.json following established pattern
-- Add missing language keys (language_{lang}, language_abbreviation_{lang}) to ALL existing locales
-- Run i18n validation tool to verify 100% completion with no false positives
-- ALL steps must be completed systematically - no partial implementations allowed
-
-### 19. TRANSLATION METHODOLOGY REQUIREMENTS (CRITICAL)
-- **SYSTEMATIC CHUNK APPROACH**: Work in 175-200 line chunks for maximum efficiency
-- **DUAL FILE READING**: Read BOTH English AND Swahili files for EACH chunk to understand SHORT UI patterns
-- **BRAND NAME PRESERVATION**: NEVER translate brand names (Multi-AI File Paster, ChatGPT, Claude, etc.) BUT BETA must be translated in all locales as it's a status indicator, not a brand name
-- **JSON STRUCTURE INTEGRITY**: PRESERVE all placeholders and complex JSON structures exactly
-- **COMPLETION REQUIREMENT**: Must achieve 648/648 keys (100% completion) with valid JSON structure
-- **VALIDATION REQUIREMENT**: Validate JSON syntax and key count after completion
-
-### 20. TRANSLATION APPROACH REQUIREMENTS (CRITICAL)
-- **FULL TRANSLATIONS REQUIRED**: Descriptions, tooltips, modal content, help text, explanatory messages
-  - Translate completely and naturally for target audience
-  - Users expect full, clear explanations in their language
-  - Maintain professional quality and cultural appropriateness
-  - Technical documentation requires complete translation
-- **SHORT TRANSLATIONS ONLY**: UI elements that directly affect layout (buttons, toggles, labels, badges, dropdowns)
-  - These can be shortened like toast messages to prevent layout breaking
-  - Focus on elements that cause container overflow or visual issues
-  - Examples: "Auto", "Retour", "Config", "Manuel", "Délai"
-- **CONTEXT-AWARE APPROACH**: Understand message purpose and translate appropriately
-  - Button/toggle text = layout-conscious translation following Swahili SHORT patterns
-  - Error messages = clear, complete translation
-  - Always check existing Swahili locale for SHORT UI text patterns to follow
-
-### 21. VALIDATION TOOL REQUIREMENTS (MANDATORY)
-- Use validation tool at `.github/hooks/check-i18n.py` for all i18n work
-- Tool must be completely accurate with zero false positives - FIXED: eliminated 200+ false positives
-- Tool automatically detects available locales from `_locales` directory structure
-- Tool scans all source files and validates actual i18n key usage patterns
-- Ensure tools work with CI/CD pipelines and returns proper exit codes
-- Show all supported locales (en, ar, sw, es, ja, fr, ru, zh, pt, de, hi) with key counts
-- All locales complete with 648 keys each
-
-### 22. TEXT PROCESSING AND LANGUAGE DETECTION REQUIREMENTS (CRITICAL)
-- **SAFE TEXT PROCESSING**: Use proper UTF-8 handling to prevent character corruption
-- **UTF-8 HANDLING**: Ensure TextEncoder/TextDecoder handle all character encodings correctly
-- **NO CORRUPTION**: Text processing must preserve original content exactly without garbled characters
-- **BATCH PROCESSING**: Character-based splitting must respect UTF-8 boundaries and not corrupt multi-byte characters
-- **PROFESSIONAL QUALITY**: All text processing must be production-ready without data loss or corruption
-- **CENTRALIZED LANGUAGE DETECTION**: Single detection system that works universally across all platforms
-- **ERROR HANDLING**: Proper fallbacks when language detection APIs are not available
-- **PERFORMANCE**: Timeout protection to prevent hanging on large files
-
 ### 23. DOCUMENTATION AUDIT REQUIREMENTS (CRITICAL)
 - **COMPLETE FILE READING**: Read ENTIRE documentation file before making ANY changes
 - **PURPOSE-SPECIFIC CONTENT**: Each documentation file serves different audiences (public vs internal vs technical)
-- **CHROME WEB STORE OPTIMIZATION**: `docs/internal/description.md` must be SEO-friendly, user-focused, under 150 lines
+- **STORE OPTIMIZATION**: Store/marketplace descriptions must be SEO-friendly, user-focused, concise
 - **ACCURACY VERIFICATION**: All technical claims must be verified against actual codebase implementation
 - **AUDIENCE TARGETING**: Public docs focus on user benefits, internal docs on development processes, technical docs on implementation details
 - **CONTENT REDUCTION**: Remove technical implementation details from public-facing documentation
 - **SEO OPTIMIZATION**: Use clear headings, bullet points, and user-focused language for store listings
-- **CONSISTENCY MAINTENANCE**: Ensure all documentation reflects current project state including 11 language translations
-- **VERSION ACCURACY**: Correct version history showing v1.0.9 as initial release, v1.1.0 as major feature expansion
-- **COMPLETE FILE COVERAGE**: Document ALL shared utilities (utils.js, debug.js, validation.js, batchprocessor.js, etc.)
-- **LEGAL FILE ACCURACY**: LICENSE, NOTICE, and all .github MD files must reflect current project state
-- **LANGUAGE SYNCHRONIZATION FIX**: Content script language sync must dispatch 'gptpf:translations-updated' event for modal updates
+- **CONSISTENCY MAINTENANCE**: Ensure all documentation reflects current project state
+- **VERSION ACCURACY**: Correct version history and feature descriptions
+- **COMPLETE FILE COVERAGE**: Document ALL utilities and shared components
+- **LEGAL FILE ACCURACY**: LICENSE, NOTICE, and all legal files must reflect current project state
+
+### 24. WORD LIMIT SAFETY AND ACCURACY (CRITICAL)
+- Maximum word limit is 15,000 words - safe and tested
+- Minimum word limit is 50 words - prevents accidental triggers
+- Verify limits are accurate in: src/shared/config.js (VALIDATION_LIMITS), src/popup/index.html (input max attribute), all locale files (config_auto_attach message)
+- All references must show "50-15,000 words" consistently
+- Never use different limits in different parts of codebase
 
 ---
 
 **These rules ensure production-quality Chrome extension development with accurate tooling, proper validation, and professional standards that must be followed without exception.**
 - ALWAYS USE git.sh TOOL INSTEAD OF RAW GIT COMMANDS
+- git.sh MUST ALWAYS REMAIN ON DEVELOP BRANCH - NEVER DELETE FROM DEVELOP
 - ENHANCED i18n VALIDATION MUST BE USED FOR ALL INTERNATIONALIZATION WORK
 - DOCUMENTATION AUDIT MUST VERIFY ACCURACY AGAINST ACTUAL CODEBASE
 - FOCUS ON USER'S SPECIFIC CHROME EXTENSION REQUIREMENTS, NOT GENERIC ADVICE

@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🤝 Contributing to Multi-AI File Paster - Free Chrome Extension
-
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="128" height="128">
+
+# 🤝 Contributing to Multi-AI File Paster - Free Chrome Extension
 
 **Free Chrome Extension Development Guidelines**
 
@@ -487,7 +487,7 @@ Closes #123
 
 ### Medium Priority
 - New platform support
-- Additional file format detection (beyond current 20+ formats)
+- Additional file format detection (beyond current 30+ formats)
 - UI/UX improvements
 - Code refactoring
 - Error handling improvements

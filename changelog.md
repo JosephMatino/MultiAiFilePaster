@@ -1,8 +1,8 @@
 <div align="center">
 
-# Multi-AI File Paster - Changelog
-
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="128" height="128">
+
+# Multi-AI File Paster - Changelog
 
 **Chrome Extension Development History**
 
@@ -33,8 +33,8 @@ All notable changes to the **Multi-AI File Paster** Chrome extension are documen
 - **Batch Processing Engine** - Content splitting processor for large files (`src/shared/batchprocessor.js`)
 - **Enhanced i18n Validation Tool** - Comprehensive comment detection with auto-fix capabilities for JavaScript, Python, and HTML files
 - **Git Workflow Automation** - Professional dual-branch workflow with production file filtering (`git.sh`)
-- **Comprehensive MIME Type Support** - 40+ file formats with proper UTF-8 charset declarations
-- **Advanced Language Detection** - Pattern-based detection for 40+ programming languages with confidence scoring
+- **Comprehensive MIME Type Support** - 30+ file formats with proper UTF-8 charset declarations
+- **Advanced Language Detection** - Pattern-based detection for 30+ programming languages with confidence scoring
 
 ### Improved
 - **Documentation System** - Complete technical documentation with accurate file structures
@@ -57,7 +57,7 @@ All notable changes to the **Multi-AI File Paster** Chrome extension are documen
 
 ### Added - Initial Release
 - **Multi-Platform Support** - Works seamlessly with ChatGPT, Claude, Gemini, DeepSeek, and Grok
-- **Smart Language Detection** - Auto-detects 20+ file formats including all major programming languages
+- **Smart Language Detection** - Auto-detects 30+ file formats including all major programming languages
 - **Batch File Processing** - Automatically detects multiple code blocks and creates separate files
 - **Smart Language Detection** - Automatic file extension selection based on content analysis
 - **Privacy-First Architecture** - All processing happens locally on your device
@@ -108,7 +108,7 @@ This changelog documents completed changes only. For support and feature request
 </tr>
 <tr>
 <td><strong>File Formats</strong></td>
-<td>20+ formats</td>
+<td>30+ formats</td>
 </tr>
 <tr>
 <td><strong>Architecture</strong></td>

@@ -1,6 +1,6 @@
-Multi-AI File Paster automatically converts large pasted content into clean file attachments for AI platforms. When you paste code, documents, or data that exceeds your word limit, the extension instantly creates a properly formatted file with correct syntax highlighting. No more character limits, broken formatting, or manual file creation.
+Multi-AI File Paster automatically attaches and converts pasted text into file attachments for AI platforms. When you paste code, documents, or data into ChatGPT, Claude, Gemini, DeepSeek, or Grok, the extension creates properly formatted files with correct extensions and syntax highlighting.
 
-This extension detects when your pasted content is too large and converts it into a file attachment that AI platforms can process easily. You paste normally and the extension handles everything automatically. Works seamlessly with ChatGPT, Claude, Google Gemini, DeepSeek, and Grok.
+The extension combines two powerful features that work together seamlessly. Auto-attach creates file attachments when your pasted content exceeds your word threshold (default 500 words, adjustable from 50 to 15,000 words). Auto-convert detects the programming language or file type from your content and assigns the correct file extension automatically. You paste normally and the extension handles everything in the background without interrupting your workflow.
 
 Automatic File Creation
 
@@ -8,7 +8,7 @@ Set your preferred word threshold (default 500 words, adjustable from 50 to 15,0
 
 Smart Language Detection
 
-Recognizes over 40 programming languages and file formats including JavaScript, TypeScript, Python, Java, C++, C#, Go, Rust, Ruby, PHP, Shell scripts, SQL, JSON, YAML, CSV, Markdown, and many more. Files automatically receive the correct extension with proper MIME type declarations for optimal platform compatibility.
+Recognizes 30+ programming languages and file formats including JavaScript, TypeScript, Python, Java, C++, C#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, Perl, Lua, Shell scripts, SQL, HTML, CSS, JSON, XML, YAML, CSV, Markdown, and more. Files automatically receive the correct extension with proper MIME type declarations for optimal platform compatibility.
 
 Batch Processing
 
@@ -42,7 +42,7 @@ Students and educators can share programming assignments, project files, and lea
 
 Customization Options
 
-Adjust word count triggers from 50 to 15,000 words to match your workflow. Enable optional countdown delay (1 to 15 seconds) with cancel button for review time before file creation. Choose automatic language detection or manually select from over 40 supported file types. Customize behavior for each AI platform individually or disable on specific platforms. Configure processing delays and language detection settings for optimal performance.
+Adjust word count triggers from 50 to 15,000 words to match your workflow. Enable optional countdown delay (1 to 15 seconds) with cancel button for review time before file creation. Choose automatic language detection or manually select from 30+ supported file types. Customize behavior for each AI platform individually or disable on specific platforms. Configure processing delays and language detection settings for optimal performance.
 
 Privacy and Security
 

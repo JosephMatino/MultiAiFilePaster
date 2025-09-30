@@ -1,12 +1,12 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "Crea automáticamente archivos adjuntos desde texto pegado en plataformas de IA ChatGPT, Claude, Gemini, DeepSeek y Grok. Incluye procesamiento por lotes."},
+  "extension_description": {"message": "Adjuntar y convertir automáticamente texto pegado a archivos para ChatGPT, Claude, Gemini, DeepSeek, Grok. Detección inteligente, 30+ formatos."},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "Contexto de extensión perdido - por favor actualiza la página"},
   "extension_reloaded": {"message": "La extensión se recargó - por favor actualiza la página"},
   "extension_support": {"message": "Soporte de Extensión:"},
   "header_title": {"message": "Multi-AI File Paster"},
-  "header_subtitle": {"message": "Auto-convierte textos largos pegados y adjunta automáticamente archivos limpios en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta Auto-Detección y más de 20 formatos incluyendo archivos de código."},
+  "header_subtitle": {"message": "Auto-convierte textos largos pegados y adjunta automáticamente archivos limpios en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta Auto-Detección y más de 30 formatos incluyendo archivos de código."},
   "about_description": {"message": "Multi-AI File Paster detecta cuando pegas texto largo (código, documentación, datos) y lo convierte en archivos correctamente formateados. Esto mantiene los chats limpios y dentro de los límites de la plataforma."},
   "about_help": {"message": "Acerca de y Ayuda"},
   "ai_model_default": {"message": "Modelo de IA"},
@@ -628,7 +628,7 @@
   "i18n_cleanup_complete": {"message": "Limpieza i18n completada"},
 
   "key_features": {"message": "Funciones Clave:"},
-  "key_features_text": {"message": "Auto-Detectar elige el tipo de archivo correcto de tu contenido con respaldo garantizado a .txt. Funciona en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta 20+ formatos de archivo incluyendo lenguajes de programación, marcado, formatos de datos y extensiones personalizadas."},
+  "key_features_text": {"message": "Auto-Detectar elige el tipo de archivo correcto de tu contenido con respaldo garantizado a .txt. Funciona en ChatGPT, Claude, Gemini, DeepSeek y Grok. Soporta 30+ formatos de archivo incluyendo lenguajes de programación, marcado, formatos de datos y extensiones personalizadas."},
   "keyboard_shortcut": {"message": "Atajo de Teclado:"},
   "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Guardar Manual)"},
   "language_abbreviation": {"message": "Idioma"},

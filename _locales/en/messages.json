@@ -1,12 +1,12 @@
 {
   "extension_name": {"message": "Multi-AI File Paster"},
-  "extension_description": {"message": "Automatically create file attachments from pasted text content on ChatGPT, Claude, Gemini, DeepSeek & Grok AI platforms. Features batch processing and smart language detection."},
+  "extension_description": {"message": "Automatically attach and convert pasted text to files for ChatGPT, Claude, Gemini, DeepSeek, Grok. Smart detection, 30+ formats."},
   "extension_short_name": {"message": "Multi-AI"},
   "extension_context": {"message": "Extension context lost - please refresh page"},
   "extension_reloaded": {"message": "Extension was reloaded - please refresh page"},
   "extension_support": {"message": "Extension Support:"},
   "header_title": {"message": "Multi-AI File Paster"},
-  "header_subtitle": {"message": "Auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 20+ formats including code files."},
+  "header_subtitle": {"message": "Auto-converts long pastes and auto-attaches clean files in ChatGPT, Claude, Gemini, DeepSeek & Grok. Supports Auto-Detect and 30+ formats including code files."},
   "about_description": {"message": "Multi-AI File Paster detects when you paste long text (code, documentation, data) and converts it into properly formatted files. This keeps chats clean and within platform limits."},
   "about_help": {"message": "About & Help"},
   "ai_model_default": {"message": "AI Model"},
@@ -129,7 +129,7 @@
   "config_delay": {"message": "Delay: Optional 1-15 second countdown prevents accidental attachments"},
 
   "config_manual_override": {"message": "Manual Override: On-demand conversion of typed text to file attachments"},
-  "config_multi_format": {"message": "Multi-Format Support: Choose from 20+ file types including programming languages, markup, data formats, and custom extensions"},
+  "config_multi_format": {"message": "Multi-Format Support: Choose from 30+ file types including programming languages, markup, data formats, and custom extensions"},
   "config_platform_optimization": {"message": "Platform Optimization: Special handling for each AI platform's unique file attachment system"},
   "configuration": {"message": "Configuration"},
   "connected_to": {
@@ -627,7 +627,7 @@
   "i18n_cleanup_complete": {"message": "i18n cleanup completed"},
 
   "key_features": {"message": "Key Features:"},
-  "key_features_text": {"message": "Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 20+ file formats including programming languages, markup, data formats, and custom extensions."},
+  "key_features_text": {"message": "Auto-Detect picks the right file type from your content with a guaranteed fallback to .txt. Works across ChatGPT, Claude, Gemini, DeepSeek, and Grok. Supports 30+ file formats including programming languages, markup, data formats, and custom extensions."},
   "keyboard_shortcut": {"message": "Keyboard Shortcut:"},
   "keyboard_shortcut_text": {"message": "Ctrl/Cmd + Shift + S (Manual Save)"},
   "language_abbreviation": {"message": "Language"},

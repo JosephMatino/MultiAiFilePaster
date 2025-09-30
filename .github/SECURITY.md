@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🛡️ Multi-AI File Paster - Security Policy
-
 <img src="https://github.com/JosephMatino/MultiAiFilePaster/raw/main/logo/mfp_128.png" alt="Multi-AI File Paster" width="128" height="128">
+
+# 🛡️ Multi-AI File Paster - Security Policy
 
 **Chrome Extension Security Framework**
 
