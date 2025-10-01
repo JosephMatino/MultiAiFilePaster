@@ -1049,12 +1049,6 @@ update_main_from_develop() {
 
   # First, remove development files from main branch BEFORE copying from develop
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
-    # CRITICAL: NEVER delete git.sh from develop branch - it must always exist there
-    if [[ "$dev_file" == "git.sh" ]]; then
-      echo -e "${GRAY}Skipping git.sh removal (must stay on develop branch)${NC}"
-      continue
-    fi
-
     if [[ -e "$dev_file" ]]; then
       if [[ "$dev_file" == ".venv/" ]]; then
         echo -e "${GRAY}Untracking (preserving local) virtual environment: ${dev_file}${NC}"
@@ -1069,11 +1063,8 @@ update_main_from_develop() {
   # Now copy production files from develop (excluding development files)
   git checkout develop -- . 2>/dev/null || true
 
-  # Remove development files again (in case they were copied)
+  # Remove development files again (in case they were copied) - INCLUDING git.sh
   for dev_file in "${DEVELOPMENT_FILES[@]}"; do
-    if [[ "$dev_file" == "git.sh" ]]; then
-      continue
-    fi
     if [[ -e "$dev_file" ]]; then
       echo -e "${GRAY}Removing from git: ${dev_file}${NC}"
       git rm -rf "$dev_file" 2>/dev/null || true
