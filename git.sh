@@ -51,7 +51,7 @@ ORGANIZATION_SITE="https://hostwek.com/wekturbo"
 SUPPORT_EMAIL="wekturbo@hostwek.com"
 
 # PRODUCTION FILE FILTERING - Files/folders to exclude from main branch (production)
-# Add any development-only files that shouldn't be in production releases
+# Add any development-only files that shouldn't be in production release
 DEVELOPMENT_FILES=(
   "docs/internal/"              # Internal docs only
   "git.sh"                      # Not part of shipped extension build
