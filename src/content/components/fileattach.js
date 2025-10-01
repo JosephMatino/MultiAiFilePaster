@@ -1,6 +1,6 @@
 /*
  * ================================================================================
- * MULTI-AI FILE PASTER CHROME EXTENSION | PRODUCTION RELEASE v1.1.0
+ * MULTI-AI FILE PASTER CHROME EXTENSION | PRODUCTION RELEASE v1.1.0 
  * CHROME EXTENSION SOFTWARE - HOSTWEK CUSTOM LICENSE
  * ================================================================================
  *
